@@ -20,7 +20,17 @@ Arquivos 01–05 e a síntese. Cobriu governo e Congresso, economia, direita, ST
 Fontes: [Metrópoles](https://www.metropoles.com/mundo/em-carta-flavio-se-declara-verdadeiro-presidente-eleito-do-brasil) · [Band](https://www.band.com.br/politica/nos-eua-flavio-se-diz-o-verdadeiro-presidente-eleito-e-cita-fraude) · [Jovem Pan](https://jovempan.com.br/politica/em-carta-flavio-diz-que-e-o-verdadeiro-presidente-eleito-do-brasil/)
 **No jogo:** entrou no prólogo; o capítulo 1 foi refeito como "A carta". Saíram as escolhas "asilo / volta / exílio" (resolvidas pela carta); entraram "governo no exílio ou líder da oposição" e "PL com a carta e Marinho, ou Valdemar negociando com Alcolumbre". O Marinho contra Alcolumbre virou o eixo do Acordo.
 
-## Pendente: rodada 2
+### Rodada 2 — 28/10/2026, noite
+Arquivos 06 (reações à carta no Brasil), 07 (mundo, EUA, Argentina, midterms) e 08 (analistas, economia, China, conferências).
+- **Nenhum nó do cap. 1 foi decidido formalmente.** Pendem: "pedido" → adiar; "itamaraty" → bravata (Lula mandou ministros não explorarem o caso, 28/10); "o_exilio" → líder da oposição (ninguém reconhece Flávio; governo no exílio só como boato anônimo); "pl" → Valdemar mantém o reconhecimento.
+- **Fatos novos que mexem na trama:** União e PP fecharam com a reeleição de Alcolumbre em 27/10 (antes da carta escolher Marinho); Flávio entrou nos EUA com *parole* humanitário até 27/10/2027 (registros vistos pela imprensa, sem nota oficial); OEA, UE e toda a direita latino-americana reconheceram Lula; Xi parabenizou Lula; na Argentina, três denúncias penais e pedidos de interpelação sobre a saída de Flávio, Caputo nega; PGR critica em off a cautelar de Moraes.
+- **Conferências resolvidas:** PL com 29 senadores em 2027; tarifa de 25% (Seção 301) desde 22/07/2026, +12,5% de outra ação não confirmada para o Brasil; Tebet (PSB), Caiado (PSD). O déficit de R$ 86,1 bi da IFI é do relatório de 17/09.
+
+## Ainda pendente (para a rodada 3)
+- Análises pós-eleição de Marcus André Melo, Lynch (conteúdo do vídeo), Limongi, Couto, Traumann, Moura, Andrea Freitas, Falcão, Pereira, Glezer, Da Ros, Barbosa, Laura Carvalho, Armínio, Marcos Mendes: ainda não publicadas ou não encontráveis em 28/10.
+- Contradições: passaporte usado na entrada (italiano ou diplomático); DI de fechamento de 28/10.
+
+## Pendente: rodada 2 (histórico — coberta acima)
 - **Analistas não encontrados na rodada 1:** Marcus André Melo, Christian Lynch, Fernando Limongi, Cláudio Couto, Thomas Traumann, Maurício Moura, Andrea Freitas (política); Oscar Vilhena, Joaquim Falcão, Thomaz Pereira, Rubens Glezer, Luciano Da Ros (STF); Nelson Barbosa, Laura Carvalho, Armínio Fraga, Marcos Mendes (economia); Brookings, CFR e Carnegie sobre 2028.
 - **Folha e Estadão**: estavam bloqueados para a ferramenta; buscar o conteúdo por outros caminhos (reproduções, entrevistas, podcasts).
 - **Relação Brasil–China em 2026**: quase nada encontrado.

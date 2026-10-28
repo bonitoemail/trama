@@ -51,6 +51,21 @@ CENAS = {
         "leading toward two thin tall towers far away in the center. In the foreground, a "
         "small empty stage with a loudspeaker truck and a few tiny dark figures. Accent: a "
         "large blank screen on the stage."),
+    "o_parecer": ("supremo",
+        "Composition: wide frontal shot of a long dark empty hall with a row of tall pale "
+        "rectangular windows on the back wall. In the center, one long dark table with a "
+        "single sheet of paper lying on it. One small figure in a dark suit stands far from "
+        "the table, seen from behind. Accent: the single sheet of paper, lit."),
+    "a_rota": ("mundo",
+        "Composition: very wide shot at night, low horizon, huge dark sky. A long low flat "
+        "bridge crosses a wide calm river from left to right, its reflection a flat dark "
+        "band on the water. Dense jungle as flat dark shapes on both banks. One small dark "
+        "car crosses the middle of the bridge. Accent: the two small headlights of the car."),
+    "o_voo_fretado": ("mundo",
+        "Composition: wide frontal shot of a dark empty aircraft hangar at night, its huge "
+        "door open to a flat dark airfield. A small private jet as a simple pale elongated "
+        "shape stands inside. One small figure in a dark coat stands near the jet holding a "
+        "flashlight. Accent: the cone of light from the flashlight on the floor."),
     "eleicao_eua": ("mundo",
         "Composition: wide shot of a dim rented apartment at night, flat dark shapes. Two "
         "small men in dark clothes sit on a low sofa seen from behind, facing a television "

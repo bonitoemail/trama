@@ -471,9 +471,13 @@ button {
   stroke: var(--destaque);
   stroke-width: 2;
 }
-.mini.visto image {
-  opacity: 0.4;
-  filter: grayscale(0.6);
+.mini.visto .fundo {
+  fill: #1c1c21;
+}
+.interrogacao {
+  font-family: var(--serif);
+  font-size: 18px;
+  fill: var(--texto-3);
 }
 .mini.visto .moldura {
   stroke: var(--texto-3);

@@ -6,7 +6,7 @@ from pathlib import Path
 AQUI = Path(__file__).resolve().parent
 T = AQUI / "testes"
 
-NOS_CAP01 = ["abertura", "pedido", "foragido", "o_prazo", "itamaraty", "eleicao_eua", "noite_democrata", "noite_republicana", "o_canal", "pl", "a_ligacao", "a_convocacao"]
+NOS_CAP01 = ["abertura", "pedido", "foragido", "o_prazo", "o_parecer", "itamaraty", "a_rota", "o_voo_fretado", "eleicao_eua", "noite_democrata", "noite_republicana", "o_canal", "pl", "a_ligacao", "a_convocacao"]
 
 
 def grupos():

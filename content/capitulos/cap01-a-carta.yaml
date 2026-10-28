@@ -21,8 +21,8 @@ nos:
     imagem: imagens/cap01/abertura.webp
     texto: |
       Brasília acorda com duas notícias sobre o mesmo homem. A primeira é que ele está em Miami,
-      com visto americano e sem pedido de asilo conhecido. A segunda é que ele se considera
-      presidente.
+      com uma autorização humanitária de um ano para ficar nos Estados Unidos, segundo registros
+      vistos pela imprensa. Não é asilo. A segunda é que ele se considera presidente.
 
       A carta tem três páginas, o brasão da República no alto e nenhuma prova. Fala em fraude e
       em perseguição, agradece a Milei e a Trump e compara o autor a Rui Barbosa, a De Gaulle e
@@ -44,8 +44,9 @@ nos:
       Interpol. Para quem defende a prisão, a carta é a prova de que ele não pretende voltar. Para
       a defesa, é liberdade de expressão de um senador que nunca deixou de responder à Justiça.
 
-      O gabinete do relator não comenta. Do lado de fora, as duas metades do país que votaram em
-      outubro esperam a mesma decisão por motivos opostos.
+      O gabinete do relator não comenta. A Procuradoria-Geral, sim, mas em off: integrantes da
+      cúpula disseram a jornalistas que a apreensão do passaporte foi precipitada e decidida sem
+      ouvir o Ministério Público, e que a saída do país, ainda assim, abre caminho para a prisão.
 
       Prender agora transforma um senador em foragido internacional, e talvez em mártir. Esperar
       deixa no ar a sensação de que uma carta e uma ordem descumprida valem pouco.
@@ -58,6 +59,10 @@ nos:
         rotulo: O relator trata a carta como retórica e adia a decisão sobre a prisão
         marca: [flavio_sem_preventiva]
         vai_para: o_prazo
+      - id: pgr
+        rotulo: A Procuradoria-Geral se manifesta contra a prisão, e o relator recua
+        marca: [flavio_sem_preventiva, pgr_contra]
+        vai_para: o_parecer
 
   - id: foragido
     lugar: Miami, dias depois
@@ -90,6 +95,21 @@ nos:
       Em Brasília, todo mundo sabe fazer essa conta. A pergunta é quem vai fazê-la primeiro.
     segue: itamaraty
 
+  - id: o_parecer
+    lugar: Brasília, Procuradoria-Geral da República
+    imagem: imagens/cap01/o_parecer.webp
+    texto: |
+      O parecer chega numa segunda-feira, curto e assinado: a Procuradoria vê elementos frágeis
+      para a prisão e lembra que a medida contra o passaporte foi tomada sem ouvir o Ministério
+      Público. O que antes era dito em off agora está no papel.
+
+      O relator não decreta a prisão. Não diz que recuou, mas todo mundo lê assim.
+
+      Em Miami, o parecer vira prova: até a Procuradoria reconhece o abuso, diz Flávio. Em
+      Brasília, a pergunta muda de lugar. Ela já não é só sobre Flávio, é sobre quem, dentro do
+      Estado, está disposto a contrariar o Supremo, e a que preço.
+    segue: itamaraty
+
   - id: itamaraty
     lugar: Brasília, Palácio do Itamaraty
     imagem: imagens/cap01/itamaraty.webp
@@ -104,18 +124,61 @@ nos:
       - se: { tem: flavio_preventiva }
         texto: "E agora há um detalhe que ninguém esquece: o Brasil tem uma ordem de prisão contra o homem que os dois estariam acolhendo."
       - |
-        Lula já chamou a saída de Flávio de vergonhosa. No Planalto, a discussão é curta e tensa.
-        Cobrar os vizinhos dá à carta a importância que ela quer ter. Calar deixa a pergunta sem
-        resposta.
+        Lula chamou a saída de Flávio de vergonhosa, e no dia seguinte mandou os ministros não
+        explorarem o caso: deixar com a Polícia Federal e o Ministério da Justiça, para não
+        alimentar a narrativa de perseguição. A carta testa essa orientação. Cobrar os vizinhos dá
+        a ela a importância que ela quer ter. Calar deixa a pergunta sem resposta.
     escolhas:
       - id: silencio
         rotulo: O governo trata a carta como bravata e não fala sobre ela com ninguém
         marca: [governo_silencio]
-        vai_para: eleicao_eua
+        vai_para: a_rota
       - id: cobra
         rotulo: O Itamaraty pede explicações formais a Washington e a Buenos Aires
         marca: [crise_diplomatica]
+        vai_para: a_rota
+
+  - id: a_rota
+    lugar: Buenos Aires, início de novembro
+    imagem: imagens/cap01/a_rota.webp
+    texto:
+      - |
+        Do outro lado da fronteira, a carta caiu como acusação. Deputados de oposição já tinham
+        apresentado denúncias penais contra Milei e funcionários do governo pela saída de Flávio,
+        e pedem que o chanceler explique ao Congresso o que a Argentina sabia.
+      - |
+        A Migração argentina registrou a entrada de Flávio por Puerto Iguazú às 22h50 do dia 27.
+        Meia hora depois, um jato fretado decolou rumo a Guayaquil. Santiago Caputo, o assessor de
+        Milei que boatos colocam na fronteira naquela noite, nega tudo. Patricia Bullrich escreveu
+        que a vontade das urnas deve ser respeitada.
+      - se: { tem: crise_diplomatica }
+        texto: O pedido de explicações do Itamaraty chega a um governo com quem as relações já estão rebaixadas desde agosto.
+        senao: O Itamaraty não pediu nada. Em Buenos Aires, quem faz as perguntas é a oposição.
+      - Sobre a carta que o agradece pela coragem, Milei não diz uma palavra.
+    escolhas:
+      - id: silencio_milei
+        rotulo: Milei sustenta o silêncio, e o caso fica nos tribunais argentinos
+        marca: [milei_silencio]
         vai_para: eleicao_eua
+      - id: investiga
+        rotulo: A Justiça argentina requisita os registros do voo, e Caputo vira alvo
+        marca: [caputo_investigado]
+        vai_para: o_voo_fretado
+
+  - id: o_voo_fretado
+    lugar: Puerto Iguazú, novembro
+    imagem: imagens/cap01/o_voo_fretado.webp
+    texto: |
+      O pedido sai de uma promotoria federal de fronteira: câmeras do aeroporto, plano de voo,
+      lista de passageiros e o contrato do fretamento. Se alguém do governo estava lá naquela
+      noite, vai aparecer em algum desses papéis.
+
+      Em Buenos Aires, a investigação vira briga interna. Em Brasília, muda o tamanho da carta:
+      ela deixa de ser só bravata e vira um caso entre dois países.
+
+      Em Miami, Flávio não comenta a investigação. Aliados dizem que a Argentina não fez nada além
+      de carimbar um passaporte.
+    segue: eleicao_eua
 
   - id: eleicao_eua
     lugar: Miami, 3 de novembro
@@ -189,8 +252,11 @@ nos:
         senao: E, a cada sessão do Senado sem ele, a contagem de faltas anda.
       - |
         Há um modelo à mão, e ele mesmo o citou: Juan Guaidó, que se declarou presidente da
-        Venezuela e chegou a ser reconhecido por dezenas de países. Há também o caminho mais
-        modesto: ser, de longe, a voz mais alta da oposição.
+        Venezuela e chegou a ser reconhecido por dezenas de países. Flávio, até agora, por nenhum.
+        A OEA, a União Europeia e os governos de direita da região reconheceram Lula.
+      - |
+        Há também o caminho mais modesto: ser, de longe, a voz mais alta da oposição. A autorização
+        para ficar nos Estados Unidos vence em outubro de 2027. Até lá, Miami é casa.
     escolhas:
       - id: governo
         rotulo: Flávio anuncia um governo no exílio, com um nome para cada ministério
@@ -210,8 +276,8 @@ nos:
         Valdemar reconheceu o resultado da eleição em 26 de outubro. Dois dias depois, a carta
         disse o contrário e escolheu o candidato do partido ao Senado sem consultar o partido.
         O PL fez a maior bancada do Congresso, mas maior não é maioria. Em fevereiro, Câmara e
-        Senado elegem seus presidentes, e Alcolumbre, que quer continuar presidindo, conversa com
-        todo mundo.
+        Senado elegem seus presidentes. Na véspera da carta, União e PP já tinham fechado com a
+        reeleição de Alcolumbre e abandonado Marinho.
       - se: { tem: crise_diplomatica }
         texto: O protesto do Itamaraty deu à carta o que ela queria, importância, e deu ao partido uma bandeira.
       - se: { tem: flavio_preventiva }
@@ -242,7 +308,8 @@ nos:
     texto:
       - |
         Valdemar liga para Alcolumbre num celular que não é o dele. A conversa dura doze minutos
-        e ninguém fala em anistia, nem em Supremo, nem em Flávio. Fala-se de fevereiro.
+        e ninguém fala em anistia, nem em Flávio. Fala-se de fevereiro, e de uma cadeira vaga no
+        Supremo que Alcolumbre quer ver ocupada por um amigo ainda este ano.
       - se: { tem: flavio_sem_preventiva }
         texto: As faltas de Flávio não entram na conversa. Não precisam. Os dois sabem que a Mesa só decide em dezembro.
       - se: { tem: flavio_preventiva }

@@ -91,13 +91,20 @@ export function layoutDoCapitulo(cap: Capitulo, esp: Espacamento = PADRAO): Layo
     const d = prof.get(id)!;
     linhas.set(d, [...(linhas.get(d) ?? []), id]);
   }
-  const maisLarga = Math.max(...[...linhas.values()].map((l) => l.length));
+  // Um nó sozinho na linha esconderia uma aresta que pula essa linha (ex.: uma escolha que
+  // vai direto adiante). Nesses casos o nó sai do eixo e a aresta passa livre pelo centro.
+  const pulada = (d: number) =>
+    arestas.some((a) => prof.has(a.de) && prof.get(a.de)! < d && prof.get(a.para)! > d);
+  const deslocados = new Set([...linhas].filter(([d, ids]) => ids.length === 1 && pulada(d)).map(([d]) => d));
+
+  const maisLarga = Math.max(...[...linhas.values()].map((l) => l.length), deslocados.size ? 2 : 1);
   const largura = MARGEM * 2 + (maisLarga - 1) * DX;
 
   const nos: NoLayout[] = [];
   for (const [d, ids] of linhas) {
     const inicioX = (largura - (ids.length - 1) * DX) / 2;
-    ids.forEach((id, i) => nos.push({ id, x: inicioX + i * DX, y: MARGEM + d * DY }));
+    const desvio = deslocados.has(d) ? DX / 2 : 0;
+    ids.forEach((id, i) => nos.push({ id, x: inicioX + i * DX + desvio, y: MARGEM + d * DY }));
   }
   return { nos, arestas, largura, altura: MARGEM * 2 + fundo * DY };
 }

@@ -1,4 +1,4 @@
-versao: "0.3.0"
+versao: "0.4.0"
 titulo: Trama
 aviso: >
   Trama é uma obra de ficção especulativa. Figuras públicas aparecem como
@@ -55,6 +55,10 @@ epilogo:
       texto: Toda noite, uma transmissão de Miami disputa com o PL quem fala pela direita.
     - se: { tem: crise_diplomatica }
       texto: O Itamaraty ainda espera respostas de Washington e de Buenos Aires.
+    - se: { tem: caputo_investigado }
+      texto: Em Puerto Iguazú, uma promotoria de fronteira guarda o plano de um voo que dois governos prefeririam esquecer.
+    - se: { tem: pgr_contra }
+      texto: Entre a Procuradoria e o Supremo, abriu-se uma fresta. Os dois lados vão tentar alargá-la.
     - se: { tem: eua_dem_camara }
       texto: Em Washington, a nova maioria marcou para janeiro as primeiras perguntas sobre o Brasil.
     - se: { tem: eua_rep_congresso }

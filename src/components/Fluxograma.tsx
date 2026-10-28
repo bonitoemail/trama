@@ -18,8 +18,8 @@ const TH = 54;
 const ESPACO = { dx: 124, dy: 98, margem: 56 };
 
 /**
- * Mapa do capítulo: cada nó é a própria ilustração.
- * Percorrido = nítido com contorno; visto em outra partida = apagado; nunca visto = cadeado.
+ * Mapa do capítulo: só o caminho desta partida mostra as ilustrações.
+ * O resto é um bloco cinza com "?" (contorno cheio se já visto em outra partida, tracejado se nunca).
  */
 export default function Fluxograma({ cap, passos, vistos }: Props) {
   const layout = useMemo(() => layoutDoCapitulo(cap, ESPACO), [cap]);
@@ -99,7 +99,7 @@ export default function Fluxograma({ cap, passos, vistos }: Props) {
               className={`mini ${estado} ${selecionado === n.id ? 'sel' : ''}`}
               onClick={() => setSelecionado(n.id === selecionado ? null : n.id)}
             >
-              {estado !== 'oculto' && no.imagem ? (
+              {estado === 'percorrido' && no.imagem ? (
                 <image
                   href={`/${no.imagem}`}
                   x={x}
@@ -113,11 +113,10 @@ export default function Fluxograma({ cap, passos, vistos }: Props) {
                 <rect className="fundo" x={x} y={y} width={TW} height={TH} rx={6} />
               )}
               <rect className="moldura" x={x} y={y} width={TW} height={TH} rx={6} />
-              {estado === 'oculto' && (
-                <path
-                  className="cadeado"
-                  d={`M ${n.x - 4} ${n.y - 1} v -3 a 4 4 0 0 1 8 0 v 3 M ${n.x - 6} ${n.y - 1} h 12 v 8 h -12 z`}
-                />
+              {estado !== 'percorrido' && (
+                <text className="interrogacao" x={n.x} y={n.y + 6} textAnchor="middle">
+                  ?
+                </text>
               )}
             </g>
           );
