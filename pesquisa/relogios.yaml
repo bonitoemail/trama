@@ -1,0 +1,194 @@
+# Relógios do Trama: datas e eventos que a realidade vai decidir.
+# Lido por `npm run estado` e pela skill `atualizar-jogo`.
+#
+# Campos:
+#   id          identificador estável
+#   data        AAAA-MM-DD (quando há data marcada) ou omitido (evento sem data: "vigiar")
+#   evento      o que acontece
+#   frente      planalto | congresso | supremo | direita | mundo | economia
+#   afeta       nós do jogo que o resultado decide ou muda (capitulo/no[:escolha])
+#   status      pendente | aconteceu | descartado
+#   resultado   (quando aconteceu) o que aconteceu, com fonte
+#   conferir    onde/como checar
+#
+# Regra: quando um relógio vira "aconteceu", a skill decide se trava uma escolha (real),
+# entra no prólogo, muda texto ou só ajusta o futuro.
+
+relogios:
+  # --- Capítulo 1: decisões em aberto, sem data marcada ---
+  - id: preventiva-flavio
+    evento: Moraes decide sobre o pedido de prisão preventiva e difusão vermelha de Flávio
+    frente: supremo
+    afeta: [cap01/pedido]
+    status: pendente
+    conferir: STF, PGR (parecer), Poder360, CNN, Metrópoles
+
+  - id: resposta-carta-governo
+    evento: governo responde ou não à carta; Itamaraty pede ou não explicações a EUA e Argentina
+    frente: planalto
+    afeta: [cap01/itamaraty]
+    status: pendente
+    conferir: Itamaraty (notas), Planalto, CNN, Folha
+
+  - id: argentina-investigacao
+    evento: Justiça argentina avança (ou não) sobre a saída de Flávio por Puerto Iguazú; papel de Caputo
+    frente: mundo
+    afeta: [cap01/a_rota]
+    status: pendente
+    conferir: elDiarioAR, La Nación, Clarín, Ámbito, Perfil
+
+  - id: flavio-postura
+    evento: Flávio volta a se dizer presidente / monta governo no exílio, ou fica como "líder" da oposição
+    frente: direita
+    afeta: [cap01/o_exilio]
+    status: pendente
+    conferir: redes de Flávio, Metrópoles, Folha, Gazeta do Povo
+
+  - id: pl-postura
+    evento: PL (Valdemar) negocia com Alcolumbre ou adota a linha da carta e obstrui
+    frente: congresso
+    afeta: [cap01/pl]
+    status: pendente
+    conferir: Poder360, Congresso em Foco, Gazeta do Povo, Folha
+
+  # --- Datas marcadas ---
+  - id: midterms-2026
+    data: 2026-11-03
+    evento: eleições de meio de mandato nos EUA (Câmara, Senado)
+    frente: mundo
+    afeta: [cap01/eleicao_eua]
+    status: pendente
+    conferir: AP, NYT, Decision Desk HQ
+
+  - id: copom-2026-11
+    data: 2026-11-04
+    evento: reunião do Copom
+    frente: economia
+    afeta: []
+    status: pendente
+    conferir: Banco Central
+
+  - id: indicacao-stf
+    evento: Lula indica o ministro para a vaga de Barroso (o bastidor aponta Pacheco)
+    frente: supremo
+    afeta: [cap02/a_cadeira]
+    status: pendente
+    conferir: Planalto, Senado, Estado de Minas, O Globo
+
+  - id: sabatina-stf
+    evento: sabatina e votação no Senado do indicado ao STF
+    frente: congresso
+    afeta: [cap02/a_sabatina]
+    status: pendente
+    conferir: Agência Senado
+
+  - id: g20-miami
+    data: 2026-12-14
+    evento: cúpula do G20 em Miami (14–15/12); presença de Lula e encontro com Trump
+    frente: mundo
+    afeta: [cap02/miami]
+    status: pendente
+    conferir: Itamaraty, Casa Branca, Reuters
+
+  - id: faltas-flavio
+    data: 2026-12-17
+    evento: data estimada para a Mesa do Senado poder declarar a perda do mandato de Flávio por faltas
+    frente: congresso
+    afeta: [cap01/o_prazo, cap02/o_relogio]
+    status: pendente
+    conferir: Agência Senado, Diario de Pernambuco
+
+  - id: posse-2027
+    data: 2027-01-05
+    evento: posse do 4º mandato de Lula
+    frente: planalto
+    afeta: [cap02]
+    status: pendente
+    conferir: Planalto
+
+  - id: fim-foro-flavio
+    data: 2027-02-01
+    evento: Flávio perde o mandato e o foro; inquéritos podem descer do STF
+    frente: supremo
+    afeta: [cap02, cap03]
+    status: pendente
+    conferir: STF, Conjur, JOTA
+
+  - id: mesas-2027
+    data: 2027-02-01
+    evento: eleição das mesas da Câmara e do Senado (Alcolumbre x Marinho; Motta)
+    frente: congresso
+    afeta: [cap02, cap04]
+    status: pendente
+    conferir: Agência Senado, Agência Câmara
+
+  - id: parole-flavio
+    data: 2027-10-27
+    evento: vence a autorização humanitária (parole) de Flávio nos EUA
+    frente: mundo
+    afeta: [cap07]
+    status: pendente
+    conferir: Metrópoles, Folha (registros de alfândega) — confirmar a data
+
+  - id: eleicao-argentina-2027
+    evento: eleições legislativas na Argentina (out/2027, conferir data)
+    frente: mundo
+    afeta: [cap07]
+    status: pendente
+    conferir: Cámara Nacional Electoral
+
+  - id: municipais-2028
+    data: 2028-10-01
+    evento: eleições municipais no Brasil (conferir data exata)
+    frente: congresso
+    afeta: [cap10]
+    status: pendente
+    conferir: TSE
+
+  - id: eua-2028
+    data: 2028-11-07
+    evento: eleição presidencial americana
+    frente: mundo
+    afeta: [cap11]
+    status: pendente
+    conferir: AP
+
+  - id: bc-2028
+    data: 2028-12-31
+    evento: fim do mandato do presidente do Banco Central (Galípolo; conferir data)
+    frente: economia
+    afeta: [cap11]
+    status: pendente
+    conferir: Banco Central
+
+  - id: mesas-2029
+    data: 2029-02-01
+    evento: eleição das mesas sem Alcolumbre e Motta (não podem se reeleger na mesma legislatura)
+    frente: congresso
+    afeta: [cap12]
+    status: pendente
+    conferir: STF (ADI 6524, 2020), Agência Senado
+
+  - id: desincompatibilizacao-2030
+    data: 2030-04-04
+    evento: prazo de desincompatibilização para 2030 (governadores e ministros candidatos; conferir data)
+    frente: direita
+    afeta: [cap15]
+    status: pendente
+    conferir: TSE
+
+  - id: eleicao-2030
+    data: 2030-10-06
+    evento: 1º turno da eleição presidencial (conferir data)
+    frente: planalto
+    afeta: [cap18]
+    status: pendente
+    conferir: TSE
+
+  - id: vaga-gilmar
+    data: 2030-12-30
+    evento: Gilmar Mendes completa 75 anos; vaga no STF
+    frente: supremo
+    afeta: [epilogo]
+    status: pendente
+    conferir: STF
