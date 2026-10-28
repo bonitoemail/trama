@@ -20,6 +20,11 @@ Arquivos 01–05 e a síntese. Cobriu governo e Congresso, economia, direita, ST
 Fontes: [Metrópoles](https://www.metropoles.com/mundo/em-carta-flavio-se-declara-verdadeiro-presidente-eleito-do-brasil) · [Band](https://www.band.com.br/politica/nos-eua-flavio-se-diz-o-verdadeiro-presidente-eleito-e-cita-fraude) · [Jovem Pan](https://jovempan.com.br/politica/em-carta-flavio-diz-que-e-o-verdadeiro-presidente-eleito-do-brasil/)
 **No jogo:** entrou no prólogo; o capítulo 1 foi refeito como "A carta". Saíram as escolhas "asilo / volta / exílio" (resolvidas pela carta); entraram "governo no exílio ou líder da oposição" e "PL com a carta e Marinho, ou Valdemar negociando com Alcolumbre". O Marinho contra Alcolumbre virou o eixo do Acordo.
 
+### Fato novo — 28/10/2026, mais tarde
+**O recuo.** Depois da repercussão, Flávio apaga a carta e republica uma versão em que "presidente eleito" vira "líder do Brasil" (não "líder da oposição"). Mantém as acusações de fraude, de perseguição política e as críticas ao STF e ao TSE. Não confirmado se o trecho sobre Marinho ficou.
+Fontes: [Congresso em Foco](https://www.congressoemfoco.com.br/noticia/129622/flavio-muda-carta-e-troca-presidente-eleito-por-lider-do-brasil) · [Times Brasil](https://timesbrasil.com.br/brasil/flavio-republica-carta-e-retira-trecho-em-que-se-dizia-presidente-eleito-do-brasil/)
+**No jogo:** entrou no prólogo; abertura, foragido, o_exilio e pl citam as duas versões. O galho "governo no exílio" passou a ser "retoma o título de presidente" (ficou ainda menos provável, mas continua escolhível).
+
 ### Rodada 2 — 28/10/2026, noite
 Arquivos 06 (reações à carta no Brasil), 07 (mundo, EUA, Argentina, midterms) e 08 (analistas, economia, China, conferências).
 - **Nenhum nó do cap. 1 foi decidido formalmente.** Pendem: "pedido" → adiar; "itamaraty" → bravata (Lula mandou ministros não explorarem o caso, 28/10); "o_exilio" → líder da oposição (ninguém reconhece Flávio; governo no exílio só como boato anônimo); "pl" → Valdemar mantém o reconhecimento.

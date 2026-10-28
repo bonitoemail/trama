@@ -22,11 +22,13 @@ nos:
     texto: |
       Brasília acorda com duas notícias sobre o mesmo homem. A primeira é que ele está em Miami,
       com uma autorização humanitária de um ano para ficar nos Estados Unidos, segundo registros
-      vistos pela imprensa. Não é asilo. A segunda é que ele se considera presidente.
+      vistos pela imprensa. Não é asilo. A segunda é que ele se declarou presidente, e horas
+      depois apagou a palavra.
 
       A carta tem três páginas, o brasão da República no alto e nenhuma prova. Fala em fraude e
       em perseguição, agradece a Milei e a Trump e compara o autor a Rui Barbosa, a De Gaulle e
-      a Guaidó.
+      a Guaidó. Na segunda versão, "presidente eleito" virou "líder do Brasil". A acusação de
+      fraude ficou.
 
       No PL, a primeira reação é de distância: o partido diz que não tem relação com o texto.
       Valdemar Costa Neto reconheceu o resultado três dias antes. Mas a carta tem uma frase que
@@ -73,7 +75,7 @@ nos:
 
       Na própria carta, Flávio tinha escrito que não existia mandado de prisão contra ele. Agora
       existe. Ele responde com um vídeo de dois minutos diante de uma parede branca: fala em
-      perseguição e repete que é o presidente eleito.
+      perseguição e se apresenta, como na segunda versão da carta, como o líder do Brasil.
 
       Advogados lembram o que quase ninguém repete: o alerta da Interpol é um pedido, não uma
       ordem, e cada país decide o que fazer com ele. Eduardo, condenado e com mandado de prisão,
@@ -242,8 +244,8 @@ nos:
     texto:
       - |
         Na carta, Flávio prometeu falar regularmente ao povo brasileiro e apresentar uma
-        estratégia para mobilizar a oposição. Em Miami, a pergunta é o que isso quer dizer na
-        prática.
+        estratégia para mobilizar a oposição. Na primeira versão, ele era presidente; na segunda,
+        líder do Brasil. Em Miami, a pergunta é qual das duas vai valer.
       - se: { tem: eua_dem_camara }
         texto: Com os democratas no comando da Câmara, cada passo dele vai ser observado em Washington.
         senao: Com os republicanos firmes no Congresso, Washington não vai atrapalhar.
@@ -259,7 +261,7 @@ nos:
         para ficar nos Estados Unidos vence em outubro de 2027. Até lá, Miami é casa.
     escolhas:
       - id: governo
-        rotulo: Flávio anuncia um governo no exílio, com um nome para cada ministério
+        rotulo: Flávio retoma o título de presidente e anuncia um governo no exílio
         marca: [governo_exilio]
         vai_para: pl
       - id: voz
@@ -275,6 +277,7 @@ nos:
       - |
         Valdemar reconheceu o resultado da eleição em 26 de outubro. Dois dias depois, a carta
         disse o contrário e escolheu o candidato do partido ao Senado sem consultar o partido.
+        A segunda versão tirou o "presidente eleito", mas não tirou a acusação de fraude.
         O PL fez a maior bancada do Congresso, mas maior não é maioria. Em fevereiro, Câmara e
         Senado elegem seus presidentes. Na véspera da carta, União e PP já tinham fechado com a
         reeleição de Alcolumbre e abandonado Marinho.
