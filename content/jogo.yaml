@@ -54,23 +54,27 @@ epilogo:
     - se: { tem: flavio_preventiva }
       texto: Flávio terminou novembro com uma ordem de prisão no Brasil e um visto nos Estados Unidos. Os dois papéis valem, cada um no seu país.
     - se: { tem: flavio_sem_preventiva }
-      texto: Flávio terminou novembro sem ordem de prisão e com um mandato que diminui a cada sessão do Senado.
+      texto: Flávio terminou novembro sem ordem de prisão e com um mandato que diminui a cada sessão do Senado. O pedido do PT continua na gaveta do relator, e o partido sabe que pode voltar a ele quando quiser.
     - se: { tem: governo_exilio }
-      texto: Em Miami, existe agora um governo que nenhum país reconhece e que metade do Brasil acompanha.
+      texto: Em Miami, existe agora um governo que nenhum país reconhece e que milhões de brasileiros acompanham todas as noites.
     - se: { tem: flavio_live }
       texto: Toda noite, uma transmissão de Miami disputa com o PL quem fala pela direita.
     - se: { tem: crise_diplomatica }
-      texto: O Itamaraty ainda espera respostas de Washington e de Buenos Aires.
+      texto: O Itamaraty ainda espera respostas de Washington e de Buenos Aires. Ao cobrar, o governo deu à carta um lugar na agenda entre países.
+    - se: { tem: governo_silencio }
+      texto: O Planalto não respondeu à carta. Em Miami, o silêncio foi lido como medo; em Brasília, como cálculo. Os dois lados guardaram a leitura.
     - se: { tem: caputo_investigado }
-      texto: Em Puerto Iguazú, uma promotoria de fronteira guarda o plano de um voo que dois governos prefeririam esquecer.
+      texto: Em Puerto Iguazú, uma promotoria de fronteira guarda o plano de um voo. O governo argentino diz que ali não há nada além de um carimbo. A oposição argentina diz que há muito mais.
+    - se: { tem: milei_silencio }
+      texto: Em Buenos Aires, o caso esfriou nos tribunais. A oposição argentina guardou o assunto para a eleição do ano que vem.
     - se: { tem: pgr_contra }
       texto: Entre a Procuradoria e o Supremo, abriu-se uma fresta. Os dois lados vão tentar alargá-la.
     - se: { tem: eua_dem_camara }
-      texto: Em Washington, a nova maioria marcou para janeiro as primeiras perguntas sobre o Brasil.
+      texto: Em Washington, a nova maioria marcou para janeiro as primeiras perguntas sobre o Brasil. A tarifa de 25%, essa, não depende dela.
     - se: { tem: eua_rep_congresso }
-      texto: Em Washington, ninguém vai fazer perguntas sobre o Brasil tão cedo.
+      texto: Em Washington, as perguntas sobre o Brasil ficam para depois. A tarifa de 25% fica para agora.
     - se: { tem: pl_negocia }
-      texto: Em Brasília, o PL começou a conversar. Em algum gabinete, alguém anotou o preço.
+      texto: Em Brasília, a conversa começou com mais de dois lados. Em algum gabinete do Planalto, do Senado e do Supremo, alguém anotou o preço.
     - se: { tem: pl_obstrui }
-      texto: Em Brasília, o PL escolheu a briga. O Centrão escolheu esperar para ver quem paga mais.
+      texto: Em Brasília, o PL escolheu a briga. O Centrão escolheu esperar para ver quem paga mais, e o governo, quanto vai pagar.
     - Este é o fim do capítulo 1. A história continua no capítulo 2, que ainda está sendo escrito.

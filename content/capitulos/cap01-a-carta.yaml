@@ -1,13 +1,14 @@
 # Capítulo 1 — A carta
 # Começa no dia seguinte ao último fato real do prólogo: a carta de 28/10/2026 em que Flávio
-# se declara "o verdadeiro presidente eleito". Fatos: pesquisa/00-sintese.md e
-# pesquisa/03-direita-oposicao.md.
-# Escolhas que a realidade decidir ganham `real: { data, fonte }` (DESIGN.md 6.1).
-# Candidatas a trava: pedido (prisão preventiva), itamaraty, eleicao_eua (midterms de 3/11),
-# o_exilio, pl.
+# se declarou "o verdadeiro presidente eleito" e a versão corrigida, horas depois, como
+# "líder do Brasil". Fatos: pesquisa/00-sintese.md, 01, 03, 06, 07 e RODADAS.md.
+# Revisado pelas regras de neutralidade (DESIGN.md 8; roteiro/painel/01-neutralidade.md).
 #
-# Estrutura: cada escolha abre uma cena própria antes de convergir; o capítulo termina em
-# dois finais diferentes (a_ligacao, a_convocacao).
+# Íntegra da carta (1ª versão), para conferir paráfrases:
+#   https://www.metropoles.com/brasil/veja-integra-de-carta-assinada-por-flavio-bolsonaro-apos-fugir-do-brasil
+#
+# Escolhas que a realidade decidir ganham `real: { data, fonte }` (DESIGN.md 6.1).
+# Candidatas a trava: pedido, itamaraty, eleicao_eua (midterms de 3/11), o_exilio, pl.
 id: cap01
 numero: 1
 titulo: A carta
@@ -19,21 +20,25 @@ nos:
   - id: abertura
     lugar: Miami e Brasília, 29 de outubro
     imagem: imagens/cap01/abertura.webp
+    # Autorização humanitária (parole): registros vistos por Metrópoles e Folha (pesquisa 07).
+    # Prorrogação e votos após as 17h: pesquisa 03 (Nexo/g1) e 06 (checagem do Metrópoles).
     texto: |
       Brasília acorda com duas notícias sobre o mesmo homem. A primeira é que ele está em Miami,
       com uma autorização humanitária de um ano para ficar nos Estados Unidos, segundo registros
       vistos pela imprensa. Não é asilo. A segunda é que ele se declarou presidente, e horas
       depois apagou a palavra.
 
-      A carta tem três páginas, o brasão da República no alto e nenhuma prova. Fala em fraude e
-      em perseguição, agradece a Milei e a Trump e compara o autor a Rui Barbosa, a De Gaulle e
-      a Guaidó. Na segunda versão, "presidente eleito" virou "líder do Brasil". A acusação de
-      fraude ficou.
+      A carta tem três páginas e um brasão no alto. Fala em fraude sem apresentar provas. O
+      ponto mais concreto é a prorrogação do horário de votação, decidida pelo ministro Zanin a
+      pedido da campanha de Lula; a campanha de Flávio também tinha pedido prorrogações ao TSE.
+      A carta liga a decisão aos milhões de votos que Lula ganhou entre os turnos. O TSE registrou
+      cerca de 35 mil votos depois das 17h. Na segunda versão, "presidente eleito" virou "líder
+      do Brasil". A acusação de fraude ficou.
 
-      No PL, a primeira reação é de distância: o partido diz que não tem relação com o texto.
-      Valdemar Costa Neto reconheceu o resultado três dias antes. Mas a carta tem uma frase que
-      ninguém em Brasília consegue ignorar: Rogério Marinho é o candidato de Flávio à presidência
-      do Senado.
+      No PL, a primeira reação é de distância: fontes do partido dizem que não têm relação com o
+      texto. Valdemar Costa Neto reconheceu o resultado em 26 de outubro. Mas a carta tem uma
+      frase que ninguém em Brasília consegue ignorar: Rogério Marinho é o candidato de Flávio à
+      presidência do Senado.
 
       A Polícia Federal diz que Flávio não é foragido. Há um pedido de prisão sobre a mesa.
     segue: pedido
@@ -41,34 +46,42 @@ nos:
   - id: pedido
     lugar: Brasília, Supremo Tribunal Federal
     imagem: imagens/cap01/pedido.webp
+    # Pedidos do PT e do PSOL: pesquisa 03 e 06. Fala de Marinho: O Antagonista / Gazeta do Povo (pesquisa 06).
+    # Crítica da PGR em off: CNN, 28/10 (pesquisa 06).
     texto: |
       O pedido é de deputados do PT: prisão preventiva e o nome de Flávio no alerta vermelho da
-      Interpol. Para quem defende a prisão, a carta é a prova de que ele não pretende voltar. Para
-      a defesa, é liberdade de expressão de um senador que nunca deixou de responder à Justiça.
+      Interpol. No mesmo dia, outros deputados do partido pediram o bloqueio de até R$ 6 bilhões
+      em bens, e o PSOL pediu ao Senado a perda do mandato. Para a esquerda, manter Flávio no
+      noticiário como fugitivo custa pouco e rende muito.
 
-      O gabinete do relator não comenta. A Procuradoria-Geral, sim, mas em off: integrantes da
-      cúpula disseram a jornalistas que a apreensão do passaporte foi precipitada e decidida sem
-      ouvir o Ministério Público, e que a saída do país, ainda assim, abre caminho para a prisão.
+      Para aliados de Flávio, a carta é liberdade de expressão. Rogério Marinho foi além e disse
+      que o momento das medidas contra Flávio era uma coincidência que precisa ser analisada.
+
+      O relator é Alexandre de Moraes, e o gabinete não comenta. A Procuradoria-Geral, sim, mas
+      em off: integrantes da cúpula disseram a jornalistas que a apreensão do passaporte foi
+      precipitada e decidida sem ouvir o Ministério Público, e que a saída do país, ainda assim,
+      abre caminho para a prisão.
 
       Prender agora transforma um senador em foragido internacional, e talvez em mártir. Esperar
-      deixa no ar a sensação de que uma carta e uma ordem descumprida valem pouco.
+      deixa no ar a pergunta sobre o que vale uma ordem descumprida.
     escolhas:
       - id: preventiva
-        rotulo: O relator decreta a prisão preventiva e cita a carta na decisão
+        rotulo: Moraes decreta a prisão preventiva e cita a carta na decisão
         marca: [flavio_preventiva]
         vai_para: foragido
       - id: espera
-        rotulo: O relator trata a carta como retórica e adia a decisão sobre a prisão
+        rotulo: Moraes trata a carta como retórica e adia a decisão sobre a prisão
         marca: [flavio_sem_preventiva]
         vai_para: o_prazo
       - id: pgr
-        rotulo: A Procuradoria-Geral se manifesta contra a prisão, e o relator recua
+        rotulo: A Procuradoria-Geral se manifesta contra a prisão, e Moraes não a decreta
         marca: [flavio_sem_preventiva, pgr_contra]
         vai_para: o_parecer
 
   - id: foragido
     lugar: Miami, dias depois
     imagem: imagens/cap01/foragido.webp
+    # "não existe nenhum mandado de prisão contra mim": 1ª versão da carta (íntegra no topo).
     texto: |
       A decisão sai numa sexta-feira à noite: prisão preventiva por descumprimento de ordem
       judicial e pedido de inclusão na difusão vermelha. A carta aparece citada três vezes.
@@ -77,14 +90,15 @@ nos:
       existe. Ele responde com um vídeo de dois minutos diante de uma parede branca: fala em
       perseguição e se apresenta, como na segunda versão da carta, como o líder do Brasil.
 
-      Advogados lembram o que quase ninguém repete: o alerta da Interpol é um pedido, não uma
-      ordem, e cada país decide o que fazer com ele. Eduardo, condenado e com mandado de prisão,
-      vive nos Estados Unidos desde 2025.
+      Advogados lembram que o alerta da Interpol é um pedido, não uma ordem, e que cada país
+      decide o que fazer com ele. Eduardo, condenado e com mandado de prisão, vive nos Estados
+      Unidos desde 2025.
     segue: itamaraty
 
   - id: o_prazo
     lugar: Brasília, Senado Federal
     imagem: imagens/cap01/o_prazo.webp
+    # Prazo das faltas (~17/12): Diario de Pernambuco (pesquisa 03). União e PP com Alcolumbre: Gazeta do Povo (pesquisa 06).
     texto: |
       Sem prisão, o relógio que importa passa a ser outro: o do Senado. Pelas contas de um jornal,
       se Flávio não voltar, a Mesa pode declarar a perda do mandato por faltas por volta de 17 de
@@ -105,44 +119,48 @@ nos:
       para a prisão e lembra que a medida contra o passaporte foi tomada sem ouvir o Ministério
       Público. O que antes era dito em off agora está no papel.
 
-      O relator não decreta a prisão. Não diz que recuou, mas todo mundo lê assim.
+      Moraes não decreta a prisão. Não diz que recuou, mas é assim que muitos leem.
 
-      Em Miami, o parecer vira prova: até a Procuradoria reconhece o abuso, diz Flávio. Em
+      Em Miami, o parecer vira argumento: até a Procuradoria reconhece o abuso, diz Flávio. Em
       Brasília, a pergunta muda de lugar. Ela já não é só sobre Flávio, é sobre quem, dentro do
-      Estado, está disposto a contrariar o Supremo, e a que preço.
+      Estado, está disposto a contrariar o Supremo, e o que cada lado ganha com isso.
     segue: itamaraty
 
   - id: itamaraty
     lugar: Brasília, Palácio do Itamaraty
     imagem: imagens/cap01/itamaraty.webp
+    # "lambe botas": Tribuna do Sertão / NBC (pesquisa 03). Ministros: "precipitada" (Metrópoles, pesquisa 01).
+    # Orientação aos ministros: CNN, 28/10 (pesquisa 06). Agradecimentos a Milei e Trump: íntegra da carta.
     texto:
       - |
-        A carta agradece a dois chefes de Estado. Para o Itamaraty, isso deixou de ser só um
-        problema político.
-      - |
-        A Milei, Flávio agradece pela coragem. Registros argentinos mostram que ele saiu do Brasil
-        pela Argentina; o governo argentino nega qualquer participação. A Trump, agradece por
-        acolhê-lo.
+        A carta agradece a dois chefes de Estado: a Milei, pela coragem; a Trump, por acolhê-lo.
+        Para o Itamaraty, isso deixou de ser só um problema político.
       - se: { tem: flavio_preventiva }
-        texto: "E agora há um detalhe que ninguém esquece: o Brasil tem uma ordem de prisão contra o homem que os dois estariam acolhendo."
+        texto: "E agora há um detalhe que ninguém esquece: o Brasil tem uma ordem de prisão contra o homem que agradeceu publicamente aos dois."
       - |
-        Lula chamou a saída de Flávio de vergonhosa, e no dia seguinte mandou os ministros não
-        explorarem o caso: deixar com a Polícia Federal e o Ministério da Justiça, para não
-        alimentar a narrativa de perseguição. A carta testa essa orientação. Cobrar os vizinhos dá
-        a ela a importância que ela quer ter. Calar deixa a pergunta sem resposta.
+        Lula chamou a saída de Flávio de vergonhosa e disse que a família lambe as botas dos
+        Estados Unidos. No dia seguinte, mandou os ministros não explorarem o caso e deixá-lo
+        com a Polícia Federal. O motivo oficial é não alimentar a narrativa de perseguição. Há
+        outro: ministros reclamam, em reserva, que a decisão do Supremo sobre o passaporte foi
+        precipitada, e o Planalto não quer ter de defendê-la em público.
+      - |
+        Cobrar os vizinhos dá à carta a importância que ela quer ter. Não cobrar deixa a pergunta
+        sem resposta, e a carta sem contraditório oficial.
     escolhas:
       - id: silencio
-        rotulo: O governo trata a carta como bravata e não fala sobre ela com ninguém
+        rotulo: Lula não responde à carta e deixa o caso com a Polícia Federal
         marca: [governo_silencio]
         vai_para: a_rota
       - id: cobra
-        rotulo: O Itamaraty pede explicações formais a Washington e a Buenos Aires
+        rotulo: Lula manda o Itamaraty pedir explicações formais a Washington e a Buenos Aires
         marca: [crise_diplomatica]
         vai_para: a_rota
 
   - id: a_rota
     lugar: Buenos Aires, início de novembro
     imagem: imagens/cap01/a_rota.webp
+    # Migração argentina 22h50 / decolagem 23h30: Ámbito (pesquisa 07). Denúncias e interpelação: elDiarioAR (pesquisa 07).
+    # Caputo na fronteira é BOATO (pesquisa 07); aparece só como boato.
     texto:
       - |
         Do outro lado da fronteira, a carta caiu como acusação. Deputados de oposição já tinham
@@ -150,9 +168,9 @@ nos:
         e pedem que o chanceler explique ao Congresso o que a Argentina sabia.
       - |
         A Migração argentina registrou a entrada de Flávio por Puerto Iguazú às 22h50 do dia 27.
-        Meia hora depois, um jato fretado decolou rumo a Guayaquil. Santiago Caputo, o assessor de
-        Milei que boatos colocam na fronteira naquela noite, nega tudo. Patricia Bullrich escreveu
-        que a vontade das urnas deve ser respeitada.
+        Quarenta minutos depois, um jato fretado decolou rumo a Guayaquil. Santiago Caputo, o
+        assessor de Milei que boatos colocam na fronteira naquela noite, nega tudo. Patricia
+        Bullrich escreveu que a vontade das urnas deve ser respeitada.
       - se: { tem: crise_diplomatica }
         texto: O pedido de explicações do Itamaraty chega a um governo com quem as relações já estão rebaixadas desde agosto.
         senao: O Itamaraty não pediu nada. Em Buenos Aires, quem faz as perguntas é a oposição.
@@ -173,10 +191,10 @@ nos:
     texto: |
       O pedido sai de uma promotoria federal de fronteira: câmeras do aeroporto, plano de voo,
       lista de passageiros e o contrato do fretamento. Se alguém do governo estava lá naquela
-      noite, vai aparecer em algum desses papéis.
+      noite, vai aparecer em algum desses papéis. Se ninguém estava, também.
 
       Em Buenos Aires, a investigação vira briga interna. Em Brasília, muda o tamanho da carta:
-      ela deixa de ser só bravata e vira um caso entre dois países.
+      ela deixa de ser só um texto e vira um caso entre dois países.
 
       Em Miami, Flávio não comenta a investigação. Aliados dizem que a Argentina não fez nada além
       de carimbar um passaporte.
@@ -185,6 +203,7 @@ nos:
   - id: eleicao_eua
     lugar: Miami, 3 de novembro
     imagem: imagens/cap01/eleicao_eua.webp
+    # "grande defensor da liberdade de expressão": íntegra da carta. Aprovação de 37%: pesquisa 05.
     texto:
       - |
         Na terça-feira, os Estados Unidos votam para renovar o Congresso. Num apartamento
@@ -195,21 +214,22 @@ nos:
       - se: { tem: crise_diplomatica }
         texto: O pedido de explicações do Itamaraty ainda não teve resposta de Washington.
       - |
-        As pesquisas dão vantagem aos democratas. Trump chega à eleição com a menor aprovação do
-        mandato.
+        As pesquisas dão vantagem aos democratas na Câmara. Trump chega à eleição com 37% de
+        aprovação.
     escolhas:
       - id: democratas
         rotulo: Os democratas retomam a Câmara dos Representantes
         marca: [eua_dem_camara]
         vai_para: noite_democrata
       - id: republicanos
-        rotulo: Os republicanos mantêm o controle das duas casas do Congresso
+        rotulo: Os republicanos mantêm o controle da Câmara dos Representantes
         marca: [eua_rep_congresso]
         vai_para: noite_republicana
 
   - id: noite_democrata
     lugar: Washington, 4 de novembro
     imagem: imagens/cap01/noite_democrata.webp
+    # Reuters sobre Beattie e Pita: pesquisa 05. Inquérito de Dino (Rockbridge, terras raras): pesquisa 03.
     texto: |
       A Câmara muda de mãos antes da meia-noite. De manhã, a nova maioria já tem uma lista de
       assuntos, e o Brasil está nela.
@@ -219,28 +239,36 @@ nos:
       Bolsonaro ao poder. Deputados democratas prometem convocar os dois assim que o novo
       Congresso tomar posse, em janeiro.
 
-      Em Brasília, o ministro Flávio Dino já tinha mandado a Polícia Federal investigar possível
-      interferência estrangeira na eleição. A mesma pergunta vai ser feita nos dois países.
+      Em Brasília, o ministro Flávio Dino já tinha mandado a Polícia Federal investigar outra
+      suspeita de interferência estrangeira, envolvendo empresários e um grupo americano
+      interessado em terras raras. São casos diferentes, mas os dois levam à mesma pergunta:
+      quem, de fora, quis influir na eleição.
+
+      No Planalto, ninguém comemora em voz alta. A tarifa de 25% sobre produtos brasileiros não
+      muda: é ato do Executivo, e o Executivo continua sendo de Trump.
     segue: o_exilio
 
   - id: noite_republicana
     lugar: Palm Beach, 4 de novembro
     imagem: imagens/cap01/noite_republicana.webp
     texto: |
-      Os republicanos seguram as duas casas. Trump comemora numa festa à beira-mar e fala em
-      vitória histórica.
+      Os republicanos seguram a Câmara. Trump comemora numa festa à beira-mar e fala em vitória
+      histórica.
 
-      Em Miami, o alívio é imediato. Ninguém em Washington vai fazer perguntas sobre a campanha
-      que, segundo a Reuters, funcionários do Departamento de Estado teriam feito a favor da
-      família.
+      Em Miami, o alívio é imediato. As perguntas sobre a campanha que, segundo a Reuters,
+      funcionários do Departamento de Estado teriam feito pela família vão continuar sem
+      resposta, por enquanto.
 
-      Uma semana antes, Trump tinha dito duas coisas sobre o Brasil: que a eleição pareceu ter
-      fraude e que ele gosta de Lula. Agora ele não precisa escolher entre as duas.
+      No Planalto, a conta é outra. Com o Congresso a favor de Trump, a tarifa de 25% fica, e as
+      sanções contra autoridades brasileiras voltam a ser assunto. Uma semana antes, Trump tinha
+      dito duas coisas sobre o Brasil: que a eleição pareceu ter fraude e que ele gosta de Lula.
+      Agora ele não precisa escolher entre as duas.
     segue: o_exilio
 
   - id: o_exilio
     lugar: Miami, novembro
     imagem: imagens/cap01/o_exilio.webp
+    # Reconhecimentos de Lula (UE, OEA, governos da região; Milei e Trump não): pesquisa 07.
     texto:
       - |
         Na carta, Flávio prometeu falar regularmente ao povo brasileiro e apresentar uma
@@ -248,14 +276,16 @@ nos:
         líder do Brasil. Em Miami, a pergunta é qual das duas vai valer.
       - se: { tem: eua_dem_camara }
         texto: Com os democratas no comando da Câmara, cada passo dele vai ser observado em Washington.
-        senao: Com os republicanos firmes no Congresso, Washington não vai atrapalhar.
+        senao: Com os republicanos firmes na Câmara, Washington não vai atrapalhar.
       - se: { tem: flavio_preventiva }
         texto: Com a prisão decretada, voltar deixou de ser uma opção.
         senao: E, a cada sessão do Senado sem ele, a contagem de faltas anda.
       - |
         Há um modelo à mão, e ele mesmo o citou: Juan Guaidó, que se declarou presidente da
-        Venezuela e chegou a ser reconhecido por dezenas de países. Flávio, até agora, por nenhum.
-        A OEA, a União Europeia e os governos de direita da região reconheceram Lula.
+        Venezuela e chegou a ser reconhecido por dezenas de países. Flávio, até agora, não foi
+        reconhecido por nenhum. A OEA, a União Europeia e quase todos os governos da região,
+        inclusive os de direita, parabenizaram Lula. As exceções foram Milei e, fora da região,
+        Trump.
       - |
         Há também o caminho mais modesto: ser, de longe, a voz mais alta da oposição. A autorização
         para ficar nos Estados Unidos vence em outubro de 2027. Até lá, Miami é casa.
@@ -272,17 +302,22 @@ nos:
   - id: pl
     lugar: Brasília, sede do PL
     imagem: imagens/cap01/pl.webp
+    # Marinho lançado por Valdemar em 05/10: Congresso em Foco (pesquisa 01).
     texto:
       - A executiva do partido se reúne numa sala comprida. A cadeira da cabeceira fica vazia de propósito.
       - |
         Valdemar reconheceu o resultado da eleição em 26 de outubro. Dois dias depois, a carta
-        disse o contrário e escolheu o candidato do partido ao Senado sem consultar o partido.
-        A segunda versão tirou o "presidente eleito", mas não tirou a acusação de fraude.
+        disse o contrário e reafirmou o candidato que o próprio Valdemar tinha lançado em outubro,
+        Rogério Marinho, justamente quando o partido começava a pesar se ainda valia a pena. A
+        segunda versão tirou o "presidente eleito", mas não tirou a acusação de fraude.
+      - |
         O PL fez a maior bancada do Congresso, mas maior não é maioria. Em fevereiro, Câmara e
         Senado elegem seus presidentes. Na véspera da carta, União e PP já tinham fechado com a
         reeleição de Alcolumbre e abandonado Marinho.
       - se: { tem: crise_diplomatica }
-        texto: O protesto do Itamaraty deu à carta o que ela queria, importância, e deu ao partido uma bandeira.
+        texto: "No PL, o protesto do Itamaraty é lido como um presente: a carta ganhou importância, e o partido, uma bandeira."
+      - se: { tem: governo_silencio }
+        texto: No PL, o silêncio do Planalto é lido de dois jeitos. Uns veem medo; outros, cálculo. Os dois lados guardam a leitura para usar depois.
       - se: { tem: flavio_preventiva }
         texto: Com a prisão decretada, defender Flávio em público passou a ter um custo, e a render votos.
       - se: { tem: governo_exilio }
@@ -300,19 +335,27 @@ nos:
         marca: [pl_negocia]
         vai_para: a_ligacao
       - id: obstrui
-        rotulo: O PL abraça a carta, lança Marinho ao Senado e promete obstruir o governo
+        rotulo: Valdemar adota a linha da carta, mantém Marinho no Senado e anuncia obstrução ao governo
         marca: [pl_obstrui]
         vai_para: a_convocacao
 
-  # Final A — a semente do Acordo (pesquisa/00-sintese.md, seção 2)
+  # Final A — a semente do Acordo, com todos os lados dentro (pesquisa/00-sintese.md, seção 2)
+  # Alvorada em 26/10: Metrópoles (pesquisa 06). Lobby de Gilmar, Moraes, Dino e Zanin por Pacheco: Lauro Jardim via
+  # Estado de Minas (pesquisa 01, bastidor). PEC da Segurança na troca: O Antagonista (pesquisa 01, bastidor).
   - id: a_ligacao
     lugar: Brasília, uma noite de novembro
     imagem: imagens/cap01/a_ligacao.webp
     texto:
       - |
-        Valdemar liga para Alcolumbre num celular que não é o dele. A conversa dura doze minutos
-        e ninguém fala em anistia, nem em Flávio. Fala-se de fevereiro, e de uma cadeira vaga no
-        Supremo que Alcolumbre quer ver ocupada por um amigo ainda este ano.
+        Valdemar liga para Alcolumbre tarde da noite. A ligação não está na agenda de nenhum dos
+        dois. Dura doze minutos, e ninguém fala em anistia, nem em Flávio. Fala-se de fevereiro,
+        e de uma cadeira vaga no Supremo que Alcolumbre quer ver ocupada por Rodrigo Pacheco ainda
+        este ano.
+      - |
+        No dia seguinte à eleição, Alcolumbre e Hugo Motta tinham estado no Alvorada para falar
+        da mesma cadeira com Lula. Segundo colunistas, quatro ministros do Supremo torcem pelo mesmo
+        nome, e o apoio de Alcolumbre à PEC da Segurança do governo estaria na mesma conta.
+        Ninguém na ligação precisa dizer que a conversa tem mais de dois lados.
       - se: { tem: flavio_sem_preventiva }
         texto: As faltas de Flávio não entram na conversa. Não precisam. Os dois sabem que a Mesa só decide em dezembro.
       - se: { tem: flavio_preventiva }
@@ -322,7 +365,7 @@ nos:
         Alcolumbre dizem a jornalistas diferentes a mesma frase: conversa entre presidentes de
         partido é normal.
 
-        É assim que começa um acordo: com uma conversa que todo mundo confirma e ninguém conta.
+        É assim que começa um acordo: com conversas que todo mundo confirma e ninguém conta.
 
   # Final B — a briga
   - id: a_convocacao
@@ -341,8 +384,11 @@ nos:
       - |
         Tarcísio, que já reconheceu a vitória de Lula, avisa que estará em São Paulo naquele dia.
 
-        No Centrão, alguém faz as contas e sorri. Oposição brigando com a própria sombra deixa o
-        apoio ao governo mais caro, e mais fácil de vender.
+        No Planalto, a convocação é recebida com alívio discreto: com a oposição na rua, a pauta
+        do governo no Congresso fica mais fácil de explicar, e mais cara de aprovar.
+
+        No Centrão, alguém faz as contas. Com a oposição dividida entre a carta e o Senado, o apoio
+        ao governo fica mais caro, e mais fácil de vender.
 
 saidas:
   - para: FIM

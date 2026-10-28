@@ -162,6 +162,34 @@ Quando a realidade andar:
 
 **Aviso na abertura:** *"Trama é uma obra de ficção especulativa. Figuras públicas aparecem como personagens em situações hipotéticas, inspiradas em suas posições públicas. Nenhuma cena descreve fatos reais além do prólogo."*
 
+### 8.1 Regras de equilíbrio (revisão de neutralidade, 28/10/2026)
+
+Origem: `roteiro/painel/01-neutralidade.md`.
+
+**Equilíbrio de interesse (pilar 7 aplicado)**
+1. **Motivo duplo para todos.** Todo ator real que decide algo em cena tem o motivo declarado **e** um interesse visível, no mesmo nó ou no seguinte. Vale para governo, PT, STF, PGR e imprensa tanto quanto para PL e Centrão.
+2. **Nenhuma escolha sem custo.** Toda escolha deixa uma consequência ruim para quem a fez, num nó posterior ou no epílogo. A omissão também custa. O validador ajuda: toda marca precisa de pelo menos uma condição que a use (hoje ele avisa "criada mas nunca usada").
+3. **Regra do par.** Quando o texto cita a frase mais dura de um lado num episódio, cita também a do outro lado no mesmo episódio, se existir na pesquisa.
+4. **Teste da troca de sinais.** Antes de publicar um nó, reescrevê-lo trocando os campos. Se a versão trocada soa como sátira ou panfleto, o original também é.
+
+**Linguagem do narrador**
+5. **O narrador não faz piada.** Ironia, deboche e frase-golpe só na boca de personagens, com atribuição. O narrador afirma fatos em frase plana.
+6. **Mesma marca de bastidor para todos.** Sinais de clandestinidade (telefone emprestado, encontro fora da agenda) seguem a mesma regra para todos os campos e nunca sugerem crime.
+7. **Mesma regra de nome.** Pessoas reais com responsabilidade pública aparecem pelo nome nas escolhas hipotéticas, todas ou nenhuma. Não pode haver "Flávio faz X" ao lado de "o relator faz Y".
+
+**Fatos e fontes**
+8. **Fala real só com fonte.** Toda paráfrase de carta, nota, defesa ou entrevista real tem um comentário YAML com o link. Sem link, vira diálogo claramente dramatizado, ou sai.
+9. **Boato nunca vira narração.** O que a pesquisa marca como boato só entra como boato ("boatos colocam…"), nunca em voz de narrador.
+10. **Mostrar o gancho e a checagem.** Quando um personagem acusa sem prova apoiado num fato real, o texto dá o fato **e** a checagem (ex.: a prorrogação e os ~35 mil votos depois das 17h).
+
+**Estrutura**
+11. **O roteiro não decide escolas econômicas.** Quando as lentes divergem sobre um mecanismo, o efeito vem de um nó separado com galho para cada leitura.
+12. **Nenhum final bom implícito.** Todo final, inclusive o de meio-termo, nomeia um custo e um perdedor concretos. "Todos perdem um pouco" não é custo.
+13. **Custo contado pela base do vencedor**, primeiro; depois, o custo para o país.
+14. **Agência de todos os campos em cada ato:** cada campo tem pelo menos uma decisão do tipo "o que alguém faz" e um caminho de ganho e um de perda.
+15. **Rota política antes de rota biológica.** Nenhum campo depende de doença ou morte de alguém real para ter um caminho de vitória.
+16. **Planilha por capítulo.** Antes da revisão humana, cada capítulo ganha uma tabela "nó × campo × ganha/perde" em `roteiro/`.
+
 ## 9. Backend e dados públicos
 
 ### 9.1 Anonimização (LGPD)

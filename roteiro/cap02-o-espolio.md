@@ -1,8 +1,10 @@
-# Capítulo 2 — O espólio (esboço para discutir)
+# Capítulo 2 — O espólio (esqueleto)
 
 > Período: meados de novembro a 31 de dezembro de 2026.
 > Base: `pesquisa/00-sintese.md`, `06-reacoes-carta.md`, `07-mundo-reacoes.md`, `08-analistas-economia.md`.
-> Status: **esboço**. Nada aqui é YAML ainda.
+> Status: **esqueleto**. Ficam fixas só as perguntas, as datas e as marcas. O texto de cada nó
+> é escrito 2–3 semanas antes da data dele, porque a realidade deste período ainda está andando
+> rápido (a carta e o recuo saíram no mesmo dia). Nada aqui é YAML ainda.
 
 ## A pergunta do capítulo
 
@@ -50,7 +52,10 @@ Com Flávio em Miami, **quem herda a direita** (Michelle, Tarcísio, a própria 
    - Cena própria: o que Flávio faz naquela semana
    - Contrapeso: Xi já parabenizou Lula e o comércio com a China bateu recorde; a escolha em Miami é também sobre Pequim
 
-6. **Finais** (três, conforme o caminho):
+6. **Cena do Alvorada (26/10, fato)** como flashback na abertura ou na "cadeira": Alcolumbre e Motta com Lula falando da vaga. O lobby de Gilmar, Moraes, Dino e Zanin por Pacheco entra como bastidor noticiado (Lauro Jardim). O Acordo aparece com todas as partes pagando e recebendo (ver `painel/00-agregado.md`, ajustes).
+
+7. **Finais** (quatro, conforme o caminho):
+   - **A segunda derrota:** Pacheco rejeitado no Senado, depois de Messias. É derrota do governo e do STF, e vitória de quem ficou de fora do Acordo.
    - **O Natal do Acordo:** Pacheco aprovado, faltas na gaveta, Alcolumbre com votos da direita. Ninguém assina nada.
    - **A guerra de fevereiro:** a direita fecha com Marinho, e a eleição do Senado vira a primeira batalha de 2027.
    - **A herança em disputa:** a direita chega ao ano novo sem dono, com Michelle e Miami falando ao mesmo tempo.
