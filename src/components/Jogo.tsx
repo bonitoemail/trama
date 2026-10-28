@@ -77,26 +77,20 @@ export default function Jogo({ jogo }: { jogo: JogoT }) {
         <p className="aviso">{jogo.aviso}</p>
         <div className="acoes">
           {estado && !confirmarNova && (
-            <button className="botao primario" onClick={() => setTela('partida')}>
-              Continuar partida
-            </button>
+            <Acao primario onClick={() => setTela('partida')}>Continuar partida</Acao>
           )}
-          {estado && !confirmarNova && (
-            <button className="botao" onClick={() => setConfirmarNova(true)}>
-              Nova partida
-            </button>
-          )}
+          {estado && !confirmarNova && <Acao onClick={() => setConfirmarNova(true)}>Nova partida</Acao>}
           {estado && confirmarNova && (
             <>
               <p className="nota">A partida atual será perdida. As escolhas não voltam.</p>
-              <button className="botao primario" onClick={comecar}>Começar do zero</button>
-              <button className="botao" onClick={() => setConfirmarNova(false)}>Manter a atual</button>
+              <Acao primario onClick={comecar}>Começar do zero</Acao>
+              <Acao onClick={() => setConfirmarNova(false)}>Manter a atual</Acao>
             </>
           )}
           {!estado && (
-            <button className="botao primario" onClick={comecar}>
+            <Acao primario onClick={comecar}>
               Começar
-            </button>
+            </Acao>
           )}
         </div>
       </main>
@@ -121,15 +115,15 @@ export default function Jogo({ jogo }: { jogo: JogoT }) {
           ))}
         </ol>
         <p className="ponte">Daqui em diante, nada aconteceu ainda.</p>
-        <button
-          className="botao primario"
+        <Acao
+          primario
           onClick={() => {
             atualizar(novoJogo(jogo));
             setTela('partida');
           }}
         >
           O que acontece agora?
-        </button>
+        </Acao>
       </main>
     );
   }
@@ -154,9 +148,9 @@ export default function Jogo({ jogo }: { jogo: JogoT }) {
             <Fluxograma cap={c} passos={passosDoCap(c.id)} vistos={vistos} />
           </section>
         ))}
-        <button className="botao primario" onClick={comecar}>
+        <Acao primario onClick={comecar}>
           Jogar de novo
-        </button>
+        </Acao>
       </main>
     );
   }
@@ -176,9 +170,9 @@ export default function Jogo({ jogo }: { jogo: JogoT }) {
             <li key={i}>{r}</li>
           ))}
         </ol>
-        <button className="botao primario" onClick={() => atualizar(continuar(jogo, estado))}>
+        <Acao primario onClick={() => atualizar(continuar(jogo, estado))}>
           {estado.proximo === 'FIM' ? 'Ver o desfecho' : 'Próximo capítulo'}
-        </button>
+        </Acao>
       </main>
     );
   }
@@ -186,31 +180,87 @@ export default function Jogo({ jogo }: { jogo: JogoT }) {
   const atual = no(jogo, cap.id, estado.no);
   const opcoes = escolhasExibidas(atual, estado.marcas);
   const primeiroNo = estado.no === cap.inicio;
-  // A ilustração é uma pausa no meio da leitura: entra depois da metade dos parágrafos.
+  const tipo = tipoDeCena(primeiroNo, opcoes.length > 0, Boolean(atual.segue));
+  const eco = tipo === 'consequencia' || tipo === 'final' ? ecoDaEscolha(jogo, estado.historico) : null;
   const textos = paragrafos(atual.texto, estado.marcas);
-  const meio = Math.ceil(textos.length / 2);
   const ilustracao = atual.imagem && (
     // eslint-disable-next-line @next/next/no-img-element
     <img className="ilustracao" src={`/${atual.imagem}`} alt="" />
   );
+  const avancar = () => atualizar(escolher(jogo, estado, null), [`${cap.id}/${atual.id}`]);
 
-  return (
-    <main className="tela cena" key={`${cap.id}/${atual.id}`}>
-      <header className="cabecalho">
-        <span>
-          Capítulo {cap.numero} · {cap.titulo}
-        </span>
-        <span>{cap.periodo}</span>
-      </header>
-      {cap.rascunho && primeiroNo && <p className="rascunho">rascunho</p>}
-      {atual.lugar && <p className="lugar">{atual.lugar}</p>}
+  // Na decisão e na consequência, a ilustração é uma pausa no meio da leitura.
+  // Na abertura e no final, ela abre a cena.
+  const meio = tipo === 'abertura' || tipo === 'final' ? 0 : Math.ceil(textos.length / 2);
+  const corpo = (
+    <>
       {textos.slice(0, meio).map((p, i) => (
         <p key={i} className="texto">{p}</p>
       ))}
-      {ilustracao}
+      {meio > 0 && ilustracao}
       {textos.slice(meio).map((p, i) => (
         <p key={meio + i} className="texto">{p}</p>
       ))}
+    </>
+  );
+
+  if (tipo === 'abertura') {
+    return (
+      <main className="tela cena cena-abertura" key={`${cap.id}/${atual.id}`}>
+        <div className="hero">
+          {ilustracao}
+          <div className="hero-titulo">
+            <p className="rotulo">Capítulo {cap.numero}</p>
+            <h1>{cap.titulo}</h1>
+            <p className="periodo">{cap.periodo}</p>
+            {cap.rascunho && <p className="rascunho">rascunho</p>}
+          </div>
+        </div>
+        {atual.lugar && <p className="lugar">{atual.lugar}</p>}
+        {corpo}
+        <div className="acoes-cena">
+          <Acao primario onClick={avancar}>Começar o capítulo</Acao>
+        </div>
+      </main>
+    );
+  }
+
+  if (tipo === 'consequencia') {
+    return (
+      <main className="tela cena cena-consequencia" key={`${cap.id}/${atual.id}`}>
+        <Cabecalho numero={cap.numero} titulo={cap.titulo} periodo={cap.periodo} />
+        <article className="despacho">
+          {eco && <p className="eco">Porque {eco}…</p>}
+          {atual.lugar && <p className="lugar">{atual.lugar}</p>}
+          {corpo}
+        </article>
+        <div className="acoes-cena">
+          <Acao onClick={avancar}>Seguir</Acao>
+        </div>
+      </main>
+    );
+  }
+
+  if (tipo === 'final') {
+    return (
+      <main className="tela cena cena-final" key={`${cap.id}/${atual.id}`}>
+        <div className="hero">{ilustracao}</div>
+        <p className="rotulo desfecho">Desfecho do capítulo {cap.numero}</p>
+        {eco && <p className="eco">Porque {eco}…</p>}
+        {atual.lugar && <p className="lugar">{atual.lugar}</p>}
+        {corpo}
+        <div className="acoes-cena">
+          <Acao primario onClick={avancar}>Fechar o capítulo</Acao>
+        </div>
+      </main>
+    );
+  }
+
+  return (
+    <main className="tela cena" key={`${cap.id}/${atual.id}`}>
+      <Cabecalho numero={cap.numero} titulo={cap.titulo} periodo={cap.periodo} />
+      {atual.lugar && <p className="lugar">{atual.lugar}</p>}
+      {corpo}
       <div className="escolhas">
         {opcoes.length ? (
           opcoes.map(({ escolha: e, status }, i) => (
@@ -233,14 +283,59 @@ export default function Jogo({ jogo }: { jogo: JogoT }) {
             />
           ))
         ) : (
-          <button
-            className="botao primario"
-            onClick={() => atualizar(escolher(jogo, estado, null), [`${cap.id}/${atual.id}`])}
-          >
-            Continuar
-          </button>
+          <Acao primario onClick={avancar}>Continuar</Acao>
         )}
       </div>
     </main>
+  );
+}
+
+type TipoCena = 'abertura' | 'decisao' | 'consequencia' | 'final';
+
+/** O tipo sai da estrutura do roteiro; nenhum campo extra no YAML. */
+function tipoDeCena(primeiro: boolean, temEscolha: boolean, segue: boolean): TipoCena {
+  if (primeiro && !temEscolha) return 'abertura';
+  if (temEscolha) return 'decisao';
+  return segue ? 'consequencia' : 'final';
+}
+
+/** O rótulo da última escolha feita, pronto para "Porque …". */
+function ecoDaEscolha(jogo: JogoT, historico: Passo[]): string | null {
+  const ultimo = historico[historico.length - 1];
+  if (!ultimo?.escolha) return null;
+  const rotulo = no(jogo, ultimo.capitulo, ultimo.no).escolhas?.find((e) => e.id === ultimo.escolha)?.rotulo;
+  if (!rotulo) return null;
+  // "O relator…" vira "o relator…"; nomes próprios ficam como estão.
+  return /^(O|A|Os|As) /.test(rotulo) ? rotulo[0].toLowerCase() + rotulo.slice(1) : rotulo;
+}
+
+function Cabecalho({ numero, titulo, periodo }: { numero: number; titulo: string; periodo: string }) {
+  return (
+    <header className="cabecalho">
+      <span>
+        Capítulo {numero} · {titulo}
+      </span>
+      <span>{periodo}</span>
+    </header>
+  );
+}
+
+/** Botão de ação (não é escolha): texto à esquerda, seta à direita. */
+function Acao({
+  children,
+  onClick,
+  primario = false,
+}: {
+  children: React.ReactNode;
+  onClick: () => void;
+  primario?: boolean;
+}) {
+  return (
+    <button type="button" className={`botao ${primario ? 'primario' : ''}`} onClick={onClick}>
+      <span>{children}</span>
+      <span className="seta" aria-hidden>
+        →
+      </span>
+    </button>
   );
 }
