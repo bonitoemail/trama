@@ -9,6 +9,7 @@ import {
   paragrafos,
   vale,
 } from './engine';
+import { contarCaminhos, linhaDoTempo } from './historia';
 import { carregarJogo } from './load';
 import { JogoSchema, type Jogo } from './schema';
 import { validar } from './validate';
@@ -138,6 +139,34 @@ describe('trava de escolha real', () => {
     const j = jogoTravado();
     j.capitulos[0].nos[0].escolhas![0].real = { data: '04/11/2026' };
     expect(validar(j).erros.some((e) => e.includes('mais de uma'))).toBe(true);
+  });
+});
+
+describe('linha do tempo', () => {
+  it('refaz a partida com as escolhas e as portas que ficaram fechadas', () => {
+    const j = jogoMinimo();
+    let s = escolher(j, novoJogo(j), 'x');
+    s = escolher(j, s, null);
+    s = escolher(j, s, 'so_x');
+    const linha = linhaDoTempo(j, s.historico);
+    expect(linha.map((m) => [m.no, m.escolha, m.alternativas])).toEqual([
+      ['a', 'X', 1],
+      ['b', null, 0],
+      ['c', 'Só X', 1],
+    ]);
+  });
+
+  it('não conta como alternativa uma escolha escondida pelas marcas', () => {
+    const j = jogoMinimo();
+    let s = escolher(j, novoJogo(j), 'y');
+    s = escolher(j, s, null);
+    s = escolher(j, s, 'todos');
+    expect(linhaDoTempo(j, s.historico)[2].alternativas).toBe(0);
+  });
+
+  it('conta os caminhos distintos de cada capítulo', () => {
+    // c1: x→so_x, x→todos, y→todos. c2: um caminho só (sem escolhas).
+    expect(contarCaminhos(jogoMinimo())).toEqual({ c1: 3, c2: 1 });
   });
 });
 

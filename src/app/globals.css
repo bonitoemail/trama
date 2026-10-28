@@ -398,111 +398,119 @@ button {
   font-weight: 400;
   margin: 4px 0 24px;
 }
-.caminho {
-  font-family: var(--sans);
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--texto-2);
-  padding-left: 20px;
-  margin: 8px 0 32px;
-}
-.caminho li {
-  margin-bottom: 6px;
-}
-.resumo-cap h3 {
-  font-weight: 400;
-  font-size: 20px;
-  margin: 32px 0 0;
-}
 .fim .botao {
   margin-top: 32px;
 }
 
-/* Fluxograma */
-.fluxo {
-  margin: 8px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* Linha do tempo (LinhaDoTempo.tsx): a partida como crônica, um fio vertical com marcos. */
+.titulo-linha {
+  font-weight: 400;
+  font-size: 26px;
+  margin: 40px 0 4px;
 }
-.fluxo svg {
+.resumo-cap .rotulo {
+  margin: 20px 0 4px;
+}
+.linha {
+  margin: 8px 0 8px;
+}
+.linha ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+.linha ol::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 14px;
+  bottom: 14px;
+  width: 1px;
+  background: var(--linha);
+}
+.linha li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 14px 0 14px 26px;
+}
+.linha .marco {
+  position: absolute;
+  left: 0;
+  top: 22px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--fundo);
+  border: 1px solid var(--texto-3);
+}
+.linha li.decisao .marco {
+  background: var(--real);
+  border-color: var(--real);
+}
+.linha .mini {
   display: block;
-  overflow: visible;
+  width: 96px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 4px;
 }
-.fluxo figcaption {
+.linha li:not(:has(.mini)) {
+  grid-template-columns: 1fr;
+}
+.linha .conteudo p {
+  margin: 0;
+}
+.linha .quando {
   font-family: var(--sans);
-  font-size: 13px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texto-3);
+  margin-bottom: 4px !important;
+}
+.linha .feita {
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--texto);
+}
+.linha .resumo {
+  font-size: 15px;
+  line-height: 1.45;
+  font-style: italic;
   color: var(--texto-2);
-  text-align: center;
-  min-height: 20px;
-  margin-top: 8px;
 }
-.aresta {
-  fill: none;
-  stroke-width: 1.5;
+.linha .outras {
+  margin-top: 6px !important;
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--texto-3);
 }
-.aresta.oculta {
-  stroke: var(--linha);
-  stroke-dasharray: 3 4;
+.linha .outras::before {
+  content: '⟡ ';
 }
-.aresta.vista {
-  stroke: var(--texto-3);
+.linha .outras.real {
+  color: var(--real);
 }
-.aresta.percorrida {
-  stroke: var(--destaque);
-  stroke-width: 2.5;
+.linha li.acontecimento .mini {
+  opacity: 0.75;
 }
-.aresta.real {
-  stroke: var(--real);
-  stroke-dasharray: none;
-}
-/* Miniaturas do mapa */
-.mini {
-  cursor: pointer;
-}
-.mini .moldura {
-  fill: none;
-  stroke-width: 1.5;
-}
-.mini .fundo {
-  fill: #16161a;
-}
-.mini.percorrido .moldura {
-  stroke: var(--destaque);
-  stroke-width: 2;
-}
-.mini.visto .fundo {
-  fill: #1c1c21;
-}
-.interrogacao {
-  font-family: var(--serif);
+.dimensao {
+  margin: 24px 0 8px;
+  padding: 18px 20px;
+  border: 1px solid var(--linha);
+  border-radius: 4px;
   font-size: 18px;
-  fill: var(--texto-3);
+  line-height: 1.45;
+  color: var(--texto-2);
 }
-.mini.visto .moldura {
-  stroke: var(--texto-3);
-}
-.mini.oculto .moldura {
-  stroke: var(--linha);
-  stroke-dasharray: 3 3;
-}
-.mini.sel .moldura {
-  stroke: var(--real);
-  stroke-width: 2.5;
-}
-.saida circle {
-  fill: var(--fundo);
-  stroke: var(--texto-3);
-  stroke-width: 1.5;
-}
-.saida.percorrido circle {
-  fill: var(--destaque);
-  stroke: var(--destaque);
-}
-.cadeado {
-  fill: none;
-  stroke: var(--texto-3);
-  stroke-width: 1.2;
+.dimensao strong {
+  color: var(--real);
+  font-weight: 400;
+  font-size: 22px;
 }
 
 /* ---------- Tipos de cena (tipoDeCena em Jogo.tsx) ---------- */

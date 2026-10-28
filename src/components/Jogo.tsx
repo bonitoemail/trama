@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import BotaoEscolha from './BotaoEscolha';
-import Fluxograma from './Fluxograma';
+import LinhaDoTempo from './LinhaDoTempo';
+import { linhaDoTempo } from '@/engine/historia';
 import {
   type Estado,
   type Passo,
@@ -19,7 +20,7 @@ import { apagarPartida, lerPartida, lerVistos, salvarPartida, salvarVistos } fro
 
 type Tela = 'carregando' | 'abertura' | 'prologo' | 'partida';
 
-export default function Jogo({ jogo }: { jogo: JogoT }) {
+export default function Jogo({ jogo, caminhos }: { jogo: JogoT; caminhos: Record<string, number> }) {
   const [tela, setTela] = useState<Tela>('carregando');
   const [estado, setEstado] = useState<Estado | null>(null);
   const [vistos, setVistos] = useState<Set<string>>(new Set());
@@ -129,7 +130,6 @@ export default function Jogo({ jogo }: { jogo: JogoT }) {
   }
 
   const cap = capitulo(jogo, estado.capitulo);
-  const passosDoCap = (capId: string): Passo[] => estado.historico.filter((p) => p.capitulo === capId);
 
   if (estado.fase === 'fim_jogo') {
     const capsJogados = [...new Set(estado.historico.map((p) => p.capitulo))].map((id) => capitulo(jogo, id));
@@ -140,12 +140,16 @@ export default function Jogo({ jogo }: { jogo: JogoT }) {
         {paragrafos(jogo.epilogo.texto, estado.marcas).map((p, i) => (
           <p key={i} className="texto">{p}</p>
         ))}
+        <h3 className="titulo-linha">A linha do tempo que você escolheu</h3>
         {capsJogados.map((c) => (
           <section key={c.id} className="resumo-cap">
-            <h3>
-              {c.numero}. {c.titulo}
-            </h3>
-            <Fluxograma cap={c} passos={passosDoCap(c.id)} vistos={vistos} />
+            <p className="rotulo">
+              Capítulo {c.numero} · {c.titulo}
+            </p>
+            <LinhaDoTempo
+              momentos={linhaDoTempo(jogo, estado.historico).filter((m) => m.capitulo === c.id)}
+              caminhosPossiveis={caminhos[c.id] ?? 0}
+            />
           </section>
         ))}
         <Acao primario onClick={comecar}>
@@ -156,20 +160,14 @@ export default function Jogo({ jogo }: { jogo: JogoT }) {
   }
 
   if (estado.fase === 'fim_capitulo') {
-    const passos = passosDoCap(cap.id);
-    const escolhidas = passos
-      .filter((p) => p.escolha)
-      .map((p) => no(jogo, cap.id, p.no).escolhas!.find((e) => e.id === p.escolha)!.rotulo);
     return (
       <main className="tela fim-cap">
-        <p className="rotulo">Fim do capítulo {cap.numero}</p>
-        <h2>{cap.titulo}</h2>
-        <Fluxograma cap={cap} passos={passos} vistos={vistos} />
-        <ol className="caminho">
-          {escolhidas.map((r, i) => (
-            <li key={i}>{r}</li>
-          ))}
-        </ol>
+        <p className="rotulo">Fim do capítulo {cap.numero} · {cap.titulo}</p>
+        <h2>A linha do tempo que você escolheu</h2>
+        <LinhaDoTempo
+          momentos={linhaDoTempo(jogo, estado.historico).filter((m) => m.capitulo === cap.id)}
+          caminhosPossiveis={caminhos[cap.id] ?? 0}
+        />
         <Acao primario onClick={() => atualizar(continuar(jogo, estado))}>
           {estado.proximo === 'FIM' ? 'Ver o desfecho' : 'Próximo capítulo'}
         </Acao>
