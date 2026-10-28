@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trama · sketch de estilo 2</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #1a1714; color: #efe6d2; font-family: system-ui, sans-serif; }
+  header, section { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+  header { padding-top: 32px; }
+  h1, h2 { font-family: Georgia, serif; font-weight: 400; }
+  h1 { font-size: 32px; margin: 0 0 8px; }
+  h2 { font-size: 22px; margin: 32px 0 4px; }
+  p { color: #a89f8e; line-height: 1.5; max-width: 720px; margin: 0 0 12px; }
+  .grade { display: grid; grid-template-columns: 1.6fr 1fr; gap: 12px; }
+  .card { border-radius: 8px; overflow: hidden; }
+  .card svg { display: block; width: 100%; height: auto; }
+  .legenda { font-size: 12px; color: #8d8473; padding: 6px 2px 0; }
+  @media (max-width: 720px) { .grade { grid-template-columns: 1fr; } }
+
+  /* Uma família terrosa; cada frente puxa a temperatura para um lado (como as camadas de tempo da Garoupa) */
+  .mundo     { --papel: #e9e1cf; --c1: #b9b49a; --c2: #7f8a76; --c3: #3c3a32; --acc: #d9a24a; --roupa: #4a4c44; --pele: #e8c9a3; }
+  .congresso { --papel: #efe2c8; --c1: #d9b48a; --c2: #b9663f; --c3: #4a2c1f; --acc: #e8b04f; --roupa: #5a3424; --pele: #ecc79c; }
+  .supremo   { --papel: #2e2420; --c1: #4a3a30; --c2: #6e5443; --c3: #1a1310; --acc: #e3a347; --roupa: #120d0b; --pele: #d9b38a; }
+
+  .papel { fill: var(--papel); } .c1 { fill: var(--c1); } .c2 { fill: var(--c2); } .c3 { fill: var(--c3); }
+  .acc { fill: var(--acc); } .roupa { fill: var(--roupa); } .pele { fill: var(--pele); } .olho { fill: #1a1310; }
+  .gouache { filter: url(#borda); }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- Borda levemente irregular, como pincel -->
+    <filter id="borda" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="r"/>
+      <feDisplacementMap in="SourceGraphic" in2="r" scale="3"/>
+    </filter>
+    <!-- Grão de papel e textura de gouache por cima de tudo -->
+    <filter id="grao" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" seed="9" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.1  0 0 0 0 0.08  0 0 0 0 0.05  0 0 0 0.28 0"/>
+    </filter>
+    <filter id="manchas" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" seed="2" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 0.95  0 0 0 0 0.85  0 0 0 0.18 -0.04"/>
+    </filter>
+
+    <!-- Personagem genérico, corpo de blocos, mãos de luvinha, olhos de pontinho -->
+    <symbol id="politico" viewBox="0 0 60 150">
+      <ellipse class="c3" cx="30" cy="146" rx="20" ry="3.5" opacity="0.25"/>
+      <rect class="roupa" x="22" y="112" width="7" height="32" rx="2"/>
+      <rect class="roupa" x="31" y="112" width="7" height="32" rx="2"/>
+      <path class="roupa" d="M14 64 q16 -8 32 0 l2 52 h-36 z"/>
+      <path class="acc" d="M28 60 l2 22 l2 -22 z"/>
+      <ellipse class="pele" cx="13" cy="114" rx="3.5" ry="4.5"/>
+      <ellipse class="pele" cx="47" cy="114" rx="3.5" ry="4.5"/>
+      <rect class="pele" x="26" y="52" width="8" height="10"/>
+      <ellipse class="pele" cx="30" cy="38" rx="15" ry="17"/>
+      <path class="c3" d="M15 36 q1 -20 15 -20 q15 0 15 20 q-4 -10 -15 -10 q-11 0 -15 10 z"/>
+      <!-- olhos olhando para o lado: a emoção está na direção -->
+      <circle class="olho" cx="32" cy="40" r="1.6"/>
+      <circle class="olho" cx="40" cy="40" r="1.6"/>
+    </symbol>
+    <symbol id="politica" viewBox="0 0 60 150">
+      <ellipse class="c3" cx="30" cy="146" rx="18" ry="3.5" opacity="0.25"/>
+      <rect class="pele" x="23" y="122" width="5" height="22" rx="2"/>
+      <rect class="pele" x="32" y="122" width="5" height="22" rx="2"/>
+      <path class="c2" d="M16 64 q14 -8 28 0 l6 62 h-40 z"/>
+      <ellipse class="pele" cx="14" cy="108" rx="3.5" ry="4.5"/>
+      <ellipse class="pele" cx="46" cy="108" rx="3.5" ry="4.5"/>
+      <rect class="pele" x="26" y="52" width="8" height="10"/>
+      <ellipse class="pele" cx="30" cy="38" rx="14" ry="16"/>
+      <path class="c3" d="M15 40 q-2 -24 15 -24 q17 0 15 24 q-3 -14 -15 -14 q-12 0 -15 14 z"/>
+      <circle class="c3" cx="30" cy="16" r="7"/>
+      <circle class="olho" cx="24" cy="39" r="1.5"/>
+      <circle class="olho" cx="31" cy="39" r="1.5"/>
+    </symbol>
+    <symbol id="barbudo" viewBox="0 0 60 150">
+      <ellipse class="c3" cx="30" cy="146" rx="21" ry="3.5" opacity="0.25"/>
+      <rect class="roupa" x="21" y="112" width="8" height="32" rx="2"/>
+      <rect class="roupa" x="31" y="112" width="8" height="32" rx="2"/>
+      <path class="roupa" d="M12 66 q18 -10 36 0 l2 50 h-40 z"/>
+      <ellipse class="pele" cx="12" cy="114" rx="3.5" ry="4.5"/>
+      <ellipse class="pele" cx="48" cy="114" rx="3.5" ry="4.5"/>
+      <ellipse class="pele" cx="30" cy="40" rx="16" ry="18"/>
+      <path class="c1" d="M16 42 q2 22 14 22 q12 0 14 -22 q-4 10 -14 10 q-10 0 -14 -10 z"/>
+      <circle class="olho" cx="25" cy="36" r="1.6"/>
+      <circle class="olho" cx="35" cy="36" r="1.6"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <h1>Sketch 2 · storybook, em vetor</h1>
+  <p>As regras da Garoupa aplicadas em SVG: gouache chapado, grão de papel, borda de pincel, corpos de blocos, mãos de luvinha, olhos de pontinho e muito espaço negativo. As frentes não trocam de cor: elas puxam a temperatura de uma mesma família terrosa, como as camadas de tempo da Garoupa.</p>
+</header>
+
+<template id="tpl-mundo">
+  <div class="grade">
+    <div><div class="card"><svg viewBox="0 0 480 300">
+      <rect class="papel" width="480" height="300"/>
+      <g class="gouache">
+        <rect class="acc" x="330" y="70" width="56" height="56" rx="28"/>
+        <rect class="c1" y="196" width="480" height="104"/>
+        <path class="c2" d="M60 196 q4 -56 2 -96 h4 q4 46 -1 96 z"/>
+        <path class="c2" d="M64 100 q-30 -8 -44 6 q26 -2 44 -2 z M64 100 q28 -12 44 0 q-26 0 -44 4 z M64 100 q-10 -24 -32 -26 q16 12 30 28 z"/>
+        <!-- jato e escada -->
+        <path class="c3" d="M190 168 q40 -10 120 -6 l22 6 l-22 6 q-80 4 -120 -6 z"/>
+        <path class="c3" d="M250 166 l26 -24 h8 l-16 24 z"/>
+        <rect class="papel" x="216" y="164" width="5" height="4" rx="1"/><rect class="papel" x="228" y="164" width="5" height="4" rx="1"/><rect class="papel" x="240" y="164" width="5" height="4" rx="1"/>
+        <path class="c3" d="M210 174 l-22 26 h6 l22 -26 z"/>
+        <!-- sombra em bloco do jato -->
+        <path class="c2" d="M170 206 q60 -6 150 0 v6 q-90 4 -150 0 z" opacity="0.5"/>
+      </g>
+      <use href="#politico" x="176" y="150" width="28" height="70"/>
+      <rect width="480" height="300" filter="url(#manchas)"/>
+      <rect width="480" height="300" filter="url(#grao)"/>
+    </svg></div><div class="legenda">Mundo · Miami, 28 de outubro. Figura pequena, plano enorme.</div></div>
+    <div><div class="card"><svg viewBox="0 0 300 300">
+      <rect class="papel" width="300" height="300"/>
+      <g class="gouache"><rect class="c1" y="236" width="300" height="64"/></g>
+      <use href="#politico" x="30" y="110" width="80" height="200"/>
+      <use href="#politica" x="110" y="116" width="76" height="190"/>
+      <use href="#barbudo" x="190" y="108" width="82" height="205"/>
+      <rect width="300" height="300" filter="url(#manchas)"/>
+      <rect width="300" height="300" filter="url(#grao)"/>
+    </svg></div><div class="legenda">Elenco genérico. O da esquerda desvia o olhar.</div></div>
+  </div>
+</template>
+
+<template id="tpl-congresso">
+  <div class="grade">
+    <div><div class="card"><svg viewBox="0 0 480 300">
+      <rect class="papel" width="480" height="300"/>
+      <g class="gouache">
+        <rect class="acc" x="70" y="56" width="40" height="40" rx="20"/>
+        <rect class="c1" y="214" width="480" height="86"/>
+        <rect class="c2" x="224" y="86" width="14" height="112"/>
+        <rect class="c2" x="242" y="86" width="14" height="112"/>
+        <rect class="c3" x="70" y="196" width="340" height="18"/>
+        <path class="c2" d="M128 196 a36 28 0 0 1 72 0 z"/>
+        <path class="c2" d="M280 178 h92 q-8 18 -46 18 q-38 0 -46 -18 z"/>
+        <!-- luz em bloco nas janelas -->
+        <rect class="acc" x="228" y="100" width="6" height="6"/><rect class="acc" x="246" y="130" width="6" height="6"/>
+      </g>
+      <use href="#politica" x="300" y="226" width="20" height="50"/>
+      <use href="#politico" x="324" y="224" width="20" height="52"/>
+      <rect width="480" height="300" filter="url(#manchas)"/>
+      <rect width="480" height="300" filter="url(#grao)"/>
+    </svg></div><div class="legenda">Congresso · Brasília, fim de tarde. Dois personagens conversando longe da porta.</div></div>
+    <div><div class="card"><svg viewBox="0 0 300 300">
+      <rect class="papel" width="300" height="300"/>
+      <g class="gouache"><rect class="c1" y="236" width="300" height="64"/></g>
+      <use href="#politico" x="30" y="110" width="80" height="200"/>
+      <use href="#politica" x="110" y="116" width="76" height="190"/>
+      <use href="#barbudo" x="190" y="108" width="82" height="205"/>
+      <rect width="300" height="300" filter="url(#manchas)"/>
+      <rect width="300" height="300" filter="url(#grao)"/>
+    </svg></div><div class="legenda">Mesmo elenco, temperatura do Congresso.</div></div>
+  </div>
+</template>
+
+<template id="tpl-supremo">
+  <div class="grade">
+    <div><div class="card"><svg viewBox="0 0 480 300">
+      <rect class="papel" width="480" height="300"/>
+      <g class="gouache">
+        <!-- colunata do STF sugerida por blocos -->
+        <rect class="c1" x="60" y="110" width="360" height="14"/>
+        <path class="c2" d="M90 124 h20 l-6 76 h-8 z M160 124 h20 l-6 76 h-8 z M230 124 h20 l-6 76 h-8 z M300 124 h20 l-6 76 h-8 z M370 124 h20 l-6 76 h-8 z"/>
+        <rect class="c1" y="200" width="480" height="100"/>
+        <!-- um único bloco de luz entrando -->
+        <path class="acc" d="M232 200 h18 l40 100 h-98 z" opacity="0.85"/>
+      </g>
+      <use href="#barbudo" x="224" y="214" width="34" height="86"/>
+      <rect width="480" height="300" filter="url(#manchas)"/>
+      <rect width="480" height="300" filter="url(#grao)"/>
+    </svg></div><div class="legenda">Supremo · momento simbólico: fundo escuro, um bloco de luz, silhueta.</div></div>
+    <div><div class="card"><svg viewBox="0 0 300 300">
+      <rect class="papel" width="300" height="300"/>
+      <g class="gouache"><rect class="c1" y="236" width="300" height="64"/></g>
+      <use href="#politico" x="30" y="110" width="80" height="200"/>
+      <use href="#politica" x="110" y="116" width="76" height="190"/>
+      <use href="#barbudo" x="190" y="108" width="82" height="205"/>
+      <rect width="300" height="300" filter="url(#manchas)"/>
+      <rect width="300" height="300" filter="url(#grao)"/>
+    </svg></div><div class="legenda">Mesmo elenco, temperatura do Supremo.</div></div>
+  </div>
+</template>
+
+<section class="mundo"><h2>Frente Mundo · sálvia e oliva lavados</h2><div data-tpl="tpl-mundo"></div></section>
+<section class="congresso"><h2>Frente Congresso · terracota</h2><div data-tpl="tpl-congresso"></div></section>
+<section class="supremo"><h2>Frente Supremo · umbra (momento simbólico)</h2><div data-tpl="tpl-supremo"></div></section>
+<div style="height:48px"></div>
+
+<script>
+  for (const slot of document.querySelectorAll('[data-tpl]')) {
+    slot.appendChild(document.getElementById(slot.dataset.tpl).content.cloneNode(true));
+  }
+</script>
+</body>
+</html>

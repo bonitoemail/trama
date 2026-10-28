@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1344" height="768" viewBox="0 0 480 274">
+  <!-- Base vetorial para img2img: composição e monumento corretos; a IA só pinta. -->
+  <rect width="480" height="274" fill="#efe2c8"/>
+  <circle cx="90" cy="70" r="20" fill="#e2a94e"/>
+  <rect y="196" width="480" height="78" fill="#d9b48a"/>
+  <rect x="224" y="70" width="14" height="112" fill="#b9663f"/>
+  <rect x="242" y="70" width="14" height="112" fill="#b9663f"/>
+  <rect x="224" y="112" width="32" height="4" fill="#d9b48a"/>
+  <rect x="70" y="180" width="340" height="16" fill="#4a2c1f"/>
+  <path d="M128 180 a36 28 0 0 1 72 0 z" fill="#b9663f"/>
+  <path d="M280 162 h92 q-8 18 -46 18 q-38 0 -46 -18 z" fill="#b9663f"/>
+  <rect x="228" y="84" width="5" height="5" fill="#e2a94e"/>
+  <rect x="246" y="128" width="5" height="5" fill="#e2a94e"/>
+  <rect x="228" y="150" width="5" height="5" fill="#e2a94e"/>
+  <!-- duas figuras pequenas conversando -->
+  <g fill="#3a2418">
+    <rect x="304" y="222" width="7" height="24" rx="2"/><circle cx="307.5" cy="216" r="5" fill="#ecc79c"/>
+    <path d="M302.5 214 q5 -7 10 0 z"/>
+    <rect x="318" y="221" width="8" height="25" rx="2"/><circle cx="322" cy="215" r="5" fill="#ecc79c"/>
+    <path d="M317 213 q5 -7 10 0 z"/>
+  </g>
+  <circle cx="309" cy="216" r="0.7" fill="#1a1310"/><circle cx="320.5" cy="215" r="0.7" fill="#1a1310"/>
+</svg>

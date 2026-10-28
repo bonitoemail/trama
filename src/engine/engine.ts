@@ -58,8 +58,31 @@ export function no(jogo: Jogo, capId: string, noId: string): No {
   return n;
 }
 
-export function escolhasDisponiveis(n: No, marcas: string[]): Escolha[] {
+/** Escolhas que valem para as marcas atuais (inclui as que a realidade travou). */
+export function escolhasVisiveis(n: No, marcas: string[]): Escolha[] {
   return (n.escolhas ?? []).filter((e) => vale(e.se, marcas));
+}
+
+/**
+ * Escolhas que o jogador pode fazer. Se a realidade já decidiu o nó
+ * (uma escolha visível tem `real`), só ela pode ser escolhida.
+ */
+export function escolhasDisponiveis(n: No, marcas: string[]): Escolha[] {
+  const visiveis = escolhasVisiveis(n, marcas);
+  const real = visiveis.find((e) => e.real);
+  return real ? [real] : visiveis;
+}
+
+export type StatusEscolha = 'livre' | 'real' | 'travada';
+
+/** Para a interface: todas as escolhas visíveis, com o que a realidade fez com cada uma. */
+export function escolhasExibidas(n: No, marcas: string[]): Array<{ escolha: Escolha; status: StatusEscolha }> {
+  const visiveis = escolhasVisiveis(n, marcas);
+  const decidido = visiveis.some((e) => e.real);
+  return visiveis.map((escolha) => ({
+    escolha,
+    status: escolha.real ? 'real' : decidido ? 'travada' : 'livre',
+  }));
 }
 
 export function saidaDoCapitulo(cap: Capitulo, marcas: string[]): string {

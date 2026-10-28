@@ -1,4 +1,4 @@
-versao: "0.1.0"
+versao: "0.2.0"
 titulo: Trama
 aviso: >
   Trama é uma obra de ficção especulativa. Figuras públicas aparecem como
@@ -21,9 +21,15 @@ prologo:
     fonte: https://www.gazetadopovo.com.br/republica/pf-confirma-flavio-bolsonaro-deixou-brasil/
   - data: 27 de outubro de 2026
     texto: >
-      Flávio deixa o Brasil rumo aos Estados Unidos. O governo Trump sinaliza que concederá
-      visto. Aliados falam em asilo, sem confirmação oficial.
+      Flávio deixa o Brasil rumo aos Estados Unidos. A rota é disputada: relatos falam em
+      travessia por Foz do Iguaçu e escala no Equador; o governo argentino nega a passagem.
     fonte: https://www.nexojornal.com.br/expresso/2026/10/27/flavio-bolsonaro-fugiu-argentina-pf-passaporte
+  - data: 28 de outubro de 2026
+    texto: >
+      Flávio desembarca em Miami. O Departamento de Estado confirma vistos para ele e a família.
+      Aliados falam em asilo, sem confirmação oficial. Ele não é foragido: é investigado em dois
+      inquéritos, sem denúncia, e continua senador até 31 de janeiro.
+    fonte: https://www.metropoles.com/mundo/governo-trump-confirma-emissao-de-vistos-para-flavio-bolsonaro-e-familia
 
 primeiro_capitulo: cap01
 
@@ -31,12 +37,16 @@ epilogo:
   id: epilogo
   titulo: Até aqui
   texto:
-    - Este é o fim do protótipo. A história continua nos próximos capítulos.
     - se: { tem: flavio_preso }
-      texto: Flávio passou o fim de 2026 numa cela em Brasília, e a direita aprendeu a falar sem ele.
+      texto: Flávio passou o fim de 2026 numa cela em Brasília. A direita vai ter que aprender a falar sem ele, ou por ele.
     - se: { tem: flavio_asilo }
-      texto: Flávio terminou 2026 em Miami, com o asilo transformado em causa diplomática.
-    - se: { tem: michelle_lidera }
-      texto: Quem saiu do vácuo foi Michelle.
-    - se: { tem: tarcisio_2030 }
-      texto: Em São Paulo, alguém já começou a contar os dias até 2030.
+      texto: Flávio terminou 2026 em Miami, com o asilo transformado em assunto entre dois governos.
+    - se: { tem: flavio_exilio }
+      texto: Flávio terminou 2026 em Miami, sem asilo e sem pressa, falando para o Brasil por uma tela.
+    - se: { todas: [{ tem: flavio_volta }, { nao_tem: flavio_preso }] }
+      texto: Flávio voltou e está livre. Por enquanto.
+    - se: { tem: pl_negocia }
+      texto: Em Brasília, o PL começou a conversar. Em algum gabinete, alguém anotou o preço.
+    - se: { tem: pl_obstrui }
+      texto: Em Brasília, o PL escolheu a briga. O Centrão escolheu esperar para ver quem paga mais.
+    - Este é o fim do capítulo 1. A história continua no capítulo 2, que ainda está sendo escrito.

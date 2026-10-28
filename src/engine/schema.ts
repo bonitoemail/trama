@@ -32,11 +32,18 @@ export const TextoSchema = z.union([
   z.array(z.union([z.string(), TrechoCondicionalSchema])).min(1),
 ]);
 
+/** A realidade decidiu este nó: a escolha fica travada como o que aconteceu (DESIGN 6.1). */
+export const RealSchema = z.strictObject({
+  data: z.string(),
+  fonte: z.string().optional(),
+});
+
 export const EscolhaSchema = z.strictObject({
   id: z.string(),
   rotulo: z.string(),
   /** Só aparece se a condição valer. */
   se: CondicaoSchema.optional(),
+  real: RealSchema.optional(),
   marca: z.array(z.string()).optional(),
   /** Próximo nó do capítulo. Sem isso, a escolha encerra o capítulo. */
   vai_para: z.string().optional(),
@@ -46,6 +53,8 @@ export const NoSchema = z.strictObject({
   id: z.string(),
   /** Quem está em cena, ou onde (ex.: "Miami, 28 de outubro"). */
   lugar: z.string().optional(),
+  /** Caminho em public/ (ex.: "imagens/cap01/abertura.webp"). */
+  imagem: z.string().optional(),
   texto: TextoSchema,
   escolhas: z.array(EscolhaSchema).optional(),
   /** Nó só de texto: segue direto para outro nó. */

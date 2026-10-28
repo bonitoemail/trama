@@ -1,6 +1,7 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "trama", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"], "port": 3000 }
+    { "name": "trama", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"], "port": 3000 },
+    { "name": "galeria", "runtimeExecutable": "C:/Users/USER/openmontage/.venv/Scripts/python.exe", "runtimeArgs": ["-m", "http.server", "8765", "--directory", "C:/Users/USER/trama/estilo"], "port": 8765 }
   ]
 }

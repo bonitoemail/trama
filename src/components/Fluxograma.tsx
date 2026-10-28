@@ -21,6 +21,9 @@ export default function Fluxograma({ cap, passos, vistos }: Props) {
   const ultimo = passos[passos.length - 1];
   if (ultimo) percorridos.add(SAIDA);
 
+  const reais = new Set(
+    cap.nos.flatMap((n) => (n.escolhas ?? []).filter((e) => e.real).map((e) => `${n.id}:${e.id}`)),
+  );
   const arestaPercorrida = (de: string, escolha: string | null) =>
     passos.some((p) => p.no === de && p.escolha === escolha);
   const noVisto = (id: string) => id === SAIDA || percorridos.has(id) || vistos.has(`${cap.id}/${id}`);
@@ -50,7 +53,8 @@ export default function Fluxograma({ cap, passos, vistos }: Props) {
           const leque = (k - (irmas.length - 1) / 2) * 26;
           const d = `M ${de.x} ${de.y} C ${de.x + leque} ${meio}, ${para.x + leque} ${meio}, ${para.x} ${para.y}`;
           const cls = arestaPercorrida(a.de, a.escolha) ? 'percorrida' : arestaVista(a.de, a.escolha) ? 'vista' : 'oculta';
-          return <path key={i} d={d} className={`aresta ${cls}`} />;
+          const real = a.escolha !== null && reais.has(`${a.de}:${a.escolha}`) ? 'real' : '';
+          return <path key={i} d={d} className={`aresta ${cls} ${real}`} />;
         })}
         {layout.nos.map((n) => {
           const saida = n.id === SAIDA;

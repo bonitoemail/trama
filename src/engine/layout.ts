@@ -2,7 +2,8 @@ import type { Capitulo } from './schema';
 
 /**
  * Posições do fluxograma de um capítulo, de cima para baixo (pensado para celular).
- * Profundidade = menor distância a partir do início. Um nó extra "saida" fecha o capítulo.
+ * Profundidade = caminho mais longo a partir do início, para que um nó onde vários galhos
+ * convergem fique abaixo de todos eles. Um nó extra "saida" fecha o capítulo.
  */
 
 export const SAIDA = '__saida__';
@@ -47,6 +48,7 @@ export function layoutDoCapitulo(cap: Capitulo): Layout {
   const arestas = arestasDoCapitulo(cap);
   const prof = new Map<string, number>([[cap.inicio, 0]]);
   const ordem: string[] = [cap.inicio];
+  // Ordem de descoberta (largura) decide a posição dentro da linha.
   for (let i = 0; i < ordem.length; i++) {
     const atual = ordem[i];
     for (const a of arestas) {
@@ -54,6 +56,19 @@ export function layoutDoCapitulo(cap: Capitulo): Layout {
       prof.set(a.para, prof.get(atual)! + 1);
       ordem.push(a.para);
     }
+  }
+  // Relaxa para o caminho mais longo; o limite de voltas protege contra ciclos.
+  for (let volta = 0; volta < cap.nos.length; volta++) {
+    let mudou = false;
+    for (const a of arestas) {
+      if (a.para === SAIDA || !prof.has(a.de) || a.de === a.para) continue;
+      const d = prof.get(a.de)! + 1;
+      if (d > prof.get(a.para)! && d <= cap.nos.length) {
+        prof.set(a.para, d);
+        mudou = true;
+      }
+    }
+    if (!mudou) break;
   }
   // Nós inalcançáveis ainda aparecem, no fim, para o autor enxergar o problema.
   for (const n of cap.nos) {

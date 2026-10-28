@@ -18,6 +18,11 @@ O jogador escolhe, decisão após decisão, como os acontecimentos políticos se
 4. **Equilíbrio.** Esquerda, centro e direita têm caminhos de vitória, de derrota, de grandeza e de ruína. O jogo não torce.
 5. **Plausível.** Toda virada precisa de um porquê que um jornalista de Brasília aceitaria, mesmo que improvável.
 6. **Um retrato coletivo.** Os caminhos de todos os jogadores, anonimizados, viram um mapa público de como as pessoas imaginam o futuro do país.
+7. **Abrir os olhos, de qualquer lado.** A trama mostra atores agindo por interesse, não por discurso. Toda vitória tem um custo escondido, para qualquer campo. No epílogo, o jogo revela a cadeia de causa e efeito ("isto começou quando você escolheu X no capítulo 3"). O objetivo é o jogador entender como o sistema funciona, não descobrir quem ganhou.
+
+### Frente externa
+
+Os EUA entram como uma frente com poucos nós, mas enormes, em datas fixas: as eleições de meio de mandato (3/11/2026), as primárias e a eleição de novembro de 2028 (no meio do jogo, candidata a cisma), e decisões de tarifas e sanções. Cada nó deixa marcas (ex.: `eua_hostil`, `eua_pragmatico`, `eua_crise_interna`) que mudam os capítulos brasileiros. China e economia mundial entram do mesmo jeito, em escala menor.
 
 ## 3. O papel do jogador: o destino
 
@@ -84,9 +89,23 @@ No fim de cada capítulo (e acessível depois pelo menu):
 
 **A primeira decisão do jogo é o acontecimento seguinte ao último fato real.**
 
-Enquanto o jogo estiver em produção, quando a realidade andar:
-1. o fato entra no prólogo (com data e fonte),
-2. os capítulos iniciais que ele "resolveu" são ajustados ou removidos,
+### 6.1 Travar o caminho real
+
+Quando uma notícia resolve uma decisão do jogo, a escolha correspondente é marcada como **real** (data + fonte), à mão:
+- a escolha real fica selecionada automaticamente, com o selo "aconteceu em DD/MM/AAAA";
+- as outras opções continuam visíveis, mas travadas ("isso não aconteceu");
+- no fluxograma, o caminho real ganha cor própria: um fio que atravessa a árvore;
+- a árvore não muda: os IDs e as estatísticas continuam valendo.
+
+Isso vira um **placar de previsões**: quem jogou antes da notícia escolheu sem saber, e a página pública mostra "38% dos jogadores previram isso". Quem jogou antes vê "você escolheu X, aconteceu Y".
+
+Se a realidade for por um caminho que nenhuma opção previa, cria-se uma **opção nova já travada como real**, e escreve-se o que vem depois dela.
+
+Regra de roteiro: **capítulos perto do presente perguntam coisas que levam semanas ou meses para se resolver.** O dia a dia fica para capítulos distantes. Assim travamos nós de vez em quando, sem perder um capítulo inteiro.
+
+Quando a realidade andar:
+1. o fato entra no prólogo (com data e fonte) ou trava uma escolha existente,
+2. se a realidade fugiu das opções, cria-se a opção real e seus galhos,
 3. a versão do conteúdo sobe (ver seção 9.3).
 
 ## 7. Esboço de capítulos (rascunho para discutir)
@@ -161,6 +180,7 @@ O jogo é político e o print da estatística vale como propaganda. Defesas mín
 Cada mudança de conteúdo gera uma versão. Estatísticas são agregadas por nó estável (ID que não muda entre versões) e podem ser filtradas por versão.
 
 ### 9.4 Página pública
+- **placar de previsões**: para cada escolha travada como real, quantos jogadores a escolheram antes da notícia;
 - caminhos mais percorridos (visual tipo Sankey sobre o fluxograma);
 - finais mais comuns;
 - decisões mais divididas (perto de 50/50);

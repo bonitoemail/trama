@@ -8,7 +8,7 @@ import {
   capitulo,
   continuar,
   escolher,
-  escolhasDisponiveis,
+  escolhasExibidas,
   no,
   novoJogo,
   paragrafos,
@@ -25,7 +25,19 @@ export default function Jogo({ jogo }: { jogo: JogoT }) {
   const [confirmarNova, setConfirmarNova] = useState(false);
 
   useEffect(() => {
-    setEstado(lerPartida(jogo.versao));
+    // Uma partida salva que não bate mais com o conteúdo (nó ou capítulo removido) é descartada.
+    const salva = lerPartida(jogo.versao);
+    let valida = salva;
+    try {
+      if (salva) {
+        no(jogo, salva.capitulo, salva.no);
+        salva.historico.forEach((p) => no(jogo, p.capitulo, p.no));
+      }
+    } catch {
+      valida = null;
+      apagarPartida(jogo.versao);
+    }
+    setEstado(valida);
     setVistos(lerVistos());
     setTela('abertura');
   }, [jogo.versao]);
@@ -170,7 +182,7 @@ export default function Jogo({ jogo }: { jogo: JogoT }) {
   }
 
   const atual = no(jogo, cap.id, estado.no);
-  const opcoes = escolhasDisponiveis(atual, estado.marcas);
+  const opcoes = escolhasExibidas(atual, estado.marcas);
   const primeiroNo = estado.no === cap.inicio;
 
   return (
@@ -181,22 +193,29 @@ export default function Jogo({ jogo }: { jogo: JogoT }) {
         </span>
         <span>{cap.periodo}</span>
       </header>
-      {cap.rascunho && primeiroNo && <p className="rascunho">rascunho de teste</p>}
+      {atual.imagem && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img className="ilustracao" src={`/${atual.imagem}`} alt="" />
+      )}
+      {cap.rascunho && primeiroNo && <p className="rascunho">rascunho</p>}
       {atual.lugar && <p className="lugar">{atual.lugar}</p>}
       {paragrafos(atual.texto, estado.marcas).map((p, i) => (
         <p key={i} className="texto">{p}</p>
       ))}
       <div className="escolhas">
         {opcoes.length ? (
-          opcoes.map((e) => (
+          opcoes.map(({ escolha: e, status }) => (
             <button
               key={e.id}
-              className="botao escolha"
+              className={`botao escolha ${status}`}
+              disabled={status === 'travada'}
               onClick={() =>
                 atualizar(escolher(jogo, estado, e.id), [`${cap.id}/${atual.id}`, `${cap.id}/${atual.id}:${e.id}`])
               }
             >
               {e.rotulo}
+              {status === 'real' && <span className="selo">aconteceu em {e.real!.data}</span>}
+              {status === 'travada' && <span className="selo">não aconteceu</span>}
             </button>
           ))
         ) : (

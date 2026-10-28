@@ -1,5 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { continuar, escolher, escolhasDisponiveis, no, novoJogo, paragrafos, vale } from './engine';
+import {
+  continuar,
+  escolher,
+  escolhasDisponiveis,
+  escolhasExibidas,
+  no,
+  novoJogo,
+  paragrafos,
+  vale,
+} from './engine';
 import { carregarJogo } from './load';
 import { JogoSchema, type Jogo } from './schema';
 import { validar } from './validate';
@@ -96,6 +105,39 @@ describe('motor', () => {
   it('não deixa pular um nó que exige escolha', () => {
     const j = jogoMinimo();
     expect(() => escolher(j, novoJogo(j), null)).toThrow(/exige uma escolha/);
+  });
+});
+
+describe('trava de escolha real', () => {
+  function jogoTravado() {
+    const j = jogoMinimo();
+    j.capitulos[0].nos[0].escolhas![1].real = { data: '03/11/2026' };
+    return j;
+  }
+
+  it('só deixa escolher o que aconteceu e mostra o resto travado', () => {
+    const j = jogoTravado();
+    const a = no(j, 'c1', 'a');
+    expect(escolhasDisponiveis(a, []).map((e) => e.id)).toEqual(['y']);
+    expect(escolhasExibidas(a, []).map((x) => [x.escolha.id, x.status])).toEqual([
+      ['x', 'travada'],
+      ['y', 'real'],
+    ]);
+    expect(() => escolher(j, novoJogo(j), 'x')).toThrow(/indisponível/);
+    expect(escolher(j, novoJogo(j), 'y').marcas).toEqual(['my']);
+  });
+
+  it('não acusa como inalcançável o galho atrás da trava', () => {
+    const j = jogoTravado();
+    const { erros, avisos } = validar(j);
+    expect(erros).toEqual([]);
+    expect(avisos.some((a) => a.includes('inalcançável'))).toBe(false);
+  });
+
+  it('recusa duas escolhas reais no mesmo nó', () => {
+    const j = jogoTravado();
+    j.capitulos[0].nos[0].escolhas![0].real = { data: '04/11/2026' };
+    expect(validar(j).erros.some((e) => e.includes('mais de uma'))).toBe(true);
   });
 });
 

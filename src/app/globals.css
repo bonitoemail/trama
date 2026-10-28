@@ -6,6 +6,7 @@
   --texto-2: #a19d94;
   --texto-3: #6b6862;
   --destaque: #f4efe4;
+  --real: #f29a2e;
   --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
   --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
@@ -158,6 +159,43 @@ button {
   gap: 12px;
   margin-top: 28px;
 }
+.ilustracao {
+  display: block;
+  width: calc(100% + 40px);
+  margin: -8px -20px 28px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+@media (min-width: 680px) {
+  .ilustracao {
+    width: 100%;
+    margin: 0 0 28px;
+    border-radius: 8px;
+  }
+}
+.selo {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+/* O acento laranja das ilustrações é o fio do caminho real. */
+.botao.escolha.real {
+  border-color: var(--real);
+}
+.botao.escolha.real .selo {
+  color: var(--real);
+}
+.botao.escolha.travada {
+  color: var(--texto-3);
+  border-style: dashed;
+  cursor: not-allowed;
+}
+.botao.escolha.travada:hover {
+  background: transparent;
+  border-color: var(--linha);
+}
 
 /* Prólogo */
 .fatos {
@@ -262,6 +300,10 @@ button {
 .aresta.percorrida {
   stroke: var(--destaque);
   stroke-width: 2.5;
+}
+.aresta.real {
+  stroke: var(--real);
+  stroke-dasharray: none;
 }
 .no {
   cursor: pointer;
