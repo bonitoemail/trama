@@ -1,0 +1,303 @@
+:root {
+  --fundo: #0f0f11;
+  --superficie: #18181b;
+  --linha: #2c2c31;
+  --texto: #e9e5dc;
+  --texto-2: #a19d94;
+  --texto-3: #6b6862;
+  --destaque: #f4efe4;
+  --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--serif);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+}
+
+.tela {
+  max-width: 640px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: 48px 20px 64px;
+  display: flex;
+  flex-direction: column;
+  animation: surgir 0.5s ease both;
+}
+
+@keyframes surgir {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Abertura */
+.abertura {
+  justify-content: center;
+}
+.marca {
+  font-size: clamp(56px, 16vw, 96px);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.sub {
+  font-size: 20px;
+  color: var(--texto-2);
+  margin: 8px 0 40px;
+}
+.aviso {
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--texto-3);
+  border-left: 2px solid var(--linha);
+  padding-left: 12px;
+  margin: 0 0 40px;
+}
+.acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.nota {
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--texto-2);
+  margin: 0;
+}
+
+/* Botões */
+.botao {
+  font-family: var(--sans);
+  font-size: 16px;
+  text-align: left;
+  color: var(--texto);
+  background: transparent;
+  border: 1px solid var(--linha);
+  border-radius: 10px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.botao:hover {
+  border-color: var(--texto-3);
+  background: var(--superficie);
+}
+.botao:focus-visible {
+  outline: 2px solid var(--destaque);
+  outline-offset: 2px;
+}
+.botao.primario {
+  background: var(--destaque);
+  color: var(--fundo);
+  border-color: var(--destaque);
+  text-align: center;
+  font-weight: 600;
+}
+.botao.primario:hover {
+  background: #fff;
+}
+
+/* Rótulos */
+.rotulo,
+.lugar,
+.cabecalho {
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--texto-3);
+}
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--linha);
+  margin-bottom: 40px;
+}
+.lugar {
+  color: var(--texto-2);
+  margin: 0 0 20px;
+}
+.rascunho {
+  align-self: flex-start;
+  font-family: var(--sans);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--texto-3);
+  border: 1px dashed var(--texto-3);
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin: 0 0 20px;
+}
+
+/* Texto da cena */
+.texto {
+  font-size: 20px;
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+.escolhas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+/* Prólogo */
+.fatos {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 32px;
+  border-left: 1px solid var(--linha);
+}
+.fatos li {
+  padding: 0 0 28px 20px;
+  position: relative;
+}
+.fatos li::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 6px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--texto-2);
+}
+.fatos time {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--texto-2);
+}
+.fatos p {
+  font-size: 18px;
+  line-height: 1.55;
+  margin: 6px 0;
+}
+.fatos a {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--texto-3);
+}
+.ponte {
+  font-style: italic;
+  color: var(--texto-2);
+  font-size: 18px;
+  margin: 0 0 24px;
+}
+
+/* Fim de capítulo e epílogo */
+.fim-cap h2,
+.fim h2 {
+  font-size: 36px;
+  font-weight: 400;
+  margin: 4px 0 24px;
+}
+.caminho {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--texto-2);
+  padding-left: 20px;
+  margin: 8px 0 32px;
+}
+.caminho li {
+  margin-bottom: 6px;
+}
+.resumo-cap h3 {
+  font-weight: 400;
+  font-size: 20px;
+  margin: 32px 0 0;
+}
+.fim .botao {
+  margin-top: 32px;
+}
+
+/* Fluxograma */
+.fluxo {
+  margin: 8px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.fluxo svg {
+  display: block;
+  overflow: visible;
+}
+.fluxo figcaption {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--texto-2);
+  text-align: center;
+  min-height: 20px;
+  margin-top: 8px;
+}
+.aresta {
+  fill: none;
+  stroke-width: 1.5;
+}
+.aresta.oculta {
+  stroke: var(--linha);
+  stroke-dasharray: 3 4;
+}
+.aresta.vista {
+  stroke: var(--texto-3);
+}
+.aresta.percorrida {
+  stroke: var(--destaque);
+  stroke-width: 2.5;
+}
+.no {
+  cursor: pointer;
+}
+.no circle,
+.no rect {
+  stroke-width: 1.5;
+}
+.no.oculto circle,
+.no.oculto rect {
+  fill: var(--fundo);
+  stroke: var(--linha);
+}
+.no.visto circle,
+.no.visto rect {
+  fill: var(--superficie);
+  stroke: var(--texto-3);
+}
+.no.percorrido circle,
+.no.percorrido rect {
+  fill: var(--destaque);
+  stroke: var(--destaque);
+}
+.no.sel circle {
+  stroke: #fff;
+  stroke-width: 3;
+}
+.cadeado {
+  fill: none;
+  stroke: var(--texto-3);
+  stroke-width: 1.2;
+}
+
+/* Erros de conteúdo (só em dev) */
+.erros {
+  font-family: var(--sans);
+  padding: 32px 20px;
+  color: #f3b0a8;
+}

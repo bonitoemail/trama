@@ -1,0 +1,42 @@
+versao: "0.1.0"
+titulo: Trama
+aviso: >
+  Trama é uma obra de ficção especulativa. Figuras públicas aparecem como
+  personagens em situações hipotéticas, inspiradas em suas posições públicas.
+  Nenhuma cena descreve fatos reais além do prólogo.
+
+# Fatos reais, não jogáveis. A primeira decisão é o acontecimento seguinte ao último fato.
+prologo:
+  - data: 4 de outubro de 2026
+    texto: Flávio Bolsonaro (PL) termina o primeiro turno à frente, com 47,0% contra 45,2% de Lula.
+    fonte: https://pt.wikipedia.org/wiki/Elei%C3%A7%C3%A3o_presidencial_no_Brasil_em_2026
+  - data: 25 de outubro de 2026
+    texto: >
+      Lula vira no segundo turno e é reeleito com 51,8% dos votos válidos. É a primeira vez
+      que o segundo colocado no primeiro turno vence a eleição. O PL elege a maior bancada
+      da Câmara (121 deputados) e do Senado.
+    fonte: https://tvbrasil.ebc.com.br/reporter-brasil-tarde/2026/10/eleicoes-2026-pl-forma-maior-bancada-no-congresso
+  - data: 26 de outubro de 2026
+    texto: O STF determina a apreensão do passaporte de Flávio e o proíbe de deixar o país.
+    fonte: https://www.gazetadopovo.com.br/republica/pf-confirma-flavio-bolsonaro-deixou-brasil/
+  - data: 27 de outubro de 2026
+    texto: >
+      Flávio deixa o Brasil rumo aos Estados Unidos. O governo Trump sinaliza que concederá
+      visto. Aliados falam em asilo, sem confirmação oficial.
+    fonte: https://www.nexojornal.com.br/expresso/2026/10/27/flavio-bolsonaro-fugiu-argentina-pf-passaporte
+
+primeiro_capitulo: cap01
+
+epilogo:
+  id: epilogo
+  titulo: Até aqui
+  texto:
+    - Este é o fim do protótipo. A história continua nos próximos capítulos.
+    - se: { tem: flavio_preso }
+      texto: Flávio passou o fim de 2026 numa cela em Brasília, e a direita aprendeu a falar sem ele.
+    - se: { tem: flavio_asilo }
+      texto: Flávio terminou 2026 em Miami, com o asilo transformado em causa diplomática.
+    - se: { tem: michelle_lidera }
+      texto: Quem saiu do vácuo foi Michelle.
+    - se: { tem: tarcisio_2030 }
+      texto: Em São Paulo, alguém já começou a contar os dias até 2030.

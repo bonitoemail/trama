@@ -1,0 +1,98 @@
+# RASCUNHO DE TESTE: texto provisório, feito para exercitar o motor.
+id: cap01
+numero: 1
+titulo: O voo
+periodo: fim de outubro de 2026
+rascunho: true
+inicio: miami
+
+nos:
+  - id: miami
+    lugar: Miami, 29 de outubro
+    texto: |
+      Faz dois dias que Flávio desembarcou na Flórida. Em Brasília, o telefone dos líderes
+      do PL não para. Ninguém sabe dizer se o senador saiu para ficar ou para ganhar tempo.
+
+      Uma coisa todos sabem: o próximo passo dele vai definir o tamanho da oposição em 2027.
+    escolhas:
+      - id: asilo
+        rotulo: Flávio formaliza o pedido de asilo nos EUA
+        marca: [flavio_asilo]
+        vai_para: itamaraty
+      - id: volta
+        rotulo: Flávio anuncia que volta para enfrentar a Justiça
+        marca: [flavio_volta]
+        vai_para: aeroporto
+      - id: silencio
+        rotulo: Flávio não diz nada e deixa a dúvida no ar
+        marca: [flavio_silencio]
+        vai_para: video
+
+  - id: itamaraty
+    lugar: Brasília, Palácio do Itamaraty
+    texto: |
+      O pedido chega à imprensa americana antes de chegar ao Itamaraty. No Planalto, a
+      pergunta é uma só: tratar o caso como afronta diplomática ou como assunto da Justiça?
+    escolhas:
+      - id: protesta
+        rotulo: O governo protesta formalmente junto a Washington
+        marca: [crise_diplomatica]
+        vai_para: pl
+      - id: minimiza
+        rotulo: O governo minimiza e diz que o caso é da Justiça
+        marca: [governo_minimiza]
+        vai_para: pl
+
+  - id: aeroporto
+    lugar: Brasília, Aeroporto JK
+    texto: |
+      O voo pousa no meio da tarde. Há apoiadores no saguão e agentes da Polícia Federal
+      na pista. A saída do país contrariou uma ordem do Supremo, e a decisão sobre o que
+      acontece agora está nas mãos do relator.
+    escolhas:
+      - id: monitorado
+        rotulo: O relator mantém as cautelares e Flávio segue em liberdade, monitorado
+        marca: [flavio_monitorado]
+        vai_para: pl
+      - id: preso
+        rotulo: O relator decreta a prisão de Flávio pelo descumprimento da ordem
+        marca: [flavio_preso]
+        vai_para: pl
+
+  - id: video
+    lugar: Uma semana depois
+    texto: |
+      Sete dias sem uma palavra. Então, numa noite de domingo, um vídeo aparece nas redes,
+      gravado numa sala sem janelas.
+    escolhas:
+      - id: convoca
+        rotulo: No vídeo, Flávio convoca os apoiadores às ruas
+        marca: [flavio_convoca]
+        vai_para: pl
+      - id: distante
+        rotulo: No vídeo, Flávio pede calma e diz que vai se defender de fora
+        marca: [flavio_distante]
+        vai_para: pl
+
+  - id: pl
+    lugar: Brasília, sede do PL
+    texto:
+      - A reunião da executiva do partido começa sem horário para acabar.
+      - se: { tem: flavio_preso }
+        texto: Com Flávio preso, a cadeira dele na cabeceira da mesa fica vazia de propósito.
+      - se: { tem: crise_diplomatica }
+        texto: O protesto do Itamaraty deu ao partido uma bandeira, e um problema com o próprio eleitor.
+      - se: { tem: flavio_convoca }
+        texto: As convocações do vídeo já têm data e cidade. Metade da sala acha ótimo; a outra metade, um desastre.
+      - |
+        O partido que fez a maior bancada do Congresso precisa decidir agora quem fala por ele.
+    escolhas:
+      - id: fecha
+        rotulo: O PL fecha questão em torno de Flávio
+        marca: [pl_com_flavio]
+      - id: busca
+        rotulo: O PL começa, discretamente, a procurar outro nome
+        marca: [pl_busca_nome]
+
+saidas:
+  - para: cap02
