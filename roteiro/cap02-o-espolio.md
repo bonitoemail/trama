@@ -1,5 +1,7 @@
 # Capítulo 2 — O espólio (esqueleto)
 
+> **Escrito em 28/10/2026** em `content/capitulos/cap02-o-espolio.yaml` (17 nós, 600 caminhos, três finais: o Natal do Acordo, a guerra de fevereiro, a herança em disputa). "A segunda derrota" virou cena de consequência, não final. Este esqueleto fica como registro do desenho; a fonte de verdade é o YAML.
+
 > Período: meados de novembro a 31 de dezembro de 2026.
 > Base: `pesquisa/00-sintese.md`, `06-reacoes-carta.md`, `07-mundo-reacoes.md`, `08-analistas-economia.md`.
 > Status: **esqueleto**. Ficam fixas só as perguntas, as datas e as marcas. O texto de cada nó

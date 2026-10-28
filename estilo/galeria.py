@@ -6,15 +6,19 @@ from pathlib import Path
 AQUI = Path(__file__).resolve().parent
 T = AQUI / "testes"
 
+NOS_CAP02 = ["abertura", "a_cadeira", "o_recado", "a_espera", "a_sabatina", "a_segunda_derrota", "a_herdeira", "a_estreia", "o_vazio", "a_conta", "o_suplente", "miami", "a_conversa", "a_mesa", "natal_do_acordo", "guerra_de_fevereiro", "heranca_em_disputa"]
 NOS_CAP01 = ["abertura", "pedido", "foragido", "o_prazo", "o_parecer", "itamaraty", "a_rota", "o_voo_fretado", "eleicao_eua", "noite_democrata", "noite_republicana", "o_canal", "pl", "a_ligacao", "a_convocacao"]
 
 
 def grupos():
     escolhas = json.loads((AQUI / "escolhas.json").read_text(encoding="utf-8")) if (AQUI / "escolhas.json").exists() else {}
     yield "Referências aprovadas", sorted((AQUI / "referencias").glob("*.png")), set()
+    # Marca qualquer imagem publicada (um nó pode usar a cena gerada com outro nome).
+    publicadas = set(escolhas.values())
+    for no in NOS_CAP02:
+        yield f"Capítulo 2 · {no}", sorted(T.glob(f"cap02-{no}-*.png")), publicadas
     for no in NOS_CAP01:
-        # Marca qualquer imagem publicada (um nó pode usar a cena gerada com outro nome).
-        yield f"Capítulo 1 · {no}", sorted(T.glob(f"cap01-{no}-*.png")), set(escolhas.values())
+        yield f"Capítulo 1 · {no}", sorted(T.glob(f"cap01-{no}-*.png")), publicadas
     yield "Rodada 2 · Miami", sorted(T.glob("v2-miami-*.png")), set()
     yield "Rodada 2 · Congresso", sorted(T.glob("v2-congresso-*.png")), set()
     yield "Rodada 2 · Supremo", sorted(T.glob("v2-supremo-*.png")), set()

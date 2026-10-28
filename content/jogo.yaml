@@ -28,8 +28,8 @@ prologo:
   - data: 28 de outubro de 2026
     texto: >
       Flávio desembarca em Miami. O Departamento de Estado confirma vistos para ele e a família.
-      Aliados falam em asilo, sem confirmação oficial. Ele não é foragido: é investigado em dois
-      inquéritos, sem denúncia, e continua senador até 31 de janeiro.
+      Aliados falam em asilo, sem confirmação oficial. Ele não é foragido: é investigado em três
+      inquéritos no Supremo, sem denúncia, e continua senador até 31 de janeiro.
     fonte: https://www.metropoles.com/mundo/governo-trump-confirma-emissao-de-vistos-para-flavio-bolsonaro-e-familia
   - data: 28 de outubro de 2026, à noite
     texto: >
@@ -49,32 +49,69 @@ primeiro_capitulo: cap01
 
 epilogo:
   id: epilogo
-  titulo: Até aqui
+  titulo: O Brasil na virada de 2027
   texto:
+    # Flávio
     - se: { tem: flavio_preventiva }
-      texto: Flávio terminou novembro com uma ordem de prisão no Brasil e um visto nos Estados Unidos. Os dois papéis valem, cada um no seu país.
-    - se: { tem: flavio_sem_preventiva }
-      texto: Flávio terminou novembro sem ordem de prisão e com um mandato que diminui a cada sessão do Senado. O pedido do PT continua na gaveta do relator, e o partido sabe que pode voltar a ele quando quiser.
+      texto: Flávio entra em 2027 com uma ordem de prisão no Brasil e uma autorização para ficar nos Estados Unidos. Os dois papéis valem, cada um no seu país.
+    - se: { tem: bens_bloqueados }
+      texto: Os bens dele no Brasil estão bloqueados. Em Miami, isso vira prova de perseguição; em Brasília, prova de que a Justiça age.
+    - se: { tem: bloqueio_negado }
+      texto: O pedido de bloqueio dos bens foi negado. O PT chama de leniência; a família, de reconhecimento tardio.
+    - se: { tem: mandato_cassado_faltas }
+      texto: O mandato dele acabou por faltas, numa sessão de quinze minutos que o PL não esquece.
+    - se: { tem: mandato_decurso }
+      texto: O mandato dele acabou sozinho, no último dia de janeiro, sem que ninguém precisasse assinar nada.
+    - se: { tem: flavio_licenca }
+      texto: Ele saiu do Senado de licença, e ninguém pôde dizer que foi expulso.
     - se: { tem: governo_exilio }
-      texto: Em Miami, existe agora um governo que nenhum país reconhece e que milhões de brasileiros acompanham todas as noites.
+      texto: Em Miami, existe um governo que nenhum país reconhece e que milhões de brasileiros acompanham todas as noites.
     - se: { tem: flavio_live }
       texto: Toda noite, uma transmissão de Miami disputa com o PL quem fala pela direita.
+    # Supremo
+    - se: { tem: stf_aprovado }
+      texto: O Supremo volta a ter onze ministros. Um deles sabe exatamente a quem deve a cadeira, e os outros também.
+    - se: { tem: stf_rejeitado }
+      texto: O Supremo segue com dez ministros, e Lula, com duas derrotas no Senado. A próxima indicação vai custar mais.
+    - se: { tem: vaga_segurada }
+      texto: A cadeira vaga do Supremo entra em 2027 como moeda, e todo mundo em Brasília sabe o câmbio.
+    - se: { tem: pgr_contra }
+      texto: Entre a Procuradoria e o Supremo, abriu-se uma fresta. Os dois lados vão tentar alargá-la.
+    # Direita
+    - se: { tem: michelle_lider }
+      texto: No Brasil, a oposição tem uma voz. Em Miami, alguém repara que ela não é da família inteira.
+    - se: { tem: michelle_porta_voz }
+      texto: Michelle fala pela família, e a família fala por ela. Ninguém sabe ainda onde termina uma e começa a outra.
+    - se: { tem: direita_sem_dono }
+      texto: A direita entra em 2027 sem dono, e Kassab, com a agenda cheia.
+    # Mundo
     - se: { tem: crise_diplomatica }
       texto: O Itamaraty ainda espera respostas de Washington e de Buenos Aires. Ao cobrar, o governo deu à carta um lugar na agenda entre países.
     - se: { tem: governo_silencio }
-      texto: O Planalto não respondeu à carta. Em Miami, o silêncio foi lido como medo; em Brasília, como cálculo. Os dois lados guardaram a leitura.
+      texto: O Planalto nunca respondeu à carta. Em Miami, o silêncio foi lido como medo; em Brasília, como cálculo.
     - se: { tem: caputo_investigado }
       texto: Em Puerto Iguazú, uma promotoria de fronteira guarda o plano de um voo. O governo argentino diz que ali não há nada além de um carimbo. A oposição argentina diz que há muito mais.
     - se: { tem: milei_silencio }
-      texto: Em Buenos Aires, o caso esfriou nos tribunais. A oposição argentina guardou o assunto para a eleição do ano que vem.
-    - se: { tem: pgr_contra }
-      texto: Entre a Procuradoria e o Supremo, abriu-se uma fresta. Os dois lados vão tentar alargá-la.
+      texto: Em Buenos Aires, o caso esfriou nos tribunais. A oposição argentina guardou o assunto para a eleição de outubro.
     - se: { tem: eua_dem_camara }
       texto: Em Washington, a nova maioria marcou para janeiro as primeiras perguntas sobre o Brasil. A tarifa de 25%, essa, não depende dela.
     - se: { tem: eua_rep_congresso }
       texto: Em Washington, as perguntas sobre o Brasil ficam para depois. A tarifa de 25% fica para agora.
+    - se: { tem: lula_trump_miami }
+      texto: Lula e Trump abriram um canal em Miami. A tarifa não mudou, e cada um pode dizer que o outro usou o canal mal.
+    - se: { tem: lula_sem_trump }
+      texto: Em Miami, Lula e Trump estiveram na mesma sala e não conversaram. Em Pequim, alguém anotou.
+    - se: { tem: lula_ausente_g20 }
+      texto: A cadeira do Brasil no G20 de Miami ficou com o chanceler. A base do governo chamou de dignidade; a oposição, de isolamento.
+    # Congresso
+    - se: { tem: acordo_fechado }
+      texto: "O Acordo fechou sem papel: Alcolumbre com votos do PL, cargos na Mesa, a gaveta dos impeachments fechada. Ele vale até fevereiro de 2029, quando Alcolumbre não pode mais ser reeleito."
+    - se: { tem: guerra_fevereiro }
+      texto: A primeira votação de 2027 é a eleição do Senado, e vale tudo. Quem perder em fevereiro vai passar dois anos pagando.
+    - se: { tem: pl_rachado }
+      texto: O PL entra em 2027 com a maior bancada e duas listas de votos. A maior força do Congresso é também a mais fácil de dividir.
     - se: { tem: pl_negocia }
-      texto: Em Brasília, a conversa começou com mais de dois lados. Em algum gabinete do Planalto, do Senado e do Supremo, alguém anotou o preço.
+      texto: A conversa que começou em novembro com mais de dois lados terminou o ano com todos eles anotando o preço.
     - se: { tem: pl_obstrui }
-      texto: Em Brasília, o PL escolheu a briga. O Centrão escolheu esperar para ver quem paga mais, e o governo, quanto vai pagar.
-    - Este é o fim do capítulo 1. A história continua no capítulo 2, que ainda está sendo escrito.
+      texto: O PL escolheu a briga em novembro. O Centrão escolheu esperar para ver quem paga mais, e o governo, quanto vai pagar.
+    - Este é o fim do capítulo 2. A história continua conforme a realidade andar.

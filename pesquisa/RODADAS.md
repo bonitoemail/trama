@@ -20,6 +20,13 @@ Arquivos 01–05 e a síntese. Cobriu governo e Congresso, economia, direita, ST
 Fontes: [Metrópoles](https://www.metropoles.com/mundo/em-carta-flavio-se-declara-verdadeiro-presidente-eleito-do-brasil) · [Band](https://www.band.com.br/politica/nos-eua-flavio-se-diz-o-verdadeiro-presidente-eleito-e-cita-fraude) · [Jovem Pan](https://jovempan.com.br/politica/em-carta-flavio-diz-que-e-o-verdadeiro-presidente-eleito-do-brasil/)
 **No jogo:** entrou no prólogo; o capítulo 1 foi refeito como "A carta". Saíram as escolhas "asilo / volta / exílio" (resolvidas pela carta); entraram "governo no exílio ou líder da oposição" e "PL com a carta e Marinho, ou Valdemar negociando com Alcolumbre". O Marinho contra Alcolumbre virou o eixo do Acordo.
 
+### Pesquisa do capítulo 2 — 28/10/2026, noite
+Arquivos 09 (STF e Senado) e 10 (direita e Miami). Base para `content/capitulos/cap02-o-espolio.yaml`.
+- **Conferido:** o trecho "meu candidato à presidência do Senado" (Marinho) continua na versão final da carta, que teve três versões.
+- **Correções:** Flávio é investigado em **três** inquéritos no STF (calúnia contra Lula, Dark Horse, apostas); o bloqueio de R$ 6 bi já feito foi de Willer Tomaz, o de Flávio segue pedido; Michelle saiu do PL Mulher em 30/06/2026.
+- **Fatos novos:** Tarcísio respondeu à carta com "A eleição acabou"; Kassab cumprimentou Lula; nenhum ato convocado e Nikolas pediu que a base não fosse às ruas; Valdemar autorizado a visitar Jair (29/10); G20 em 14–15/12 no Trump National Doral, com Lula "pretendendo" ir e Xi também.
+- **Regras usadas no roteiro:** perda de mandato por faltas passa pela CCJ (até 15 dias úteis) antes da Mesa, e uma licença congela a contagem; indicado rejeitado ao STF só volta no ano seguinte; o sucessor de Pacheco no TCU é escolha do Senado.
+
 ### Fato novo — 28/10/2026, mais tarde
 **O recuo.** Depois da repercussão, Flávio apaga a carta e republica uma versão em que "presidente eleito" vira "líder do Brasil" (não "líder da oposição"). Mantém as acusações de fraude, de perseguição política e as críticas ao STF e ao TSE. Não confirmado se o trecho sobre Marinho ficou.
 Fontes: [Congresso em Foco](https://www.congressoemfoco.com.br/noticia/129622/flavio-muda-carta-e-troca-presidente-eleito-por-lider-do-brasil) · [Times Brasil](https://timesbrasil.com.br/brasil/flavio-republica-carta-e-retira-trecho-em-que-se-dizia-presidente-eleito-do-brasil/)

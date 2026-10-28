@@ -51,6 +51,27 @@ relogios:
     status: pendente
     conferir: Poder360, Congresso em Foco, Gazeta do Povo, Folha
 
+  - id: herdeira-direita
+    evento: Michelle (ou outro nome) assume a liderança da oposição, fala como porta-voz da família, ou ninguém assume
+    frente: direita
+    afeta: [cap02/a_herdeira]
+    status: pendente
+    conferir: redes de Michelle, PL, Metrópoles, Gazeta do Povo
+
+  - id: bloqueio-bens-flavio
+    evento: Moraes decide sobre o pedido de bloqueio de até R$ 6 bilhões em bens de Flávio
+    frente: supremo
+    afeta: [cap02/a_conta]
+    status: pendente
+    conferir: STF, Poder360, Metrópoles
+
+  - id: acordo-senado
+    evento: PL fecha (ou não) com Alcolumbre antes do recesso; Marinho mantém ou retira a candidatura
+    frente: congresso
+    afeta: [cap02/a_mesa]
+    status: pendente
+    conferir: Folha, Poder360, Congresso em Foco, Agência Senado
+
   # --- Datas marcadas ---
   - id: midterms-2026
     data: 2026-11-03
@@ -94,7 +115,7 @@ relogios:
     data: 2026-12-17
     evento: data estimada para a Mesa do Senado poder declarar a perda do mandato de Flávio por faltas
     frente: congresso
-    afeta: [cap01/o_prazo, cap02/o_relogio]
+    afeta: [cap01/o_prazo, cap02/a_conta]
     status: pendente
     conferir: Agência Senado, Diario de Pernambuco
 
@@ -118,7 +139,7 @@ relogios:
     data: 2027-02-01
     evento: eleição das mesas da Câmara e do Senado (Alcolumbre x Marinho; Motta)
     frente: congresso
-    afeta: [cap02, cap04]
+    afeta: [cap02/a_mesa, cap04]
     status: pendente
     conferir: Agência Senado, Agência Câmara
 
