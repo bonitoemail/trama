@@ -6,7 +6,7 @@ from pathlib import Path
 AQUI = Path(__file__).resolve().parent
 T = AQUI / "testes"
 
-NOS_CAP02 = ["abertura", "a_cadeira", "o_recado", "a_espera", "a_sabatina", "a_segunda_derrota", "a_herdeira", "a_estreia", "o_vazio", "a_conta", "o_suplente", "miami", "a_conversa", "a_mesa", "natal_do_acordo", "guerra_de_fevereiro", "heranca_em_disputa"]
+NOS_CAP02 = ["abertura", "a_cadeira", "o_recado", "a_espera", "a_sabatina", "a_segunda_derrota", "a_herdeira", "a_estreia", "o_vazio", "a_conta", "o_suplente", "miami", "a_conversa", "a_moeda", "o_voo_de_volta", "a_mesa", "natal_do_acordo", "guerra_de_fevereiro", "heranca_em_disputa"]
 NOS_CAP01 = ["abertura", "pedido", "foragido", "o_prazo", "o_parecer", "itamaraty", "a_rota", "o_voo_fretado", "eleicao_eua", "noite_democrata", "noite_republicana", "o_canal", "pl", "a_ligacao", "a_convocacao"]
 
 

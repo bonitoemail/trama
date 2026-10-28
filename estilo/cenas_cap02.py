@@ -62,6 +62,16 @@ CENAS = {
         "silhouettes. Two small figures in dark suits sit in two armchairs facing each other, "
         "far from the camera, a small table between them. Accent: the warm lamp on the small "
         "table."),
+    "a_moeda": ("mundo",
+        "Composition: wide frontal shot of a dark formal office at night with tall windows and "
+        "long curtains. A large empty desk in the center with one single document lying on it. "
+        "No people. Through the windows, a flat dark lawn. Accent: the lit document on the "
+        "desk."),
+    "o_voo_de_volta": ("direita",
+        "Composition: very wide shot at night, low horizon. An airplane as a simple dark "
+        "elongated shape on a flat tarmac, its door open with a stair. Two small figures in "
+        "dark suits walk down the stair. A short row of small dark figures waits at the foot of "
+        "the stair. Flat dark sky. Accent: the lit doorway of the airplane."),
     "a_mesa": ("congresso",
         "Composition: wide frontal shot at dusk, low horizon, large empty sky. " + ICONES["congresso"]
         + " Flat empty plain around it, no people. Accent: a round sun in the sky."),

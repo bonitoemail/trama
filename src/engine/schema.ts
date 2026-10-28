@@ -55,7 +55,10 @@ export const NoSchema = z.strictObject({
   lugar: z.string().optional(),
   /** Caminho em public/ (ex.: "imagens/cap01/abertura.webp"). */
   imagem: z.string().optional(),
+  /** Cada parágrafo vira um cartão (formato stories): curto, uma ideia por cartão. */
   texto: TextoSchema,
+  /** "Saiba mais": detalhe técnico e contexto, opcional, para quem quiser. */
+  detalhe: TextoSchema.optional(),
   escolhas: z.array(EscolhaSchema).optional(),
   /** Nó só de texto: segue direto para outro nó. */
   segue: z.string().optional(),

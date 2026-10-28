@@ -54,6 +54,7 @@ function estrutura(jogo: Jogo, erros: string[], avisos: string[]) {
     for (const n of cap.nos) {
       const onde = `${cap.id}/${n.id}`;
       marcasDoTexto(n.texto, usadas);
+      if (n.detalhe) marcasDoTexto(n.detalhe, usadas);
       if (n.escolhas && n.segue) erros.push(`${onde}: tem escolhas e "segue" ao mesmo tempo`);
       if (n.segue && !noIds.has(n.segue)) erros.push(`${onde}: segue para nó inexistente "${n.segue}"`);
       if (n.escolhas && n.escolhas.length < 2) avisos.push(`${onde}: só uma escolha escrita`);

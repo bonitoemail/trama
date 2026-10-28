@@ -194,7 +194,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 28px;
+  margin-top: 4px;
 }
 .ilustracao {
   display: block;
@@ -518,19 +518,11 @@ button {
   margin-top: 32px;
 }
 
-/* Abertura: a ilustração abre o capítulo, com o título embaixo. */
-.cena-abertura .hero {
-  margin: -48px -20px 36px;
-}
-.cena-abertura .hero .ilustracao {
-  width: 100%;
-  margin: 0;
-  border-radius: 0;
-}
+/* Abertura: a ilustração abre o capítulo, com o título embaixo (no 1º cartão). */
 .cena-abertura .hero-titulo {
-  padding: 24px 20px 0;
   border-bottom: 1px solid var(--linha);
-  padding-bottom: 24px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 .cena-abertura .hero-titulo h1 {
   font-size: clamp(44px, 11vw, 64px);
@@ -547,17 +539,6 @@ button {
 .cena-abertura .rascunho {
   display: inline-block;
   margin: 14px 0 0;
-}
-@media (min-width: 680px) {
-  .cena-abertura .hero {
-    margin: 0 0 36px;
-  }
-  .cena-abertura .hero .ilustracao {
-    border-radius: 8px;
-  }
-  .cena-abertura .hero-titulo {
-    padding: 24px 0;
-  }
 }
 
 /* Consequência: o mundo reagindo, num despacho cor de papel. */
@@ -614,14 +595,8 @@ button {
 body:has(.cena-final) {
   background: #09090a;
 }
-.cena-final .hero {
-  margin: -48px -20px 28px;
-}
-.cena-final .hero .ilustracao {
-  width: 100%;
-  margin: 0;
+.cena-final .ilustracao {
   aspect-ratio: 4 / 3;
-  border-radius: 0;
 }
 .cena-final .desfecho {
   color: var(--real);
@@ -638,13 +613,120 @@ body:has(.cena-final) {
   font-size: 21px;
 }
 @media (min-width: 680px) {
-  .cena-final .hero {
-    margin: 0 0 28px;
-  }
-  .cena-final .hero .ilustracao {
+  .cena-final .ilustracao {
     aspect-ratio: 16 / 9;
-    border-radius: 8px;
   }
+}
+
+/* Cartões (Cartoes.tsx): leitura em formato stories. */
+.progresso {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  gap: 4px;
+  padding: 10px 0 14px;
+  margin: 0 0 4px;
+  background: linear-gradient(var(--fundo) 70%, transparent);
+}
+.cena-consequencia .progresso {
+  background: linear-gradient(var(--papel, #ece4d4) 70%, transparent);
+}
+.progresso span {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--linha);
+}
+.progresso span.feito {
+  background: var(--destaque);
+}
+.cena-consequencia .progresso span {
+  background: rgba(29, 27, 24, 0.15);
+}
+.cena-consequencia .progresso span.feito {
+  background: var(--tinta, #1d1b18);
+}
+.cartao {
+  min-height: 46dvh;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  animation: surgir 0.35s ease both;
+}
+.cartao.ultimo {
+  min-height: 0;
+  cursor: default;
+}
+.cartao .texto {
+  font-size: 23px;
+  line-height: 1.45;
+  margin: 0 0 18px;
+}
+.toque {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--texto-3);
+  margin: 8px 0 0;
+}
+.despacho .toque {
+  color: var(--tinta-2);
+}
+.fim-cartoes {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.voltar-cartao,
+.saiba-botao {
+  align-self: flex-start;
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texto-3);
+  background: none;
+  border: 0;
+  padding: 4px 0;
+  cursor: pointer;
+}
+.saiba-botao {
+  color: var(--texto-2);
+  border-bottom: 1px solid var(--real);
+}
+.despacho .voltar-cartao,
+.despacho .saiba-botao {
+  color: var(--tinta-2);
+}
+/* No papel, o botão de seguir troca para tinta escura. */
+.despacho .botao {
+  color: var(--tinta);
+  border-color: rgba(29, 27, 24, 0.35);
+}
+.despacho .botao:hover {
+  background: rgba(29, 27, 24, 0.06);
+  border-color: var(--tinta);
+}
+.saiba {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.saiba p {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--texto-2);
+  border-left: 2px solid var(--linha);
+  padding-left: 12px;
+}
+.despacho .saiba p {
+  color: var(--tinta-2);
+  border-left-color: rgba(29, 27, 24, 0.2);
 }
 
 /* Erros de conteúdo (só em dev) */

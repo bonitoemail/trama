@@ -74,7 +74,7 @@ Se o usuário já disse "atualize o jogo" sem pedir revisão, aplique o automát
 
 ## Etapa 5 — Aplicar texto e travas
 
-- Siga **DESIGN.md 8 e 8.1** em cada trecho novo: motivo e interesse para todos, nenhuma escolha sem custo, regra do par, narrador sem piada, boato só como boato, gancho e checagem, mesma regra de nome.
+- Siga **DESIGN.md 8, 8.1 e 8.2** em cada trecho novo (linguagem simples: cartões curtos, sem jargão, técnico no `detalhe`): motivo e interesse para todos, nenhuma escolha sem custo, regra do par, narrador sem piada, boato só como boato, gancho e checagem, mesma regra de nome.
 - Toda paráfrase de pessoa ou instituição real ganha comentário YAML com o link.
 - Trava: `real: { data: "DD/MM/AAAA", fonte: "<url>" }`. A interface mostra "aconteceu em…" e o fio laranja na linha do tempo.
 - **Versão** (`content/jogo.yaml`): suba quando um nó for **removido ou renomeado** ou um capítulo mudar de início (partidas salvas antigas são descartadas). Só texto, trava ou nó novo: não precisa subir.

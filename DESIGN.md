@@ -190,6 +190,18 @@ Origem: `roteiro/painel/01-neutralidade.md`.
 15. **Rota política antes de rota biológica.** Nenhum campo depende de doença ou morte de alguém real para ter um caminho de vitória.
 16. **Planilha por capítulo.** Antes da revisão humana, cada capítulo ganha uma tabela "nó × campo × ganha/perde" em `roteiro/`.
 
+### 8.2 Linguagem simples e formato de cartões (28/10/2026)
+
+O jogo é para a pessoa comum, no celular. Cada cena é lida como **stories**: um cartão por vez, toque para avançar.
+
+1. **Cartão curto.** Cada parágrafo de `texto` é um cartão: uma ideia, no máximo ~30 palavras. No máximo 4 cartões por cena.
+2. **Gente apresentada pelo que faz**, na primeira aparição de cada cena: "Alcolumbre, o presidente do Senado"; "Moraes, o ministro do Supremo que cuida do caso".
+3. **Sem jargão no cartão.** Nada de "rito", "CCJ", "difusão vermelha", "monocrática", "decurso". Se o termo é necessário, ele vai para o `detalhe`, com explicação.
+4. **O técnico vai em `detalhe`** ("saiba mais"): regras, prazos, nomes de fontes, números exatos, a checagem da acusação. Opcional para o jogador, obrigatório para o rigor.
+5. **Rótulo de escolha com verbo simples e no máximo ~10 palavras**: "Moraes manda prender Flávio", não "decreta a prisão preventiva".
+6. **Condicionais com parcimônia.** No máximo um ou dois parágrafos condicionais por cena no `texto`; ecos menores vão para o `detalhe`.
+7. **As regras 8 e 8.1 continuam valendo** dentro dos cartões: simplificar não pode tirar o interesse de nenhum lado nem transformar boato em fato.
+
 ## 9. Backend e dados públicos
 
 ### 9.1 Anonimização (LGPD)

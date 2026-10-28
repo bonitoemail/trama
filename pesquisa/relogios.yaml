@@ -72,6 +72,13 @@ relogios:
     status: pendente
     conferir: Folha, Poder360, Congresso em Foco, Agência Senado
 
+  - id: deportacao-irmaos
+    evento: governo Trump mantém ou cancela a autorização de Flávio (e a situação de Eduardo); pressão nas redes americanas contra "abrigar criminoso"
+    frente: mundo
+    afeta: [cap02/a_moeda]
+    status: pendente
+    conferir: Departamento de Estado, DHS, Axios, Metrópoles
+
   # --- Datas marcadas ---
   - id: midterms-2026
     data: 2026-11-03

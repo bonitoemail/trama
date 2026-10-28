@@ -22,6 +22,8 @@ Quem ganha e quem perde em cada escolha e final. Campos: **Gov** (Planalto/PT), 
 | miami / `encontra` | canal Brasil–EUA | base do Gov ("sorriu para quem chamou a eleição de fraudada"); oposição ("pediu favor") | a tarifa não muda; Pequim guarda a foto |
 | miami / `so_cupula` | Gov evita a foto | Gov perde a viagem | Pequim anota |
 | miami / `nao_vai` | base do Gov ("dignidade") | Gov ("isolamento"); cadeira vazia ao lado da China | — |
+| a_moeda / `protege` | a família, os influenciadores MAGA | quem nos EUA critica "abrigar criminoso"; Gov (o caso segue aberto) | a família segue mandando recados de longe |
+| a_moeda / `deporta` | PT (a lei alcança); Trump (acordo de minerais) | a família (Eduardo preso; Flávio preso se houve ordem); a base MAGA ("traição"); Gov (acusado de trocar os dois por uma taxa) | a direita ganha mártires e perde a base no exterior |
 | a_mesa / `fecha` | PL pragmático, Alcol., Gov, STF | Flávio, Marinho, as bases do PT e do bolsonarismo | o Acordo vale só até fev/2029 |
 | a_mesa / `marinho` | base do PL | PL que queria cargos; Gov (primeira votação de 2027 vale tudo) | se Marinho perde, o PL perde junto |
 | a_mesa / `racha` | Alcol. (escolhe com qual metade negociar), Kassab | a direita (maior bancada, menor unidade); Gov perde a desculpa | só disponível sem dono ou com Michelle porta-voz |

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import BotaoEscolha from './BotaoEscolha';
+import Cartoes from './Cartoes';
 import LinhaDoTempo from './LinhaDoTempo';
 import { linhaDoTempo } from '@/engine/historia';
 import {
@@ -181,87 +182,70 @@ export default function Jogo({ jogo, caminhos }: { jogo: JogoT; caminhos: Record
   const tipo = tipoDeCena(primeiroNo, opcoes.length > 0, Boolean(atual.segue));
   const eco = tipo === 'consequencia' || tipo === 'final' ? ecoDaEscolha(jogo, estado.historico) : null;
   const textos = paragrafos(atual.texto, estado.marcas);
-  const ilustracao = atual.imagem && (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img className="ilustracao" src={`/${atual.imagem}`} alt="" />
-  );
+  const detalhe = atual.detalhe ? paragrafos(atual.detalhe, estado.marcas) : undefined;
   const avancar = () => atualizar(escolher(jogo, estado, null), [`${cap.id}/${atual.id}`]);
-
-  // Na decisão e na consequência, a ilustração é uma pausa no meio da leitura.
-  // Na abertura e no final, ela abre a cena.
-  const meio = tipo === 'abertura' || tipo === 'final' ? 0 : Math.ceil(textos.length / 2);
-  const corpo = (
-    <>
-      {textos.slice(0, meio).map((p, i) => (
-        <p key={i} className="texto">{p}</p>
-      ))}
-      {meio > 0 && ilustracao}
-      {textos.slice(meio).map((p, i) => (
-        <p key={meio + i} className="texto">{p}</p>
-      ))}
-    </>
-  );
+  const chave = `${cap.id}/${atual.id}`;
+  const lugar = atual.lugar && <p className="lugar">{atual.lugar}</p>;
+  const linhaEco = eco && <p className="eco">Porque {eco}…</p>;
 
   if (tipo === 'abertura') {
     return (
-      <main className="tela cena cena-abertura" key={`${cap.id}/${atual.id}`}>
-        <div className="hero">
-          {ilustracao}
-          <div className="hero-titulo">
-            <p className="rotulo">Capítulo {cap.numero}</p>
-            <h1>{cap.titulo}</h1>
-            <p className="periodo">{cap.periodo}</p>
-            {cap.rascunho && <p className="rascunho">rascunho</p>}
-          </div>
-        </div>
-        {atual.lugar && <p className="lugar">{atual.lugar}</p>}
-        {corpo}
-        <div className="acoes-cena">
+      <main className="tela cena cena-abertura" key={chave}>
+        <Cartoes
+          textos={textos}
+          imagem={atual.imagem}
+          detalhe={detalhe}
+          abertura={
+            <div className="hero-titulo">
+              <p className="rotulo">Capítulo {cap.numero}</p>
+              <h1>{cap.titulo}</h1>
+              <p className="periodo">{cap.periodo}</p>
+              {cap.rascunho && <p className="rascunho">rascunho</p>}
+            </div>
+          }
+          topo={lugar}
+        >
           <Acao primario onClick={avancar}>Começar o capítulo</Acao>
-        </div>
+        </Cartoes>
       </main>
     );
   }
 
   if (tipo === 'consequencia') {
     return (
-      <main className="tela cena cena-consequencia" key={`${cap.id}/${atual.id}`}>
+      <main className="tela cena cena-consequencia" key={chave}>
         <Cabecalho numero={cap.numero} titulo={cap.titulo} periodo={cap.periodo} />
         <article className="despacho">
-          {eco && <p className="eco">Porque {eco}…</p>}
-          {atual.lugar && <p className="lugar">{atual.lugar}</p>}
-          {corpo}
+          <Cartoes textos={textos} imagem={atual.imagem} detalhe={detalhe} topo={<>{linhaEco}{lugar}</>}>
+            <Acao onClick={avancar}>Seguir</Acao>
+          </Cartoes>
         </article>
-        <div className="acoes-cena">
-          <Acao onClick={avancar}>Seguir</Acao>
-        </div>
       </main>
     );
   }
 
   if (tipo === 'final') {
     return (
-      <main className="tela cena cena-final" key={`${cap.id}/${atual.id}`}>
-        <div className="hero">{ilustracao}</div>
-        <p className="rotulo desfecho">Desfecho do capítulo {cap.numero}</p>
-        {eco && <p className="eco">Porque {eco}…</p>}
-        {atual.lugar && <p className="lugar">{atual.lugar}</p>}
-        {corpo}
-        <div className="acoes-cena">
+      <main className="tela cena cena-final" key={chave}>
+        <Cartoes
+          textos={textos}
+          imagem={atual.imagem}
+          detalhe={detalhe}
+          abertura={<p className="rotulo desfecho">Desfecho do capítulo {cap.numero}</p>}
+          topo={<>{linhaEco}{lugar}</>}
+        >
           <Acao primario onClick={avancar}>Fechar o capítulo</Acao>
-        </div>
+        </Cartoes>
       </main>
     );
   }
 
   return (
-    <main className="tela cena" key={`${cap.id}/${atual.id}`}>
+    <main className="tela cena" key={chave}>
       <Cabecalho numero={cap.numero} titulo={cap.titulo} periodo={cap.periodo} />
-      {atual.lugar && <p className="lugar">{atual.lugar}</p>}
-      {corpo}
-      <div className="escolhas">
-        {opcoes.length ? (
-          opcoes.map(({ escolha: e, status }, i) => (
+      <Cartoes textos={textos} imagem={atual.imagem} detalhe={detalhe} topo={lugar}>
+        <div className="escolhas">
+          {opcoes.map(({ escolha: e, status }, i) => (
             <BotaoEscolha
               key={e.id}
               letra={String.fromCharCode(65 + i)}
@@ -275,15 +259,13 @@ export default function Jogo({ jogo, caminhos }: { jogo: JogoT; caminhos: Record
                 // Um instante para a decisão pesar antes de a cena mudar.
                 setTimeout(() => {
                   setDecidindo(null);
-                  atualizar(escolher(jogo, estado, e.id), [`${cap.id}/${atual.id}`, `${cap.id}/${atual.id}:${e.id}`]);
+                  atualizar(escolher(jogo, estado, e.id), [chave, `${chave}:${e.id}`]);
                 }, 650);
               }}
             />
-          ))
-        ) : (
-          <Acao primario onClick={avancar}>Continuar</Acao>
-        )}
-      </div>
+          ))}
+        </div>
+      </Cartoes>
     </main>
   );
 }
