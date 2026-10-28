@@ -28,9 +28,13 @@ export interface Layout {
   altura: number;
 }
 
-const DX = 96;
-const DY = 84;
-const MARGEM = 40;
+export interface Espacamento {
+  dx: number;
+  dy: number;
+  margem: number;
+}
+
+const PADRAO: Espacamento = { dx: 96, dy: 84, margem: 40 };
 
 export function arestasDoCapitulo(cap: Capitulo): ArestaLayout[] {
   const out: ArestaLayout[] = [];
@@ -44,7 +48,8 @@ export function arestasDoCapitulo(cap: Capitulo): ArestaLayout[] {
   return out;
 }
 
-export function layoutDoCapitulo(cap: Capitulo): Layout {
+export function layoutDoCapitulo(cap: Capitulo, esp: Espacamento = PADRAO): Layout {
+  const { dx: DX, dy: DY, margem: MARGEM } = esp;
   const arestas = arestasDoCapitulo(cap);
   const prof = new Map<string, number>([[cap.inicio, 0]]);
   const ordem: string[] = [cap.inicio];

@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trama · sketch da interface</title>
+<style>
+  :root {
+    --fundo: #0f0f11; --superficie: #18181b; --linha: #2c2c31;
+    --texto: #e9e5dc; --texto-2: #a19d94; --texto-3: #6b6862;
+    --destaque: #f4efe4; --real: #f29a2e;
+    --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fundo); color: var(--texto); font-family: var(--serif); }
+  .pagina { max-width: 1180px; margin: 0 auto; padding: 32px 16px 80px; }
+  h1 { font-weight: 400; font-size: 34px; margin: 0 0 8px; }
+  h2 { font-weight: 400; font-size: 26px; margin: 56px 0 6px; }
+  .intro, .desc { font-family: var(--sans); color: var(--texto-2); line-height: 1.55; max-width: 720px; margin: 0 0 20px; font-size: 15px; }
+  .opcoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+  .opcao { background: #141417; border: 1px solid var(--linha); border-radius: 14px; padding: 20px 18px 24px; }
+  .opcao h3 { font-weight: 400; font-size: 20px; margin: 0 0 4px; }
+  .opcao .nota { font-family: var(--sans); font-size: 13px; color: var(--texto-3); margin: 0 0 18px; line-height: 1.5; }
+  .rotulo { font-family: var(--sans); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--texto-3); margin: 18px 0 8px; }
+
+  /* ---------- A · Cartão editorial ---------- */
+  .a-lista { display: flex; flex-direction: column; gap: 10px; }
+  .a-btn { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; text-align: left;
+    font: inherit; font-size: 18px; line-height: 1.4; color: var(--texto); background: transparent;
+    border: 1px solid var(--linha); border-radius: 10px; padding: 16px 16px 16px 14px; cursor: pointer;
+    position: relative; overflow: hidden; transition: border-color .2s, background .2s, opacity .3s, transform .2s; }
+  .a-btn::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--real); transform: scaleY(0); transition: transform .2s; }
+  .a-btn:hover { background: var(--superficie); border-color: #3d3d44; }
+  .a-btn:hover::before { transform: scaleY(1); }
+  .a-btn .letra { font-family: var(--sans); font-size: 12px; font-weight: 600; color: var(--texto-3); border: 1px solid var(--linha); border-radius: 50%; width: 26px; height: 26px; display: grid; place-items: center; margin-top: 1px; }
+  .a-btn:hover .letra { color: var(--real); border-color: var(--real); }
+  .a-btn .selo { grid-column: 2; font-family: var(--sans); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; margin-top: 6px; }
+  .a-btn.real { border-color: var(--real); }
+  .a-btn.real::before { transform: scaleY(1); }
+  .a-btn.real .letra { color: var(--real); border-color: var(--real); }
+  .a-btn.real .selo { color: var(--real); }
+  .a-btn.travada { color: var(--texto-3); border-style: dashed; cursor: not-allowed; }
+  .a-btn.travada:hover { background: transparent; border-color: var(--linha); }
+  .a-btn.travada:hover::before { transform: scaleY(0); }
+  .a-btn.travada .letra { opacity: .5; }
+  .a-btn.travada .texto-op { text-decoration: line-through; text-decoration-color: #ffffff33; }
+  .a-lista.decidida .a-btn:not(.escolhida) { opacity: .25; transform: scale(.98); }
+  .a-btn.escolhida { border-color: var(--destaque); background: var(--superficie); }
+  .a-btn.escolhida::before { transform: scaleY(1); background: var(--destaque); }
+
+  /* ---------- B · Linha de jornal ---------- */
+  .b-lista { border-top: 1px solid var(--linha); }
+  .b-btn { display: flex; justify-content: space-between; align-items: center; gap: 16px; width: 100%; text-align: left;
+    font: inherit; font-size: 19px; line-height: 1.4; color: var(--texto); background: none; border: 0;
+    border-bottom: 1px solid var(--linha); padding: 18px 2px; cursor: pointer; transition: color .2s, padding .2s; }
+  .b-btn .seta { font-family: var(--sans); color: var(--texto-3); transition: transform .2s, color .2s; }
+  .b-btn:hover { padding-left: 10px; }
+  .b-btn:hover .seta { color: var(--real); transform: translateX(4px); }
+  .b-btn .selo { display: block; font-family: var(--sans); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; margin-top: 4px; }
+  .b-btn.real { color: var(--texto); }
+  .b-btn.real .selo, .b-btn.real .seta { color: var(--real); }
+  .b-btn.travada { color: var(--texto-3); cursor: not-allowed; }
+  .b-btn.travada:hover { padding-left: 2px; }
+  .b-btn.travada .seta { opacity: 0; }
+
+  /* ---------- C · Segurar para decidir ---------- */
+  .c-btn { position: relative; overflow: hidden; display: block; width: 100%; text-align: left; font: inherit; font-size: 18px; line-height: 1.4;
+    color: var(--texto); background: transparent; border: 1px solid var(--linha); border-radius: 10px; padding: 16px 16px 14px; margin-bottom: 10px;
+    cursor: pointer; user-select: none; -webkit-user-select: none; touch-action: manipulation; }
+  .c-btn .barra { position: absolute; inset: 0; background: linear-gradient(90deg, #f29a2e33, #f29a2e22); transform-origin: left; transform: scaleX(0); }
+  .c-btn .conteudo { position: relative; }
+  .c-btn .dica { display: block; font-family: var(--sans); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-3); margin-top: 6px; }
+  .c-btn:hover { border-color: #3d3d44; }
+  .c-btn.segurando { border-color: var(--real); }
+  .c-btn.segurando .dica { color: var(--real); }
+  .c-btn.feito { border-color: var(--real); background: #f29a2e1a; }
+  .c-btn.feito .dica { color: var(--real); }
+
+  /* ---------- Fluxo A · Mapa com miniaturas ---------- */
+  .fa { position: relative; display: block; width: 100%; max-width: 440px; margin: 0 auto; }
+  .fa svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .fa .aresta { fill: none; stroke-width: 1.5; }
+  .fa .percorrida { stroke: var(--destaque); stroke-width: 2.5; }
+  .fa .vista { stroke: var(--texto-3); }
+  .fa .oculta { stroke: var(--linha); stroke-dasharray: 3 4; }
+  .fa .real { stroke: var(--real); stroke-width: 2.5; }
+  .fa .rot { font-family: var(--sans); font-size: 9px; fill: var(--texto-2); }
+  .fa .rot.forte { fill: var(--texto); }
+
+  /* ---------- Fluxo B · Linha do tempo ---------- */
+  .fb { list-style: none; margin: 0; padding: 0; position: relative; }
+  .fb::before { content: ''; position: absolute; left: 44px; top: 30px; bottom: 30px; width: 2px; background: var(--destaque); opacity: .8; }
+  .fb li { display: grid; grid-template-columns: 90px 1fr; gap: 14px; align-items: start; padding: 10px 0; position: relative; }
+  .fb .mini { width: 90px; aspect-ratio: 16/9; border-radius: 6px; object-fit: cover; display: block; border: 2px solid var(--destaque); position: relative; z-index: 1; background: #222; }
+  .fb .lugar { font-family: var(--sans); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-3); margin: 2px 0 4px; }
+  .fb .feita { font-size: 16px; line-height: 1.35; margin: 0; }
+  .fb .outros { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .fb .chip { font-family: var(--sans); font-size: 11px; color: var(--texto-3); border: 1px dashed var(--linha); border-radius: 999px; padding: 3px 9px; display: inline-flex; gap: 5px; align-items: center; }
+  .fb .chip.visto { border-style: solid; color: var(--texto-2); }
+  .fb .chip.real { border-color: var(--real); color: var(--real); border-style: solid; }
+  .fb .pct { font-family: var(--sans); font-size: 11px; color: var(--texto-3); margin-left: 6px; }
+  .fb .fim { grid-template-columns: 90px 1fr; }
+  .fb .fim .marco { width: 90px; display: grid; place-items: center; }
+  .fb .fim .marco span { width: 16px; height: 16px; border-radius: 50%; background: var(--destaque); display: block; position: relative; z-index: 1; }
+  .cadeado { width: 10px; height: 10px; }
+</style>
+</head>
+<body>
+<div class="pagina">
+  <h1>Sketch da interface</h1>
+  <p class="intro">Propostas para os botões de escolha e para o fluxograma, já com as imagens do capítulo 1. Os botões são clicáveis: experimente. Na opção C, <b>segure</b> o botão.</p>
+
+  <h2>Botões de escolha</h2>
+  <p class="desc">Cada proposta mostra uma decisão livre e, embaixo, como fica um nó que a realidade já decidiu (o real em laranja, o resto travado).</p>
+  <div class="opcoes">
+
+    <section class="opcao">
+      <h3>A · Cartão editorial</h3>
+      <p class="nota">Letra (A, B, C) como marcador, texto em serifa. No hover, um fio laranja à esquerda. Ao escolher, a opção fica marcada e as outras somem antes de avançar.</p>
+      <div class="a-lista" data-a>
+        <button class="a-btn"><span class="letra">A</span><span class="texto-op">Flávio pede asilo formalmente aos Estados Unidos</span></button>
+        <button class="a-btn"><span class="letra">B</span><span class="texto-op">Flávio anuncia que volta para se defender em liberdade</span></button>
+        <button class="a-btn"><span class="letra">C</span><span class="texto-op">Flávio não pede asilo e passa a fazer oposição de longe</span></button>
+      </div>
+      <p class="rotulo">Nó decidido pela realidade</p>
+      <div class="a-lista">
+        <button class="a-btn real"><span class="letra">A</span><span class="texto-op">Os democratas retomam a Câmara dos Representantes</span><span class="selo">aconteceu em 03/11/2026</span></button>
+        <button class="a-btn travada" disabled><span class="letra">B</span><span class="texto-op">Os republicanos mantêm o controle das duas casas</span><span class="selo">não aconteceu</span></button>
+      </div>
+    </section>
+
+    <section class="opcao">
+      <h3>B · Linha de jornal</h3>
+      <p class="nota">Sem caixas: as opções são linhas separadas por fios, como itens de uma pauta. Mais leve e editorial; a seta anda no hover.</p>
+      <div class="b-lista">
+        <button class="b-btn"><span>Flávio pede asilo formalmente aos Estados Unidos</span><span class="seta">→</span></button>
+        <button class="b-btn"><span>Flávio anuncia que volta para se defender em liberdade</span><span class="seta">→</span></button>
+        <button class="b-btn"><span>Flávio não pede asilo e passa a fazer oposição de longe</span><span class="seta">→</span></button>
+      </div>
+      <p class="rotulo">Nó decidido pela realidade</p>
+      <div class="b-lista">
+        <button class="b-btn real"><span>Os democratas retomam a Câmara dos Representantes<span class="selo">aconteceu em 03/11/2026</span></span><span class="seta">→</span></button>
+        <button class="b-btn travada" disabled><span>Os republicanos mantêm o controle das duas casas<span class="selo">não aconteceu</span></span><span class="seta">→</span></button>
+      </div>
+    </section>
+
+    <section class="opcao">
+      <h3>C · Segurar para decidir</h3>
+      <p class="nota">A escolha só vale depois de segurar ~0,8 s; a barra laranja enche. Reforça que não tem volta e evita toque acidental no celular. Combina com o visual de A.</p>
+      <div data-c>
+        <button class="c-btn"><span class="barra"></span><span class="conteudo">Flávio pede asilo formalmente aos Estados Unidos<span class="dica">segure para decidir</span></span></button>
+        <button class="c-btn"><span class="barra"></span><span class="conteudo">Flávio anuncia que volta para se defender em liberdade<span class="dica">segure para decidir</span></span></button>
+        <button class="c-btn"><span class="barra"></span><span class="conteudo">Flávio não pede asilo e passa a fazer oposição de longe<span class="dica">segure para decidir</span></span></button>
+      </div>
+    </section>
+  </div>
+
+  <h2>Fluxograma</h2>
+  <p class="desc">O mesmo caminho nas duas propostas: espera → democratas → asilo → protesto → PL negocia. Em ambas, o fio laranja mostra uma escolha travada pela realidade (aqui, como exemplo, a noite de 3/11).</p>
+  <div class="opcoes">
+
+    <section class="opcao">
+      <h3>A · Mapa com miniaturas</h3>
+      <p class="nota">A árvore continua, mas cada nó vira a própria ilustração. Percorrido: imagem nítida com contorno. Não descoberto: bloco escuro com cadeado. Dá para ver a forma da história de relance.</p>
+      <div class="fa" id="fa"></div>
+    </section>
+
+    <section class="opcao">
+      <h3>B · Linha do tempo</h3>
+      <p class="nota">Lê de cima para baixo como uma crônica: a cena, a escolha feita e, ao lado, os caminhos que ficaram para trás (com a porcentagem da comunidade, quando existir). Mais legível no celular; a forma da árvore aparece menos.</p>
+      <ol class="fb">
+        <li><img class="mini" src="http://localhost:3000/imagens/cap01/pedido.webp" alt=""><div><p class="lugar">Brasília, Supremo</p><p class="feita">O relator mantém as medidas atuais e adia a decisão sobre a prisão <span class="pct">58%</span></p><div class="outros"><span class="chip visto">decreta a prisão preventiva <span class="pct">42%</span></span></div></div></li>
+        <li><img class="mini" src="http://localhost:3000/imagens/cap01/eleicao_eua.webp" alt=""><div><p class="lugar">Miami, 3 de novembro</p><p class="feita">Os democratas retomam a Câmara dos Representantes</p><div class="outros"><span class="chip real">aconteceu em 03/11</span><span class="chip">🔒 republicanos mantêm o Congresso</span></div></div></li>
+        <li><img class="mini" src="http://localhost:3000/imagens/cap01/proximo_passo.webp" alt=""><div><p class="lugar">Miami, novembro</p><p class="feita">Flávio pede asilo formalmente aos Estados Unidos <span class="pct">31%</span></p><div class="outros"><span class="chip">🔒 2 caminhos não vistos</span></div></div></li>
+        <li><img class="mini" src="http://localhost:3000/imagens/cap01/itamaraty.webp" alt=""><div><p class="lugar">Brasília, Itamaraty</p><p class="feita">O Itamaraty protesta formalmente <span class="pct">47%</span></p><div class="outros"><span class="chip">🔒 1 caminho não visto</span></div></div></li>
+        <li><img class="mini" src="http://localhost:3000/imagens/cap01/pl.webp" alt=""><div><p class="lugar">Brasília, sede do PL</p><p class="feita">O PL deixa a tese de fraude para Flávio e senta para negociar <span class="pct">64%</span></p><div class="outros"><span class="chip">🔒 1 caminho não visto</span></div></div></li>
+        <li class="fim"><div class="marco"><span></span></div><div><p class="lugar">Fim do capítulo 1</p><p class="feita">5 de 7 momentos descobertos</p></div></li>
+      </ol>
+      <p class="nota" style="margin-top:14px">As porcentagens são de mentira, só para mostrar onde entram.</p>
+    </section>
+  </div>
+</div>
+
+<script>
+  // A: ao escolher, marca a opção e apaga as outras
+  document.querySelectorAll('[data-a]').forEach((lista) => {
+    lista.querySelectorAll('.a-btn').forEach((b) => b.addEventListener('click', () => {
+      lista.classList.add('decidida');
+      b.classList.add('escolhida');
+      setTimeout(() => { lista.classList.remove('decidida'); b.classList.remove('escolhida'); }, 1600);
+    }));
+  });
+
+  // C: segurar para decidir
+  document.querySelectorAll('[data-c] .c-btn').forEach((b) => {
+    const barra = b.querySelector('.barra'); const dica = b.querySelector('.dica');
+    let ini = 0, raf = 0;
+    const DUR = 800;
+    const passo = (t) => {
+      const p = Math.min(1, (t - ini) / DUR);
+      barra.style.transform = `scaleX(${p})`;
+      if (p < 1) raf = requestAnimationFrame(passo);
+      else { b.classList.remove('segurando'); b.classList.add('feito'); dica.textContent = 'decidido'; setTimeout(reset, 1600); }
+    };
+    const comecar = (e) => { e.preventDefault(); if (b.classList.contains('feito')) return; b.classList.add('segurando'); ini = performance.now(); raf = requestAnimationFrame(passo); };
+    const soltar = () => { if (b.classList.contains('feito')) return; cancelAnimationFrame(raf); b.classList.remove('segurando'); barra.style.transition = 'transform .25s'; barra.style.transform = 'scaleX(0)'; setTimeout(() => barra.style.transition = '', 260); };
+    const reset = () => { b.classList.remove('feito'); dica.textContent = 'segure para decidir'; barra.style.transform = 'scaleX(0)'; };
+    b.addEventListener('pointerdown', comecar);
+    ['pointerup', 'pointerleave', 'pointercancel'].forEach((ev) => b.addEventListener(ev, soltar));
+  });
+
+  // Fluxo A: árvore com miniaturas (posições do layout real do capítulo 1)
+  (() => {
+    const W = 360, TW = 96, TH = 54, DY = 92, X0 = W / 2;
+    const img = (n) => `http://localhost:3000/imagens/cap01/${n}.webp`;
+    const nos = [
+      { id: 'abertura', x: X0, y: 0, st: 'p', rot: 'Miami, 28/10' },
+      { id: 'pedido', x: X0, y: 1, st: 'p', rot: 'Supremo' },
+      { id: 'eleicao_eua', x: X0, y: 2, st: 'p', rot: 'Miami, 3/11' },
+      { id: 'proximo_passo', x: X0, y: 3, st: 'p', rot: 'Miami, novembro' },
+      { id: 'itamaraty', x: X0 - 110, y: 4, st: 'p', rot: 'Itamaraty' },
+      { id: 'aeroporto', x: X0 + 110, y: 4, st: 'o' },
+      { id: 'pl', x: X0, y: 5, st: 'p', rot: 'Sede do PL' },
+    ];
+    const P = Object.fromEntries(nos.map((n) => [n.id, { x: n.x, y: 30 + n.y * DY }]));
+    P.fim = { x: X0, y: 30 + 6 * DY };
+    const arestas = [
+      ['abertura', 'pedido', 'p', 0], ['pedido', 'eleicao_eua', 'p', -1], ['pedido', 'eleicao_eua', 'v', 1],
+      ['eleicao_eua', 'proximo_passo', 'r', -1], ['eleicao_eua', 'proximo_passo', 'o', 1],
+      ['proximo_passo', 'itamaraty', 'p', 0], ['proximo_passo', 'aeroporto', 'o', 0], ['proximo_passo', 'pl', 'o', 0],
+      ['itamaraty', 'pl', 'p', -1], ['itamaraty', 'pl', 'o', 1], ['aeroporto', 'pl', 'o', -1], ['aeroporto', 'pl', 'o', 1],
+      ['pl', 'fim', 'p', -1], ['pl', 'fim', 'o', 1],
+    ];
+    const cls = { p: 'percorrida', v: 'vista', o: 'oculta', r: 'real' };
+    let s = `<svg viewBox="-20 0 ${W + 40} ${P.fim.y + 30}">`;
+    for (const [a, b, st, lado] of arestas) {
+      const A = P[a], B = P[b], m = (A.y + B.y) / 2, l = lado * 18;
+      s += `<path class="aresta ${cls[st]}" d="M ${A.x} ${A.y + TH / 2} C ${A.x + l} ${m}, ${B.x + l} ${m}, ${B.x} ${B.y - TH / 2}"/>`;
+    }
+    for (const n of nos) {
+      const { x, y } = P[n.id];
+      if (n.st === 'p') {
+        s += `<clipPath id="c-${n.id}"><rect x="${x - TW / 2}" y="${y - TH / 2}" width="${TW}" height="${TH}" rx="6"/></clipPath>`;
+        s += `<image href="${img(n.id)}" x="${x - TW / 2}" y="${y - TH / 2}" width="${TW}" height="${TH}" preserveAspectRatio="xMidYMid slice" clip-path="url(#c-${n.id})"/>`;
+        s += `<rect x="${x - TW / 2}" y="${y - TH / 2}" width="${TW}" height="${TH}" rx="6" fill="none" stroke="#f4efe4" stroke-width="2"/>`;
+        s += `<text class="rot forte" x="${x + TW / 2 + 8}" y="${y + 3}">${n.rot}</text>`;
+      } else {
+        s += `<rect x="${x - TW / 2}" y="${y - TH / 2}" width="${TW}" height="${TH}" rx="6" fill="#16161a" stroke="#2c2c31" stroke-dasharray="3 3"/>`;
+        s += `<path d="M ${x - 4} ${y - 1} v -3 a 4 4 0 0 1 8 0 v 3 M ${x - 6} ${y - 1} h 12 v 8 h -12 z" fill="none" stroke="#6b6862" stroke-width="1.3"/>`;
+      }
+    }
+    s += `<circle cx="${P.fim.x}" cy="${P.fim.y}" r="8" fill="#f4efe4"/><text class="rot" x="${P.fim.x + 16}" y="${P.fim.y + 3}">fim do capítulo</text>`;
+    s += `</svg>`;
+    document.getElementById('fa').innerHTML = s;
+  })();
+</script>
+</body>
+</html>

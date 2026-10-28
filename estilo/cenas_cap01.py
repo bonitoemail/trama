@@ -15,6 +15,42 @@ CENAS = {
         "columns under a long flat roof, mostly in shadow. In the center, one long empty "
         "dark desk with a single closed folder on it. A single block of light falls on the "
         "desk from above. No one at the desk. Accent: the block of light on the folder."),
+    "foragido": ("direita",
+        "Composition: wide frontal shot of a bare room with a plain pale wall. One small man "
+        "in a dark suit stands facing a phone mounted on a small tripod, seen from the side. "
+        "Nothing else in the room but his long flat shadow on the wall. Accent: the tiny "
+        "round recording light on the phone."),
+    "o_prazo": ("congresso",
+        "Composition: wide frontal shot of a large legislative chamber seen from the back: "
+        "a semicircle of empty dark seats in rows facing a long raised table at the front. "
+        "High above the table, on a plain wall, one large round clock. No people. Accent: "
+        "the round clock face."),
+    "noite_democrata": ("mundo",
+        "Composition: wide frontal shot at night, low horizon. The United States Capitol as "
+        "simple flat shapes: a long low pale building with one large central dome on a drum "
+        "of columns. A wide empty lawn in front, a few tiny dark figures on the steps. Flat "
+        "dark sky. Accent: the lit central dome."),
+    "noite_republicana": ("mundo",
+        "Composition: wide shot at night by the sea. A long low pale seaside villa with "
+        "arched windows and a row of tall palm silhouettes, a flat dark sea and sky. On a "
+        "wide terrace, a crowd of tiny dark figures stands together. Accent: the lit terrace "
+        "as one warm block of light."),
+    "o_canal": ("direita",
+        "Composition: wide frontal shot of a dim apartment at night. One small man in a dark "
+        "suit sits alone at a plain desk, seen from behind, facing a phone on a stand. A "
+        "tall window behind the desk shows a flat night sky and palm silhouettes. Accent: a "
+        "large round ring light beside the phone."),
+    "a_ligacao": ("congresso",
+        "Composition: wide shot of a dark office at night. A large empty desk. One small man "
+        "in a suit stands at a tall window, seen from the side, holding a phone to his ear. "
+        "Through the window, a flat low horizon with a few tiny lights far away. Accent: the "
+        "small glowing phone at his ear."),
+    "a_convocacao": ("congresso",
+        "Composition: very wide frontal shot, low horizon, large empty sky. A vast flat "
+        "empty lawn with two long rows of identical flat rectangular buildings on both sides, "
+        "leading toward two thin tall towers far away in the center. In the foreground, a "
+        "small empty stage with a loudspeaker truck and a few tiny dark figures. Accent: a "
+        "large blank screen on the stage."),
     "eleicao_eua": ("mundo",
         "Composition: wide shot of a dim rented apartment at night, flat dark shapes. Two "
         "small men in dark clothes sit on a low sofa seen from behind, facing a television "

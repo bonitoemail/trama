@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import BotaoEscolha from './BotaoEscolha';
 import Fluxograma from './Fluxograma';
 import {
   type Estado,
@@ -23,6 +24,7 @@ export default function Jogo({ jogo }: { jogo: JogoT }) {
   const [estado, setEstado] = useState<Estado | null>(null);
   const [vistos, setVistos] = useState<Set<string>>(new Set());
   const [confirmarNova, setConfirmarNova] = useState(false);
+  const [decidindo, setDecidindo] = useState<string | null>(null);
 
   useEffect(() => {
     // Uma partida salva que não bate mais com o conteúdo (nó ou capítulo removido) é descartada.
@@ -184,6 +186,13 @@ export default function Jogo({ jogo }: { jogo: JogoT }) {
   const atual = no(jogo, cap.id, estado.no);
   const opcoes = escolhasExibidas(atual, estado.marcas);
   const primeiroNo = estado.no === cap.inicio;
+  // A ilustração é uma pausa no meio da leitura: entra depois da metade dos parágrafos.
+  const textos = paragrafos(atual.texto, estado.marcas);
+  const meio = Math.ceil(textos.length / 2);
+  const ilustracao = atual.imagem && (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img className="ilustracao" src={`/${atual.imagem}`} alt="" />
+  );
 
   return (
     <main className="tela cena" key={`${cap.id}/${atual.id}`}>
@@ -193,30 +202,35 @@ export default function Jogo({ jogo }: { jogo: JogoT }) {
         </span>
         <span>{cap.periodo}</span>
       </header>
-      {atual.imagem && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img className="ilustracao" src={`/${atual.imagem}`} alt="" />
-      )}
       {cap.rascunho && primeiroNo && <p className="rascunho">rascunho</p>}
       {atual.lugar && <p className="lugar">{atual.lugar}</p>}
-      {paragrafos(atual.texto, estado.marcas).map((p, i) => (
+      {textos.slice(0, meio).map((p, i) => (
         <p key={i} className="texto">{p}</p>
+      ))}
+      {ilustracao}
+      {textos.slice(meio).map((p, i) => (
+        <p key={meio + i} className="texto">{p}</p>
       ))}
       <div className="escolhas">
         {opcoes.length ? (
-          opcoes.map(({ escolha: e, status }) => (
-            <button
+          opcoes.map(({ escolha: e, status }, i) => (
+            <BotaoEscolha
               key={e.id}
-              className={`botao escolha ${status}`}
-              disabled={status === 'travada'}
-              onClick={() =>
-                atualizar(escolher(jogo, estado, e.id), [`${cap.id}/${atual.id}`, `${cap.id}/${atual.id}:${e.id}`])
-              }
-            >
-              {e.rotulo}
-              {status === 'real' && <span className="selo">aconteceu em {e.real!.data}</span>}
-              {status === 'travada' && <span className="selo">não aconteceu</span>}
-            </button>
+              letra={String.fromCharCode(65 + i)}
+              rotulo={e.rotulo}
+              status={status}
+              dataReal={e.real?.data}
+              decidido={decidindo === e.id}
+              apagado={decidindo !== null && decidindo !== e.id}
+              onDecidir={() => {
+                setDecidindo(e.id);
+                // Um instante para a decisão pesar antes de a cena mudar.
+                setTimeout(() => {
+                  setDecidindo(null);
+                  atualizar(escolher(jogo, estado, e.id), [`${cap.id}/${atual.id}`, `${cap.id}/${atual.id}:${e.id}`]);
+                }, 650);
+              }}
+            />
           ))
         ) : (
           <button

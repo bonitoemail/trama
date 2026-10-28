@@ -1,0 +1,278 @@
+# Capítulo 1 — A carta
+# Começa no dia seguinte ao último fato real do prólogo: a carta de 28/10/2026 em que Flávio
+# se declara "o verdadeiro presidente eleito". Fatos: pesquisa/00-sintese.md e
+# pesquisa/03-direita-oposicao.md.
+# Escolhas que a realidade decidir ganham `real: { data, fonte }` (DESIGN.md 6.1).
+# Candidatas a trava: pedido (prisão preventiva), itamaraty, eleicao_eua (midterms de 3/11),
+# o_exilio, pl.
+#
+# Estrutura: cada escolha abre uma cena própria antes de convergir; o capítulo termina em
+# dois finais diferentes (a_ligacao, a_convocacao).
+id: cap01
+numero: 1
+titulo: A carta
+periodo: fim de outubro a novembro de 2026
+rascunho: true
+inicio: abertura
+
+nos:
+  - id: abertura
+    lugar: Miami e Brasília, 29 de outubro
+    imagem: imagens/cap01/abertura.webp
+    texto: |
+      Brasília acorda com duas notícias sobre o mesmo homem. A primeira é que ele está em Miami,
+      com visto americano e sem pedido de asilo conhecido. A segunda é que ele se considera
+      presidente.
+
+      A carta tem três páginas, o brasão da República no alto e nenhuma prova. Fala em fraude e
+      em perseguição, agradece a Milei e a Trump e compara o autor a Rui Barbosa, a De Gaulle e
+      a Guaidó.
+
+      No PL, a primeira reação é de distância: o partido diz que não tem relação com o texto.
+      Valdemar Costa Neto reconheceu o resultado três dias antes. Mas a carta tem uma frase que
+      ninguém em Brasília consegue ignorar: Rogério Marinho é o candidato de Flávio à presidência
+      do Senado.
+
+      A Polícia Federal diz que Flávio não é foragido. Há um pedido de prisão sobre a mesa.
+    segue: pedido
+
+  - id: pedido
+    lugar: Brasília, Supremo Tribunal Federal
+    imagem: imagens/cap01/pedido.webp
+    texto: |
+      O pedido é de deputados do PT: prisão preventiva e o nome de Flávio no alerta vermelho da
+      Interpol. Para quem defende a prisão, a carta é a prova de que ele não pretende voltar. Para
+      a defesa, é liberdade de expressão de um senador que nunca deixou de responder à Justiça.
+
+      O gabinete do relator não comenta. Do lado de fora, as duas metades do país que votaram em
+      outubro esperam a mesma decisão por motivos opostos.
+
+      Prender agora transforma um senador em foragido internacional, e talvez em mártir. Esperar
+      deixa no ar a sensação de que uma carta e uma ordem descumprida valem pouco.
+    escolhas:
+      - id: preventiva
+        rotulo: O relator decreta a prisão preventiva e cita a carta na decisão
+        marca: [flavio_preventiva]
+        vai_para: foragido
+      - id: espera
+        rotulo: O relator trata a carta como retórica e adia a decisão sobre a prisão
+        marca: [flavio_sem_preventiva]
+        vai_para: o_prazo
+
+  - id: foragido
+    lugar: Miami, dias depois
+    imagem: imagens/cap01/foragido.webp
+    texto: |
+      A decisão sai numa sexta-feira à noite: prisão preventiva por descumprimento de ordem
+      judicial e pedido de inclusão na difusão vermelha. A carta aparece citada três vezes.
+
+      Na própria carta, Flávio tinha escrito que não existia mandado de prisão contra ele. Agora
+      existe. Ele responde com um vídeo de dois minutos diante de uma parede branca: fala em
+      perseguição e repete que é o presidente eleito.
+
+      Advogados lembram o que quase ninguém repete: o alerta da Interpol é um pedido, não uma
+      ordem, e cada país decide o que fazer com ele. Eduardo, condenado e com mandado de prisão,
+      vive nos Estados Unidos desde 2025.
+    segue: itamaraty
+
+  - id: o_prazo
+    lugar: Brasília, Senado Federal
+    imagem: imagens/cap01/o_prazo.webp
+    texto: |
+      Sem prisão, o relógio que importa passa a ser outro: o do Senado. Pelas contas de um jornal,
+      se Flávio não voltar, a Mesa pode declarar a perda do mandato por faltas por volta de 17 de
+      dezembro, sem votação em plenário.
+
+      Quem preside a Mesa é Davi Alcolumbre. Alcolumbre quer ser reeleito presidente do Senado em
+      fevereiro, e a partir de fevereiro o PL terá 29 senadores. Na carta, Flávio escolheu
+      Marinho contra ele.
+
+      Em Brasília, todo mundo sabe fazer essa conta. A pergunta é quem vai fazê-la primeiro.
+    segue: itamaraty
+
+  - id: itamaraty
+    lugar: Brasília, Palácio do Itamaraty
+    imagem: imagens/cap01/itamaraty.webp
+    texto:
+      - |
+        A carta agradece a dois chefes de Estado. Para o Itamaraty, isso deixou de ser só um
+        problema político.
+      - |
+        A Milei, Flávio agradece pela coragem. Registros argentinos mostram que ele saiu do Brasil
+        pela Argentina; o governo argentino nega qualquer participação. A Trump, agradece por
+        acolhê-lo.
+      - se: { tem: flavio_preventiva }
+        texto: "E agora há um detalhe que ninguém esquece: o Brasil tem uma ordem de prisão contra o homem que os dois estariam acolhendo."
+      - |
+        Lula já chamou a saída de Flávio de vergonhosa. No Planalto, a discussão é curta e tensa.
+        Cobrar os vizinhos dá à carta a importância que ela quer ter. Calar deixa a pergunta sem
+        resposta.
+    escolhas:
+      - id: silencio
+        rotulo: O governo trata a carta como bravata e não fala sobre ela com ninguém
+        marca: [governo_silencio]
+        vai_para: eleicao_eua
+      - id: cobra
+        rotulo: O Itamaraty pede explicações formais a Washington e a Buenos Aires
+        marca: [crise_diplomatica]
+        vai_para: eleicao_eua
+
+  - id: eleicao_eua
+    lugar: Miami, 3 de novembro
+    imagem: imagens/cap01/eleicao_eua.webp
+    texto:
+      - |
+        Na terça-feira, os Estados Unidos votam para renovar o Congresso. Num apartamento
+        alugado, Flávio e Eduardo acompanham a apuração com o som da televisão baixo.
+      - |
+        Na carta, Flávio chamou Trump de grande defensor da liberdade de expressão. Esta noite diz
+        quanto vale esse apoio nos próximos dois anos.
+      - se: { tem: crise_diplomatica }
+        texto: O pedido de explicações do Itamaraty ainda não teve resposta de Washington.
+      - |
+        As pesquisas dão vantagem aos democratas. Trump chega à eleição com a menor aprovação do
+        mandato.
+    escolhas:
+      - id: democratas
+        rotulo: Os democratas retomam a Câmara dos Representantes
+        marca: [eua_dem_camara]
+        vai_para: noite_democrata
+      - id: republicanos
+        rotulo: Os republicanos mantêm o controle das duas casas do Congresso
+        marca: [eua_rep_congresso]
+        vai_para: noite_republicana
+
+  - id: noite_democrata
+    lugar: Washington, 4 de novembro
+    imagem: imagens/cap01/noite_democrata.webp
+    texto: |
+      A Câmara muda de mãos antes da meia-noite. De manhã, a nova maioria já tem uma lista de
+      assuntos, e o Brasil está nela.
+
+      Em outubro, a Reuters revelou que dois funcionários do Departamento de Estado, Darren
+      Beattie e Ricardo Pita, teriam feito campanha dentro do governo para devolver a família
+      Bolsonaro ao poder. Deputados democratas prometem convocar os dois assim que o novo
+      Congresso tomar posse, em janeiro.
+
+      Em Brasília, o ministro Flávio Dino já tinha mandado a Polícia Federal investigar possível
+      interferência estrangeira na eleição. A mesma pergunta vai ser feita nos dois países.
+    segue: o_exilio
+
+  - id: noite_republicana
+    lugar: Palm Beach, 4 de novembro
+    imagem: imagens/cap01/noite_republicana.webp
+    texto: |
+      Os republicanos seguram as duas casas. Trump comemora numa festa à beira-mar e fala em
+      vitória histórica.
+
+      Em Miami, o alívio é imediato. Ninguém em Washington vai fazer perguntas sobre a campanha
+      que, segundo a Reuters, funcionários do Departamento de Estado teriam feito a favor da
+      família.
+
+      Uma semana antes, Trump tinha dito duas coisas sobre o Brasil: que a eleição pareceu ter
+      fraude e que ele gosta de Lula. Agora ele não precisa escolher entre as duas.
+    segue: o_exilio
+
+  - id: o_exilio
+    lugar: Miami, novembro
+    imagem: imagens/cap01/o_exilio.webp
+    texto:
+      - |
+        Na carta, Flávio prometeu falar regularmente ao povo brasileiro e apresentar uma
+        estratégia para mobilizar a oposição. Em Miami, a pergunta é o que isso quer dizer na
+        prática.
+      - se: { tem: eua_dem_camara }
+        texto: Com os democratas no comando da Câmara, cada passo dele vai ser observado em Washington.
+        senao: Com os republicanos firmes no Congresso, Washington não vai atrapalhar.
+      - se: { tem: flavio_preventiva }
+        texto: Com a prisão decretada, voltar deixou de ser uma opção.
+        senao: E, a cada sessão do Senado sem ele, a contagem de faltas anda.
+      - |
+        Há um modelo à mão, e ele mesmo o citou: Juan Guaidó, que se declarou presidente da
+        Venezuela e chegou a ser reconhecido por dezenas de países. Há também o caminho mais
+        modesto: ser, de longe, a voz mais alta da oposição.
+    escolhas:
+      - id: governo
+        rotulo: Flávio anuncia um governo no exílio, com um nome para cada ministério
+        marca: [governo_exilio]
+        vai_para: pl
+      - id: voz
+        rotulo: Flávio se apresenta como líder da oposição e passa a falar todas as noites, de Miami
+        marca: [flavio_live]
+        vai_para: pl
+
+  - id: pl
+    lugar: Brasília, sede do PL
+    imagem: imagens/cap01/pl.webp
+    texto:
+      - A executiva do partido se reúne numa sala comprida. A cadeira da cabeceira fica vazia de propósito.
+      - |
+        Valdemar reconheceu o resultado da eleição em 26 de outubro. Dois dias depois, a carta
+        disse o contrário e escolheu o candidato do partido ao Senado sem consultar o partido.
+        O PL fez a maior bancada do Congresso, mas maior não é maioria. Em fevereiro, Câmara e
+        Senado elegem seus presidentes, e Alcolumbre, que quer continuar presidindo, conversa com
+        todo mundo.
+      - se: { tem: crise_diplomatica }
+        texto: O protesto do Itamaraty deu à carta o que ela queria, importância, e deu ao partido uma bandeira.
+      - se: { tem: flavio_preventiva }
+        texto: Com a prisão decretada, defender Flávio em público passou a ter um custo, e a render votos.
+      - se: { tem: governo_exilio }
+        texto: O governo no exílio já tem nomes. Dois deles são deputados do partido, e souberam pela imprensa.
+      - se: { tem: flavio_live }
+        texto: Toda noite, a transmissão de Miami diz o que o partido deveria fazer. Nem sempre é o que o partido quer fazer.
+      - se: { tem: flavio_sem_preventiva }
+        texto: "E há o relógio do Senado: em dezembro, a Mesa pode tirar o mandato de Flávio por faltas. Quem decide é Alcolumbre."
+      - |
+        Ninguém diz em voz alta, mas todos na sala sabem: quem negociar agora vai ter que
+        explicar a negociação depois.
+    escolhas:
+      - id: negocia
+        rotulo: Valdemar mantém o reconhecimento do resultado e senta para negociar com Alcolumbre
+        marca: [pl_negocia]
+        vai_para: a_ligacao
+      - id: obstrui
+        rotulo: O PL abraça a carta, lança Marinho ao Senado e promete obstruir o governo
+        marca: [pl_obstrui]
+        vai_para: a_convocacao
+
+  # Final A — a semente do Acordo (pesquisa/00-sintese.md, seção 2)
+  - id: a_ligacao
+    lugar: Brasília, uma noite de novembro
+    imagem: imagens/cap01/a_ligacao.webp
+    texto:
+      - |
+        Valdemar liga para Alcolumbre num celular que não é o dele. A conversa dura doze minutos
+        e ninguém fala em anistia, nem em Supremo, nem em Flávio. Fala-se de fevereiro.
+      - se: { tem: flavio_sem_preventiva }
+        texto: As faltas de Flávio não entram na conversa. Não precisam. Os dois sabem que a Mesa só decide em dezembro.
+      - se: { tem: flavio_preventiva }
+        texto: A prisão decretada também não entra. Mas os dois sabem que, depois de fevereiro, quem presidir o Senado vai receber os pedidos de impeachment contra quem a decretou.
+      - |
+        Na mesma noite, Marinho diz a aliados que continua candidato. No dia seguinte, Valdemar e
+        Alcolumbre dizem a jornalistas diferentes a mesma frase: conversa entre presidentes de
+        partido é normal.
+
+        É assim que começa um acordo: com uma conversa que todo mundo confirma e ninguém conta.
+
+  # Final B — a briga
+  - id: a_convocacao
+    lugar: Brasília, Esplanada dos Ministérios
+    imagem: imagens/cap01/a_convocacao.webp
+    texto:
+      - |
+        O PL convoca um ato na Esplanada para 15 de novembro, dia da Proclamação da República.
+        Marinho vai subir no carro de som como candidato à presidência do Senado.
+      - se: { tem: flavio_preventiva }
+        texto: O mote é a perseguição. A ordem de prisão vai estar impressa nas faixas.
+      - se: { tem: governo_exilio }
+        texto: No telão, o governo no exílio vai ser apresentado, ministro por ministro.
+      - se: { tem: flavio_live }
+        texto: No telão, Flávio vai falar ao vivo de Miami.
+      - |
+        Tarcísio, que já reconheceu a vitória de Lula, avisa que estará em São Paulo naquele dia.
+
+        No Centrão, alguém faz as contas e sorri. Oposição brigando com a própria sombra deixa o
+        apoio ao governo mais caro, e mais fácil de vender.
+
+saidas:
+  - para: FIM

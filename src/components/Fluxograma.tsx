@@ -12,14 +12,23 @@ interface Props {
   vistos: Set<string>;
 }
 
+// Miniatura 16:9 de cada nó; o espaçamento do layout acompanha o tamanho.
+const TW = 96;
+const TH = 54;
+const ESPACO = { dx: 124, dy: 98, margem: 56 };
+
+/**
+ * Mapa do capítulo: cada nó é a própria ilustração.
+ * Percorrido = nítido com contorno; visto em outra partida = apagado; nunca visto = cadeado.
+ */
 export default function Fluxograma({ cap, passos, vistos }: Props) {
-  const layout = useMemo(() => layoutDoCapitulo(cap), [cap]);
+  const layout = useMemo(() => layoutDoCapitulo(cap, ESPACO), [cap]);
   const [selecionado, setSelecionado] = useState<string | null>(null);
 
   const pos = new Map(layout.nos.map((n) => [n.id, n]));
+  const porId = new Map(cap.nos.map((n) => [n.id, n]));
   const percorridos = new Set(passos.map((p) => p.no));
-  const ultimo = passos[passos.length - 1];
-  if (ultimo) percorridos.add(SAIDA);
+  if (passos.length) percorridos.add(SAIDA);
 
   const reais = new Set(
     cap.nos.flatMap((n) => (n.escolhas ?? []).filter((e) => e.real).map((e) => `${n.id}:${e.id}`)),
@@ -30,45 +39,85 @@ export default function Fluxograma({ cap, passos, vistos }: Props) {
   const arestaVista = (de: string, escolha: string | null) =>
     escolha === null ? noVisto(de) : vistos.has(`${cap.id}/${de}:${escolha}`);
 
-  const totalNos = cap.nos.length;
   const nosVistos = cap.nos.filter((n) => noVisto(n.id)).length;
-  const sel = selecionado ? cap.nos.find((n) => n.id === selecionado) : null;
+  const sel = selecionado ? porId.get(selecionado) : null;
+
+  // Arestas saem da base da miniatura e entram no topo da próxima.
+  const borda = (id: string, lado: 'topo' | 'base') => {
+    const p = pos.get(id)!;
+    const meia = id === SAIDA ? 8 : TH / 2;
+    return { x: p.x, y: lado === 'topo' ? p.y - meia : p.y + meia };
+  };
 
   return (
     <figure className="fluxo">
       <svg
         viewBox={`0 0 ${layout.largura} ${layout.altura}`}
         width="100%"
-        style={{ maxWidth: layout.largura * 1.6 }}
+        style={{ maxWidth: layout.largura * 1.25 }}
         role="img"
-        aria-label={`Fluxograma do capítulo ${cap.numero}: ${nosVistos} de ${totalNos} momentos descobertos`}
+        aria-label={`Mapa do capítulo ${cap.numero}: ${nosVistos} de ${cap.nos.length} momentos descobertos`}
       >
+        <defs>
+          {layout.nos
+            .filter((n) => n.id !== SAIDA)
+            .map((n) => (
+              <clipPath key={n.id} id={`mini-${cap.id}-${n.id}`}>
+                <rect x={n.x - TW / 2} y={n.y - TH / 2} width={TW} height={TH} rx={6} />
+              </clipPath>
+            ))}
+        </defs>
+
         {layout.arestas.map((a, i) => {
-          const de = pos.get(a.de)!;
-          const para = pos.get(a.para)!;
+          const de = borda(a.de, 'base');
+          const para = borda(a.para, 'topo');
           const meio = (de.y + para.y) / 2;
           // Escolhas diferentes que levam ao mesmo nó abrem em leque, para nenhuma sumir.
           const irmas = layout.arestas.filter((b) => b.de === a.de && b.para === a.para);
-          const k = irmas.indexOf(a);
-          const leque = (k - (irmas.length - 1) / 2) * 26;
+          const leque = (irmas.indexOf(a) - (irmas.length - 1) / 2) * 22;
           const d = `M ${de.x} ${de.y} C ${de.x + leque} ${meio}, ${para.x + leque} ${meio}, ${para.x} ${para.y}`;
           const cls = arestaPercorrida(a.de, a.escolha) ? 'percorrida' : arestaVista(a.de, a.escolha) ? 'vista' : 'oculta';
           const real = a.escolha !== null && reais.has(`${a.de}:${a.escolha}`) ? 'real' : '';
           return <path key={i} d={d} className={`aresta ${cls} ${real}`} />;
         })}
+
         {layout.nos.map((n) => {
-          const saida = n.id === SAIDA;
-          const cls = percorridos.has(n.id) ? 'percorrido' : noVisto(n.id) ? 'visto' : 'oculto';
+          if (n.id === SAIDA) {
+            return (
+              <g key={n.id} className={`saida ${percorridos.has(SAIDA) ? 'percorrido' : ''}`}>
+                <circle cx={n.x} cy={n.y} r={8} />
+              </g>
+            );
+          }
+          const no = porId.get(n.id)!;
+          const estado = percorridos.has(n.id) ? 'percorrido' : noVisto(n.id) ? 'visto' : 'oculto';
+          const x = n.x - TW / 2;
+          const y = n.y - TH / 2;
           return (
             <g
               key={n.id}
-              className={`no ${cls} ${selecionado === n.id ? 'sel' : ''}`}
-              transform={`translate(${n.x} ${n.y})`}
-              onClick={() => !saida && setSelecionado(n.id === selecionado ? null : n.id)}
+              className={`mini ${estado} ${selecionado === n.id ? 'sel' : ''}`}
+              onClick={() => setSelecionado(n.id === selecionado ? null : n.id)}
             >
-              {saida ? <rect x={-14} y={-6} width={28} height={12} rx={6} /> : <circle r={11} />}
-              {cls === 'oculto' && (
-                <path d="M -3.5 -1 v -2 a 3.5 3.5 0 0 1 7 0 v 2 M -5 -1 h 10 v 6 h -10 z" className="cadeado" />
+              {estado !== 'oculto' && no.imagem ? (
+                <image
+                  href={`/${no.imagem}`}
+                  x={x}
+                  y={y}
+                  width={TW}
+                  height={TH}
+                  preserveAspectRatio="xMidYMid slice"
+                  clipPath={`url(#mini-${cap.id}-${n.id})`}
+                />
+              ) : (
+                <rect className="fundo" x={x} y={y} width={TW} height={TH} rx={6} />
+              )}
+              <rect className="moldura" x={x} y={y} width={TW} height={TH} rx={6} />
+              {estado === 'oculto' && (
+                <path
+                  className="cadeado"
+                  d={`M ${n.x - 4} ${n.y - 1} v -3 a 4 4 0 0 1 8 0 v 3 M ${n.x - 6} ${n.y - 1} h 12 v 8 h -12 z`}
+                />
               )}
             </g>
           );
@@ -76,14 +125,10 @@ export default function Fluxograma({ cap, passos, vistos }: Props) {
       </svg>
       <figcaption>
         {sel ? (
-          noVisto(sel.id) ? (
-            <span>{sel.lugar ?? 'Sem título'}</span>
-          ) : (
-            <span>Momento ainda não descoberto</span>
-          )
+          noVisto(sel.id) ? <span>{sel.lugar ?? 'Sem título'}</span> : <span>Momento ainda não descoberto</span>
         ) : (
           <span>
-            {nosVistos} de {totalNos} momentos descobertos · toque num nó
+            {nosVistos} de {cap.nos.length} momentos descobertos · toque numa cena
           </span>
         )}
       </figcaption>

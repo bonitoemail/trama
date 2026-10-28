@@ -15,6 +15,11 @@ A pesquisa é contínua: a realidade anda, e o jogo trava nós e ganha galhos. C
 ### Rodada 1 — 28/10/2026
 Arquivos 01–05 e a síntese. Cobriu governo e Congresso, economia, direita, STF e EUA.
 
+### Fato novo — 28/10/2026, à noite
+**A carta.** Flávio divulga, por aliados (Paulo Figueiredo, André Porciuncula), uma carta em que se declara "o verdadeiro presidente eleito do Brasil": alega fraude sem provas, ataca Zanin, agradece a Milei e a Trump, diz que liderará a oposição do exterior, se compara a Rui Barbosa, De Gaulle, Martí, Guaidó, Edmundo González e María Corina Machado, e chama Rogério Marinho de "meu candidato à presidência do Senado". Fontes do PL dizem não ter relação com a carta (Jovem Pan). Valdemar havia reconhecido o resultado em 26/10 (Al Jazeera).
+Fontes: [Metrópoles](https://www.metropoles.com/mundo/em-carta-flavio-se-declara-verdadeiro-presidente-eleito-do-brasil) · [Band](https://www.band.com.br/politica/nos-eua-flavio-se-diz-o-verdadeiro-presidente-eleito-e-cita-fraude) · [Jovem Pan](https://jovempan.com.br/politica/em-carta-flavio-diz-que-e-o-verdadeiro-presidente-eleito-do-brasil/)
+**No jogo:** entrou no prólogo; o capítulo 1 foi refeito como "A carta". Saíram as escolhas "asilo / volta / exílio" (resolvidas pela carta); entraram "governo no exílio ou líder da oposição" e "PL com a carta e Marinho, ou Valdemar negociando com Alcolumbre". O Marinho contra Alcolumbre virou o eixo do Acordo.
+
 ## Pendente: rodada 2
 - **Analistas não encontrados na rodada 1:** Marcus André Melo, Christian Lynch, Fernando Limongi, Cláudio Couto, Thomas Traumann, Maurício Moura, Andrea Freitas (política); Oscar Vilhena, Joaquim Falcão, Thomaz Pereira, Rubens Glezer, Luciano Da Ros (STF); Nelson Barbosa, Laura Carvalho, Armínio Fraga, Marcos Mendes (economia); Brookings, CFR e Carnegie sobre 2028.
 - **Folha e Estadão**: estavam bloqueados para a ferramenta; buscar o conteúdo por outros caminhos (reproduções, entrevistas, podcasts).

@@ -6,14 +6,15 @@ from pathlib import Path
 AQUI = Path(__file__).resolve().parent
 T = AQUI / "testes"
 
-NOS_CAP01 = ["abertura", "pedido", "eleicao_eua", "proximo_passo", "itamaraty", "aeroporto", "pl"]
+NOS_CAP01 = ["abertura", "pedido", "foragido", "o_prazo", "itamaraty", "eleicao_eua", "noite_democrata", "noite_republicana", "o_canal", "pl", "a_ligacao", "a_convocacao"]
 
 
 def grupos():
     escolhas = json.loads((AQUI / "escolhas.json").read_text(encoding="utf-8")) if (AQUI / "escolhas.json").exists() else {}
     yield "Referências aprovadas", sorted((AQUI / "referencias").glob("*.png")), set()
     for no in NOS_CAP01:
-        yield f"Capítulo 1 · {no}", sorted(T.glob(f"cap01-{no}-*.png")), {escolhas.get(f"cap01/{no}")}
+        # Marca qualquer imagem publicada (um nó pode usar a cena gerada com outro nome).
+        yield f"Capítulo 1 · {no}", sorted(T.glob(f"cap01-{no}-*.png")), set(escolhas.values())
     yield "Rodada 2 · Miami", sorted(T.glob("v2-miami-*.png")), set()
     yield "Rodada 2 · Congresso", sorted(T.glob("v2-congresso-*.png")), set()
     yield "Rodada 2 · Supremo", sorted(T.glob("v2-supremo-*.png")), set()

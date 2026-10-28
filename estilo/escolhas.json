@@ -2,8 +2,13 @@
   "cap01/abertura": "cap01-abertura-33",
   "cap01/pedido": "cap01-pedido-33",
   "cap01/eleicao_eua": "cap01-eleicao_eua-22",
-  "cap01/proximo_passo": "cap01-proximo_passo-55",
   "cap01/itamaraty": "cap01-itamaraty-33",
-  "cap01/aeroporto": "cap01-aeroporto-44",
-  "cap01/pl": "cap01-pl-55"
+  "cap01/pl": "cap01-pl-55",
+  "cap01/foragido": "cap01-foragido-66",
+  "cap01/o_prazo": "cap01-o_prazo-55",
+  "cap01/noite_democrata": "cap01-noite_democrata-55",
+  "cap01/noite_republicana": "cap01-noite_republicana-11",
+  "cap01/o_exilio": "cap01-o_canal-55",
+  "cap01/a_ligacao": "cap01-a_ligacao-88",
+  "cap01/a_convocacao": "cap01-a_convocacao-22"
 }

@@ -162,39 +162,153 @@ button {
 .ilustracao {
   display: block;
   width: calc(100% + 40px);
-  margin: -8px -20px 28px;
+  margin: 12px -20px 32px;
   aspect-ratio: 16 / 9;
   object-fit: cover;
 }
 @media (min-width: 680px) {
   .ilustracao {
     width: 100%;
-    margin: 0 0 28px;
+    margin: 12px 0 32px;
     border-radius: 8px;
   }
 }
-.selo {
-  display: block;
-  margin-top: 6px;
+/* Escolha: cartão editorial que só decide depois de segurar (BotaoEscolha.tsx).
+   O acento laranja das ilustrações é o fio da decisão e do caminho real. */
+.escolha {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 14px;
+  align-items: start;
+  width: 100%;
+  text-align: left;
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--texto);
+  background: transparent;
+  border: 1px solid var(--linha);
+  border-radius: 10px;
+  padding: 16px 16px 14px 14px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+  transition: border-color 0.2s, background 0.2s, opacity 0.35s, transform 0.35s;
+}
+.escolha::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--real);
+  transform: scaleY(0);
+  transition: transform 0.2s;
+}
+.escolha .barra {
+  position: absolute;
+  inset: 0;
+  background: rgba(242, 154, 46, 0.16);
+  transform-origin: left;
+  transform: scaleX(0);
+  /* Soltar antes da hora: a barra volta rápido. */
+  transition: transform 0.2s ease-out;
+  pointer-events: none;
+}
+.escolha.segurando .barra {
+  transform: scaleX(1);
+  transition: transform var(--segurar) linear;
+}
+.escolha.decidida .barra {
+  transform: scaleX(1);
+  transition: none;
+}
+.escolha .letra {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  margin-top: 1px;
+  border: 1px solid var(--linha);
+  border-radius: 50%;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--texto-3);
+  transition: color 0.2s, border-color 0.2s;
+}
+.escolha .corpo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.escolha .dica {
+  font-family: var(--sans);
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  color: var(--texto-3);
 }
-/* O acento laranja das ilustrações é o fio do caminho real. */
-.botao.escolha.real {
+.escolha:hover,
+.escolha.segurando {
+  background: var(--superficie);
+  border-color: #3d3d44;
+}
+.escolha:hover::before,
+.escolha.segurando::before,
+.escolha.decidida::before,
+.escolha.real::before {
+  transform: scaleY(1);
+}
+.escolha:hover .letra,
+.escolha.segurando .letra,
+.escolha.real .letra,
+.escolha.decidida .letra {
+  color: var(--real);
   border-color: var(--real);
 }
-.botao.escolha.real .selo {
+.escolha.segurando .dica,
+.escolha.decidida .dica,
+.escolha.real .dica {
   color: var(--real);
 }
-.botao.escolha.travada {
+.escolha:focus-visible {
+  outline: 2px solid var(--destaque);
+  outline-offset: 2px;
+}
+.escolha.real,
+.escolha.decidida {
+  border-color: var(--real);
+}
+.escolha.apagada {
+  opacity: 0.2;
+  transform: scale(0.98);
+}
+.escolha.travada {
   color: var(--texto-3);
   border-style: dashed;
   cursor: not-allowed;
 }
-.botao.escolha.travada:hover {
+.escolha.travada:hover {
   background: transparent;
   border-color: var(--linha);
+}
+.escolha.travada:hover::before {
+  transform: scaleY(0);
+}
+.escolha.travada .rotulo-escolha {
+  text-decoration: line-through;
+  text-decoration-color: rgba(255, 255, 255, 0.2);
+}
+.escolha.travada .letra {
+  opacity: 0.5;
 }
 
 /* Prólogo */
@@ -305,31 +419,44 @@ button {
   stroke: var(--real);
   stroke-dasharray: none;
 }
-.no {
+/* Miniaturas do mapa */
+.mini {
   cursor: pointer;
 }
-.no circle,
-.no rect {
+.mini .moldura {
+  fill: none;
   stroke-width: 1.5;
 }
-.no.oculto circle,
-.no.oculto rect {
-  fill: var(--fundo);
-  stroke: var(--linha);
+.mini .fundo {
+  fill: #16161a;
 }
-.no.visto circle,
-.no.visto rect {
-  fill: var(--superficie);
+.mini.percorrido .moldura {
+  stroke: var(--destaque);
+  stroke-width: 2;
+}
+.mini.visto image {
+  opacity: 0.4;
+  filter: grayscale(0.6);
+}
+.mini.visto .moldura {
   stroke: var(--texto-3);
 }
-.no.percorrido circle,
-.no.percorrido rect {
+.mini.oculto .moldura {
+  stroke: var(--linha);
+  stroke-dasharray: 3 3;
+}
+.mini.sel .moldura {
+  stroke: var(--real);
+  stroke-width: 2.5;
+}
+.saida circle {
+  fill: var(--fundo);
+  stroke: var(--texto-3);
+  stroke-width: 1.5;
+}
+.saida.percorrido circle {
   fill: var(--destaque);
   stroke: var(--destaque);
-}
-.no.sel circle {
-  stroke: #fff;
-  stroke-width: 3;
 }
 .cadeado {
   fill: none;

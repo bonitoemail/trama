@@ -1,4 +1,4 @@
-versao: "0.2.0"
+versao: "0.3.0"
 titulo: Trama
 aviso: >
   Trama é uma obra de ficção especulativa. Figuras públicas aparecem como
@@ -21,8 +21,9 @@ prologo:
     fonte: https://www.gazetadopovo.com.br/republica/pf-confirma-flavio-bolsonaro-deixou-brasil/
   - data: 27 de outubro de 2026
     texto: >
-      Flávio deixa o Brasil rumo aos Estados Unidos. A rota é disputada: relatos falam em
-      travessia por Foz do Iguaçu e escala no Equador; o governo argentino nega a passagem.
+      Flávio deixa o Brasil rumo aos Estados Unidos. Registros argentinos noticiados indicam
+      travessia por Foz do Iguaçu e um jato com escala no Equador; o governo argentino nega
+      qualquer participação.
     fonte: https://www.nexojornal.com.br/expresso/2026/10/27/flavio-bolsonaro-fugiu-argentina-pf-passaporte
   - data: 28 de outubro de 2026
     texto: >
@@ -30,6 +31,13 @@ prologo:
       Aliados falam em asilo, sem confirmação oficial. Ele não é foragido: é investigado em dois
       inquéritos, sem denúncia, e continua senador até 31 de janeiro.
     fonte: https://www.metropoles.com/mundo/governo-trump-confirma-emissao-de-vistos-para-flavio-bolsonaro-e-familia
+  - data: 28 de outubro de 2026, à noite
+    texto: >
+      Aliados divulgam uma carta em que Flávio se declara "o verdadeiro presidente eleito do
+      Brasil". Sem apresentar provas, ele fala em fraude, agradece a Milei e a Trump, diz que vai
+      liderar a oposição do exterior e chama Rogério Marinho de seu candidato à presidência do
+      Senado. Fontes do PL dizem que o partido não tem relação com a carta.
+    fonte: https://www.metropoles.com/mundo/em-carta-flavio-se-declara-verdadeiro-presidente-eleito-do-brasil
 
 primeiro_capitulo: cap01
 
@@ -37,14 +45,20 @@ epilogo:
   id: epilogo
   titulo: Até aqui
   texto:
-    - se: { tem: flavio_preso }
-      texto: Flávio passou o fim de 2026 numa cela em Brasília. A direita vai ter que aprender a falar sem ele, ou por ele.
-    - se: { tem: flavio_asilo }
-      texto: Flávio terminou 2026 em Miami, com o asilo transformado em assunto entre dois governos.
-    - se: { tem: flavio_exilio }
-      texto: Flávio terminou 2026 em Miami, sem asilo e sem pressa, falando para o Brasil por uma tela.
-    - se: { todas: [{ tem: flavio_volta }, { nao_tem: flavio_preso }] }
-      texto: Flávio voltou e está livre. Por enquanto.
+    - se: { tem: flavio_preventiva }
+      texto: Flávio terminou novembro com uma ordem de prisão no Brasil e um visto nos Estados Unidos. Os dois papéis valem, cada um no seu país.
+    - se: { tem: flavio_sem_preventiva }
+      texto: Flávio terminou novembro sem ordem de prisão e com um mandato que diminui a cada sessão do Senado.
+    - se: { tem: governo_exilio }
+      texto: Em Miami, existe agora um governo que nenhum país reconhece e que metade do Brasil acompanha.
+    - se: { tem: flavio_live }
+      texto: Toda noite, uma transmissão de Miami disputa com o PL quem fala pela direita.
+    - se: { tem: crise_diplomatica }
+      texto: O Itamaraty ainda espera respostas de Washington e de Buenos Aires.
+    - se: { tem: eua_dem_camara }
+      texto: Em Washington, a nova maioria marcou para janeiro as primeiras perguntas sobre o Brasil.
+    - se: { tem: eua_rep_congresso }
+      texto: Em Washington, ninguém vai fazer perguntas sobre o Brasil tão cedo.
     - se: { tem: pl_negocia }
       texto: Em Brasília, o PL começou a conversar. Em algum gabinete, alguém anotou o preço.
     - se: { tem: pl_obstrui }
