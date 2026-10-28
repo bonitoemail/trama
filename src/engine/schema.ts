@@ -90,6 +90,8 @@ export const FinalSchema = z.strictObject({
 
 export const FatoSchema = z.strictObject({
   data: z.string(),
+  /** Manchete curta (uma linha) para a lista de fatos; o texto abre ao tocar. */
+  titulo: z.string().optional(),
   texto: z.string(),
   fonte: z.string().optional(),
 });

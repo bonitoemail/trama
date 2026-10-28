@@ -49,7 +49,7 @@ Monte uma **tabela de impacto**: fato confirmado → o que muda no jogo. Cada fa
 
 | Tipo | Quando | O que fazer |
 |---|---|---|
-| **Prólogo** | o fato acontece **antes** do início do capítulo 1 | nova entrada em `prologo` com data e fonte |
+| **Prólogo** | o fato acontece **antes** do início do capítulo 1 | nova entrada em `prologo` com data, `titulo` (manchete curta, uma linha) e fonte |
 | **Trava** | o fato decide uma escolha existente | `real: { data, fonte }` na escolha (só uma por nó); relógio vira `aconteceu` |
 | **Opção nova travada** | a realidade foi por um caminho que nenhuma opção previa | nova escolha já com `real`, e os nós que vêm depois dela |
 | **Texto** | o fato muda o que uma cena afirma | reescrever só o trecho; manter os ids |

@@ -680,6 +680,134 @@ body:has(.cena-final) {
   flex-direction: column;
   gap: 14px;
 }
+/* Fatos (Fatos.tsx): o prólogo como changelog, uma linha por fato. */
+.titulo-fatos {
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.15;
+  margin: 4px 0 18px;
+}
+.atualizado {
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--texto-2);
+  border-left: 3px solid var(--real);
+  padding-left: 12px;
+  margin: 0 0 18px;
+}
+.atualizado strong {
+  color: var(--texto);
+  font-weight: 600;
+}
+.fatos-lista ol {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+  border-top: 1px solid var(--linha);
+}
+.fatos-lista li {
+  border-bottom: 1px solid var(--linha);
+}
+.linha-fato {
+  display: grid;
+  grid-template-columns: 1fr 24px;
+  grid-template-areas: 'data mais' 'manchete mais';
+  gap: 2px 12px;
+  align-items: center;
+  width: 100%;
+  padding: 14px 2px;
+  text-align: left;
+  background: none;
+  border: 0;
+  color: var(--texto);
+  cursor: pointer;
+}
+.linha-fato time {
+  grid-area: data;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texto-3);
+}
+.linha-fato .manchete {
+  grid-area: manchete;
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.35;
+}
+.linha-fato .mais {
+  grid-area: mais;
+  font-family: var(--sans);
+  font-size: 18px;
+  color: var(--real);
+  text-align: center;
+}
+.linha-fato:hover .manchete {
+  color: #fff;
+}
+.corpo-fato {
+  padding: 0 2px 16px 12px;
+  margin-left: 2px;
+  border-left: 2px solid var(--real);
+}
+.corpo-fato p {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--texto-2);
+  margin: 0 0 8px;
+}
+.corpo-fato a {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--real);
+}
+
+/* Faixa: a imagem da cena, recortada, nos cartões depois do primeiro. */
+.faixa {
+  display: block;
+  width: calc(100% + 40px);
+  margin: -4px -20px 22px;
+  aspect-ratio: 16 / 4;
+  object-fit: cover;
+  object-position: center 45%;
+  -webkit-mask-image: linear-gradient(#000 55%, transparent);
+  mask-image: linear-gradient(#000 55%, transparent);
+}
+.despacho .faixa {
+  width: calc(100% + 44px);
+  margin: -4px -22px 20px;
+}
+@media (min-width: 680px) {
+  .faixa {
+    width: 100%;
+    margin: 0 0 22px;
+    border-radius: 6px 6px 0 0;
+  }
+  .despacho .faixa {
+    width: calc(100% + 80px);
+    margin: -4px -40px 22px;
+    border-radius: 0;
+  }
+}
+/* Linha de apoio do último cartão: voltar e saiba mais, lado a lado. */
+.apoio {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+/* Separa o texto da decisão. */
+.pergunta {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--texto-2);
+  border-top: 1px solid var(--linha);
+  padding-top: 22px;
+  margin: 14px 0 2px;
+}
 .voltar-cartao,
 .saiba-botao {
   align-self: flex-start;

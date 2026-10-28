@@ -66,10 +66,15 @@ export default function Cartoes({ textos, imagem, topo, abertura, detalhe, child
         aria-label={ultimo ? undefined : 'Toque para continuar'}
         key={i}
       >
-        {i === 0 && imagem && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img className="ilustracao" src={`/${imagem}`} alt="" />
-        )}
+        {imagem &&
+          (i === 0 ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img className="ilustracao" src={`/${imagem}`} alt="" />
+          ) : (
+            // A mesma imagem volta como faixa nos cartões seguintes: o cartão nunca fica sem chão.
+            // eslint-disable-next-line @next/next/no-img-element
+            <img className="faixa" src={`/${imagem}`} alt="" />
+          ))}
         {i === 0 && abertura}
         {topo}
         <p className="texto">{textos[i]}</p>
@@ -78,17 +83,25 @@ export default function Cartoes({ textos, imagem, topo, abertura, detalhe, child
 
       {ultimo && (
         <div className="fim-cartoes">
-          {i > 0 && (
-            <button type="button" className="voltar-cartao" onClick={voltar}>
-              ← voltar
-            </button>
+          {(i > 0 || (detalhe && detalhe.length > 0)) && (
+            <div className="apoio">
+              {i > 0 && (
+                <button type="button" className="voltar-cartao" onClick={voltar}>
+                  ← voltar
+                </button>
+              )}
+              {detalhe && detalhe.length > 0 && (
+                <button type="button" className="saiba-botao" onClick={() => setAberto((a) => !a)}>
+                  {aberto ? 'fechar' : 'saiba mais'}
+                </button>
+              )}
+            </div>
           )}
-          {detalhe && detalhe.length > 0 && (
+          {aberto && detalhe && (
             <div className="saiba">
-              <button type="button" className="saiba-botao" onClick={() => setAberto((a) => !a)}>
-                {aberto ? 'fechar' : 'saiba mais'}
-              </button>
-              {aberto && detalhe.map((d, k) => <p key={k}>{d}</p>)}
+              {detalhe.map((d, k) => (
+                <p key={k}>{d}</p>
+              ))}
             </div>
           )}
           {children}

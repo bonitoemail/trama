@@ -8,30 +8,36 @@ aviso: >
 # Fatos reais, não jogáveis. A primeira decisão é o acontecimento seguinte ao último fato.
 prologo:
   - data: 4 de outubro de 2026
+    titulo: "Flávio vence o 1º turno"
     texto: Flávio Bolsonaro (PL) termina o primeiro turno à frente, com 47,0% contra 45,2% de Lula.
     fonte: https://pt.wikipedia.org/wiki/Elei%C3%A7%C3%A3o_presidencial_no_Brasil_em_2026
   - data: 25 de outubro de 2026
+    titulo: "Lula vira e é reeleito"
     texto: >
       Lula vira no segundo turno e é reeleito com 51,8% dos votos válidos. É a primeira vez
       que o segundo colocado no primeiro turno vence a eleição. O PL elege a maior bancada
       da Câmara (121 deputados) e do Senado.
     fonte: https://tvbrasil.ebc.com.br/reporter-brasil-tarde/2026/10/eleicoes-2026-pl-forma-maior-bancada-no-congresso
   - data: 26 de outubro de 2026
+    titulo: "Supremo manda apreender o passaporte de Flávio"
     texto: O STF determina a apreensão do passaporte de Flávio e o proíbe de deixar o país.
     fonte: https://www.gazetadopovo.com.br/republica/pf-confirma-flavio-bolsonaro-deixou-brasil/
   - data: 27 de outubro de 2026
+    titulo: "Flávio sai do Brasil"
     texto: >
       Flávio deixa o Brasil rumo aos Estados Unidos. Registros argentinos noticiados indicam
       travessia por Foz do Iguaçu e um jato com escala no Equador; o governo argentino nega
       qualquer participação.
     fonte: https://www.nexojornal.com.br/expresso/2026/10/27/flavio-bolsonaro-fugiu-argentina-pf-passaporte
   - data: 28 de outubro de 2026
+    titulo: "Flávio chega a Miami"
     texto: >
       Flávio desembarca em Miami. O Departamento de Estado confirma vistos para ele e a família.
       Aliados falam em asilo, sem confirmação oficial. Ele não é foragido: é investigado em três
       inquéritos no Supremo, sem denúncia, e continua senador até 31 de janeiro.
     fonte: https://www.metropoles.com/mundo/governo-trump-confirma-emissao-de-vistos-para-flavio-bolsonaro-e-familia
   - data: 28 de outubro de 2026, à noite
+    titulo: "A carta: \"verdadeiro presidente eleito\""
     texto: >
       Aliados divulgam uma carta em que Flávio se declara "o verdadeiro presidente eleito do
       Brasil". Sem apresentar provas, ele fala em fraude, agradece a Milei e a Trump, diz que vai
@@ -39,6 +45,7 @@ prologo:
       Senado. Fontes do PL dizem que o partido não tem relação com a carta.
     fonte: https://www.metropoles.com/mundo/em-carta-flavio-se-declara-verdadeiro-presidente-eleito-do-brasil
   - data: 28 de outubro de 2026, mais tarde
+    titulo: "A carta muda: \"líder do Brasil\""
     texto: >
       Depois da repercussão, Flávio apaga a carta e publica uma nova versão. "Presidente eleito"
       vira "líder do Brasil". As acusações de fraude, de perseguição política e as críticas ao STF

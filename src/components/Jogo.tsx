@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import BotaoEscolha from './BotaoEscolha';
 import Cartoes from './Cartoes';
+import Fatos from './Fatos';
 import LinhaDoTempo from './LinhaDoTempo';
 import { linhaDoTempo } from '@/engine/historia';
 import {
@@ -19,7 +20,7 @@ import {
 import type { Jogo as JogoT } from '@/engine/schema';
 import { apagarPartida, lerPartida, lerVistos, salvarPartida, salvarVistos } from '@/lib/storage';
 
-type Tela = 'carregando' | 'abertura' | 'prologo' | 'partida';
+type Tela = 'carregando' | 'abertura' | 'prologo' | 'fatos' | 'partida';
 
 export default function Jogo({ jogo, caminhos }: { jogo: JogoT; caminhos: Record<string, number> }) {
   const [tela, setTela] = useState<Tela>('carregando');
@@ -94,7 +95,20 @@ export default function Jogo({ jogo, caminhos }: { jogo: JogoT; caminhos: Record
               Começar
             </Acao>
           )}
+          {!confirmarNova && <Acao onClick={() => setTela('fatos')}>De onde vêm os fatos</Acao>}
         </div>
+      </main>
+    );
+  }
+
+  // Consulta aos fatos a qualquer momento, sem mexer na partida.
+  if (tela === 'fatos') {
+    return (
+      <main className="tela prologo">
+        <p className="rotulo">De onde vêm os fatos</p>
+        <h2 className="titulo-fatos">O que já aconteceu de verdade</h2>
+        <Fatos fatos={jogo.prologo} />
+        <Acao onClick={() => setTela('abertura')}>Voltar</Acao>
       </main>
     );
   }
@@ -102,21 +116,10 @@ export default function Jogo({ jogo, caminhos }: { jogo: JogoT; caminhos: Record
   if (tela === 'prologo' || !estado) {
     return (
       <main className="tela prologo">
-        <p className="rotulo">Prólogo · o que já aconteceu</p>
-        <ol className="fatos">
-          {jogo.prologo.map((f) => (
-            <li key={f.data}>
-              <time>{f.data}</time>
-              <p>{f.texto}</p>
-              {f.fonte && (
-                <a href={f.fonte} target="_blank" rel="noreferrer">
-                  fonte
-                </a>
-              )}
-            </li>
-          ))}
-        </ol>
-        <p className="ponte">Daqui em diante, nada aconteceu ainda.</p>
+        <p className="rotulo">Prólogo</p>
+        <h2 className="titulo-fatos">O que já aconteceu de verdade</h2>
+        <Fatos fatos={jogo.prologo} />
+        <p className="ponte">Daqui em diante, nada aconteceu ainda. Quem decide é você.</p>
         <Acao
           primario
           onClick={() => {
@@ -244,6 +247,7 @@ export default function Jogo({ jogo, caminhos }: { jogo: JogoT; caminhos: Record
     <main className="tela cena" key={chave}>
       <Cabecalho numero={cap.numero} titulo={cap.titulo} periodo={cap.periodo} />
       <Cartoes textos={textos} imagem={atual.imagem} detalhe={detalhe} topo={lugar}>
+        <p className="pergunta">O que acontece agora?</p>
         <div className="escolhas">
           {opcoes.map(({ escolha: e, status }, i) => (
             <BotaoEscolha
