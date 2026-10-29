@@ -1,13 +1,13 @@
 versao: "0.5.0"
 titulo: Trama
 aviso: >
-  Trama é uma obra de ficção especulativa. Figuras públicas aparecem como
+  Trama é uma simulação. Figuras públicas aparecem como
   personagens em situações hipotéticas, inspiradas em suas posições públicas.
   Nenhuma cena descreve fatos reais além dos listados em "O que já aconteceu".
   As escolhas são contadas de forma anônima, sem nome, conta ou endereço de
   quem joga, para mostrar o que a comunidade decidiu.
 
-# Capa: a linha sob o título. Os passos de "Como funciona" aparecem no fim de "Para que serve".
+# Capa: a linha sob o título. Os passos de "Como funciona" aparecem no fim de "O que é o Trama".
 # Linguagem simples (DESIGN 8.2).
 apresentacao:
   ficha: Simulação preditiva do Brasil até 2030
@@ -15,16 +15,16 @@ apresentacao:
     - titulo: Começa no último fato real
       texto: Parte do acontecimento mais recente, com data e fonte.
     - titulo: Você escolhe o que vem depois
-      texto: Duas ou três saídas por cena. Cada escolha deixa marcas.
-    - titulo: Ficção, mas possível
-      texto: Caminhos inventados a partir de pesquisa de todos os lados.
+      texto: De duas a quatro saídas por cena. Cada escolha deixa marcas.
+    - titulo: Inventado, mas possível
+      texto: Caminhos criados a partir de pesquisa de todos os lados.
     - titulo: A história anda com o tempo
       texto: Quando a realidade decide, o jogo se atualiza.
 
-# Tela "Para que serve o Trama". {partidas} é contado pelo motor a cada build (contarPartidas):
-# nunca escreva o número à mão.
+# Tela "O que é o Trama" (/o-que-e; /para-que-serve redireciona). {partidas} é contado pelo motor a
+# cada build (contarPartidas): nunca escreva o número à mão.
 objetivo:
-  titulo: Para que serve o Trama
+  titulo: O que é o Trama
   texto: Um jeito de ver, antes de acontecer, aonde pode levar o que a gente apoia.
   etapas:
     - titulo: Ver a consequência
@@ -39,22 +39,23 @@ objetivo:
         poderiam agir.
     - titulo: Mais de {partidas} histórias
       texto: >
-        Cada escolha abre um caminho diferente e deixa marcas que voltam mais
-        adiante. Hoje são mais de {partidas} histórias possíveis, e nenhuma é a
-        certa.
+        Cada escolha deixa marcas que voltam mais adiante, e algumas levam a
+        capítulos inteiros diferentes: Flávio preso, Flávio de volta ao Brasil,
+        uma campanha pelo Senado. Hoje são mais de {partidas} histórias
+        possíveis, e nenhuma é a certa.
     - titulo: Para qualquer lado
       destaque: O jogo não torce por ninguém.
       texto: >
         Todo lado tem motivo, interesse e custo. A ideia é que quem é de direita
         e quem é de esquerda vejam algo que não viam antes.
-    - titulo: Uma história que anda
+    - titulo: O que a comunidade escolheu
       texto: >
-        O futuro não fica parado. Quando a realidade decide, o jogo é
-        atualizado: algumas previsões se confirmam, outras são descartadas, e os
-        caminhos mudam.
+        As escolhas de quem joga são contadas de forma anônima, sem nome nem
+        conta. Com o tempo, vamos mostrar o que a maioria escolheu em cada cena
+        e comparar com o que a realidade fez.
   nota: >
-    É ficção. Nenhuma cena descreve fatos reais além do que está em "O que já
-    aconteceu".
+    As cenas são simulação. Só é fato o que está em "O que já aconteceu" e em
+    "Fatos e fontes", sempre com a fonte.
 
 # Tela "Como fazemos as previsões". Fiel a roteiro/painel/ (00-agregado, regra de desenho)
 # e à skill atualizar-jogo. Mudou o método? Mude aqui também.
@@ -76,17 +77,27 @@ metodo:
         atribuída a pessoas reais.
     - titulo: Consenso e divergência
       texto: >
-        Comparamos as seis respostas. Onde concordam, nasce o caminho
-        principal. Onde divergem, nasce uma das decisões difíceis do jogo.
-    - titulo: Revisão de equilíbrio
+        Comparamos as seis respostas. Onde concordam, nasce o caminho mais
+        provável. Onde divergem, nasce uma das decisões difíceis do jogo. Os
+        caminhos improváveis também entram: você pode ver o que aconteceria.
+    - titulo: As escolhas que faltam
       texto: >
-        Uma revisão de neutralidade confere se todos os lados têm motivo,
-        interesse e custo. A chance decide quanto texto um caminho tem, não se
-        ele é bem escrito.
+        Um revisor confere cada decisão contra a pesquisa. Se falta um desfecho
+        provável, ou alguém importante de qualquer lado, ele entra. Nenhuma
+        escolha sai só por ser improvável.
+    - titulo: Um leitor de cada lado
+      texto: >
+        Dois leitores simulados por IA jogam todos os caminhos, um como eleitor
+        de direita e outro como eleitor de esquerda, os dois moderados. Cada um
+        aponta onde o próprio lado foi tratado com injustiça e onde o outro foi
+        poupado. Corrigimos o que os dois apontam e o que for grave para
+        qualquer um deles.
     - titulo: A realidade confere
       texto: >
-        Quando um fato novo acontece, a escolha que se confirmou fica travada e
-        as previsões do que vem depois são refeitas.
+        Uma rodada diária busca as notícias. A escolha que se confirmou fica
+        travada, as cenas do caminho real são reescritas, e um caminho que a
+        realidade abriu e o jogo não tinha passa a existir. Cada mudança fica
+        no histórico público, quando publicada.
   lentes:
     - nome: Instituições
       texto: Congresso, Supremo e a relação entre os Poderes.
@@ -103,7 +114,9 @@ metodo:
   nota: >
     Nenhum número aparece durante o jogo, para não induzir a escolha. As seis
     lentes leem a mesma base de pesquisa: quando concordam, pode ser fonte em
-    comum, e não acordo independente.
+    comum, e não acordo independente. Os revisores e os dois
+    leitores também são agentes de IA, não pessoas: servem para pegar o que
+    escapou, não para garantir que nada escapou.
   codigo:
     titulo: Tudo aberto para conferir
     texto: >

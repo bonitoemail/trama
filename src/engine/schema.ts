@@ -123,11 +123,11 @@ export const ApresentacaoSchema = z.strictObject({
 const Bloco = z.strictObject({
   titulo: z.string(),
   texto: z.string(),
-  /** Frase em destaque, mostrada como citação no lugar do título (tela "Para que serve"). */
+  /** Frase em destaque, mostrada como citação no lugar do título (tela "O que é o Trama"). */
   destaque: z.string().optional(),
 });
 
-/** Tela de explicação (ex.: "Como fazemos as previsões", "Para que serve o Trama"). */
+/** Tela de explicação (ex.: "Como fazemos as previsões", "O que é o Trama"). */
 export const ExplicacaoSchema = z.strictObject({
   titulo: z.string(),
   texto: z.string(),
@@ -156,7 +156,7 @@ export const JogoSchema = z.strictObject({
   titulo: z.string(),
   aviso: z.string(),
   apresentacao: ApresentacaoSchema.optional(),
-  /** Tela "Para que serve": o objetivo do jogo. "{partidas}" vira o número de histórias. */
+  /** Tela "O que é o Trama": o objetivo do jogo. "{partidas}" vira o número de histórias. */
   objetivo: ExplicacaoSchema.optional(),
   metodo: ExplicacaoSchema.optional(),
   prologo: z.array(FatoSchema).min(1),

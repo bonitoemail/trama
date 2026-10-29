@@ -119,6 +119,9 @@ Os dois leitores (direita e esquerda) rodaram de novo com os trilhos, pela skill
   - Prólogo: novo fato de 26/10, "O PL reconhece o resultado" (Agência Brasil, O Antagonista).
 - **Não aplicado (fica registrado):** a cor do título (decisão do usuário, mantida); o caso Dodge em `pedido` sem um fato do outro lado; custo para o Centrão e para Moraes em algum final; a escolha de o PT romper com Lula no indulto; caminho jurídico da oposição (habeas corpus no plenário, pedido ao TSE sobre a prorrogação); impeachment de ministro como escolha; governadores além de Tarcísio; "a narrativa de fraude pega ou não".
 
+### Publicação — 29/10/2026, noite
+Commit `726f577` (trilhos, cobertura, skill). O primeiro deploy travou na geração das páginas: `contarCaminhos` percorria caminho por caminho e não terminava com os trilhos. Corrigido em `01ef817` (conta cada estado uma vez, como `contarPartidas`); o deploy travado foi cancelado. Lição: rodar `npm run build` antes de todo push (já está na Etapa 8 da skill), mesmo com o servidor de desenvolvimento aberto.
+
 ## Ainda pendente (para a rodada 3)
 - Análises pós-eleição de Marcus André Melo, Lynch (conteúdo do vídeo), Limongi, Couto, Traumann, Moura, Andrea Freitas, Falcão, Pereira, Glezer, Da Ros, Barbosa, Laura Carvalho, Armínio, Marcos Mendes: ainda não publicadas ou não encontráveis em 28/10.
 - Contradições: passaporte usado na entrada (italiano ou diplomático); DI de fechamento de 28/10.

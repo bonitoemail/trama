@@ -25,7 +25,7 @@ interface Props {
 }
 
 /**
- * Telas "Para que serve o Trama" e "Como fazemos as previsões". Mesma moldura (topo com Voltar e
+ * Telas "O que é o Trama" e "Como fazemos as previsões". Mesma moldura (topo com Voltar e
  * a partida sempre à mão), linguagens diferentes: o propósito em serifa corrida, o método em sans
  * numerada. Esc volta, como o gesto de voltar do celular.
  */

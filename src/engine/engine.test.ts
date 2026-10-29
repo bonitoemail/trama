@@ -243,6 +243,7 @@ describe('endereços das telas', () => {
   it('cada caminho leva à sua tela; o resto, à capa', async () => {
     const { telaDoCaminho } = await import('@/lib/telas');
     expect(telaDoCaminho('/')).toBe('capa');
+    expect(telaDoCaminho('/o-que-e')).toBe('objetivo');
     expect(telaDoCaminho('/para-que-serve')).toBe('objetivo');
     expect(telaDoCaminho('/como-fazemos/')).toBe('metodo');
     expect(telaDoCaminho('/partida')).toBe('partida');

@@ -32,7 +32,9 @@ interface Props {
  */
 export default function Inicio({ jogo, tela, partidas, capituloAtual, capituloInicial, partidaSalva, onIr, onVoltar, onContinuar, onComecar }: Props) {
   const [confirmar, setConfirmar] = useState(false);
-  const contar = (t: string) => t.replaceAll('{partidas}', emMil(partidas));
+  // "mais de 234 milhões de histórias": com milhões, o número pede "de" antes da palavra que vem depois.
+  const numero = emMil(partidas);
+  const contar = (t: string) => t.replaceAll('{partidas} ', `${numero}${partidas >= 1_000_000 ? ' de' : ''} `).replaceAll('{partidas}', numero);
   const principal = capituloAtual ? onContinuar : onComecar;
 
   if (tela !== 'capa') {
@@ -44,7 +46,7 @@ export default function Inicio({ jogo, tela, partidas, capituloAtual, capituloIn
           tipo={tela}
           explicacao={explicacao}
           passos={tela === 'objetivo' ? jogo.apresentacao?.passos : undefined}
-          partidas={emMil(partidas)}
+          partidas={numero}
           contar={contar}
           titulo={jogo.titulo}
           outra={outra?.titulo}
@@ -210,7 +212,12 @@ function minuscula(s: string): string {
   return s.charAt(0).toLowerCase() + s.slice(1);
 }
 
-/** 184320 vira "184 mil"; abaixo de mil, o número inteiro. Arredonda para baixo: o texto diz "mais de". */
+/**
+ * 184320 vira "184 mil"; 234555264 vira "234 milhões"; abaixo de mil, o número inteiro.
+ * Arredonda para baixo: o texto diz "mais de".
+ */
 function emMil(n: number): string {
+  if (n >= 2_000_000) return `${Math.floor(n / 1_000_000).toLocaleString('pt-BR')} milhões`;
+  if (n >= 1_000_000) return '1 milhão';
   return n >= 1000 ? `${Math.floor(n / 1000).toLocaleString('pt-BR')} mil` : String(n);
 }

@@ -34,7 +34,7 @@ export default function Jogo({
   caminhos: Record<string, number>;
   /** Histórias completas possíveis (contarPartidas), mostradas na tela inicial. */
   partidas: number;
-  /** Tela do endereço em que a pessoa chegou (/, /para-que-serve, /como-fazemos, /partida). */
+  /** Tela do endereço em que a pessoa chegou (/, /o-que-e, /como-fazemos, /partida). */
   inicial: Tela;
 }) {
   const { tela, ir, voltar, corrigir } = useNavegacao(inicial);
