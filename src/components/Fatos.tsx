@@ -1,62 +1,45 @@
-'use client';
-
-import { useState } from 'react';
+import { dataCurta } from '@/engine/calendario';
 import type { Jogo } from '@/engine/schema';
 
 type Fato = Jogo['prologo'][number];
 
 /**
- * "O que já aconteceu": os fatos reais do prólogo como um changelog, o mais novo em cima.
- * Uma linha por fato (data + manchete); tocar abre o texto e a fonte.
+ * Os fatos reais anteriores ao "Agora", como changelog: o mais novo em cima, uma linha por fato
+ * (data + manchete); tocar abre o texto e a fonte.
  */
 export default function Fatos({ fatos }: { fatos: Fato[] }) {
-  const [aberto, setAberto] = useState<number | null>(null);
-  const ultimo = fatos[fatos.length - 1];
-  // O YAML guarda em ordem cronológica; o changelog mostra do mais recente para o mais antigo.
-  const recentes = fatos.map((f, i) => ({ f, i })).reverse();
-
+  // O YAML guarda em ordem cronológica; a lista mostra do mais recente para o mais antigo.
+  const recentes = [...fatos].reverse();
 
   return (
-    <section className="fatos-lista">
-      <header className="fatos-topo">
-        <span>O que já aconteceu</span>
-        <span className="atualizado">
-          até <strong>{semAno(ultimo.data)}</strong> · depois disso, é ficção
-        </span>
-      </header>
-      <ol>
-        {recentes.map(({ f, i }) => {
-          const abre = aberto === i;
-          return (
-            <li key={`${f.data}-${i}`} className={abre ? 'aberto' : ''}>
-              <button type="button" className="linha-fato" aria-expanded={abre} onClick={() => setAberto(abre ? null : i)}>
-                <time>{semAno(f.data)}</time>
-                <span className="manchete">{f.titulo ?? f.texto}</span>
-                <span className="mais" aria-hidden>
-                  {abre ? '−' : '+'}
-                </span>
-              </button>
-              {abre && (
-                <div className="corpo-fato">
-                  <p>{f.texto}</p>
-                  {f.fonte && (
-                    <a href={f.fonte} target="_blank" rel="noreferrer">
-                      fonte: {dominio(f.fonte)} ↗
-                    </a>
-                  )}
-                </div>
-              )}
-            </li>
-          );
-        })}
-      </ol>
-    </section>
+    <ol className="fatos">
+      {recentes.map((f, i) => (
+        <li key={`${f.data}-${i}`}>
+          <details>
+            <summary>
+              <time>{dataCurta(f.data)}</time>
+              <span className="tit">{f.titulo ?? f.texto}</span>
+              <span className="mais" aria-hidden>
+                +
+              </span>
+            </summary>
+            <div className="fato-corpo">
+              <p>{f.texto}</p>
+              {f.fonte && <Fonte url={f.fonte} />}
+            </div>
+          </details>
+        </li>
+      ))}
+    </ol>
   );
 }
 
-/** "28 de outubro de 2026, à noite" vira "28 de outubro, à noite": o ano é sempre o mesmo por enquanto. */
-function semAno(data: string): string {
-  return data.replace(/ de \d{4}/, '');
+export function Fonte({ url }: { url: string }) {
+  return (
+    <a className="fonte" href={url} target="_blank" rel="noreferrer">
+      {dominio(url)} ↗
+    </a>
+  );
 }
 
 function dominio(url: string): string {

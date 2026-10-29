@@ -1,0 +1,408 @@
+<!doctype html>
+<!--
+  Rodada 2 · B "Agora" · capa refinada
+  A capa gira em torno do presente. Título centralizado (regra do projeto). A régua deixa de ser
+  proporcional ao tempo e vira uma linha de "estações": Agora + os próximos marcos fixos do
+  calendário + a eleição de 2030, em espaços iguais. Tudo sai de dados (data do último fato e
+  datas do calendário), então não há manutenção à mão. O cartão Agora ganha um "?" com dica.
+  Variante com título à esquerda: botão "título à esquerda" no seletor do sketch (ou ?titulo=esquerda).
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trama · B2 · Capa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------- base comum às três páginas da rodada 2 ---------- */
+  :root {
+    --fundo: #0e1012;
+    --superficie: #15181b;
+    --superficie-2: #1a1e22;
+    --linha: #24282d;
+    --linha-forte: #363c43;
+    --texto: #e7e5df;
+    --texto-2: #a0a4a8;
+    --texto-3: #6c7177;
+    --claro: #f4efe4;
+    --real: #f29a2e;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --raio: 14px;
+    --ease: cubic-bezier(.2,.7,.2,1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--fundo); color: var(--texto); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+  body { overflow-x: clip; }
+  button { font: inherit; color: inherit; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--claro); outline-offset: 3px; border-radius: 4px; }
+  .rot { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--texto-3); margin: 0 0 14px; }
+
+  .marca {
+    font-family: 'Unbounded', sans-serif; font-weight: 500; text-transform: uppercase;
+    line-height: .95; letter-spacing: .04em; margin: 0; color: var(--claro);
+  }
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    .marca.luz {
+      background: linear-gradient(105deg, var(--claro) 0%, var(--claro) 36%, #2fae5b 44%, #f7d23e 50%, #2fae5b 56%, var(--claro) 64%, var(--claro) 100%);
+      background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: luz 4.5s cubic-bezier(.45,0,.55,1) .6s infinite;
+    }
+  }
+  @keyframes luz { from { background-position: 100% 0; } to { background-position: 0% 0; } }
+
+  /* Estados da partida */
+  [data-quando] { display: none; }
+  body[data-estado="salva"] [data-quando="salva"],
+  body[data-estado="nova"] [data-quando="nova"],
+  body[data-estado="confirmar"] [data-quando="confirmar"] { display: flex; flex-direction: column; gap: 4px; }
+  .botao {
+    display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 56px;
+    padding: 10px 10px 10px 18px; border-radius: 12px; cursor: pointer; text-align: left; text-decoration: none;
+    font-family: var(--sans); font-size: 15px; font-weight: 600; color: var(--fundo); background: var(--claro); border: 0;
+    transition: background .2s, transform .12s;
+  }
+  .botao small { display: block; font-family: var(--mono); font-weight: 400; font-size: 11px; color: #5b5a54; margin-top: 2px; }
+  .botao:hover { background: #fff; }
+  .botao:active { transform: translateY(1px); }
+  .botao .seta { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--real); color: var(--fundo); transition: transform .25s var(--ease); }
+  .botao:hover .seta { transform: translateX(3px); }
+  .sub { align-self: center; background: none; border: 0; padding: 12px 10px 4px; min-height: 40px; font-size: 13px; color: var(--texto-2); text-decoration: underline; text-decoration-color: var(--linha-forte); text-underline-offset: 4px; cursor: pointer; transition: color .2s, text-decoration-color .2s; }
+  .sub:hover { color: var(--claro); text-decoration-color: var(--texto-3); }
+  .nota-acao { font-size: 13px; line-height: 1.45; color: var(--texto-2); margin: 0 0 8px; text-align: center; }
+
+  .barra {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; padding: 28px 16px max(12px, env(safe-area-inset-bottom));
+    background: linear-gradient(to bottom, rgba(14,16,18,0), var(--fundo) 38%);
+  }
+  .barra > div { max-width: 608px; margin: 0 auto; }
+
+  .sketch { margin-top: 28px; font-size: 11px; color: var(--texto-3); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .sketch button { background: none; border: 1px solid var(--linha); color: var(--texto-2); border-radius: 99px; padding: 5px 10px; cursor: pointer; font-size: 11px; }
+  .sketch button:hover { border-color: var(--linha-forte); }
+
+  /* ---------- capa ---------- */
+  .pagina { max-width: 640px; margin: 0 auto; padding: max(40px, calc(env(safe-area-inset-top) + 28px)) 16px 140px; }
+
+  .cabeca { text-align: center; margin-bottom: 36px; }
+  .cabeca .marca { font-size: clamp(52px, 18vw, 120px); padding-left: .04em; }
+  .ficha { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--texto-2); margin: 16px 0 0; }
+  body.tit-esq .cabeca { text-align: left; display: flex; flex-direction: column-reverse; }
+  body.tit-esq .cabeca .marca { padding-left: 0; }
+  body.tit-esq .ficha { margin: 0 0 12px; }
+
+  /* Régua de estações */
+  .regua { margin: 0 0 22px; }
+  .regua-topo { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 16px; }
+  .regua-topo .rot { margin: 0; }
+  .regua-topo .falta { font-size: 12.5px; color: var(--texto-2); text-align: right; }
+  .regua-topo .falta b { font-weight: 500; color: var(--claro); }
+  .estacoes { display: flex; list-style: none; margin: 0; padding: 0; }
+  .estacao { position: relative; flex: 1 1 0; min-width: 0; text-align: center; padding-top: 22px; }
+  .estacao::before { /* trecho que liga à estação anterior */
+    content: ""; position: absolute; top: 6px; left: -50%; width: 100%; border-top: 1px dashed var(--linha-forte);
+  }
+  .estacao:first-child::before { display: none; }
+  .estacao.salto::before { border-top-style: dotted; border-top-width: 2px; top: 5px; border-color: var(--texto-3); }
+  .estacao .ponto { position: absolute; top: 2px; left: 50%; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: var(--fundo); border: 1px solid var(--texto-3); z-index: 1; }
+  .estacao.salto .ponto { display: none; }
+  .estacao.aqui .ponto { width: 11px; height: 11px; margin-left: -5.5px; top: 1px; background: var(--claro); border-color: var(--claro); }
+  .estacao.aqui .ponto::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 1px solid rgba(244,239,228,.35); animation: halo 3.2s var(--ease) infinite; }
+  @keyframes halo { 0% { transform: scale(.6); opacity: 1; } 70%, 100% { transform: scale(1.5); opacity: 0; } }
+  .estacao.fim .ponto { border-color: var(--claro); }
+  .estacao b { display: block; font-weight: 500; font-size: 12px; line-height: 1.3; color: var(--texto); padding: 0 3px; }
+  .estacao.aqui b { color: var(--claro); }
+  .estacao time { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--texto-3); margin-top: 3px; }
+  .estacao.salto b { font-weight: 400; color: var(--texto-3); }
+  .so-pc { display: none; }
+
+  /* Cartão Agora */
+  .agora {
+    position: relative; border: 1px solid rgba(255,255,255,.09); border-radius: 16px; padding: 20px 18px 16px;
+    background: radial-gradient(120% 70% at 0% 0%, rgba(244,239,228,.065), rgba(244,239,228,0) 60%), var(--superficie);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.045), 0 24px 48px -28px rgba(0,0,0,.8);
+  }
+  .agora-topo { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 16px; }
+  .agora-rotulo { display: flex; align-items: center; gap: 6px; }
+  .agora-rotulo > span { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--real); }
+  .agora-topo time { font-family: var(--mono); font-size: 11px; color: var(--texto-2); }
+
+  /* "?" com dica */
+  .dica { position: relative; display: inline-flex; }
+  .ajuda {
+    display: grid; place-items: center; width: 22px; height: 22px; padding: 0; border-radius: 50%; cursor: pointer;
+    border: 1px solid var(--linha-forte); background: transparent; color: var(--texto-2); font-family: var(--mono); font-size: 11.5px; line-height: 1;
+    transition: color .2s, border-color .2s, background .2s;
+  }
+  .ajuda::after { content: ""; position: absolute; inset: -11px; } /* área de toque de 44px */
+  .dica.aberta .ajuda, .ajuda:hover { color: var(--claro); border-color: var(--texto-3); background: rgba(255,255,255,.04); }
+  .balao {
+    position: absolute; left: -8px; top: calc(100% + 10px); z-index: 30; width: min(264px, calc(100vw - 64px));
+    padding: 12px 14px; border-radius: 10px; border: 1px solid var(--linha-forte); background: var(--superficie-2);
+    box-shadow: 0 16px 32px -12px rgba(0,0,0,.7);
+    font-size: 13px; line-height: 1.5; color: var(--texto); letter-spacing: 0; text-transform: none; font-family: var(--sans); font-weight: 400;
+    opacity: 0; visibility: hidden; transform: translateY(-4px); transition: opacity .18s, transform .18s var(--ease), visibility 0s .18s;
+  }
+  .balao::before { content: ""; position: absolute; top: -6px; left: 14px; width: 10px; height: 10px; background: var(--superficie-2); border-left: 1px solid var(--linha-forte); border-top: 1px solid var(--linha-forte); transform: rotate(45deg); }
+  .dica.aberta .balao { opacity: 1; visibility: visible; transform: none; transition: opacity .18s, transform .18s var(--ease), visibility 0s; }
+
+  .agora h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(27px, 7.6vw, 36px); line-height: 1.1; letter-spacing: -.005em; margin: 0 0 12px; color: var(--claro); text-wrap: balance; }
+  .agora .resumo { font-family: var(--serif); font-size: 17px; line-height: 1.5; color: var(--texto); margin: 0 0 12px; }
+  .fonte { font-family: var(--mono); font-size: 11.5px; color: var(--texto-2); text-decoration: underline; text-decoration-color: var(--linha-forte); text-underline-offset: 3px; transition: color .2s; }
+  .fonte:hover { color: var(--claro); }
+  .corte { display: flex; align-items: center; gap: 10px; margin: 20px 0 16px; font-family: var(--mono); font-size: 11px; color: var(--texto-3); }
+  .corte::before, .corte::after { content: ""; flex: 1; border-top: 1px dashed var(--linha-forte); }
+
+  /* Barra compacta da capa: só quando o cartão sai da tela */
+  .capa .barra { transform: translateY(110%); transition: transform .35s var(--ease); }
+  body.longe .capa-barra { transform: none; }
+
+  /* Antes disso */
+  .bloco { margin-top: 44px; }
+  .fatos { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linha); }
+  .fatos li { border-bottom: 1px solid var(--linha); }
+  .fatos summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 84px 1fr 16px; gap: 12px; align-items: baseline; padding: 15px 0; min-height: 52px; border-radius: 4px; }
+  .fatos summary::-webkit-details-marker { display: none; }
+  .fatos time { font-family: var(--mono); font-size: 11px; color: var(--texto-3); }
+  .fatos .tit { font-family: var(--serif); font-size: 17px; line-height: 1.3; transition: color .2s; }
+  .fatos summary:hover .tit { color: var(--claro); }
+  .fatos .mais { color: var(--texto-3); font-size: 15px; transition: transform .25s var(--ease); text-align: right; }
+  .fatos details[open] .mais { transform: rotate(45deg); }
+  .fatos .corpo { padding: 0 0 18px 96px; animation: abre .3s var(--ease); }
+  .fatos .corpo p { font-family: var(--serif); font-size: 15.5px; line-height: 1.55; color: var(--texto-2); margin: 0 0 8px; }
+  @keyframes abre { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+
+  /* Como funciona */
+  .passos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .passos li { border: 1px solid var(--linha); border-radius: 12px; padding: 14px 14px 16px; background: rgba(255,255,255,.015); }
+  .passos .n { font-family: var(--mono); font-size: 11px; color: var(--texto-3); }
+  .passos b { display: block; font-family: var(--serif); font-weight: 500; font-size: 16px; line-height: 1.25; color: var(--claro); margin: 8px 0 6px; }
+  .passos span:not(.n) { font-size: 12.5px; line-height: 1.45; color: var(--texto-2); }
+
+  /* Portas para as páginas internas: duas, diferentes no conteúdo, iguais no sistema */
+  .portas { display: grid; gap: 10px; }
+  .porta {
+    display: flex; align-items: center; gap: 14px; text-decoration: none;
+    padding: 16px 14px 16px 16px; border-radius: var(--raio); border: 1px solid rgba(255,255,255,.08);
+    background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.01));
+    transition: border-color .25s, background .25s, transform .25s var(--ease);
+  }
+  .porta:hover { border-color: rgba(255,255,255,.18); background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.015)); }
+  .porta div { flex: 1; min-width: 0; }
+  .porta .tag { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--texto-3); margin-bottom: 6px; }
+  .porta b { display: block; font-family: var(--serif); font-weight: 500; font-size: 19px; color: var(--claro); margin-bottom: 4px; }
+  .porta span.t { font-size: 13px; line-height: 1.45; color: var(--texto-2); }
+  .porta .seta { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--linha-forte); color: var(--real); transition: transform .25s var(--ease), border-color .25s; }
+  .porta:hover .seta { transform: translateX(3px); border-color: var(--texto-3); }
+
+  .aviso { margin: 36px 0 0; font-size: 12px; line-height: 1.6; color: var(--texto-3); }
+
+  @media (min-width: 960px) {
+    .pagina { max-width: 1280px; padding: 56px 48px 72px; }
+    .cabeca { margin-bottom: 48px; }
+    body.tit-esq .cabeca { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+    body.tit-esq .ficha { margin: 0 0 12px; order: 2; }
+    .regua { margin-bottom: 44px; padding: 22px 24px 20px; border: 1px solid var(--linha); border-radius: 16px; background: rgba(255,255,255,.012); }
+    .so-pc { display: block; }
+    .so-cel { display: none; }
+    .estacao b { font-size: 13px; }
+    .estacao time { font-size: 11px; }
+    .grade { display: grid; grid-template-columns: minmax(0, 4.2fr) minmax(0, 4fr) minmax(0, 3.6fr); gap: 0 44px; align-items: start; }
+    .col-agora { position: sticky; top: 24px; }
+    .bloco { margin-top: 0; }
+    .col-apoio .bloco + .bloco { margin-top: 36px; }
+    .capa .barra { display: none; }
+    .agora { padding: 24px 22px 18px; }
+    .agora h2 { font-size: 34px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marca.luz { animation: none; background-position: 100% 0; }
+    .estacao.aqui .ponto::after { animation: none; opacity: 0; }
+    .capa .barra, .balao, .fatos .corpo { transition: none; animation: none; }
+  }
+</style>
+</head>
+<body data-estado="salva" class="capa">
+<main class="pagina">
+  <header class="cabeca">
+    <h1 class="marca luz">Trama</h1>
+    <p class="ficha">Experiência interativa · Brasil até 2030</p>
+  </header>
+
+  <!-- A régua é montada pelo script a partir de ULTIMO_FATO e CALENDARIO (ver no fim). -->
+  <section class="regua" aria-labelledby="regua-rot">
+    <div class="regua-topo">
+      <p class="rot" id="regua-rot">Pela frente</p>
+      <p class="falta" id="falta"></p>
+    </div>
+    <ol class="estacoes" id="estacoes"></ol>
+  </section>
+
+  <div class="grade">
+    <div class="col-agora">
+      <article class="agora" id="agora" aria-labelledby="agora-tit">
+        <div class="agora-topo">
+          <div class="agora-rotulo">
+            <span>Agora</span>
+            <span class="dica" id="dica">
+              <button type="button" class="ajuda" aria-label="O que é o Agora?" aria-describedby="dica-agora" aria-expanded="false">?</button>
+              <span class="balao" role="tooltip" id="dica-agora">A história começa a partir desta notícia, a mais recente que importa. Daqui em diante, é ficção.</span>
+            </span>
+          </div>
+          <time datetime="2026-10-28">28 out · mais tarde</time>
+        </div>
+        <h2 id="agora-tit">A carta muda: “líder do Brasil”</h2>
+        <p class="resumo">Flávio apaga a carta e publica outra. “Presidente eleito” vira “líder do Brasil”; as acusações de fraude e as críticas ao STF e ao TSE continuam.</p>
+        <a class="fonte" href="https://www.congressoemfoco.com.br/noticia/129622/flavio-muda-carta-e-troca-presidente-eleito-por-lider-do-brasil" target="_blank" rel="noreferrer">congressoemfoco.com.br ↗</a>
+        <div class="corte">depois disso, é ficção</div>
+        <div role="group" aria-label="Partida">
+          <div data-quando="salva">
+            <button class="botao" type="button"><span>Continuar partida<small>Capítulo 1 · A carta</small></span><span class="seta" aria-hidden="true">→</span></button>
+            <button class="sub" type="button" data-estado="confirmar">Começar uma nova partida</button>
+          </div>
+          <div data-quando="confirmar">
+            <p class="nota-acao">A partida atual será perdida. As escolhas não voltam.</p>
+            <button class="botao" type="button" data-estado="nova"><span>Começar do zero</span><span class="seta" aria-hidden="true">→</span></button>
+            <button class="sub" type="button" data-estado="salva">Manter a partida atual</button>
+          </div>
+          <div data-quando="nova">
+            <button class="botao" type="button"><span>Começar daqui<small>Capítulo 1 · A carta</small></span><span class="seta" aria-hidden="true">→</span></button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <section class="bloco" aria-labelledby="antes">
+      <p class="rot" id="antes">Antes disso · fatos reais</p>
+      <ol class="fatos">
+        <li><details><summary><time>28 out · noite</time><span class="tit">A carta: “verdadeiro presidente eleito”</span><span class="mais" aria-hidden="true">+</span></summary>
+          <div class="corpo"><p>Aliados divulgam uma carta em que Flávio se declara “o verdadeiro presidente eleito do Brasil”. Sem apresentar provas, fala em fraude, agradece a Milei e a Trump e chama Rogério Marinho de seu candidato à presidência do Senado. Fontes do PL dizem que o partido não tem relação com a carta.</p><a class="fonte" href="https://www.metropoles.com/mundo/em-carta-flavio-se-declara-verdadeiro-presidente-eleito-do-brasil" target="_blank" rel="noreferrer">metropoles.com ↗</a></div></details></li>
+        <li><details><summary><time>28 out</time><span class="tit">Flávio chega a Miami</span><span class="mais" aria-hidden="true">+</span></summary>
+          <div class="corpo"><p>O Departamento de Estado confirma vistos para ele e a família. Aliados falam em asilo, sem confirmação oficial. Ele não é foragido: é investigado em três inquéritos no Supremo, sem denúncia, e continua senador até 31 de janeiro.</p><a class="fonte" href="https://www.metropoles.com/mundo/governo-trump-confirma-emissao-de-vistos-para-flavio-bolsonaro-e-familia" target="_blank" rel="noreferrer">metropoles.com ↗</a></div></details></li>
+        <li><details><summary><time>27 out</time><span class="tit">Flávio sai do Brasil</span><span class="mais" aria-hidden="true">+</span></summary>
+          <div class="corpo"><p>Registros argentinos noticiados indicam travessia por Foz do Iguaçu e um jato com escala no Equador; o governo argentino nega qualquer participação.</p><a class="fonte" href="https://www.nexojornal.com.br/expresso/2026/10/27/flavio-bolsonaro-fugiu-argentina-pf-passaporte" target="_blank" rel="noreferrer">nexojornal.com.br ↗</a></div></details></li>
+        <li><details><summary><time>26 out</time><span class="tit">Supremo manda apreender o passaporte de Flávio</span><span class="mais" aria-hidden="true">+</span></summary>
+          <div class="corpo"><p>O STF determina a apreensão do passaporte de Flávio e o proíbe de deixar o país.</p><a class="fonte" href="https://www.gazetadopovo.com.br/republica/pf-confirma-flavio-bolsonaro-deixou-brasil/" target="_blank" rel="noreferrer">gazetadopovo.com.br ↗</a></div></details></li>
+        <li><details><summary><time>25 out</time><span class="tit">Lula vira e é reeleito</span><span class="mais" aria-hidden="true">+</span></summary>
+          <div class="corpo"><p>Lula é reeleito com 51,8% dos votos válidos. É a primeira vez que o segundo colocado no primeiro turno vence a eleição. O PL elege a maior bancada da Câmara (121 deputados) e do Senado.</p><a class="fonte" href="https://tvbrasil.ebc.com.br/reporter-brasil-tarde/2026/10/eleicoes-2026-pl-forma-maior-bancada-no-congresso" target="_blank" rel="noreferrer">tvbrasil.ebc.com.br ↗</a></div></details></li>
+        <li><details><summary><time>4 out</time><span class="tit">Flávio vence o 1º turno</span><span class="mais" aria-hidden="true">+</span></summary>
+          <div class="corpo"><p>Flávio Bolsonaro (PL) termina o primeiro turno à frente, com 47,0% contra 45,2% de Lula.</p><a class="fonte" href="https://pt.wikipedia.org/wiki/Elei%C3%A7%C3%A3o_presidencial_no_Brasil_em_2026" target="_blank" rel="noreferrer">pt.wikipedia.org ↗</a></div></details></li>
+      </ol>
+    </section>
+
+    <div class="col-apoio">
+      <section class="bloco" aria-label="Sobre o Trama">
+        <div class="portas">
+          <a class="porta" href="b2-para-que-serve.html"><div><span class="tag">O propósito</span><b>Para que serve o Trama</b><span class="t">Ver, antes de acontecer, aonde pode levar o que a gente apoia.</span></div><span class="seta" aria-hidden="true">→</span></a>
+          <a class="porta" href="b2-como-fazemos.html"><div><span class="tag">O método</span><b>Como fazemos as previsões</b><span class="t">Pesquisa, seis lentes e revisão de equilíbrio.</span></div><span class="seta" aria-hidden="true">→</span></a>
+        </div>
+      </section>
+      <section class="bloco" aria-labelledby="como">
+        <p class="rot" id="como">Como funciona</p>
+        <ol class="passos">
+          <li><span class="n">01</span><b>Começa no último fato real</b><span>Parte do acontecimento mais recente, com data e fonte.</span></li>
+          <li><span class="n">02</span><b>Você escolhe o que vem depois</b><span>Duas ou três saídas por cena. Cada escolha deixa marcas.</span></li>
+          <li><span class="n">03</span><b>Ficção, mas possível</b><span>Caminhos inventados a partir de pesquisa de todos os lados.</span></li>
+          <li><span class="n">04</span><b>A história anda com o tempo</b><span>Quando a realidade decide, o jogo se atualiza.</span></li>
+        </ol>
+        <p class="aviso">Trama é uma obra de ficção especulativa. Figuras públicas aparecem como personagens em situações hipotéticas, inspiradas em suas posições públicas. Nenhuma cena descreve fatos reais além do prólogo.</p>
+        <div class="sketch">Sketch: <button data-estado="salva">com partida</button><button data-estado="nova">sem partida</button><button data-estado="confirmar">confirmar</button><button id="alt-titulo">título à esquerda</button></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<div class="barra capa-barra">
+  <div>
+    <div data-quando="salva"><button class="botao" type="button" tabindex="-1"><span>Continuar partida<small>Capítulo 1 · A carta</small></span><span class="seta" aria-hidden="true">→</span></button></div>
+    <div data-quando="confirmar"><button class="botao" type="button" tabindex="-1" data-rolar><span>Confirmar nova partida</span><span class="seta" aria-hidden="true">↑</span></button></div>
+    <div data-quando="nova"><button class="botao" type="button" tabindex="-1"><span>Começar daqui</span><span class="seta" aria-hidden="true">→</span></button></div>
+  </div>
+</div>
+
+<script>
+  /* ---------- dados da régua: no app viriam do prólogo e de pesquisa/relogios.yaml ---------- */
+  var ULTIMO_FATO = '2026-10-28';               // data do último item do prólogo
+  var CALENDARIO = [                             // datas fixas, públicas, sem previsão
+    ['2026-11-03', 'Eleição nos EUA'],
+    ['2027-01-05', 'Posse presidencial'],
+    ['2027-02-01', 'Novo Congresso'],
+    ['2028-10-01', 'Eleições municipais'],
+    ['2030-10-06', 'Eleição para presidente']
+  ];
+  var MESES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  function d(s) { var p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function curta(s) { var x = d(s); return x.getDate() + ' ' + MESES[x.getMonth()] + ' ' + x.getFullYear(); }
+  function falta(de, ate) {
+    var a = d(de), b = d(ate), m = (b.getFullYear() - a.getFullYear()) * 12 + b.getMonth() - a.getMonth() - (b.getDate() < a.getDate() ? 1 : 0);
+    var anos = Math.floor(m / 12), meses = m % 12, t = [];
+    if (anos) t.push(anos + (anos > 1 ? ' anos' : ' ano'));
+    if (meses) t.push(meses + (meses > 1 ? ' meses' : ' mês'));
+    return t.join(' e ') || 'menos de um mês';
+  }
+  (function montarRegua() {
+    var futuros = CALENDARIO.filter(function (m) { return m[0] > ULTIMO_FATO; });
+    var fim = futuros[futuros.length - 1];
+    var meio = futuros.slice(0, -1);
+    var NO_CEL = 2; // no celular: Agora + 2 próximos + salto + eleição
+    var html = '<li class="estacao aqui"><span class="ponto"></span><b>Agora</b><time>' + curta(ULTIMO_FATO) + '</time></li>';
+    meio.forEach(function (m, i) {
+      html += '<li class="estacao' + (i >= NO_CEL ? ' so-pc' : '') + '"><span class="ponto"></span><b>' + m[1] + '</b><time>' + curta(m[0]) + '</time></li>';
+    });
+    var escondidos = Math.max(0, meio.length - NO_CEL);
+    if (escondidos) html += '<li class="estacao salto so-cel" aria-hidden="true"><b>+' + escondidos + '</b></li>';
+    html += '<li class="estacao fim"><span class="ponto"></span><b>' + fim[1] + '</b><time>' + curta(fim[0]) + '</time></li>';
+    document.getElementById('estacoes').innerHTML = html;
+    document.getElementById('falta').innerHTML = '<b>' + falta(ULTIMO_FATO, fim[0]) + '</b> até 2030';
+  })();
+
+  /* ---------- estado do sketch (lembrado entre as três páginas) ---------- */
+  var KEY = 'trama-b2-estado';
+  try { var salvo = localStorage.getItem(KEY); if (salvo) document.body.dataset.estado = salvo; } catch (e) {}
+  document.querySelectorAll('[data-estado]').forEach(function (el) {
+    if (el === document.body) return;
+    el.addEventListener('click', function () {
+      document.body.dataset.estado = el.dataset.estado;
+      try { localStorage.setItem(KEY, el.dataset.estado); } catch (e) {}
+    });
+  });
+  document.querySelectorAll('[data-rolar]').forEach(function (el) {
+    el.addEventListener('click', function () { document.getElementById('agora').scrollIntoView({ behavior: 'smooth', block: 'center' }); });
+  });
+  var alt = document.getElementById('alt-titulo');
+  if (location.search.indexOf('titulo=esquerda') >= 0) document.body.classList.add('tit-esq');
+  alt.addEventListener('click', function () {
+    var on = document.body.classList.toggle('tit-esq');
+    alt.textContent = on ? 'título centralizado' : 'título à esquerda';
+  });
+
+  /* ---------- barra compacta no celular ---------- */
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) { document.body.classList.toggle('longe', !e[0].isIntersecting); }, { threshold: 0.15 })
+      .observe(document.getElementById('agora'));
+  }
+
+  /* ---------- dica do "?": toque abre/fecha, toque fora fecha, hover e foco no PC, Esc fecha ---------- */
+  (function () {
+    var dica = document.getElementById('dica'), btn = dica.querySelector('.ajuda'), ponteiro = null;
+    function abrir(v) { dica.classList.toggle('aberta', v); btn.setAttribute('aria-expanded', v ? 'true' : 'false'); }
+    btn.addEventListener('pointerdown', function (e) { ponteiro = e.pointerType; });
+    btn.addEventListener('click', function () {
+      if (ponteiro === 'mouse') abrir(true);              // no PC o hover já abriu; clicar não fecha
+      else abrir(!dica.classList.contains('aberta'));      // toque e teclado (Enter/Espaço): abre e fecha
+      ponteiro = null;
+    });
+    dica.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') abrir(true); });
+    dica.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') abrir(false); });
+    btn.addEventListener('focus', function () { if (ponteiro === null) abrir(true); }); // foco por teclado
+    btn.addEventListener('blur', function () { abrir(false); });
+    document.addEventListener('pointerdown', function (e) { if (!dica.contains(e.target)) abrir(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') abrir(false); });
+  })();
+</script>
+</body>
+</html>

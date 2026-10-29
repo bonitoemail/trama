@@ -1,9 +1,14 @@
 import type { Metadata, Viewport } from 'next';
-import { Unbounded } from 'next/font/google';
+import { IBM_Plex_Mono, IBM_Plex_Sans, Source_Serif_4, Unbounded } from 'next/font/google';
 import './globals.css';
+import './capa.css';
 
 // Fonte só do título da marca, para separá-lo do texto do jogo.
 const titulo = Unbounded({ subsets: ['latin'], weight: ['500'], variable: '--titulo' });
+// Fontes da capa e das telas de explicação (Inicio.tsx); o jogo em si segue com as suas.
+const capaSerif = Source_Serif_4({ subsets: ['latin'], weight: ['400', '500'], style: ['normal', 'italic'], variable: '--capa-serif' });
+const capaSans = IBM_Plex_Sans({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--capa-sans' });
+const capaMono = IBM_Plex_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '--capa-mono' });
 
 export const metadata: Metadata = {
   title: 'Trama',
@@ -18,7 +23,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={titulo.variable}>
+    <html lang="pt-BR" className={[titulo, capaSerif, capaSans, capaMono].map((f) => f.variable).join(' ')}>
       <body>{children}</body>
     </html>
   );

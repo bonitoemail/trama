@@ -1,3 +1,4 @@
+import { isoDoFato } from './calendario';
 import { FIM, escolhasDisponiveis, escolhasVisiveis, saidaDoCapitulo } from './engine';
 import type { Capitulo, Condicao, Jogo, Texto } from './schema';
 
@@ -37,6 +38,13 @@ function estrutura(jogo: Jogo, erros: string[], avisos: string[]) {
   }
   if (!capIds.has(jogo.primeiro_capitulo)) {
     erros.push(`primeiro_capitulo "${jogo.primeiro_capitulo}" não existe`);
+  }
+
+  // Com calendário, a régua da capa parte da data dos fatos: ela precisa ser lida ("28 de outubro de 2026, ...").
+  if (jogo.calendario) {
+    jogo.prologo.forEach((f, i) => {
+      if (!isoDoFato(f.data)) erros.push(`prólogo ${i + 1}: data "${f.data}" fora do formato "D de mês de AAAA"`);
+    });
   }
 
   const criadas = new Set<string>();

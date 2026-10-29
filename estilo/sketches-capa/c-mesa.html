@@ -1,0 +1,262 @@
+<!doctype html>
+<!--
+  Direção C · "Mesa"
+  Tudo em cartões do mesmo sistema, como uma mesa de trabalho organizada (bento): título, último
+  fato, as duas telas de explicação e "Como funciona" têm cada um o seu lugar, sem um texto
+  corrido ligando tudo. A partida não fica num cartão: fica num dock de vidro preso embaixo,
+  sempre à mão no celular; no PC, o dock vira o cartão do canto superior direito.
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trama · C · Mesa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500&family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fundo: #0c0c0e;
+    --cartao: #141417;
+    --borda: rgba(255,255,255,.075);
+    --borda-forte: rgba(255,255,255,.16);
+    --linha: #26262b;
+    --texto: #e9e5dc;
+    --texto-2: #a19d94;
+    --texto-3: #6b6862;
+    --claro: #f4efe4;
+    --real: #f29a2e;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'Instrument Sans', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--fundo); color: var(--texto); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+  body { overflow-x: clip; }
+  button { font: inherit; }
+
+  .mesa {
+    max-width: 640px; margin: 0 auto; padding: max(16px, env(safe-area-inset-top)) 12px 150px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  }
+  .c {
+    position: relative; border: 1px solid var(--borda); border-radius: 18px; padding: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0) 40%), var(--cartao);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+    min-width: 0;
+  }
+  .full { grid-column: 1 / -1; }
+  .rot { font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-3); margin: 0 0 12px; }
+
+  /* Título */
+  .titulo { padding: 28px 20px 22px; overflow: hidden;
+    background: radial-gradient(90% 70% at 50% 0%, rgba(244,239,228,.07), rgba(244,239,228,0) 70%), var(--cartao); }
+  .ficha { font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-2); margin: 0 0 18px; }
+  .marca {
+    font-family: 'Unbounded', sans-serif; font-weight: 500; text-transform: uppercase;
+    font-size: clamp(50px, 18vw, 128px); line-height: .95; letter-spacing: .04em; margin: 0; color: var(--claro);
+  }
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    .marca {
+      background: linear-gradient(105deg, var(--claro) 0%, var(--claro) 36%, #2fae5b 44%, #f7d23e 50%, #2fae5b 56%, var(--claro) 64%, var(--claro) 100%);
+      background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: luz 4.5s cubic-bezier(.45,0,.55,1) .6s infinite;
+    }
+  }
+  @keyframes luz { from { background-position: 100% 0; } to { background-position: 0% 0; } }
+  .numero { display: flex; align-items: baseline; gap: 10px; margin: 22px 0 0; padding-top: 16px; border-top: 1px solid var(--linha); }
+  .numero b { white-space: nowrap; font-family: var(--serif); font-weight: 400; font-size: 30px; color: var(--claro); line-height: 1; }
+  .numero span { font-size: 13px; color: var(--texto-2); line-height: 1.4; }
+
+  /* Fato */
+  .chip { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--real); margin: 0 0 14px; }
+  .chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--real); box-shadow: 0 0 0 3px rgba(242,154,46,.18); }
+  .fato h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 8.6vw, 44px); line-height: 1.02; margin: 0 0 10px; color: var(--claro); text-wrap: balance; }
+  .fato .data { font-size: 12.5px; color: var(--texto-2); margin: 0 0 12px; }
+  .fato .resumo { font-size: 15px; line-height: 1.55; color: var(--texto); margin: 0 0 10px; }
+  .fonte { font-size: 12px; color: var(--texto-2); text-decoration: underline; text-decoration-color: var(--borda-forte); text-underline-offset: 3px; }
+  .anteriores { margin: 18px -18px 0; border-top: 1px solid var(--linha); }
+  .anteriores > summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 16px 18px; min-height: 52px; font-size: 14px; color: var(--texto); }
+  .anteriores > summary::-webkit-details-marker { display: none; }
+  .anteriores > summary .q { color: var(--texto-3); font-size: 13px; }
+  .anteriores[open] > summary .q::after { content: " · fechar"; }
+  .lista { list-style: none; margin: 0; padding: 0 18px 4px; }
+  .lista li { display: grid; grid-template-columns: 70px 1fr; gap: 12px; padding: 12px 0; border-top: 1px solid var(--linha); }
+  .lista time { font-size: 12px; color: var(--texto-3); padding-top: 2px; }
+  .lista b { display: block; font-family: var(--serif); font-weight: 400; font-size: 19px; line-height: 1.2; color: var(--texto); margin-bottom: 4px; }
+  .lista .fonte { font-size: 11.5px; }
+  .ficcao { display: flex; align-items: center; gap: 10px; margin: 0 -18px -18px; padding: 14px 18px; border-top: 1px solid var(--linha); border-radius: 0 0 18px 18px; background: rgba(255,255,255,.02); font-size: 12.5px; color: var(--texto-2); }
+  .ficcao i { font-style: normal; font-family: var(--serif); font-size: 17px; color: var(--claro); }
+
+  /* Portas (dois meios cartões) */
+  .porta { display: flex; flex-direction: column; justify-content: space-between; gap: 18px; min-height: 148px; text-align: left; cursor: pointer; color: inherit; transition: border-color .2s, background .2s; }
+  .porta:hover { border-color: var(--borda-forte); }
+  .porta b { font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1.1; color: var(--claro); }
+  .porta .pe { display: flex; justify-content: space-between; align-items: end; gap: 8px; font-size: 12px; color: var(--texto-2); line-height: 1.4; }
+  .porta .seta { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--borda-forte); color: var(--claro); transition: transform .2s; }
+  .porta:hover .seta { transform: translateX(3px); }
+
+  /* Como funciona: carrossel no celular, 2×2 no PC */
+  .como { padding-right: 0; padding-bottom: 14px; }
+  .passos {
+    list-style: none; margin: 0; padding: 0 18px 4px 0;
+    display: grid; grid-auto-flow: column; grid-auto-columns: 76%; gap: 10px;
+    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
+  }
+  .passos::-webkit-scrollbar { display: none; }
+  .passos li { scroll-snap-align: start; border: 1px solid var(--linha); border-radius: 14px; padding: 14px; background: rgba(255,255,255,.015); }
+  .passos .n { font-size: 11px; color: var(--texto-3); }
+  .passos b { display: block; font-family: var(--serif); font-weight: 400; font-size: 21px; line-height: 1.12; color: var(--claro); margin: 10px 0 8px; }
+  .passos span { font-size: 13px; line-height: 1.45; color: var(--texto-2); }
+  .dica { font-size: 11.5px; color: var(--texto-3); margin: 10px 0 0; }
+
+  .aviso { border: 0; background: none; box-shadow: none; padding: 6px 6px 0; font-size: 12px; line-height: 1.6; color: var(--texto-3); }
+  .aviso p { margin: 0; }
+  .sketch { margin-top: 18px; font-size: 11px; color: var(--texto-3); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .sketch button { background: none; border: 1px solid var(--linha); color: var(--texto-2); border-radius: 99px; padding: 4px 10px; cursor: pointer; font-size: 11px; }
+
+  /* Dock: a partida */
+  .dock {
+    position: fixed; left: 10px; right: 10px; bottom: max(10px, env(safe-area-inset-bottom)); z-index: 5;
+    max-width: 620px; margin: 0 auto; padding: 12px; border-radius: 20px;
+    border: 1px solid var(--borda-forte);
+    background: rgba(22,22,26,.78); -webkit-backdrop-filter: blur(18px) saturate(1.2); backdrop-filter: blur(18px) saturate(1.2);
+    box-shadow: 0 18px 40px -12px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.06);
+  }
+  .dock > div { display: none; flex-direction: column; gap: 8px; }
+  body[data-estado="salva"] [data-quando="salva"],
+  body[data-estado="nova"] [data-quando="nova"],
+  body[data-estado="confirmar"] [data-quando="confirmar"] { display: flex; }
+  .onde { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; color: var(--texto-2); padding: 0 4px; }
+  .onde b { font-weight: 500; color: var(--texto); }
+  .linha-acoes { display: flex; gap: 8px; }
+  .botao {
+    flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 52px;
+    padding: 8px 8px 8px 18px; border-radius: 12px; border: 0; cursor: pointer;
+    font-size: 15px; font-weight: 600; color: var(--fundo); background: var(--claro);
+  }
+  .botao:hover { background: #fff; }
+  .botao .seta { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--real); }
+  .secundario {
+    flex: none; min-height: 52px; padding: 0 14px; border-radius: 12px; cursor: pointer;
+    background: transparent; border: 1px solid var(--borda-forte); color: var(--texto-2); font-size: 13px; line-height: 1.2; text-align: center;
+  }
+  .secundario:hover { color: var(--claro); border-color: rgba(255,255,255,.28); }
+  .dock .nota { font-size: 13px; color: var(--texto-2); margin: 0; padding: 0 4px; }
+
+  @media (min-width: 960px) {
+    .mesa {
+      max-width: 1200px; padding: 40px 40px 56px; gap: 14px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-areas:
+        "titulo titulo titulo partida"
+        "fato fato serve metodo"
+        "fato fato como como"
+        "aviso aviso aviso aviso";
+    }
+    .full { grid-column: auto; }
+    .titulo { grid-area: titulo; padding: 40px 36px 30px; }
+    .fato { grid-area: fato; padding: 28px; }
+    .fato .anteriores, .fato .ficcao { margin-left: -28px; margin-right: -28px; }
+    .fato .ficcao { margin-bottom: -28px; padding: 16px 28px; }
+    .fato .anteriores > summary, .lista { padding-left: 28px; padding-right: 28px; }
+    .serve { grid-area: serve; }
+    .metodo { grid-area: metodo; }
+    .como { grid-area: como; padding: 22px; }
+    .aviso { grid-area: aviso; padding: 10px 6px 0; }
+    .passos { grid-auto-flow: row; grid-template-columns: 1fr 1fr; grid-auto-columns: auto; overflow: visible; padding: 0; }
+    .dica { display: none; }
+    .dock {
+      grid-area: partida; position: relative; left: auto; right: auto; bottom: auto; max-width: none; margin: 0;
+      padding: 22px; border-radius: 18px; display: flex; flex-direction: column; justify-content: flex-end;
+      background: radial-gradient(100% 80% at 100% 0%, rgba(242,154,46,.08), rgba(242,154,46,0) 60%), var(--cartao);
+      -webkit-backdrop-filter: none; backdrop-filter: none; border-color: var(--borda-forte);
+    }
+    .dock .onde { flex-direction: column; gap: 6px; padding: 0; margin-bottom: auto; }
+    .dock .onde b { font-family: var(--serif); font-weight: 400; font-size: 26px; color: var(--claro); line-height: 1.1; }
+    .dock > div { height: 100%; gap: 10px; }
+    .linha-acoes { flex-direction: column; margin-top: 24px; }
+    .secundario { min-height: 44px; }
+    .marca { font-size: 128px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .marca { animation: none; background-position: 100% 0; } }
+</style>
+</head>
+<body data-estado="salva">
+<main class="mesa">
+  <header class="c full titulo">
+    <p class="ficha">Experiência interativa · Brasil até 2030</p>
+    <h1 class="marca">Trama</h1>
+    <p class="numero"><b>184 mil</b><span>histórias possíveis daqui até a eleição de 2030</span></p>
+  </header>
+
+  <aside class="dock" role="group" aria-label="Partida">
+    <div data-quando="salva">
+      <p class="onde"><span>Sua partida</span><b>Capítulo 1 · A carta</b></p>
+      <div class="linha-acoes">
+        <button class="botao" type="button"><span>Continuar partida</span><span class="seta" aria-hidden="true">→</span></button>
+        <button class="secundario" type="button" data-estado="confirmar">Começar uma<br>nova partida</button>
+      </div>
+    </div>
+    <div data-quando="confirmar">
+      <p class="nota">A partida atual será perdida. As escolhas não voltam.</p>
+      <div class="linha-acoes">
+        <button class="botao" type="button" data-estado="nova"><span>Começar do zero</span><span class="seta" aria-hidden="true">→</span></button>
+        <button class="secundario" type="button" data-estado="salva">Manter a<br>partida atual</button>
+      </div>
+    </div>
+    <div data-quando="nova">
+      <p class="onde"><span>Começa no</span><b>Capítulo 1 · A carta</b></p>
+      <div class="linha-acoes">
+        <button class="botao" type="button"><span>Começar</span><span class="seta" aria-hidden="true">→</span></button>
+      </div>
+    </div>
+  </aside>
+
+  <article class="c full fato" aria-labelledby="ultimo">
+    <p class="chip">Último fato real</p>
+    <h2 id="ultimo">A carta muda: “líder do Brasil”</h2>
+    <p class="data">28 de outubro, mais tarde</p>
+    <p class="resumo">Flávio apaga a carta e publica outra. “Presidente eleito” vira “líder do Brasil”; as acusações de fraude e as críticas ao STF e ao TSE continuam.</p>
+    <a class="fonte" href="https://www.congressoemfoco.com.br/noticia/129622/flavio-muda-carta-e-troca-presidente-eleito-por-lider-do-brasil" target="_blank" rel="noreferrer">fonte: congressoemfoco.com.br ↗</a>
+
+    <details class="anteriores">
+      <summary><span>O que aconteceu antes</span><span class="q">6 fatos</span></summary>
+      <ol class="lista">
+        <li><time>28 out, noite</time><div><b>A carta: “verdadeiro presidente eleito”</b><a class="fonte" href="https://www.metropoles.com/mundo/em-carta-flavio-se-declara-verdadeiro-presidente-eleito-do-brasil" target="_blank" rel="noreferrer">metropoles.com ↗</a></div></li>
+        <li><time>28 out</time><div><b>Flávio chega a Miami</b><a class="fonte" href="https://www.metropoles.com/mundo/governo-trump-confirma-emissao-de-vistos-para-flavio-bolsonaro-e-familia" target="_blank" rel="noreferrer">metropoles.com ↗</a></div></li>
+        <li><time>27 out</time><div><b>Flávio sai do Brasil</b><a class="fonte" href="https://www.nexojornal.com.br/expresso/2026/10/27/flavio-bolsonaro-fugiu-argentina-pf-passaporte" target="_blank" rel="noreferrer">nexojornal.com.br ↗</a></div></li>
+        <li><time>26 out</time><div><b>Supremo manda apreender o passaporte de Flávio</b><a class="fonte" href="https://www.gazetadopovo.com.br/republica/pf-confirma-flavio-bolsonaro-deixou-brasil/" target="_blank" rel="noreferrer">gazetadopovo.com.br ↗</a></div></li>
+        <li><time>25 out</time><div><b>Lula vira e é reeleito</b><a class="fonte" href="https://tvbrasil.ebc.com.br/reporter-brasil-tarde/2026/10/eleicoes-2026-pl-forma-maior-bancada-no-congresso" target="_blank" rel="noreferrer">tvbrasil.ebc.com.br ↗</a></div></li>
+        <li><time>4 out</time><div><b>Flávio vence o 1º turno</b><a class="fonte" href="https://pt.wikipedia.org/wiki/Elei%C3%A7%C3%A3o_presidencial_no_Brasil_em_2026" target="_blank" rel="noreferrer">pt.wikipedia.org ↗</a></div></li>
+      </ol>
+    </details>
+    <p class="ficcao"><i>Depois disso,</i> é ficção.</p>
+  </article>
+
+  <button class="c porta serve" type="button"><b>Para que serve o Trama</b><span class="pe"><span>Ver aonde leva o que a gente apoia</span><span class="seta" aria-hidden="true">→</span></span></button>
+  <button class="c porta metodo" type="button"><b>Como fazemos as previsões</b><span class="pe"><span>Um método que dá para conferir</span><span class="seta" aria-hidden="true">→</span></span></button>
+
+  <section class="c full como" aria-labelledby="como">
+    <p class="rot" id="como">Como funciona</p>
+    <ol class="passos">
+      <li><span class="n">1 / 4</span><b>Começa no último fato real</b><span>Parte do acontecimento mais recente, com data e fonte.</span></li>
+      <li><span class="n">2 / 4</span><b>Você escolhe o que vem depois</b><span>Duas ou três saídas por cena. Cada escolha deixa marcas.</span></li>
+      <li><span class="n">3 / 4</span><b>Ficção, mas possível</b><span>Caminhos inventados a partir de pesquisa de todos os lados.</span></li>
+      <li><span class="n">4 / 4</span><b>A história anda com o tempo</b><span>Quando a realidade decide, o jogo se atualiza.</span></li>
+    </ol>
+    <p class="dica">Arraste para o lado</p>
+  </section>
+
+  <footer class="c full aviso">
+    <p>Trama é uma obra de ficção especulativa. Figuras públicas aparecem como personagens em situações hipotéticas, inspiradas em suas posições públicas. Nenhuma cena descreve fatos reais além do prólogo.</p>
+    <div class="sketch">Sketch: <button data-estado="salva">com partida</button><button data-estado="nova">sem partida</button><button data-estado="confirmar">confirmar</button></div>
+  </footer>
+</main>
+<script>
+  document.querySelectorAll('[data-estado]').forEach(function (el) {
+    if (el === document.body) return;
+    el.addEventListener('click', function () { document.body.dataset.estado = el.dataset.estado; });
+  });
+</script>
+</body>
+</html>

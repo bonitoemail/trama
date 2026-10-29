@@ -82,7 +82,14 @@ export default function Jogo({
 
   if (tela === 'abertura' || !estado) {
     return (
-      <Inicio jogo={jogo} partidas={partidas} temPartida={Boolean(estado)} onContinuar={() => setTela('partida')} onComecar={comecar} />
+      <Inicio
+        jogo={jogo}
+        partidas={partidas}
+        capituloAtual={estado ? nomeDoCapitulo(capitulo(jogo, estado.capitulo)) : undefined}
+        capituloInicial={nomeDoCapitulo(capitulo(jogo, jogo.primeiro_capitulo))}
+        onContinuar={() => setTela('partida')}
+        onComecar={comecar}
+      />
     );
   }
 
@@ -278,4 +285,9 @@ function Acao({
       </span>
     </button>
   );
+}
+
+/** "Capítulo 1 · A carta". */
+function nomeDoCapitulo(c: { numero: number; titulo: string }): string {
+  return `Capítulo ${c.numero} · ${c.titulo}`;
 }

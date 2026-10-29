@@ -105,16 +105,33 @@ export const ApresentacaoSchema = z.strictObject({
   passos: z.array(z.strictObject({ titulo: z.string(), texto: z.string() })).min(1),
 });
 
-const Bloco = z.strictObject({ titulo: z.string(), texto: z.string() });
+const Bloco = z.strictObject({
+  titulo: z.string(),
+  texto: z.string(),
+  /** Frase em destaque, mostrada como citação antes do texto (tela "Para que serve"). */
+  destaque: z.string().optional(),
+});
 
 /** Tela de explicação (ex.: "Como fazemos as previsões", "Para que serve o Trama"). */
 export const ExplicacaoSchema = z.strictObject({
   titulo: z.string(),
   texto: z.string(),
+  /** Uma linha para o cartão que abre a tela, na capa. Sem ela, vale `texto`. */
+  chamada: z.string().optional(),
   etapas: z.array(Bloco).min(1),
+  /** Esquema da tela do método: a base, as leituras e as duas saídas (concordam, divergem). */
+  esquema: z
+    .strictObject({ base: Bloco, leituras: Bloco, concordam: Bloco, divergem: Bloco })
+    .optional(),
   /** As lentes do painel (só na tela do método). */
   lentes: z.array(z.strictObject({ nome: z.string(), texto: z.string() })).min(1).optional(),
   nota: z.string().optional(),
+});
+
+/** Data fixa e pública do calendário (eleição, posse), sem previsão: as paradas da régua da capa. */
+export const MarcoSchema = z.strictObject({
+  data: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'data no formato AAAA-MM-DD'),
+  nome: z.string(),
 });
 
 export const JogoSchema = z.strictObject({
@@ -126,6 +143,8 @@ export const JogoSchema = z.strictObject({
   objetivo: ExplicacaoSchema.optional(),
   metodo: ExplicacaoSchema.optional(),
   prologo: z.array(FatoSchema).min(1),
+  /** Régua da capa: os marcos depois do último fato real viram as paradas; o último é o fim. */
+  calendario: z.array(MarcoSchema).min(1).optional(),
   primeiro_capitulo: z.string(),
   capitulos: z.array(CapituloSchema).min(1),
   /** Texto do fim de jogo; cada parágrafo pode depender das marcas. */
@@ -138,3 +157,4 @@ export type No = z.infer<typeof NoSchema>;
 export type Saida = z.infer<typeof SaidaSchema>;
 export type Capitulo = z.infer<typeof CapituloSchema>;
 export type Jogo = z.infer<typeof JogoSchema>;
+export type Marco = z.infer<typeof MarcoSchema>;

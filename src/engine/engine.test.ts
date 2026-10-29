@@ -9,6 +9,7 @@ import {
   paragrafos,
   vale,
 } from './engine';
+import { dataCurta, falta, isoDoFato, regua } from './calendario';
 import { contarCaminhos, linhaDoTempo } from './historia';
 import { carregarJogo } from './load';
 import { JogoSchema, type Jogo } from './schema';
@@ -198,5 +199,30 @@ describe('validador', () => {
   it('o conteúdo real em content/ é válido', () => {
     const { erros } = validar(carregarJogo());
     expect(erros).toEqual([]);
+  });
+});
+
+describe('régua da capa', () => {
+  it('lê a data do fato e encurta', () => {
+    expect(isoDoFato('28 de outubro de 2026, mais tarde')).toBe('2026-10-28');
+    expect(isoDoFato('4 de março de 2027')).toBe('2027-03-04');
+    expect(isoDoFato('outubro de 2026')).toBeNull();
+    expect(dataCurta('28 de outubro de 2026, à noite')).toBe('28 out · noite');
+    expect(dataCurta('4 de outubro de 2026')).toBe('4 out');
+  });
+
+  it('conta o tempo que falta por extenso', () => {
+    expect(falta('2026-10-28', '2030-10-06')).toBe('3 anos e 11 meses');
+    expect(falta('2026-10-28', '2027-10-28')).toBe('1 ano');
+    expect(falta('2026-10-28', '2026-11-03')).toBe('menos de um mês');
+  });
+
+  it('só mostra marcos depois do último fato real', () => {
+    const j = carregarJogo();
+    const r = regua(j);
+    expect(r).not.toBeNull();
+    expect(r!.marcos.every((m) => m.data > r!.agora)).toBe(true);
+    const adiante = { ...j, prologo: [...j.prologo, { data: '10 de novembro de 2026', texto: 'x' }] };
+    expect(regua(adiante)!.marcos.some((m) => m.nome === 'Eleição nos EUA')).toBe(false);
   });
 });

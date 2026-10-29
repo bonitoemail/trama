@@ -40,10 +40,10 @@ objetivo:
         adiante. Hoje são mais de {partidas} histórias possíveis, e nenhuma é a
         certa.
     - titulo: Para qualquer lado
+      destaque: O jogo não torce por ninguém.
       texto: >
-        O jogo não torce por ninguém. Todo lado tem motivo, interesse e custo. A
-        ideia é que quem é de direita e quem é de esquerda vejam algo que não
-        viam antes.
+        Todo lado tem motivo, interesse e custo. A ideia é que quem é de direita
+        e quem é de esquerda vejam algo que não viam antes.
     - titulo: Uma história que anda
       texto: >
         O futuro não fica parado. Quando a realidade decide, o jogo é
@@ -58,6 +58,7 @@ objetivo:
 metodo:
   titulo: Como fazemos as previsões
   texto: Os caminhos do Trama não saem da cabeça de uma pessoa. Saem de um método que dá para conferir.
+  chamada: Pesquisa, seis lentes e revisão de equilíbrio.
   etapas:
     - titulo: Pesquisa
       texto: >
@@ -81,6 +82,11 @@ metodo:
       texto: >
         Quando um fato novo acontece, a escolha que se confirmou fica travada e
         as previsões do que vem depois são refeitas.
+  esquema:
+    base: { titulo: Uma base de pesquisa, texto: "Os mesmos fatos, com data e fonte." }
+    leituras: { titulo: Seis leituras, texto: Cada lente responde às mesmas perguntas. }
+    concordam: { titulo: Concordam, texto: Caminho principal. }
+    divergem: { titulo: Divergem, texto: Decisão difícil. }
   lentes:
     - nome: Instituições
       texto: Congresso, Supremo e a relação entre os Poderes.
@@ -145,6 +151,18 @@ prologo:
       vira "líder do Brasil". As acusações de fraude, de perseguição política e as críticas ao STF
       e ao TSE continuam no texto.
     fonte: https://www.congressoemfoco.com.br/noticia/129622/flavio-muda-carta-e-troca-presidente-eleito-por-lider-do-brasil
+
+# Régua da capa ("Pela frente"): só datas fixas e públicas do calendário, nunca previsão.
+# As que ficam antes do último fato do prólogo somem sozinhas; a última é o fim da régua.
+# Fontes: Constituição, arts. 28, 29, 57, 77 e 82 (posse em 5/1 desde a EC 111/2021,
+# https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm); midterms dos EUA,
+# https://www.usa.gov/midterm-elections
+calendario:
+  - { data: "2026-11-03", nome: Eleição nos EUA }
+  - { data: "2027-01-05", nome: Posse presidencial }
+  - { data: "2027-02-01", nome: Novo Congresso }
+  - { data: "2028-10-01", nome: Eleições municipais }
+  - { data: "2030-10-06", nome: Eleição para presidente }
 
 primeiro_capitulo: cap01
 

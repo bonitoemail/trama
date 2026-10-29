@@ -1,0 +1,292 @@
+<!doctype html>
+<!--
+  Rodada 2 · B "Agora" · Como fazemos as previsões
+  O método, em tom de ficha técnica: etapas numeradas 01–05 em mono (no PC, uma linha de processo
+  em cinco colunas), um esquema simples "uma base → seis lentes → consenso ou divergência" e as
+  seis lentes em grade. O limite do método fica num quadro próprio, no fim. Frio e organizado;
+  o contrário da página do propósito, que é quente, corrida e sem números.
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trama · B2 · Como fazemos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------- base comum às três páginas da rodada 2 ---------- */
+  :root {
+    --fundo: #0e1012;
+    --superficie: #15181b;
+    --superficie-2: #1a1e22;
+    --linha: #24282d;
+    --linha-forte: #363c43;
+    --texto: #e7e5df;
+    --texto-2: #a0a4a8;
+    --texto-3: #6c7177;
+    --claro: #f4efe4;
+    --real: #f29a2e;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --raio: 14px;
+    --ease: cubic-bezier(.2,.7,.2,1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--fundo); color: var(--texto); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+  body { overflow-x: clip; }
+  button { font: inherit; color: inherit; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--claro); outline-offset: 3px; border-radius: 4px; }
+  .rot { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--texto-3); margin: 0 0 14px; }
+
+  .marca {
+    font-family: 'Unbounded', sans-serif; font-weight: 500; text-transform: uppercase;
+    line-height: .95; letter-spacing: .04em; margin: 0; color: var(--claro);
+  }
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    .marca.luz {
+      background: linear-gradient(105deg, var(--claro) 0%, var(--claro) 36%, #2fae5b 44%, #f7d23e 50%, #2fae5b 56%, var(--claro) 64%, var(--claro) 100%);
+      background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: luz 4.5s cubic-bezier(.45,0,.55,1) .6s infinite;
+    }
+  }
+  @keyframes luz { from { background-position: 100% 0; } to { background-position: 0% 0; } }
+
+  /* Estados da partida */
+  [data-quando] { display: none; }
+  body[data-estado="salva"] [data-quando="salva"],
+  body[data-estado="nova"] [data-quando="nova"],
+  body[data-estado="confirmar"] [data-quando="confirmar"] { display: flex; flex-direction: column; gap: 4px; }
+  .botao {
+    display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 56px;
+    padding: 10px 10px 10px 18px; border-radius: 12px; cursor: pointer; text-align: left; text-decoration: none;
+    font-family: var(--sans); font-size: 15px; font-weight: 600; color: var(--fundo); background: var(--claro); border: 0;
+    transition: background .2s, transform .12s;
+  }
+  .botao small { display: block; font-family: var(--mono); font-weight: 400; font-size: 11px; color: #5b5a54; margin-top: 2px; }
+  .botao:hover { background: #fff; }
+  .botao:active { transform: translateY(1px); }
+  .botao .seta { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--real); color: var(--fundo); transition: transform .25s var(--ease); }
+  .botao:hover .seta { transform: translateX(3px); }
+  .sub { align-self: center; background: none; border: 0; padding: 12px 10px 4px; min-height: 40px; font-size: 13px; color: var(--texto-2); text-decoration: underline; text-decoration-color: var(--linha-forte); text-underline-offset: 4px; cursor: pointer; transition: color .2s, text-decoration-color .2s; }
+  .sub:hover { color: var(--claro); text-decoration-color: var(--texto-3); }
+  .nota-acao { font-size: 13px; line-height: 1.45; color: var(--texto-2); margin: 0 0 8px; text-align: center; }
+
+  .barra {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; padding: 28px 16px max(12px, env(safe-area-inset-bottom));
+    background: linear-gradient(to bottom, rgba(14,16,18,0), var(--fundo) 38%);
+  }
+  .barra > div { max-width: 608px; margin: 0 auto; }
+
+  .sketch { margin-top: 28px; font-size: 11px; color: var(--texto-3); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .sketch button { background: none; border: 1px solid var(--linha); color: var(--texto-2); border-radius: 99px; padding: 5px 10px; cursor: pointer; font-size: 11px; }
+  .sketch button:hover { border-color: var(--linha-forte); }
+
+
+  /* ---------- moldura das páginas internas ---------- */
+  .topo {
+    position: sticky; top: 0; z-index: 15; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    padding: max(10px, env(safe-area-inset-top)) 12px 10px; background: rgba(14,16,18,.86);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid var(--linha);
+  }
+  .voltar { justify-self: start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 8px; border-radius: 8px; text-decoration: none; font-size: 14px; color: var(--texto-2); transition: color .2s; }
+  .voltar span { transition: transform .25s var(--ease); }
+  .voltar:hover { color: var(--claro); }
+  .voltar:hover span { transform: translateX(-3px); }
+  .topo .marca { font-size: 15px; text-decoration: none; padding-left: .04em; }
+  .topo .vazio { justify-self: end; }
+
+  .interna { max-width: 680px; margin: 0 auto; padding: 36px 16px 170px; }
+  .interna .rot { margin-bottom: 12px; }
+  .cruzado {
+    display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 48px; padding: 18px 16px;
+    border: 1px solid rgba(255,255,255,.08); border-radius: var(--raio); text-decoration: none;
+    background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.01)); transition: border-color .25s;
+  }
+  .cruzado:hover { border-color: rgba(255,255,255,.18); }
+  .cruzado small { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--texto-3); margin-bottom: 4px; }
+  .cruzado b { font-family: var(--serif); font-weight: 500; font-size: 19px; color: var(--claro); }
+  .cruzado .seta { flex: none; color: var(--real); transition: transform .25s var(--ease); }
+  .cruzado:hover .seta { transform: translateX(3px); }
+
+  /* Ações: barra presa no celular, cartão parado à direita no PC */
+  .lado .partida { display: none; }
+  .partida .onde { font-family: var(--mono); font-size: 11px; color: var(--texto-3); margin: 0 0 12px; }
+  .partida .onde b { display: block; font-family: var(--serif); font-weight: 500; font-size: 20px; color: var(--claro); margin-top: 6px; letter-spacing: 0; }
+
+  @media (min-width: 960px) {
+    .topo { padding: 14px 32px; }
+    .moldura { max-width: 1200px; margin: 0 auto; padding: 0 48px; display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 72px; align-items: start; }
+    .interna { max-width: none; margin: 0; padding: 64px 0 96px; }
+    .lado { position: sticky; top: 16px; padding-top: 64px; }
+    .lado .partida { display: block; padding: 20px; border: 1px solid rgba(255,255,255,.09); border-radius: 16px; background: radial-gradient(120% 80% at 0% 0%, rgba(244,239,228,.05), rgba(244,239,228,0) 60%), var(--superficie); }
+    .barra { display: none; }
+    .nota-acao { text-align: left; }
+  }
+  .barra .onde { display: none; }
+
+  /* ---------- Como fazemos: ficha técnica, fria ---------- */
+  body { background-image: linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px); background-size: 32px 32px; background-attachment: fixed; }
+  .abre h1 { font-family: var(--sans); font-weight: 600; font-size: clamp(30px, 8vw, 48px); line-height: 1.08; letter-spacing: -.02em; color: var(--claro); margin: 0 0 16px; text-wrap: balance; }
+  .abre .lead { font-size: 17px; line-height: 1.55; color: var(--texto-2); margin: 0; max-width: 34em; }
+  .abre .lead b { font-weight: 500; color: var(--texto); }
+
+  .secao { margin-top: 48px; }
+  .secao-topo { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 16px; }
+  .secao-topo .rot { margin: 0; }
+  .secao-topo span { font-family: var(--mono); font-size: 11px; color: var(--texto-3); }
+
+  /* Etapas */
+  .etapas { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linha-forte); }
+  .etapa { display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--linha); }
+  .etapa .n { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--real); padding-top: 2px; }
+  .etapa h2 { font-family: var(--sans); font-weight: 600; font-size: 17px; color: var(--claro); margin: 0 0 6px; }
+  .etapa p { font-size: 14.5px; line-height: 1.55; color: var(--texto-2); margin: 0; }
+
+  /* Esquema: uma base, seis lentes, dois resultados */
+  .esquema { display: grid; gap: 8px; margin-bottom: 12px; }
+  .caixa { border: 1px solid var(--linha-forte); border-radius: 10px; padding: 12px 14px; background: var(--superficie); font-size: 13px; line-height: 1.45; color: var(--texto-2); }
+  .caixa b { display: block; font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--texto); margin-bottom: 4px; }
+  .seta-baixo { text-align: center; font-family: var(--mono); font-size: 12px; color: var(--texto-3); line-height: 1; }
+  .saidas { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  /* Lentes */
+  .lentes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; counter-reset: l; }
+  .lente { counter-increment: l; border: 1px solid var(--linha); border-radius: 12px; padding: 14px; background: rgba(255,255,255,.015); transition: border-color .25s, background .25s; }
+  .lente:hover { border-color: var(--linha-forte); background: rgba(255,255,255,.03); }
+  .lente::before { content: "L" counter(l); display: block; font-family: var(--mono); font-size: 11px; color: var(--texto-3); margin-bottom: 10px; }
+  .lente h3 { font-family: var(--sans); font-weight: 600; font-size: 15px; line-height: 1.25; color: var(--claro); margin: 0 0 6px; }
+  .lente p { font-size: 12.5px; line-height: 1.45; color: var(--texto-2); margin: 0; }
+
+  /* Limite do método */
+  .limite { margin-top: 32px; padding: 16px; border: 1px dashed var(--linha-forte); border-radius: 12px; }
+  .limite b { display: block; font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--real); margin-bottom: 8px; }
+  .limite p { font-size: 14px; line-height: 1.6; color: var(--texto-2); margin: 0; }
+
+  @media (min-width: 960px) {
+    .abre h1 { font-size: 52px; }
+    .abre .lead { font-size: 19px; }
+    .secao { margin-top: 64px; }
+    .etapa { grid-template-columns: 72px 1fr; gap: 20px; padding: 22px 0; }
+    .etapa .n { font-size: 22px; font-weight: 400; padding-top: 0; line-height: 1.1; }
+    .etapa h2 { font-size: 18px; }
+    .etapa p { font-size: 15px; max-width: 40em; }
+    .esquema { grid-template-columns: 1fr auto 1fr auto 1.4fr; align-items: stretch; margin-bottom: 14px; }
+    .seta-baixo { align-self: center; font-size: 0; }
+    .seta-baixo::after { content: '→'; font-size: 13px; }
+    .lentes { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .lente { padding: 18px; min-height: 148px; }
+  }
+</style>
+</head>
+<body data-estado="salva">
+<header class="topo">
+  <a class="voltar" href="b2-capa.html"><span aria-hidden="true">←</span> Voltar</a>
+  <a class="marca" href="b2-capa.html" aria-label="Trama: voltar ao início">Trama</a>
+  <span class="vazio"></span>
+</header>
+
+<div class="moldura">
+  <main class="interna">
+    <header class="abre">
+      <p class="rot">O método</p>
+      <h1>Como fazemos as previsões</h1>
+      <p class="lead">Os caminhos do Trama não saem da cabeça de uma pessoa. <b>Saem de um método que dá para conferir.</b></p>
+    </header>
+
+    <section class="secao" aria-labelledby="etapas-rot">
+      <div class="secao-topo"><p class="rot" id="etapas-rot">Cinco etapas</p><span>da pesquisa ao jogo</span></div>
+      <ol class="etapas">
+        <li class="etapa"><span class="n">01</span><div><h2>Pesquisa</h2><p>Juntamos os fatos com data e fonte. Só vira fato o que tem duas fontes independentes ou documento oficial. Boato fica marcado como boato.</p></div></li>
+        <li class="etapa"><span class="n">02</span><div><h2>Seis lentes</h2><p>Seis analistas simulados por IA respondem às mesmas perguntas, cada um pelo seu ângulo. Não são especialistas reais, e nenhuma previsão é atribuída a pessoas reais.</p></div></li>
+        <li class="etapa"><span class="n">03</span><div><h2>Consenso e divergência</h2><p>Comparamos as seis respostas. Onde concordam, nasce o caminho principal. Onde divergem, nasce uma das decisões difíceis do jogo.</p></div></li>
+        <li class="etapa"><span class="n">04</span><div><h2>Revisão de equilíbrio</h2><p>Uma revisão de neutralidade confere se todos os lados têm motivo, interesse e custo. A chance decide quanto texto um caminho tem, não se ele é bem escrito.</p></div></li>
+        <li class="etapa"><span class="n">05</span><div><h2>A realidade confere</h2><p>Quando um fato novo acontece, a escolha que se confirmou fica travada e as previsões do que vem depois são refeitas.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="secao" aria-labelledby="lentes-rot">
+      <div class="secao-topo"><p class="rot" id="lentes-rot">As seis lentes</p><span>analistas simulados por IA</span></div>
+      <div class="metodo-lentes">
+        <div class="esquema" aria-label="Como as lentes viram caminhos">
+          <div class="caixa"><b>Uma base de pesquisa</b>Os mesmos fatos, com data e fonte.</div>
+          <div class="seta-baixo" aria-hidden="true">↓</div>
+          <div class="caixa"><b>Seis leituras</b>Cada lente responde às mesmas perguntas.</div>
+          <div class="seta-baixo" aria-hidden="true">↓</div>
+          <div class="saidas">
+            <div class="caixa"><b>Concordam</b>Caminho principal.</div>
+            <div class="caixa"><b>Divergem</b>Decisão difícil.</div>
+          </div>
+        </div>
+        <ul class="lentes">
+          <li class="lente"><h3>Instituições</h3><p>Congresso, Supremo e a relação entre os Poderes.</p></li>
+          <li class="lente"><h3>Economia ortodoxa</h3><p>Contas públicas, juros e confiança do mercado.</p></li>
+          <li class="lente"><h3>Economia heterodoxa</h3><p>Renda, emprego e o peso dos juros na dívida.</p></li>
+          <li class="lente"><h3>Jurídico</h3><p>O que a lei permite e quanto tempo cada processo leva.</p></li>
+          <li class="lente"><h3>Internacional</h3><p>EUA, América Latina e China, o Brasil visto de fora.</p></li>
+          <li class="lente"><h3>Eleitoral</h3><p>Voto, rejeição e quanto um líder consegue transferir.</p></li>
+        </ul>
+      </div>
+      <div class="limite">
+        <b>O limite do método</b>
+        <p>Nenhum número aparece durante o jogo, para não induzir a escolha. As seis lentes leem a mesma base de pesquisa: quando concordam, pode ser fonte em comum, e não acordo independente.</p>
+      </div>
+    </section>
+
+    <a class="cruzado" href="b2-para-que-serve.html"><span><small>O propósito</small><b>Para que serve o Trama</b></span><span class="seta" aria-hidden="true">→</span></a>
+
+    <div class="sketch">Sketch: <button data-estado="salva">com partida</button><button data-estado="nova">sem partida</button><button data-estado="confirmar">confirmar</button></div>
+  </main>
+  <aside class="lado"><div class="partida"><div role="group" aria-label="Partida">
+      <div data-quando="salva">
+        <p class="onde">Sua partida<b>Capítulo 1 · A carta</b></p>
+        <button class="botao" type="button"><span>Continuar partida</span><span class="seta" aria-hidden="true">→</span></button>
+        <button class="sub" type="button" data-estado="confirmar">Começar uma nova partida</button>
+      </div>
+      <div data-quando="confirmar">
+        <p class="nota-acao">A partida atual será perdida. As escolhas não voltam.</p>
+        <button class="botao" type="button" data-estado="nova"><span>Começar do zero</span><span class="seta" aria-hidden="true">→</span></button>
+        <button class="sub" type="button" data-estado="salva">Manter a partida atual</button>
+      </div>
+      <div data-quando="nova">
+        <p class="onde">Começa no<b>Capítulo 1 · A carta</b></p>
+        <button class="botao" type="button"><span>Começar</span><span class="seta" aria-hidden="true">→</span></button>
+      </div>
+    </div>
+</div></aside>
+</div>
+<div class="barra"><div role="group" aria-label="Partida">
+      <div data-quando="salva">
+        <p class="onde">Sua partida<b>Capítulo 1 · A carta</b></p>
+        <button class="botao" type="button"><span>Continuar partida</span><span class="seta" aria-hidden="true">→</span></button>
+        <button class="sub" type="button" data-estado="confirmar">Começar uma nova partida</button>
+      </div>
+      <div data-quando="confirmar">
+        <p class="nota-acao">A partida atual será perdida. As escolhas não voltam.</p>
+        <button class="botao" type="button" data-estado="nova"><span>Começar do zero</span><span class="seta" aria-hidden="true">→</span></button>
+        <button class="sub" type="button" data-estado="salva">Manter a partida atual</button>
+      </div>
+      <div data-quando="nova">
+        <p class="onde">Começa no<b>Capítulo 1 · A carta</b></p>
+        <button class="botao" type="button"><span>Começar</span><span class="seta" aria-hidden="true">→</span></button>
+      </div>
+    </div>
+</div>
+<script>
+  var KEY = 'trama-b2-estado';
+  try { var salvo = localStorage.getItem(KEY); if (salvo) document.body.dataset.estado = salvo; } catch (e) {}
+  document.querySelectorAll('[data-estado]').forEach(function (el) {
+    if (el === document.body) return;
+    el.addEventListener('click', function () {
+      document.body.dataset.estado = el.dataset.estado;
+      try { localStorage.setItem(KEY, el.dataset.estado); } catch (e) {}
+    });
+  });
+  // Esc volta para a capa, como no app (Metodo.tsx).
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') location.href = 'b2-capa.html'; });
+</script>
+
+</body>
+</html>

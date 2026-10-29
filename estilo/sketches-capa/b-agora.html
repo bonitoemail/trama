@@ -1,0 +1,272 @@
+<!doctype html>
+<!--
+  Direção B · "Agora"
+  A capa é organizada em torno do presente. Uma régua de out/2026 a out/2030 mostra onde a
+  realidade parou (um trecho sólido, curtíssimo) e quanto falta (pontilhado: ficção). Logo abaixo,
+  o cartão "Agora" traz o último fato real e o botão de continuar: a partida começa exatamente ali.
+  O resto (fatos anteriores, como funciona, as duas telas de explicação) fica como apoio.
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trama · B · Agora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fundo: #0e1012;
+    --superficie: #15181b;
+    --linha: #262a2f;
+    --linha-forte: #3a4047;
+    --texto: #e7e5df;
+    --texto-2: #9ea2a6;
+    --texto-3: #676c72;
+    --claro: #f4efe4;
+    --real: #f29a2e;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --sans: 'IBM Plex Sans', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--fundo); color: var(--texto); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+  body { overflow-x: clip; }
+  button { font: inherit; }
+  .pagina { max-width: 640px; margin: 0 auto; padding: max(32px, env(safe-area-inset-top)) 16px 140px; }
+
+  .rot { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--texto-3); margin: 0 0 12px; }
+
+  /* Cabeçalho: título alinhado à esquerda, ficha embaixo */
+  .cabeca { margin-bottom: 28px; }
+  .ficha { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--texto-2); margin: 0 0 10px; }
+  .marca {
+    font-family: 'Unbounded', sans-serif; font-weight: 500; text-transform: uppercase;
+    font-size: clamp(48px, 17vw, 112px); line-height: .95; letter-spacing: .04em; margin: 0; color: var(--claro);
+  }
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    .marca {
+      background: linear-gradient(105deg, var(--claro) 0%, var(--claro) 36%, #2fae5b 44%, #f7d23e 50%, #2fae5b 56%, var(--claro) 64%, var(--claro) 100%);
+      background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: luz 4.5s cubic-bezier(.45,0,.55,1) .6s infinite;
+    }
+  }
+  @keyframes luz { from { background-position: 100% 0; } to { background-position: 0% 0; } }
+
+  /* Régua 2026 → 2030 (estática) */
+  .regua { margin: 0 0 28px; }
+  .trilho { position: relative; height: 44px; margin: 0 6px; }
+  .trilho .base { position: absolute; left: 0; right: 0; top: 30px; border-top: 1px dashed var(--linha-forte); }
+  .trilho .feito { position: absolute; left: 0; top: 29px; width: 1.2%; min-width: 6px; height: 3px; background: var(--claro); border-radius: 2px; }
+  .trilho .marco { position: absolute; top: 26px; width: 9px; height: 9px; margin-left: -4px; border-radius: 50%; background: var(--fundo); border: 1px solid var(--linha-forte); }
+  .trilho .aqui { position: absolute; left: 1.2%; top: 0; transform: translateX(-6px); font-family: var(--mono); font-size: 11px; color: var(--claro); white-space: nowrap; }
+  .trilho .aqui::after { content: ""; position: absolute; left: 6px; top: 18px; height: 16px; border-left: 1px solid var(--claro); }
+  .anos { display: flex; justify-content: space-between; margin: 6px 0 0; font-family: var(--mono); font-size: 11px; color: var(--texto-3); }
+  .legenda { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 14px 0 0; font-size: 12px; color: var(--texto-2); }
+  .legenda i { display: inline-block; width: 16px; vertical-align: middle; margin-right: 6px; }
+  .legenda .l1 { border-top: 3px solid var(--claro); border-radius: 2px; }
+  .legenda .l2 { border-top: 1px dashed var(--texto-3); }
+  .legenda .l3 { width: 8px; height: 8px; border-radius: 50%; border: 1px solid var(--texto-3); }
+
+  /* Cartão Agora */
+  .agora {
+    border: 1px solid rgba(255,255,255,.09); border-radius: 14px; padding: 20px 18px 18px;
+    background: radial-gradient(120% 80% at 0% 0%, rgba(244,239,228,.06), rgba(244,239,228,0) 60%), var(--superficie);
+    box-shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 20px 40px -24px rgba(0,0,0,.7);
+  }
+  .agora .quando { display: flex; justify-content: space-between; gap: 10px; font-family: var(--mono); font-size: 11px; color: var(--texto-2); margin-bottom: 14px; }
+  .agora .quando b { font-weight: 500; color: var(--real); letter-spacing: .08em; text-transform: uppercase; }
+  .agora h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(26px, 7.4vw, 34px); line-height: 1.12; margin: 0 0 10px; color: var(--claro); text-wrap: balance; }
+  .agora p { font-family: var(--serif); font-size: 17px; line-height: 1.5; color: var(--texto); margin: 0 0 10px; }
+  .fonte { font-family: var(--mono); font-size: 11.5px; color: var(--texto-2); text-decoration: underline; text-decoration-color: var(--linha-forte); text-underline-offset: 3px; }
+  .corte { display: flex; align-items: center; gap: 10px; margin: 20px -18px 18px; padding: 0 18px; font-family: var(--mono); font-size: 11px; color: var(--texto-3); }
+  .corte::after { content: ""; flex: 1; border-top: 1px dashed var(--linha-forte); }
+
+  .estado > div { display: none; flex-direction: column; gap: 4px; }
+  body[data-estado="salva"] [data-quando="salva"],
+  body[data-estado="nova"] [data-quando="nova"],
+  body[data-estado="confirmar"] [data-quando="confirmar"] { display: flex; }
+  .botao {
+    display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 56px;
+    padding: 10px 10px 10px 18px; border-radius: 10px; cursor: pointer; text-align: left;
+    font-family: var(--sans); font-size: 15px; font-weight: 600; color: var(--fundo); background: var(--claro); border: 0;
+  }
+  .botao small { display: block; font-family: var(--mono); font-weight: 400; font-size: 11px; color: #5a5850; margin-top: 2px; }
+  .botao:hover { background: #fff; }
+  .botao .seta { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--real); transition: transform .2s; }
+  .botao:hover .seta { transform: translateX(3px); }
+  .sub { align-self: center; background: none; border: 0; padding: 12px 8px 2px; font-size: 13px; color: var(--texto-2); text-decoration: underline; text-decoration-color: var(--linha-forte); text-underline-offset: 4px; cursor: pointer; }
+  .sub:hover { color: var(--claro); }
+  .nota { font-size: 13px; color: var(--texto-2); margin: 0 0 8px; text-align: center; }
+
+  /* Barra compacta: aparece no celular quando o cartão Agora sai da tela */
+  .barra {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; padding: 24px 16px max(12px, env(safe-area-inset-bottom));
+    background: linear-gradient(to bottom, rgba(14,16,18,0), var(--fundo) 40%);
+    transform: translateY(110%); transition: transform .3s ease;
+  }
+  body.longe .barra { transform: none; }
+  .barra .estado { max-width: 608px; margin: 0 auto; }
+  .barra .botao { min-height: 52px; }
+
+  /* Antes disso */
+  .bloco { margin-top: 40px; }
+  .fatos { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linha); }
+  .fatos li { border-bottom: 1px solid var(--linha); }
+  .fatos summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 92px 1fr 16px; gap: 10px; align-items: baseline; padding: 14px 0; min-height: 50px; }
+  .fatos summary::-webkit-details-marker { display: none; }
+  .fatos time { font-family: var(--mono); font-size: 11.5px; color: var(--texto-3); }
+  .fatos .tit { font-family: var(--serif); font-size: 17px; line-height: 1.3; }
+  .fatos .mais { color: var(--texto-3); font-size: 14px; }
+  .fatos details[open] .mais { transform: rotate(45deg); }
+  .fatos .corpo { padding: 0 0 16px 102px; }
+  .fatos .corpo p { font-family: var(--serif); font-size: 15.5px; line-height: 1.55; color: var(--texto-2); margin: 0 0 8px; }
+
+  /* Como funciona: 2×2 */
+  .passos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .passos li { border: 1px solid var(--linha); border-radius: 10px; padding: 14px 14px 16px; background: rgba(255,255,255,.015); }
+  .passos .n { font-family: var(--mono); font-size: 11px; color: var(--real); }
+  .passos b { display: block; font-family: var(--serif); font-weight: 500; font-size: 16px; line-height: 1.25; color: var(--claro); margin: 8px 0 6px; }
+  .passos span { font-size: 12.5px; line-height: 1.45; color: var(--texto-2); }
+
+  /* Portas */
+  .portas { display: flex; flex-direction: column; gap: 10px; }
+  .porta {
+    display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; cursor: pointer; color: inherit;
+    padding: 16px 14px 16px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.08);
+    background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.01)); transition: border-color .2s;
+  }
+  .porta:hover { border-color: rgba(255,255,255,.18); }
+  .porta div { flex: 1; }
+  .porta b { display: block; font-family: var(--serif); font-weight: 500; font-size: 18px; color: var(--claro); margin-bottom: 4px; }
+  .porta span { font-size: 13px; line-height: 1.45; color: var(--texto-2); }
+  .porta .seta { flex: none; color: var(--real); font-size: 18px; }
+
+  .aviso { margin: 36px 0 0; font-size: 12px; line-height: 1.6; color: var(--texto-3); }
+  .sketch { margin-top: 24px; font-size: 11px; color: var(--texto-3); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .sketch button { background: none; border: 1px solid var(--linha); color: var(--texto-2); border-radius: 99px; padding: 4px 10px; cursor: pointer; font-size: 11px; }
+
+  @media (min-width: 960px) {
+    .pagina { max-width: 1280px; padding: 48px 48px 72px; }
+    .cabeca { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 40px; }
+    .ficha { order: 2; margin: 0 0 10px; }
+    .regua { margin-bottom: 48px; }
+    .grade { display: grid; grid-template-columns: minmax(0, 4.2fr) minmax(0, 4fr) minmax(0, 3.6fr); gap: 0 40px; align-items: start; }
+    .col-agora { position: sticky; top: 24px; }
+    .bloco { margin-top: 0; }
+    .col-apoio .bloco + .bloco { margin-top: 36px; }
+    .barra { display: none; }
+    .agora h2 { font-size: 34px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .marca { animation: none; background-position: 100% 0; } .barra { transition: none; } }
+</style>
+</head>
+<body data-estado="salva">
+<main class="pagina">
+  <header class="cabeca">
+    <p class="ficha">Experiência interativa · Brasil até 2030</p>
+    <h1 class="marca">Trama</h1>
+  </header>
+
+  <section class="regua" aria-label="Onde a história está, de 2026 a 2030">
+    <div class="trilho" aria-hidden="true">
+      <div class="base"></div>
+      <div class="feito"></div>
+      <span class="marco" style="left: 1.6%"></span>
+      <span class="marco" style="left: 8%"></span>
+      <span class="marco" style="left: 49.5%"></span>
+      <span class="marco" style="left: 100%"></span>
+      <span class="aqui">você está aqui · 29 out 2026</span>
+    </div>
+    <div class="anos" aria-hidden="true"><span>2026</span><span>2027</span><span>2028</span><span>2029</span><span>2030</span></div>
+    <p class="legenda"><span><i class="l1"></i>fatos reais</span><span><i class="l2"></i>ficção, até a eleição de 2030</span><span><i class="l3"></i>datas do calendário</span></p>
+  </section>
+
+  <div class="grade">
+    <div class="col-agora">
+      <article class="agora" id="agora">
+        <div class="quando"><b>Agora</b><span>28 out · mais tarde</span></div>
+        <h2>A carta muda: “líder do Brasil”</h2>
+        <p>Flávio apaga a carta e publica outra. “Presidente eleito” vira “líder do Brasil”; as acusações de fraude e as críticas ao STF e ao TSE continuam.</p>
+        <a class="fonte" href="https://www.congressoemfoco.com.br/noticia/129622/flavio-muda-carta-e-troca-presidente-eleito-por-lider-do-brasil" target="_blank" rel="noreferrer">congressoemfoco.com.br ↗</a>
+        <div class="corte">depois disso, é ficção</div>
+        <div class="estado" role="group" aria-label="Partida">
+          <div data-quando="salva">
+            <button class="botao" type="button"><span>Continuar partida<small>Capítulo 1 · A carta</small></span><span class="seta" aria-hidden="true">→</span></button>
+            <button class="sub" type="button" data-estado="confirmar">Começar uma nova partida</button>
+          </div>
+          <div data-quando="confirmar">
+            <p class="nota">A partida atual será perdida. As escolhas não voltam.</p>
+            <button class="botao" type="button" data-estado="nova"><span>Começar do zero</span><span class="seta" aria-hidden="true">→</span></button>
+            <button class="sub" type="button" data-estado="salva">Manter a partida atual</button>
+          </div>
+          <div data-quando="nova">
+            <button class="botao" type="button"><span>Começar daqui<small>Capítulo 1 · A carta</small></span><span class="seta" aria-hidden="true">→</span></button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <section class="bloco" aria-labelledby="antes">
+      <p class="rot" id="antes">Antes disso · fatos reais</p>
+      <ol class="fatos">
+        <li><details><summary><time>28 out · noite</time><span class="tit">A carta: “verdadeiro presidente eleito”</span><span class="mais">+</span></summary>
+          <div class="corpo"><p>Aliados divulgam uma carta em que Flávio se declara “o verdadeiro presidente eleito do Brasil”. Sem apresentar provas, fala em fraude, agradece a Milei e a Trump e chama Rogério Marinho de seu candidato à presidência do Senado. Fontes do PL dizem que o partido não tem relação com a carta.</p><a class="fonte" href="https://www.metropoles.com/mundo/em-carta-flavio-se-declara-verdadeiro-presidente-eleito-do-brasil" target="_blank" rel="noreferrer">metropoles.com ↗</a></div></details></li>
+        <li><details><summary><time>28 out</time><span class="tit">Flávio chega a Miami</span><span class="mais">+</span></summary>
+          <div class="corpo"><p>O Departamento de Estado confirma vistos para ele e a família. Aliados falam em asilo, sem confirmação oficial. Ele não é foragido: é investigado em três inquéritos no Supremo, sem denúncia, e continua senador até 31 de janeiro.</p><a class="fonte" href="https://www.metropoles.com/mundo/governo-trump-confirma-emissao-de-vistos-para-flavio-bolsonaro-e-familia" target="_blank" rel="noreferrer">metropoles.com ↗</a></div></details></li>
+        <li><details><summary><time>27 out</time><span class="tit">Flávio sai do Brasil</span><span class="mais">+</span></summary>
+          <div class="corpo"><p>Registros argentinos noticiados indicam travessia por Foz do Iguaçu e um jato com escala no Equador; o governo argentino nega qualquer participação.</p><a class="fonte" href="https://www.nexojornal.com.br/expresso/2026/10/27/flavio-bolsonaro-fugiu-argentina-pf-passaporte" target="_blank" rel="noreferrer">nexojornal.com.br ↗</a></div></details></li>
+        <li><details><summary><time>26 out</time><span class="tit">Supremo manda apreender o passaporte de Flávio</span><span class="mais">+</span></summary>
+          <div class="corpo"><p>O STF determina a apreensão do passaporte de Flávio e o proíbe de deixar o país.</p><a class="fonte" href="https://www.gazetadopovo.com.br/republica/pf-confirma-flavio-bolsonaro-deixou-brasil/" target="_blank" rel="noreferrer">gazetadopovo.com.br ↗</a></div></details></li>
+        <li><details><summary><time>25 out</time><span class="tit">Lula vira e é reeleito</span><span class="mais">+</span></summary>
+          <div class="corpo"><p>Lula é reeleito com 51,8% dos votos válidos. É a primeira vez que o segundo colocado no primeiro turno vence a eleição. O PL elege a maior bancada da Câmara (121 deputados) e do Senado.</p><a class="fonte" href="https://tvbrasil.ebc.com.br/reporter-brasil-tarde/2026/10/eleicoes-2026-pl-forma-maior-bancada-no-congresso" target="_blank" rel="noreferrer">tvbrasil.ebc.com.br ↗</a></div></details></li>
+        <li><details><summary><time>4 out</time><span class="tit">Flávio vence o 1º turno</span><span class="mais">+</span></summary>
+          <div class="corpo"><p>Flávio Bolsonaro (PL) termina o primeiro turno à frente, com 47,0% contra 45,2% de Lula.</p><a class="fonte" href="https://pt.wikipedia.org/wiki/Elei%C3%A7%C3%A3o_presidencial_no_Brasil_em_2026" target="_blank" rel="noreferrer">pt.wikipedia.org ↗</a></div></details></li>
+      </ol>
+    </section>
+
+    <div class="col-apoio">
+      <section class="bloco" aria-labelledby="como">
+        <p class="rot" id="como">Como funciona</p>
+        <ol class="passos">
+          <li><span class="n">01</span><b>Começa no último fato real</b><span>Parte do acontecimento mais recente, com data e fonte.</span></li>
+          <li><span class="n">02</span><b>Você escolhe o que vem depois</b><span>Duas ou três saídas por cena. Cada escolha deixa marcas.</span></li>
+          <li><span class="n">03</span><b>Ficção, mas possível</b><span>Caminhos inventados a partir de pesquisa de todos os lados.</span></li>
+          <li><span class="n">04</span><b>A história anda com o tempo</b><span>Quando a realidade decide, o jogo se atualiza.</span></li>
+        </ol>
+      </section>
+      <section class="bloco" aria-label="Sobre o Trama">
+        <div class="portas">
+          <button class="porta" type="button"><div><b>Para que serve o Trama</b><span>Ver, antes de acontecer, aonde pode levar o que a gente apoia.</span></div><span class="seta" aria-hidden="true">→</span></button>
+          <button class="porta" type="button"><div><b>Como fazemos as previsões</b><span>Um método que dá para conferir.</span></div><span class="seta" aria-hidden="true">→</span></button>
+        </div>
+        <p class="aviso">Trama é uma obra de ficção especulativa. Figuras públicas aparecem como personagens em situações hipotéticas, inspiradas em suas posições públicas. Nenhuma cena descreve fatos reais além do prólogo.</p>
+        <div class="sketch">Sketch: <button data-estado="salva">com partida</button><button data-estado="nova">sem partida</button><button data-estado="confirmar">confirmar</button></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<div class="barra">
+  <div class="estado">
+    <div data-quando="salva"><button class="botao" type="button" tabindex="-1"><span>Continuar partida<small>Capítulo 1 · A carta</small></span><span class="seta">→</span></button></div>
+    <div data-quando="confirmar"><button class="botao" type="button" tabindex="-1" onclick="document.getElementById('agora').scrollIntoView({behavior:'smooth',block:'center'})"><span>Confirmar nova partida</span><span class="seta">↑</span></button></div>
+    <div data-quando="nova"><button class="botao" type="button" tabindex="-1"><span>Começar daqui</span><span class="seta">→</span></button></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('[data-estado]').forEach(function (el) {
+    if (el === document.body) return;
+    el.addEventListener('click', function () { document.body.dataset.estado = el.dataset.estado; });
+  });
+  // No celular, a barra compacta só aparece quando o cartão "Agora" sai da tela.
+  var agora = document.getElementById('agora');
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) {
+      document.body.classList.toggle('longe', !e[0].isIntersecting);
+    }, { threshold: 0.15 }).observe(agora);
+  }
+</script>
+</body>
+</html>
