@@ -8,7 +8,8 @@
     "start": "next start",
     "test": "vitest run",
     "validate": "tsx scripts/validate.ts",
-    "estado": "tsx scripts/estado.ts"
+    "estado": "tsx scripts/estado.ts",
+    "link": "tsx scripts/link.ts"
   },
   "dependencies": {
     "next": "^16.4.3",

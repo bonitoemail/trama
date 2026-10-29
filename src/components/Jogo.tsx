@@ -20,6 +20,7 @@ import {
 } from '@/engine/engine';
 import type { Jogo as JogoT } from '@/engine/schema';
 import { useNavegacao } from '@/lib/navegacao';
+import { guardarOrigem, registrarInicio, registrarMudanca } from '@/lib/registro';
 import { apagarPartida, lerPartida, lerVistos, salvarPartida, salvarVistos } from '@/lib/storage';
 import type { Tela } from '@/lib/telas';
 
@@ -43,6 +44,7 @@ export default function Jogo({
   const [decidindo, setDecidindo] = useState<string | null>(null);
 
   useEffect(() => {
+    guardarOrigem();
     // Uma partida salva que não bate mais com o conteúdo (nó ou capítulo removido) é descartada.
     const salva = lerPartida(jogo.versao);
     let valida = salva;
@@ -74,6 +76,7 @@ export default function Jogo({
   }, [estado?.no, estado?.fase, estado?.capitulo]);
 
   function atualizar(novo: Estado, marcarVisto: string[] = []) {
+    registrarMudanca(estado, novo);
     setEstado(novo);
     salvarPartida(novo);
     if (marcarVisto.length) {
@@ -87,6 +90,7 @@ export default function Jogo({
   function comecar() {
     apagarPartida(jogo.versao);
     setEstado(null);
+    registrarInicio(jogo.versao);
     atualizar(novoJogo(jogo));
     if (tela !== 'partida') ir('partida');
   }

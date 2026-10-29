@@ -14,6 +14,7 @@ Next.js 16 (App Router) · React 19 · TypeScript 5 (estrito) · Zod 4 · YAML �
 - `src/engine/`: `schema.ts` (formato, Zod), `engine.ts` (motor puro, travas `real`), `validate.ts` (explora todas as combinações), `historia.ts` (linha do tempo, caminhos por capítulo e `contarPartidas`, histórias completas), `calendario.ts` (datas do prólogo e a frase "Pela frente" da capa), `load.ts`.
 - `src/lib/telas.ts` e `navegacao.ts`: um endereço por tela (`/`, `/para-que-serve`, `/como-fazemos`, `/partida`, todos em `src/app/[[...tela]]/page.tsx`). Voltar (gesto do celular, navegador, botão, Esc) desfaz no histórico; a capa volta na mesma altura; link direto + Voltar vai para a capa.
 - `src/components/`: `Jogo.tsx` (telas e tipos de cena: abertura, decisão, consequência, final), `Inicio.tsx` (capa: título, o Agora com a última notícia, a partida, a frase "Pela frente", e atrás de um toque os fatos e as duas telas), `Dica.tsx` (o "?" com balão), `Metodo.tsx` (as duas telas de explicação, cada uma com sua linguagem), `Fatos.tsx` (fatos anteriores, mais novo em cima), `Cartoes.tsx` (stories: a tela inteira é área de toque), `BotaoEscolha.tsx` (segurar para decidir), `LinhaDoTempo.tsx` (fim de capítulo).
+- Registro anônimo (plano em `BACKEND.md`): `src/lib/registro.ts` (eventos tirados da mudança de estado em `Jogo.tsx`, validação contra o conteúdo, origem do link), `src/app/api/evento/route.ts` (grava via `registrar()` no Supabase com `SUPABASE_URL` e `SUPABASE_SECRET_KEY` do `.env.local`; sem elas, ou no `npm run dev` sem `REGISTRO_EM_DEV=1`, não grava nada), `supabase/migrations/` (tabelas `partidas` e `eventos`, só o servidor escreve; consultas no schema `painel`: `resumo`, `capitulos`, `escolhas`, `paradas`, `caminhos`, `origens`). Projeto Supabase `trama` (`hsiwzuqikdcbrjquczwd`, São Paulo, org Trama, Free). Link de divulgação: `npm run link -- <canal>`.
 - `pesquisa/`: rodadas de pesquisa (`00-sintese.md`, `01`…), `RODADAS.md` (histórico) e `relogios.yaml` (datas e eventos ligados aos nós).
 - `roteiro/`: esqueletos de capítulos futuros e `painel/` (painel de previsão com 6 lentes, `00-agregado.md` com cismas e finais, `01-neutralidade.md`).
 - `estilo/`: `GUIA.md` (estilo das ilustrações), `prompts.py`, `cenas_cap*.py`, `cenas_capa.py` (formato largo; capa hoje fora de uso), `sketch-titulo.html` (comparar fontes do título), `sketches-capa/` (rodadas de design da capa; a B3 "menos" é a atual, plano em `b3-plano.md`), `gerar_teste.py`, `publicar.py`, `galeria.py`, `escolhas.json` (qual geração está em cada nó), `referencias/`. Saídas de teste em `estilo/testes/` (fora do git).
@@ -33,6 +34,7 @@ npm run estado     # relógios, travas, imagens e validador (início de toda atu
 npm run validate   # valida o conteúdo
 npm test           # testes do motor + conteúdo real
 npm run build      # falha se o conteúdo tiver erro
+npm run link -- instagram-bio   # link de divulgação com a origem (SITE_URL para o endereço)
 ```
 
 ## Regras
@@ -51,4 +53,4 @@ Ver `pesquisa/RODADAS.md` (última entrada) para o detalhe.
 - **Pendente:** mais agência da esquerda além de Lula (Haddad, PT, movimentos); a imprensa como ator; primeira trava real nas midterms (3/11/2026, `cap01/eleicao_eua`); retratos; backend.
 
 ## Ainda não existe
-Backend (Supabase), porcentagens da comunidade, página pública, antimanipulação, retratos de personagens reais.
+Porcentagens da comunidade no jogo, `/painel`, site publicado, antimanipulação além da primeira camada, retratos de personagens reais.
