@@ -7,6 +7,7 @@ aviso: >
 
 # Tela inicial: o que é o jogo e como funciona. Linguagem simples (DESIGN 8.2).
 apresentacao:
+  ficha: Experiência interativa · Brasil até 2030
   texto: Uma história sobre o Brasil até 2030. Você decide o rumo.
   passos:
     - titulo: Começa no último fato real
@@ -17,6 +18,41 @@ apresentacao:
       texto: Caminhos inventados a partir de pesquisa de todos os lados.
     - titulo: A história anda com o tempo
       texto: Quando a realidade decide, o jogo se atualiza.
+
+# Tela "Para que serve o Trama". {partidas} é contado pelo motor a cada build (contarPartidas):
+# nunca escreva o número à mão.
+objetivo:
+  titulo: Para que serve o Trama
+  texto: Um jeito de ver, antes de acontecer, aonde pode levar o que a gente apoia.
+  etapas:
+    - titulo: Ver a consequência
+      texto: >
+        Na política, a gente costuma torcer por uma decisão sem ver o que vem
+        depois dela. Aqui você escolhe e acompanha o efeito: quem ganha, quem
+        perde e quem paga a conta.
+    - titulo: O Brasil de hoje até 2030
+      texto: >
+        A história começa no último fato real e vai até a próxima eleição para
+        presidente. Os personagens são as figuras públicas de agora, agindo como
+        poderiam agir.
+    - titulo: Mais de {partidas} histórias
+      texto: >
+        Cada escolha abre um caminho diferente e deixa marcas que voltam mais
+        adiante. Hoje são mais de {partidas} histórias possíveis, e nenhuma é a
+        certa.
+    - titulo: Para qualquer lado
+      texto: >
+        O jogo não torce por ninguém. Todo lado tem motivo, interesse e custo. A
+        ideia é que quem é de direita e quem é de esquerda vejam algo que não
+        viam antes.
+    - titulo: Uma história que anda
+      texto: >
+        O futuro não fica parado. Quando a realidade decide, o jogo é
+        atualizado: algumas previsões se confirmam, outras são descartadas, e os
+        caminhos mudam.
+  nota: >
+    É ficção. Nenhuma cena descreve fatos reais além do que está em "O que já
+    aconteceu".
 
 # Tela "Como fazemos as previsões". Fiel a roteiro/painel/ (00-agregado, regra de desenho)
 # e à skill atualizar-jogo. Mudou o método? Mude aqui também.
@@ -142,13 +178,15 @@ epilogo:
       texto: Em Miami, existe um governo que nenhum país reconhece e que milhões de brasileiros acompanham todas as noites.
     - se: { todas: [{ tem: flavio_live }, { nao_tem: deportados }] }
       texto: Toda noite, uma live de Miami disputa com o PL quem fala pela direita.
+    - se: { todas: [{ tem: flavio_discreto }, { nao_tem: deportados }] }
+      texto: Flávio quase não falou desde novembro. A família chama de estratégia; parte da base, de abandono.
     # Supremo
     - se: { tem: stf_aprovado }
-      texto: O Supremo volta a ter onze ministros. Um deles sabe exatamente a quem deve a cadeira, e os outros também.
+      texto: O Supremo volta a ter onze ministros. O novo chega com apoio no Senado e com cobranças de quem o apoiou.
     - se: { tem: stf_rejeitado }
       texto: O Supremo segue com dez ministros, e Lula, com duas derrotas no Senado. A próxima indicação vai custar mais.
     - se: { tem: vaga_segurada }
-      texto: A cadeira vaga do Supremo entra em 2027 como moeda, e todo mundo em Brasília sabe o câmbio.
+      texto: A cadeira vaga do Supremo entra em 2027 como moeda de negociação entre o Planalto e o Senado.
     - se: { tem: pgr_contra }
       texto: Entre a Procuradoria e o Supremo, abriu-se uma fresta. Os dois lados vão tentar alargá-la.
     # Direita

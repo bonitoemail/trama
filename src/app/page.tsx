@@ -1,5 +1,5 @@
 import Jogo from '@/components/Jogo';
-import { contarCaminhos } from '@/engine/historia';
+import { contarCaminhos, contarPartidas } from '@/engine/historia';
 import { carregarJogo } from '@/engine/load';
 import { validar } from '@/engine/validate';
 
@@ -20,5 +20,5 @@ export default function Page() {
     );
   }
 
-  return <Jogo jogo={jogo} caminhos={contarCaminhos(jogo)} />;
+  return <Jogo jogo={jogo} caminhos={contarCaminhos(jogo)} partidas={contarPartidas(jogo)} />;
 }

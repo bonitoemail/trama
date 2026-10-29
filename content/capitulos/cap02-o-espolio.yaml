@@ -126,10 +126,15 @@ nos:
         senao: Eduardo, de Miami, gravou um vídeo pedindo que outros países não reconheçam a eleição.
       - Para Tarcísio, quanto mais tempo a sucessão ficar aberta, melhor. Para o governo, uma oposição sem dono é mais fácil de enfrentar, e mais difícil de negociar.
     # Valdemar autorizado a visitar Jair (29/10); vídeo de Eduardo; Michelle fora do PL Mulher desde jun/2026: pesquisa 10.
+    # Condenação na AP 2668 e domiciliar humanitária: STF e Nexo (pesquisa 03 e 04).
+    #   https://noticias.stf.jus.br/postsnoticias/stf-mantem-ex-presidente-bolsonaro-em-prisao-domiciliar/
+    #   https://www.nexojornal.com.br/expresso/2026/03/24/prisao-domiciliar-bolsonaro-decisao-moraes
     detalhe:
-      - Valdemar Costa Neto foi autorizado pela Justiça a visitar Jair Bolsonaro, que cumpre pena em prisão domiciliar.
+      - Valdemar Costa Neto foi autorizado pela Justiça a visitar Jair Bolsonaro, condenado pelo Supremo a 27 anos por tentativa de golpe e em prisão domiciliar por motivo de saúde.
       - se: { tem: flavio_live }
         texto: Toda noite, a live de Miami diz quem deveria liderar a oposição no Brasil. A resposta muda conforme a semana.
+      - se: { tem: flavio_discreto }
+        texto: De Miami, quase nenhuma palavra. O silêncio de Flávio abre espaço para quem quiser ocupar o lugar dele.
     escolhas:
       - id: michelle
         rotulo: Michelle assume a liderança da oposição
@@ -148,7 +153,7 @@ nos:
     lugar: Brasília, Senado Federal
     imagem: imagens/cap02/a_estreia.webp
     texto:
-      - Michelle fala para a bancada do PL por oito minutos. Fala de Jair e de fé. Não cita Flávio.
+      - Michelle fala para a bancada do PL por oito minutos. Fala de Jair e da união da direita. Não cita Flávio.
       - Quem no PL negocia com Alcolumbre gosta do tom. Em Miami, alguém repara no que ficou de fora.
       - Tarcísio manda uma nota curta de apoio. Kassab não manda nada.
     segue: a_conta
@@ -172,13 +177,13 @@ nos:
       - se: { tem: flavio_sem_preventiva }
         texto: Mas não é automático. É um processo, e o Senado entra de férias no fim do ano. Quem decide se ele anda rápido ou devagar é Alcolumbre.
         senao: Quem decide é Moraes. O mesmo valor já foi bloqueado de um advogado investigado no mesmo caso.
-      - Para o PT, decidir rápido mostra que a lei vale para todos. Para a família, qualquer decisão é perseguição, e qualquer demora, conchavo.
+      - Para o PT, decidir rápido mostra que a lei vale para todos, e demorar seria privilégio. Para o PL, decidir rápido mostra pressa em punir quem nem foi denunciado.
     # Rito das faltas (CCJ, até 15 dias úteis, depois a Mesa), licença congela a contagem, suplente Paulo Marinho,
     # bloqueio de Willer Tomaz: pesquisa 09.
     detalhe:
       - se: { tem: flavio_sem_preventiva }
         texto: Pela Constituição, quem falta a um terço das sessões perde o mandato. O pedido passa pela Comissão de Constituição e Justiça, que tem até quinze dias úteis, e depois a Mesa decide. O mandato de Flávio acaba de qualquer jeito em 31 de janeiro. Uma licença do cargo para a contagem de faltas.
-        senao: O advogado é Willer Tomaz, investigado no caso das apostas. O pedido de bloqueio dos bens de Flávio foi feito por deputados do PT.
+        senao: O advogado é Willer Tomaz, investigado no mesmo inquérito das apostas em que Flávio é investigado. Nenhum dos dois foi denunciado. O pedido de bloqueio dos bens de Flávio foi feito por deputados do PT.
     escolhas:
       - id: acelera
         rotulo: Alcolumbre acelera, e Flávio perde o mandato antes das férias
@@ -264,7 +269,7 @@ nos:
     imagem: imagens/cap02/a_moeda.webp
     texto:
       - Nas redes americanas, até na direita, cresce uma pergunta. Por que os Estados Unidos abrigam um político investigado em outro país?
-      - Os aliados de Trump mais barulhentos defendem Flávio e repetem que a eleição foi roubada. Trump diz que a família é gente boa.
+      - Parte dos aliados de Trump defende Flávio e repetem que a eleição foi roubada. Trump diz que a família é gente boa.
       - Mas Trump também quer um acordo com o Brasil sobre minerais. E a autorização de Flávio pode ser cancelada a qualquer momento.
     detalhe:
       - Extraditar alguém passa pela Justiça americana e demora anos. Deportar é diferente. O governo pode simplesmente cancelar a autorização para ficar no país. Eduardo Bolsonaro já foi condenado no Brasil e tem mandado de prisão.
@@ -371,7 +376,7 @@ nos:
     texto:
       - O PL termina o ano com duas listas de votos e nenhum dono. Metade promete Alcolumbre; metade, Marinho.
       - Em Miami, a culpa é de quem ficou no Brasil. No Brasil, é de quem foi embora. Tarcísio não diz nada e aparece em todas as fotos.
-      - Ganham Alcolumbre e Kassab. Perde a direita, com a maior bancada e a menor união. E Lula perde uma desculpa. Sem oposição unida, os erros de 2027 vão ser só dele.
+      - "Ganham Alcolumbre e Kassab. Perde a direita, com a maior bancada e a menor união. No governo, aliados de Lula temem outra coisa: sem um adversário claro, cada derrota de 2027 vai ser cobrada só do Planalto."
 
 saidas:
   - para: FIM

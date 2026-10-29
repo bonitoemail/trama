@@ -98,18 +98,22 @@ export const FatoSchema = z.strictObject({
 
 /** Tela inicial: o que é o jogo e como funciona, em poucos passos. */
 export const ApresentacaoSchema = z.strictObject({
+  /** Linha curta sob o título. */
+  ficha: z.string().optional(),
+  /** Frase de abertura. "{partidas}" vira o número de histórias possíveis (ex.: "61 mil"). */
   texto: z.string(),
   passos: z.array(z.strictObject({ titulo: z.string(), texto: z.string() })).min(1),
 });
 
 const Bloco = z.strictObject({ titulo: z.string(), texto: z.string() });
 
-/** Tela "Como fazemos as previsões": as etapas do método e as lentes do painel. */
-export const MetodoSchema = z.strictObject({
+/** Tela de explicação (ex.: "Como fazemos as previsões", "Para que serve o Trama"). */
+export const ExplicacaoSchema = z.strictObject({
   titulo: z.string(),
   texto: z.string(),
   etapas: z.array(Bloco).min(1),
-  lentes: z.array(z.strictObject({ nome: z.string(), texto: z.string() })).min(1),
+  /** As lentes do painel (só na tela do método). */
+  lentes: z.array(z.strictObject({ nome: z.string(), texto: z.string() })).min(1).optional(),
   nota: z.string().optional(),
 });
 
@@ -118,7 +122,9 @@ export const JogoSchema = z.strictObject({
   titulo: z.string(),
   aviso: z.string(),
   apresentacao: ApresentacaoSchema.optional(),
-  metodo: MetodoSchema.optional(),
+  /** Tela "Para que serve": o objetivo do jogo. "{partidas}" vira o número de histórias. */
+  objetivo: ExplicacaoSchema.optional(),
+  metodo: ExplicacaoSchema.optional(),
   prologo: z.array(FatoSchema).min(1),
   primeiro_capitulo: z.string(),
   capitulos: z.array(CapituloSchema).min(1),

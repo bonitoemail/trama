@@ -1,4 +1,17 @@
-import { FIM, type Passo, capitulo, escolhasDisponiveis, escolhasVisiveis, no, paragrafos, saidaDoCapitulo } from './engine';
+import {
+  FIM,
+  type Estado,
+  type Passo,
+  capitulo,
+  continuar,
+  escolher,
+  escolhasDisponiveis,
+  escolhasVisiveis,
+  no,
+  novoJogo,
+  paragrafos,
+  saidaDoCapitulo,
+} from './engine';
 import type { Jogo } from './schema';
 
 /** Um momento da linha do tempo de uma partida. */
@@ -101,4 +114,31 @@ export function contarCaminhos(jogo: Jogo): Record<string, number> {
     }
   }
   return Object.fromEntries([...caminhos].map(([id, s]) => [id, s.size]));
+}
+
+const LIMITE_PARTIDAS = 2_000_000;
+
+/**
+ * Quantas histórias completas o jogo tem: cada sequência distinta de escolhas do primeiro
+ * capítulo até o epílogo. Para no limite (e devolve o limite) para não travar o build.
+ */
+export function contarPartidas(jogo: Jogo): number {
+  let partidas = 0;
+  const pilha: Estado[] = [novoJogo(jogo)];
+  while (pilha.length && partidas < LIMITE_PARTIDAS) {
+    const e = pilha.pop()!;
+    if (e.fase === 'fim_jogo') {
+      partidas++;
+      continue;
+    }
+    if (e.fase === 'fim_capitulo') {
+      pilha.push(continuar(jogo, e));
+      continue;
+    }
+    const n = no(jogo, e.capitulo, e.no);
+    const disp = n.escolhas?.length ? escolhasDisponiveis(n, e.marcas) : [];
+    if (disp.length) disp.forEach((c) => pilha.push(escolher(jogo, e, c.id)));
+    else pilha.push(escolher(jogo, e, null));
+  }
+  return partidas;
 }

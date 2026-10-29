@@ -15,14 +15,23 @@ nos:
     lugar: Miami e Brasília, 29 de outubro
     imagem: imagens/cap01/abertura.webp
     texto:
-      - Flávio Bolsonaro perdeu a eleição para Lula por pouco. Dois dias depois, saiu do Brasil e foi para Miami com a família.
+      - Flávio Bolsonaro perdeu a eleição para Lula por pouco. Dois dias depois, mesmo proibido pelo Supremo de sair do país, foi para Miami com a família.
       - Ele entrou nos Estados Unidos com uma autorização de um ano para ficar. Não é asilo político.
       - Na mesma noite, publicou uma carta dizendo que era o verdadeiro presidente. Horas depois, trocou a palavra por "líder do Brasil".
       - A carta fala em fraude, sem provas. E aponta Rogério Marinho como seu candidato para comandar o Senado.
     # Parole: Metrópoles/Folha (pesquisa 07). Prorrogação e votos após as 17h: pesquisa 03 e 06. Três versões da carta: pesquisa 10.
+    # Proibição de sair do país (25–26/10): Gazeta do Povo e Congresso em Foco (pesquisa 04).
+    #   https://www.gazetadopovo.com.br/republica/moraes-ordena-cancelamento-de-passaporte-de-flavio-bolsonaro-apos-eleicoes/
+    #   https://www.congressoemfoco.com.br/noticia/123352/flavio-e-alvo-de-inquerito-na-pf-por-suspeita-de-lavagem-de-dinheiro
+    # Três inquéritos: CNN 27/10 e Metrópoles 25/10 (pesquisa 09).
+    #   https://www.cnnbrasil.com.br/politica/inqueritos-contra-flavio-podem-continuar-no-stf-mesmo-com-perda-de-foro/
+    #   https://www.metropoles.com/brasil/flavio-perde-eleicao-o-que-muda-nos-inqueritos-contra-ele
+    # Margem de ~4,4 milhões e ~35 mil votos após as 17h: Aos Fatos e Al Jazeera (pesquisa 04 e 05).
+    #   https://www.aosfatos.org/noticias/derrotado-flavio-mente-sugerir-eleicao-fraudada/
+    #   https://www.aljazeera.com/news/2026/10/27/bolsonaros-party-accepts-result-after-trump-suggests-vote-was
     detalhe:
-      - A autorização é humanitária (parole) e vale até outubro de 2027, segundo registros vistos pela imprensa. A Polícia Federal diz que Flávio não é foragido. Ele é investigado em três inquéritos no Supremo, sem denúncia.
-      - O ponto mais concreto da acusação de fraude é a prorrogação do horário de votação, decidida pelo ministro Zanin a pedido da campanha de Lula. A campanha de Flávio também tinha pedido prorrogações. O TSE registrou cerca de 35 mil votos depois das 17h.
+      - A autorização é humanitária (parole) e vale até outubro de 2027, segundo registros vistos pela imprensa. A Polícia Federal diz que Flávio não é foragido. Ele é investigado em três inquéritos no Supremo, sem denúncia. Os casos tratam de suspeita de lavagem de dinheiro com apostas, ligada ao advogado Willer Tomaz, do financiamento do filme sobre o pai e de calúnia contra Lula. Flávio nega e chama os casos de fake news.
+      - O fato real que a carta usa é a prorrogação do horário de votação, decidida pelo ministro Zanin a pedido da campanha de Lula. A campanha de Flávio também tinha pedido prorrogações. Depois das 17h votaram cerca de 35 mil pessoas. A diferença final entre os dois foi de cerca de 4,4 milhões de votos.
       - Fontes do PL disseram que o partido não tem relação com a carta. Valdemar Costa Neto, presidente do partido, tinha reconhecido o resultado em 26 de outubro.
     segue: pedido
 
@@ -35,9 +44,14 @@ nos:
       - Quem decide é Alexandre de Moraes, o ministro do Supremo que cuida do caso.
       - Prender pode transformar Flávio em mártir. Não prender pode passar a ideia de que a lei não vale para ele.
     # Pedidos do PT e do PSOL: pesquisa 03 e 06. Marinho: O Antagonista / Gazeta do Povo. PGR em off: CNN, 28/10.
+    # Crítica ao inquérito de ofício (Raquel Dodge, 2019) e defesa de Moraes ("acerto histórico", 2023):
+    #   https://www.poder360.com.br/justica/inquerito-aberto-para-investigar-fake-news-ao-stf-vai-continuar-diz-moraes/
+    #   https://www.opovo.com.br/noticias/politica/2023/03/31/alexandre-diz-que-inquerito-das-fake-news-foi-acerto-historico-do-stf.html
     detalhe:
-      - O PT também pediu o bloqueio de até R$ 6 bilhões em bens de Flávio, e o PSOL pediu ao Senado a perda do mandato. Para a esquerda, manter Flávio no noticiário como fugitivo custa pouco e rende muito.
+      - O PT também pediu o bloqueio de até R$ 6 bilhões em bens de Flávio, e o PSOL pediu ao Senado a perda do mandato. Para a esquerda, prender mostraria que a lei vale para todos, e manter Flávio no noticiário também rende votos. Para o PL, cada pedido do PT reforça a história da perseguição, que também mobiliza a base.
       - Rogério Marinho disse que o momento das medidas contra Flávio era uma coincidência que precisa ser analisada.
+      - Para Moraes, decidir rápido reforça a autoridade do Supremo no caso. Recuar pode ser lido como fraqueza, e prender, como pressa.
+      - Críticos do Supremo lembram o inquérito das fake news, aberto pelo próprio tribunal em 2019. Dizem que o STF não pode investigar e julgar no mesmo caso. Moraes chama aquele inquérito de acerto histórico, em defesa da democracia.
       - Integrantes da Procuradoria-Geral disseram a jornalistas, em reserva, que a apreensão do passaporte foi precipitada, mas que a saída do país abre caminho para a prisão.
     escolhas:
       - id: preventiva
@@ -58,7 +72,7 @@ nos:
     imagem: imagens/cap01/foragido.webp
     texto:
       - Moraes manda prender Flávio e pede que o nome dele entre no alerta internacional de procurados.
-      - Na carta, Flávio tinha escrito que não havia ordem de prisão contra ele. Agora há.
+      - A primeira versão da carta dizia que não havia ordem de prisão contra ele. A ordem saiu dias depois.
       - Ele grava um vídeo de Miami. Diz que é perseguido e que continua sendo o líder do Brasil.
     # "não existe nenhum mandado de prisão contra mim": 1ª versão da carta.
     detalhe:
@@ -179,8 +193,11 @@ nos:
     imagem: imagens/cap01/noite_republicana.webp
     texto:
       - Os republicanos mantêm a Câmara. Trump comemora numa festa à beira-mar.
-      - Em Miami, alívio. Ninguém em Washington vai investigar tão cedo a ajuda à família.
-      - Para o governo Lula, a conta é outra. A taxa de 25% fica, e as punições contra autoridades brasileiras podem voltar.
+      - Em Miami, alívio. A reportagem sobre funcionários de Trump ajudando a família não deve virar investigação tão cedo.
+      - Para o governo Lula, a conta é outra. A taxa de 25% fica, e as punições contra autoridades brasileiras, que Eduardo Bolsonaro pediu em Washington, podem voltar.
+    # Eduardo e as sanções (2025) e o pedido de retomada (2026): InfoMoney e Gazeta do Povo.
+    #   https://www.infomoney.com.br/politica/eduardo-bolsonaro-agradece-tarifa-de-trump-e-pede-apoio-de-sancoes-contra-moraes/
+    #   https://www.gazetadopovo.com.br/republica/eduardo-diz-ter-pedido-a-trump-volta-de-moraes-a-magnitsky-e-cita-zelle-como-pix-dos-eua/
     detalhe:
       - Uma semana antes, Trump tinha dito duas coisas sobre o Brasil. Que a eleição pareceu ter fraude, e que ele gosta de Lula.
     segue: o_exilio
@@ -189,9 +206,9 @@ nos:
     lugar: Miami, novembro
     imagem: imagens/cap01/o_exilio.webp
     texto:
-      - Flávio prometeu falar sempre aos brasileiros. Primeiro se disse presidente. Depois, líder do Brasil. Qual das duas vai valer?
+      - Flávio prometeu falar sempre aos brasileiros. Primeiro se disse presidente, depois líder do Brasil. Agora precisa decidir o que vai dizer.
       - Ele mesmo citou Guaidó, que se declarou presidente da Venezuela e foi reconhecido por dezenas de países.
-      - Flávio não foi reconhecido por nenhum. Quase todos os governos, até os de direita, parabenizaram Lula. Só Milei e Trump não.
+      - Flávio não foi reconhecido por nenhum governo. Quase todos parabenizaram Lula, inclusive governos de direita. Milei e Trump não.
       - se: { tem: flavio_preventiva }
         texto: Com a ordem de prisão, voltar não é mais uma opção.
         senao: E, enquanto ele fica fora, as faltas no Senado se acumulam.
@@ -210,6 +227,10 @@ nos:
         rotulo: Flávio fica como líder da oposição, com lives todas as noites
         marca: [flavio_live]
         vai_para: pl
+      - id: discreto
+        rotulo: Flávio para de falar e deixa o caso com os advogados
+        marca: [flavio_discreto]
+        vai_para: pl
 
   - id: pl
     lugar: Brasília, sede do PL
@@ -218,9 +239,11 @@ nos:
       - O PL, partido de Flávio, se reúne. A cadeira dele fica vazia.
       - Valdemar Costa Neto, o presidente do partido, já tinha aceitado a derrota. A carta disse o contrário.
       - se: { tem: governo_exilio }
-        texto: E agora existe um governo no exílio. Dois dos "ministros" são deputados do partido, e souberam pela imprensa.
+        texto: E agora existe um governo no exílio. O partido não foi consultado sobre os nomes.
       - se: { tem: flavio_live }
         texto: E toda noite a live de Miami diz o que o partido deveria fazer. Nem sempre é o que o partido quer.
+      - se: { tem: flavio_discreto }
+        texto: E Flávio quase não fala. Sem a voz dele, o partido decide sozinho, e a base pergunta por quê.
       - Em fevereiro, o Senado escolhe seu presidente. União e PP, aliados do PL, já fecharam com Alcolumbre. Negociar rende cargos, mas a base vai chamar de traição.
     # Marinho lançado por Valdemar em 05/10: Congresso em Foco (pesquisa 01). União e PP: Gazeta do Povo (pesquisa 06).
     detalhe:
@@ -239,7 +262,7 @@ nos:
         marca: [pl_negocia]
         vai_para: a_ligacao
       - id: obstrui
-        rotulo: O PL segue a carta, mantém Marinho e parte para o confronto
+        rotulo: O PL mantém Marinho e parte para o confronto
         marca: [pl_obstrui]
         vai_para: a_convocacao
 

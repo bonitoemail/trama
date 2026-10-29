@@ -22,7 +22,16 @@ import { apagarPartida, lerPartida, lerVistos, salvarPartida, salvarVistos } fro
 
 type Tela = 'carregando' | 'abertura' | 'partida';
 
-export default function Jogo({ jogo, caminhos }: { jogo: JogoT; caminhos: Record<string, number> }) {
+export default function Jogo({
+  jogo,
+  caminhos,
+  partidas,
+}: {
+  jogo: JogoT;
+  caminhos: Record<string, number>;
+  /** Histórias completas possíveis (contarPartidas), mostradas na tela inicial. */
+  partidas: number;
+}) {
   const [tela, setTela] = useState<Tela>('carregando');
   const [estado, setEstado] = useState<Estado | null>(null);
   const [vistos, setVistos] = useState<Set<string>>(new Set());
@@ -73,7 +82,7 @@ export default function Jogo({ jogo, caminhos }: { jogo: JogoT; caminhos: Record
 
   if (tela === 'abertura' || !estado) {
     return (
-      <Inicio jogo={jogo} temPartida={Boolean(estado)} onContinuar={() => setTela('partida')} onComecar={comecar} />
+      <Inicio jogo={jogo} partidas={partidas} temPartida={Boolean(estado)} onContinuar={() => setTela('partida')} onComecar={comecar} />
     );
   }
 

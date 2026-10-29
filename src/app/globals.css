@@ -258,6 +258,14 @@ button {
   color: var(--real);
   cursor: pointer;
 }
+.link-metodo.link-objetivo {
+  margin: -14px 0 28px;
+}
+.metodo-etapas.sem-numero li {
+  grid-template-columns: 1fr;
+  padding-left: 14px;
+  border-left: 2px solid var(--linha);
+}
 .link-metodo span {
   transition: transform 0.2s;
 }
