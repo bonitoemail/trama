@@ -96,4 +96,29 @@ CENAS = {
         "suits, all turned toward the head of the table, where one chair is empty. A tall "
         "window on the right. Flat muted walls. Accent: the block of light from the window "
         "falling on the empty chair."),
+    "o_nome_unico": ("planalto",
+        "Composition: wide frontal shot of a plain pale restaurant room with a tall window. Two small adult "
+        "figures sit facing each other at a small square table, one man in a dark suit and one "
+        "woman with short hair in a dark jacket, two plates between them. Empty chairs around. "
+        "Accent: the block of light from the window falling on the table."),
+    "o_racha": ("direita",
+        "Composition: wide frontal shot of a long meeting room seen from the end. A long empty "
+        "table in the middle. Small figures in dark suits stand in two separate groups on the "
+        "two sides of the table, with empty space between them, all facing the table. Accent: a "
+        "single lamp hanging above the empty middle of the table."),
+    "o_cerco": ("mundo",
+        "Composition: wide frontal shot of an empty airport gate with one huge window. Outside the "
+        "window, a parked airliner as a simple pale shape on the runway. Inside, one small man in a "
+        "dark suit stands alone behind the glass, facing the plane. Rows of empty seats. Accent: "
+        "the small round light on the tail of the plane."),
+    "a_recusa": ("mundo",
+        "Composition: wide frontal shot of a very long pale corridor with tall closed doors on both "
+        "sides and a high ceiling. Far down the corridor, two small men in dark suits walk toward the "
+        "last door, one holding a single sheet of paper. Accent: the block of light from the one "
+        "open door at the end."),
+    "a_votacao_da_prisao": ("congresso",
+        "Composition: wide frontal shot at night of a large legislative chamber seen from the back: a "
+        "semicircle of dark seats in rows, many small dark figures seated, facing a long raised "
+        "table at the front where one small figure stands. Accent: one large lit voting panel "
+        "on the wall behind the table, plain, with no text."),
 }

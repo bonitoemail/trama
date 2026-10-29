@@ -17,9 +17,9 @@
 relogios:
   # --- Capítulo 1: decisões em aberto, sem data marcada ---
   - id: preventiva-flavio
-    evento: Moraes decide sobre o pedido de prisão preventiva e difusão vermelha de Flávio
+    evento: Moraes decide sobre o pedido de prisão (ou bloqueia bens sem prender); se prender, o Senado vota se mantém (Constituição, art. 53) e a Interpol decide sobre o alerta
     frente: supremo
-    afeta: [cap01/pedido]
+    afeta: [cap01/pedido, cap01/a_votacao_da_prisao, cap01/foragido, cap01/o_cerco]
     status: pendente
     conferir: STF, PGR (parecer), Poder360, CNN, Metrópoles
 
@@ -45,18 +45,18 @@ relogios:
     conferir: redes de Flávio, Metrópoles, Folha, Gazeta do Povo
 
   - id: pl-postura
-    evento: PL (Valdemar) negocia com Alcolumbre ou adota a linha da carta e obstrui
+    evento: PL (Valdemar) negocia com Alcolumbre, une a oposição num nome só (Marinho ou Tereza Cristina, com Tarcísio), mantém Marinho e espera, ou abraça a carta
     frente: congresso
     afeta: [cap01/pl]
     status: pendente
     conferir: Poder360, Congresso em Foco, Gazeta do Povo, Folha
 
   - id: herdeira-direita
-    evento: Michelle (ou outro nome) assume a liderança da oposição, fala como porta-voz da família, ou ninguém assume
+    evento: Tarcísio assume a oposição, o PL de Valdemar põe Michelle na frente, ninguém assume, ou a família briga em público
     frente: direita
     afeta: [cap02/a_herdeira]
     status: pendente
-    conferir: redes de Michelle, PL, Metrópoles, Gazeta do Povo
+    conferir: redes de Tarcísio e de Michelle, PL, CNN, Folha, Gazeta do Povo
 
   - id: bloqueio-bens-flavio
     evento: Moraes decide sobre o pedido de bloqueio de até R$ 6 bilhões em bens de Flávio
@@ -66,14 +66,14 @@ relogios:
     conferir: STF, Poder360, Metrópoles
 
   - id: acordo-senado
-    evento: PL fecha (ou não) com Alcolumbre antes do recesso; Marinho mantém ou retira a candidatura
+    evento: PL fecha (ou não) com Alcolumbre antes do recesso; a oposição vai com Marinho ou Tereza Cristina; o PL racha; ou Alcolumbre fecha com o governo e isola o PL
     frente: congresso
-    afeta: [cap02/a_mesa]
+    afeta: [cap02/a_mesa, cap02/a_contagem, cap02/a_oferta, cap02/o_lado_de_lula]
     status: pendente
     conferir: Folha, Poder360, Congresso em Foco, Agência Senado
 
   - id: deportacao-irmaos
-    evento: governo Trump mantém ou cancela a autorização de Flávio (e a situação de Eduardo); pressão nas redes americanas contra "abrigar criminoso"
+    evento: governo Trump mantém a autorização de Flávio (com ou sem cobrar silêncio), responde a um pedido de asilo, ou cancela; a situação migratória de Eduardo segue a conferir
     frente: mundo
     afeta: [cap02/a_moeda]
     status: pendente
@@ -220,3 +220,18 @@ relogios:
     afeta: [epilogo]
     status: pendente
     conferir: STF
+
+  - id: volta-flavio
+    evento: Flávio volta ao Brasil por conta própria (para defender o mandato ou se entregar)
+    frente: direita
+    afeta: [cap02/a_conta, cap02/o_voo_de_volta, cap02/a_custodia, cap02/a_rua]
+    status: pendente
+    conferir: PF, STF, Senado, Metrópoles, Gazeta do Povo, Folha
+
+  - id: indulto-jair
+    evento: Alcolumbre leva a Lula o pedido de indulto humanitário a Jair; Lula dá, recusa ou não responde
+    frente: planalto
+    afeta: [cap02/natal_do_acordo]
+    status: pendente
+    conferir: Planalto, Senado, CNN, Folha, Gazeta do Povo
+

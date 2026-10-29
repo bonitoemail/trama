@@ -6,3 +6,6 @@ next-env.d.ts
 
 # imagens de teste de estilo (pesadas, regeráveis)
 estilo/testes/
+
+# notas locais (auditorias, pendências), fora do repositório público
+notas/

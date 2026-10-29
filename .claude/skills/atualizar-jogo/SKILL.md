@@ -27,18 +27,28 @@ A skill tem dois modos:
 
 **O que nunca fazer sozinho** (vai para "Precisa de você" no relatório)
 - Remover ou renomear nó, ou subir a `versao` (apaga as partidas salvas dos jogadores).
-- Aplicar a regra de recuo (o capítulo 1 inteiro ficou para trás) ou mexer em cismas e finais.
+- Aplicar a regra de recuo (o capítulo 1 inteiro ficou para trás), criar um cisma ou apagar um final que já existe.
 - Mexer no visual, na tela inicial ou no código do jogo (`src/`), salvo correção de um erro que impeça o build por causa do conteúdo.
 - Escrever fato que só tem uma fonte, ou boato fora da voz de um personagem (ver "Regra das fontes").
-- Push, deploy, publicar em qualquer lugar fora do repositório.
+- Push, deploy, publicar em qualquer lugar fora do repositório. O `main` publica o site sozinho na Vercel a cada push: só o usuário decide quando.
+
+**O que aplicar sozinho, além disso** (as regras estão em "Travar, abrir ramos e trilhos" e em "O capítulo seguinte")
+- Travar a escolha que a realidade decidiu, e ajustar as cenas do caminho real que passaram a contradizer o fato.
+- Somar a escolha provável que falta num nó, quando um fato mostrar que ela falta.
+- Abrir um trilho novo, se o fato abrir uma história que leva semanas e couber nas regras.
+- Escrever o capítulo seguinte como `rascunho: true`, quando a realidade passar do último capítulo escrito.
+
+**O que nunca fazer sozinho, além disso**
+- Fazer capítulos diferentes conforme o final (um cisma): precisa do usuário.
+- Cortar uma escolha que ninguém desmentiu só porque ficou improvável.
 
 **Revisão de equilíbrio obrigatória**
-Depois de escrever e antes de commitar, rode **dois agentes em paralelo**, um lendo como eleitor de direita e outro como eleitor de esquerda, os dois moderados. Cada um recebe só os trechos novos ou alterados (com o arquivo e o id do nó) e as regras de DESIGN.md 8.1 e 8.2. Corrija o que os dois apontarem e o que for gravidade alta em qualquer um. O que for divergência de gosto vai para o relatório.
+Depois de escrever e antes de commitar, rode as revisões da Etapa 8 ("Revisões no fim"): a de cobertura e os dois leitores, com os prompts publicados, pela skill `painel`. Corrija o que os dois leitores apontarem e o que for gravidade alta em qualquer um, e o que a cobertura apontar como alta. O que for divergência de gosto vai para o relatório.
 
 **Verificação e commit**
 - Rode a Etapa 8 inteira. O navegador é opcional: se não estiver disponível, jogue os caminhos que passam pelos nós alterados com um script do motor (`novoJogo`, `escolher`, `continuar`) e confira os textos.
-- Tudo passou → **um commit só** em `master`, mensagem `Rodada AAAA-MM-DD: <resumo>`, com o corpo listando fatos, travas, nós novos e imagens, e a linha `Co-Authored-By` do projeto. Assim, desfazer a rodada é um `git revert`.
-- Algo falhou e você não conseguiu corrigir → `git stash` não serve (ninguém vai ver). Crie a branch `rodada/AAAA-MM-DD`, faça o commit nela, volte para `master` limpo e explique no relatório.
+- Tudo passou → **um commit só** em `main`, mensagem `Rodada AAAA-MM-DD: <resumo>`, com o corpo listando fatos, travas, nós novos e imagens, e a linha `Co-Authored-By` do projeto. Assim, desfazer a rodada é um `git revert`.
+- Algo falhou e você não conseguiu corrigir → `git stash` não serve (ninguém vai ver). Crie a branch `rodada/AAAA-MM-DD`, faça o commit nela, volte para `main` limpo e explique no relatório.
 
 **Relatório**
 Escreva `pesquisa/rodada-AAAA-MM-DD.md` (entra no mesmo commit) com estas seções, nesta ordem:
@@ -67,6 +77,14 @@ A fonte é o que sustenta a neutralidade do jogo: é a primeira coisa que um cr�
 - **Fato e leitura separados.** Nas cenas, "Fatos e fontes" tem duas partes: `fatos:` (`{ texto, fontes, se? }`, o que aconteceu e pode ser conferido, inclusive declarações atribuídas) e `lados:` (posições e motivos de cada lado, sem fonte, com a regra do par). Nunca ponha leitura em `fatos` nem fato sem fonte em `lados`.
 - **Sem segunda fonte:** reescreva para só o que as fontes confirmam, ou mova para `lados` se for leitura, ou deixe fora e registre no relatório. Nunca rebaixe a regra.
 - O validador cobra (`src/engine/fontes.ts`): fato do prólogo, fato de cena ou trava `real` com uma fonte só, ou com Wikipédia, é **erro** e o build falha.
+
+## Como o jogo está montado (leia antes de mexer)
+
+- **Capítulo** = uma **espinha** (as cenas que quase todo mundo vê) e **trilhos** (sequências próprias, de 3 a 5 cenas, que nascem de uma escolha e não voltam à espinha, ou só voltam no fim do capítulo, com outro final). Exemplos no cap. 2: "A volta" (Flávio no Brasil), "A campanha" (a frente de Tereza Cristina), "O indulto". No cap. 1: "A caçada" (a prisão, a votação no Senado, a Interpol).
+- **Escolhas**: de 2 a 4 por nó. Escolhas com `se` aparecem só para quem tem as marcas; uma escolha pode ter versões com `se` opostos que levam a lugares diferentes (ex.: `o_orcamento` leva a Miami ou ao voo de volta, conforme `flavio_voltou`).
+- **Marcas** só se somam, nunca saem. Por isso a marca que decide um caminho nasce na escolha que decide, não antes (ex.: `flavio_preventiva` nasce na votação do Senado, não na ordem de Moraes). O validador explora só as marcas que mudam o caminho (`marcasDeFluxo`): marca usada só em texto não multiplica estados.
+- **O validador avisa** quando um nó de decisão sobra com uma escolha só em algum caminho (sem contar travas reais), e quando um cartão, uma cena ou um rótulo sai do formato (`src/engine/formato.ts`). Aviso não quebra o build, mas toda rodada termina sem avisos novos.
+- **Critério das escolhas** (vale em todo nó novo ou mexido): **somar** o desfecho provável que falta (quase sempre o meio-termo ou o adiamento) e **nunca cortar** o improvável que o jogador quer ver, desde que nenhum fato o desminta e o texto não venda simulação como fato. Um nó sem o desfecho provável é o erro mais comum (foi o da `a_herdeira`, sem Tarcísio).
 
 ---
 
@@ -108,8 +126,12 @@ Monte uma **tabela de impacto**: fato confirmado → o que muda no jogo. Cada fa
 | **Texto** | o fato muda o que uma cena afirma | reescrever só o trecho; manter os ids |
 | **Galho morto** | o fato torna um galho impossível | não apagar: travar a escolha real; se não houver escolha real ainda, reescrever o rótulo como aposta (ex.: "retoma o título de presidente") |
 | **Galho novo** | o fato abre uma pergunta que leva semanas a se resolver | propor nó novo (decisão + consequência própria) |
+| **Opção que falta** | o fato mostra um desfecho provável (ou um ator de peso) que o nó não oferece | somar a escolha, com cena ou texto condicional, sem tirar as que já existem (ver "Travar, abrir ramos e trilhos") |
+| **Trilho** | o fato abre uma história que leva semanas e muda quem age (ex.: Flávio volta ao Brasil) | trilho novo de 3 a 5 cenas, ou ajuste no trilho que já existe |
 | **Futuro** | o fato muda probabilidades ou ecos de 2027–2030 | ajustar `roteiro/cap*` e `roteiro/painel/00-agregado.md`; criar relógio novo se houver data |
 | **Imagem** | a cena mudou de lugar, de ação ou de sentido | ver Etapa 6 |
+
+Pergunte sempre, para cada nó que o fato toca: **"a realidade decidiu algum destes? E que outro desfecho plausível ela abriu?"** A segunda pergunta é o que evita nós de opções curtas demais.
 
 Regra de recuo: se o capítulo 1 inteiro ficou para trás no tempo, o que aconteceu vira prólogo e o capítulo é reescrito começando no acontecimento seguinte (foi o que se fez com a carta de 28/10).
 
@@ -129,11 +151,40 @@ Se o usuário já disse "atualize o jogo" sem pedir revisão, aplique o automát
 
 ## Etapa 5 — Aplicar texto e travas
 
-- Siga **DESIGN.md 8, 8.1 e 8.2** em cada trecho novo (linguagem simples: cartões curtos, sem jargão; o técnico vai em "Fatos e fontes": `fatos` com fontes e `lados`): motivo e interesse para todos, nenhuma escolha sem custo, regra do par, narrador sem piada, boato só como boato, gancho e checagem, mesma regra de nome.
+- Siga **DESIGN.md 8, 8.1 e 8.2** e o guia de escrita publicado, [`roteiro/prompts/escrita.md`](../../../roteiro/prompts/escrita.md), em cada trecho novo; `npm run validate` avisa o que sair do formato (linguagem simples: cartões curtos, sem jargão; o técnico vai em "Fatos e fontes": `fatos` com fontes e `lados`): motivo e interesse para todos, nenhuma escolha sem custo, regra do par, narrador sem piada, boato só como boato, gancho e checagem, mesma regra de nome.
 - Toda paráfrase de pessoa ou instituição real ganha comentário YAML com o link; se for fato citado na cena, vai também para `fatos:` com as fontes.
 - Trava: `real: { data: "DD/MM/AAAA", fontes: ["<url>", "<url>"] }` (oficial ou duas). A interface mostra "aconteceu em…" e o fio laranja na linha do tempo.
 - **Versão** (`content/jogo.yaml`): suba quando um nó for **removido ou renomeado** ou um capítulo mudar de início (partidas salvas antigas são descartadas). Só texto, trava ou nó novo: não precisa subir.
 - Atualize `pesquisa/relogios.yaml`: `status: aconteceu` + `resultado` com fonte; crie relógios novos.
+
+## Travar, abrir ramos e trilhos
+
+**Travar o que aconteceu**
+1. Uma escolha por nó recebe `real: { data, fontes }`; as outras continuam visíveis e travadas ("isso não aconteceu"). Nunca apague as outras: elas são a história que não aconteceu, e o validador sabe que estão atrás de uma trava.
+2. Se a realidade não cabe em nenhuma escolha, crie a **opção nova já travada** e o que vem depois dela (cena de consequência, e trilho se precisar).
+3. **Siga o caminho real até o fim do capítulo.** Toda cena dele que agora contradiz um fato vira texto novo (os ids ficam). Se o caminho real entra num trilho, o trilho passa a ser a história real: as simulações dele que a realidade desmentiu saem, as que ela confirmou viram fatos com fonte.
+4. Nós que dependiam do travado (escolhas com `se` de uma marca que agora nunca existe no caminho real) continuam escritos para quem joga os outros caminhos.
+5. Rótulo da escolha travada: se ele simplifica demais o que aconteceu, ajuste para o que as fontes dizem (a interface mostra "aconteceu em…").
+
+**Somar uma escolha (opção que falta)**
+- Se o nó tem 4 escolhas visíveis, não some: ponha o desfecho como texto da cena, ou num nó seguinte.
+- A escolha nova precisa de custo para alguém, de leitura em `lados` (regra do par) e de um eco (marca usada em alguma condição; o validador cobra).
+- Escolhas com `se` mutuamente exclusivos contam como uma só para o limite.
+
+**Abrir um trilho**
+- Nasce de uma escolha que o jogador quer ver ou de uma história real que mudou de rumo. Tem de 3 a 5 cenas e pelo menos uma decisão própria.
+- Termina num final próprio (`segue` ausente e sem `escolhas`) ou volta à espinha só num nó perto do fim, e as cenas dali em diante leem as marcas do trilho.
+- Antes de escrever, procure o que a pesquisa diz: cada fato do trilho com fonte, o resto marcado como simulação em comentário YAML.
+- Cuide do que o trilho pula: se ele salta uma decisão de custo para o próprio governo ou para um lado, faça o trilho passar por ela (como `o_orcamento` no trilho "A volta").
+- Imagens: reaproveite gerações que já existem quando a cena for parecida (publique com o nome do nó novo, para o registro ficar completo) e gere as novas (Etapa 6).
+
+## O capítulo seguinte
+
+Quando o último fato real passar do período do último capítulo (o campo `periodo`), ou quando todos os nós de decisão dele estiverem travados:
+1. Leia o esqueleto em `roteiro/cap0N-*.md` e o que `roteiro/painel/00-agregado.md` diz do período. Pesquise o período (Etapa 1) antes de escrever: o esqueleto foi feito antes dos fatos, e fixar opções antes da pesquisa é o erro que esta skill existe para evitar.
+2. Escreva `content/capitulos/cap0N-*.yaml` com `rascunho: true`, uma espinha curta, os trilhos que a pesquisa justificar e os finais. Siga o guia de escrita e o critério das escolhas.
+3. Ligue o capítulo anterior a ele em `saidas` (todos os finais levam ao novo capítulo). Capítulos diferentes conforme o final (cisma) só com o usuário.
+4. Rode as revisões no fim, as imagens e a verificação. O capítulo sai do rascunho (`rascunho: false`) só com o usuário.
 
 ## Etapa 6 — Imagens: reaproveitar, descartar ou refazer
 
@@ -171,8 +222,13 @@ npm run estado
 - Jogue no navegador (`localhost:3000`, pode usar a partida do usuário) **o caminho que passa pelos nós alterados**, conferindo texto, imagem, eco e trava.
 - Faça o **teste da troca de sinais** nos trechos novos (8.1, regra 4).
 
+**Revisões no fim** (sempre que a rodada mexeu em escolhas, cenas ou trilhos; pela skill `painel`, com os prompts publicados, sem escrever prompt na hora):
+1. **Cobertura**: `roteiro/prompts/revisao/cobertura.md`, um subagente por capítulo tocado. Aplique o que for gravidade alta e o que for erro de fluxo (texto que contradiz uma escolha anterior do jogador, nó com uma escolha só).
+2. **Leitores de direita e de esquerda**: `roteiro/prompts/revisao/leitor-*.md`, em paralelo. Aplique o que os dois apontarem e o que for gravidade alta em qualquer um. Cole cada resposta na seção "Resposta do agente" do arquivo do prompt.
+3. Rode a cobertura de novo depois de aplicar: as correções também criam contradições.
+
 ## Etapa 9 — Registrar e entregar
 
 - `pesquisa/RODADAS.md`: nova entrada com data, fatos (com as fontes), boatos descartados, o que mudou no jogo e o que ficou pendente.
 - Resumo ao usuário: o que travou, o que mudou no texto, imagens reaproveitadas, refeitas e descartadas, o que foi ajustado no futuro, e o que ficou para aprovação.
-- Ofereça o commit (o usuário costuma aprovar; não faça sem ele pedir). No modo autônomo, o commit faz parte da rodada (ver "Modo autônomo").
+- Não ofereça o commit: o usuário pede quando quiser juntar as mudanças. No modo autônomo, o commit faz parte da rodada (ver "Modo autônomo"); push nunca.

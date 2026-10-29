@@ -1,4 +1,4 @@
-versao: "0.4.0"
+versao: "0.5.0"
 titulo: Trama
 aviso: >
   Trama é uma obra de ficção especulativa. Figuras públicas aparecem como
@@ -148,6 +148,12 @@ prologo:
       - https://www.cnnbrasil.com.br/eleicoes/eleicoes-como-fica-o-tamanho-das-bancadas-partidarias-do-congresso/
       - https://tvbrasil.ebc.com.br/reporter-brasil-tarde/2026/10/eleicoes-2026-pl-forma-maior-bancada-no-congresso
   - data: 26 de outubro de 2026
+    titulo: "O PL reconhece o resultado"
+    texto: Valdemar Costa Neto, presidente do PL, reconhece a vitória de Lula em nota e cobra explicações sobre os gastos do governo perto da votação.
+    fontes:
+      - https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/partido-de-flavio-pl-reconhece-vitoria-de-lula-nas-eleicoes
+      - https://oantagonista.com.br/brasil/pl-reconhece-vitoria-de-lula-mas-reforca-duvidas-sobre-eleicao/
+  - data: 26 de outubro de 2026
     titulo: "Supremo manda apreender o passaporte de Flávio"
     texto: O STF determina a apreensão do passaporte de Flávio e o proíbe de deixar o país.
     fontes:
@@ -221,14 +227,58 @@ epilogo:
     # Flávio
     - se: { tem: deportados }
       texto: Flávio e Eduardo voltaram ao Brasil num avião do governo americano. A família ganhou uma causa, Trump um acordo, e Lula uma acusação.
-    - se: { todas: [{ tem: deportados }, { tem: flavio_preventiva }] }
+    - se: { todas: [{ tem: deportados }, { tem: flavio_preso_no_brasil }] }
       texto: Os dois irmãos passam a virada do ano presos.
-    - se: { todas: [{ tem: deportados }, { tem: flavio_sem_preventiva }] }
-      texto: Eduardo passa a virada do ano preso. Flávio, livre, a poucos quilômetros dele.
+    - se: { todas: [{ tem: deportados }, { nao_tem: flavio_preso_no_brasil }] }
+      texto: Eduardo passa a virada do ano preso. Flávio, fora da cadeia, a poucos quilômetros dele.
+    - se: { todas: [{ tem: flavio_voltou }, { nao_tem: deportados }] }
+      texto: Flávio voltou por conta própria. Para os aliados, foi coragem; para os adversários, falta de saída. Eduardo ficou em Miami.
+    - se: { todas: [{ tem: flavio_preso_no_brasil }, { nao_tem: deportados }] }
+      texto: Flávio passa a virada do ano preso em Brasília, a poucos quilômetros do pai.
+    - se: { tem: tornozeleira }
+      texto: Flávio passa a virada do ano em casa, de tornozeleira, sem poder falar.
+    - se: { tem: ato_anistia }
+      texto: A anistia saiu de dezembro com rua e sem votos. Em 2027, os dois lados vão medir quanto vale uma coisa sem a outra.
+    - se: { tem: pl_distancia_flavio }
+      texto: Com Flávio no Brasil, o PL passou dezembro sem dizer o nome dele. Em fevereiro, vai ter de dizer.
+    - se: { tem: contra_ato }
+      texto: Em dezembro, a anistia levou duas ruas a Brasília e a São Paulo. Em 2027, o Senado vai votar com as duas lá fora.
+    - se: { tem: base_em_casa }
+      texto: Lula pediu que a base não fosse às ruas, e ela não foi. A anistia teve rua de um lado só, e a militância cobrou o silêncio.
+    - se: { tem: pgr_pede_arquivamento }
+      texto: A Procuradoria pediu para arquivar um dos inquéritos contra Flávio. A defesa usa o pedido como prova; o PT, como sinal de que a acusação recua.
+    - se: { tem: pl_usa_flavio }
+      texto: O nome de Flávio entrou na negociação do Senado. Ninguém diz em voz alta o preço, e todos sabem que existe.
     - se: { tem: eua_protege }
       texto: Trump manteve a proteção aos dois irmãos. Em Miami, a família continua falando com o Brasil de longe.
-    - se: { todas: [{ tem: flavio_preventiva }, { nao_tem: deportados }] }
+    - se: { todas: [{ tem: flavio_preventiva }, { nao_tem: flavio_voltou }] }
       texto: Flávio entra em 2027 com uma ordem de prisão no Brasil e uma autorização para ficar nos Estados Unidos. Os dois papéis valem, cada um no seu país.
+    - se: { todas: [{ tem: interpol_aceita }, { nao_tem: flavio_voltou }] }
+      texto: Com o alerta da Interpol, Flávio pode ficar nos Estados Unidos, mas não pode sair de lá sem risco de ser preso.
+    - se: { tem: prisao_derrubada }
+      texto: Em novembro, o Senado derrubou a prisão de Flávio. Os senadores que votaram contra ela vão ser lembrados, dos dois lados, até 2030.
+    - se: { tem: bloqueio_sem_prisao }
+      texto: Moraes não mandou prender Flávio, mas bloqueou parte dos bens dele. O PT achou pouco; o PL, demais.
+    - se: { tem: asilo_pedido }
+      texto: Flávio pediu asilo político nos Estados Unidos. Enquanto o pedido anda, a permanência dele lá fica mais segura, e a volta, mais difícil de explicar.
+    - se: { tem: chanceler_interpelado }
+      texto: Em Buenos Aires, o chanceler teve de explicar a fuga ao Congresso. Milei ficou calado, e a oposição argentina, não.
+    - se: { tem: caso_com_rubio }
+      texto: O caso de Flávio passou de Mauro Vieira a Rubio, sem nota. Em Washington, ele virou mais um item da conversa sobre a taxa.
+    - se: { tem: pedido_policial }
+      texto: O Brasil pediu os dados da fuga pela Polícia Federal, sem nota nem discurso. A resposta argentina ainda não chegou.
+    - se: { tem: eua_senado_rep }
+      texto: Nos Estados Unidos, a Câmara mudou de lado e o Senado, não. Trump perdeu uma casa e manteve a que aprova indicações e tratados.
+    - se: { tem: interpol_recusa }
+      texto: A Interpol se recusou a caçar Flávio. No Brasil ele é foragido; no resto do mundo, só um político que perdeu a eleição.
+    - se: { tem: extradicao_pedida }
+      texto: O pedido de extradição está na mesa de Washington. Trump ainda não respondeu, e não tem pressa.
+    - se: { tem: extradicao_em_fevereiro }
+      texto: O governo guardou o pedido de extradição para fevereiro, quando Flávio deixa de ser senador. O relógio corre para os dois lados.
+    - se: { tem: interpol_espera }
+      texto: A Interpol ainda não decidiu se põe Flávio no alerta internacional. Enquanto isso, ele viaja pouco e com cuidado.
+    - se: { tem: extradicao_guardada }
+      texto: O governo nunca pediu a extradição. A base do PT chama de omissão; o Itamaraty, de cálculo.
     - se: { tem: bens_bloqueados }
       texto: Os bens dele no Brasil estão bloqueados. Em Miami, isso vira prova de perseguição; em Brasília, prova de que a Justiça age.
     - se: { tem: bloqueio_negado }
@@ -239,17 +289,19 @@ epilogo:
       texto: O mandato dele acabou sozinho, no último dia de janeiro, sem que ninguém precisasse assinar nada.
     - se: { tem: flavio_licenca }
       texto: Ele saiu do Senado de licença, e ninguém pôde dizer que foi expulso.
-    - se: { todas: [{ tem: governo_exilio }, { nao_tem: deportados }] }
+    - se: { todas: [{ tem: governo_exilio }, { nao_tem: flavio_voltou }] }
       texto: Em Miami, existe um governo que nenhum país reconhece e que milhões de brasileiros acompanham todas as noites.
-    - se: { todas: [{ tem: flavio_live }, { nao_tem: deportados }] }
+    - se: { todas: [{ tem: flavio_live }, { nao_tem: flavio_voltou }] }
       texto: Toda noite, uma live de Miami disputa com o PL quem fala pela direita.
-    - se: { todas: [{ tem: flavio_discreto }, { nao_tem: deportados }] }
+    - se: { todas: [{ tem: flavio_discreto }, { nao_tem: flavio_voltou }] }
       texto: Flávio quase não falou desde novembro. A família chama de estratégia; parte da base, de abandono.
     # Contas do governo (o_orcamento): cada saída com ganho e custo; o efeito na economia fica para 2027.
     - se: { tem: ajuste_corte }
       texto: O governo entra em 2027 cortando gastos. O mercado aplaude com cautela, e a militância que fez a virada de 2026 pergunta se foi para isso.
     - se: { tem: ajuste_adiado }
       texto: O governo entra em 2027 sem cortar. Os programas ficam, a base agradece, e o mercado e o Centrão passam a cobrar mais caro.
+    - se: { tem: ajuste_menor }
+      texto: O Congresso aprovou um ajuste menor que o prometido, pago em emendas. O mercado achou pouco, o Centrão achou bom, e a conta de 2027 ficou para depois.
     - se: { tem: ajuste_imposto }
       texto: O governo pede ao Congresso que cobre mais imposto de quem ganha mais. A esquerda comemora; o Congresso novo, mais à direita, avisa que não vota sem contrapartida.
     # Supremo
@@ -259,13 +311,15 @@ epilogo:
       texto: O Supremo segue com dez ministros, e Lula, com duas derrotas no Senado. A próxima indicação vai custar mais.
     - se: { tem: vaga_segurada }
       texto: A cadeira vaga do Supremo entra em 2027 como moeda de negociação entre o Planalto e o Senado.
+    - se: { tem: votacao_adiada }
+      texto: O indicado de Lula passa o Natal esperando a sabatina. Em fevereiro, quem decide é um Senado mais à direita.
     - se: { tem: pgr_contra }
       texto: Entre a Procuradoria e o Supremo, abriu-se uma fresta. Os dois lados vão tentar alargá-la.
     # Direita
     - se: { tem: michelle_lider }
-      texto: No Brasil, a oposição tem uma voz. Em Miami, alguém repara que ela não é da família inteira.
-    - se: { tem: michelle_porta_voz }
-      texto: Michelle fala pela família, e a família fala por ela. Ninguém sabe ainda onde termina uma e começa a outra.
+      texto: No Brasil, a oposição tem uma voz. Em Miami, a família pergunta se ela fala por todos.
+    - se: { tem: tarcisio_lider }
+      texto: A oposição tem endereço em São Paulo. Em Miami, a família espera para ver quanto dos votos de Bolsonaro vai junto.
     - se: { tem: direita_sem_dono }
       texto: A direita entra em 2027 sem dono, e Kassab, com a agenda cheia.
     # Mundo
@@ -276,7 +330,7 @@ epilogo:
     - se: { tem: caputo_investigado }
       texto: Em Puerto Iguazú, uma promotoria de fronteira guarda o plano de um voo. O governo argentino diz que ali não há nada além de um carimbo. A oposição argentina diz que há muito mais.
     - se: { tem: milei_silencio }
-      texto: Em Buenos Aires, o caso esfriou nos tribunais. A oposição argentina guardou o assunto para a eleição de outubro.
+      texto: Em Buenos Aires, a investigação não achou participação do governo. Milei saiu calado, como entrou, e a oposição argentina guardou o assunto para a eleição de outubro.
     - se: { tem: eua_dem_camara }
       texto: Em Washington, a nova maioria marcou para janeiro as primeiras perguntas sobre o Brasil. A tarifa de 25%, essa, não depende dela.
     - se: { tem: eua_rep_congresso }
@@ -298,4 +352,36 @@ epilogo:
       texto: A conversa que começou em novembro com mais de dois lados terminou o ano com todos eles anotando o preço.
     - se: { tem: pl_obstrui }
       texto: O PL escolheu a briga em novembro. O Centrão escolheu esperar para ver quem paga mais, e o governo, quanto vai pagar.
+    - se: { tem: tereza_recusa }
+      texto: Tereza Cristina recusou o jantar de Alcolumbre e chega a fevereiro em campanha. Pela primeira vez em anos, ninguém sabe quem preside o Senado.
+    - se: { tem: lula_por_alcolumbre }
+      texto: Lula pôs o governo na eleição do Senado. Em fevereiro, o resultado vai ser dele também.
+    - se: { tem: indulto_dado }
+      texto: Jair passa a virada do ano perdoado por Lula. O perdão vai ser contestado no Supremo, e cobrado nas duas bases.
+    - se: { tem: indulto_em_aberto }
+      texto: O pedido de indulto a Jair entra em 2027 sem resposta. Cada lado conta o silêncio de Lula a seu favor.
+    - se: { tem: indulto_recusado }
+      texto: Lula recusou o indulto. A anistia fica para o Senado novo, que começa em fevereiro com essa conta na mesa.
+    - se: { tem: senado_sem_a_direita }
+      texto: Alcolumbre fechou o Senado com o governo e deixou o PL de fora. A maior bancada do Congresso começa 2027 sem cargo e sem motivo para votar com Lula.
+    - se: { tem: familia_em_guerra }
+      texto: A família Bolsonaro brigou em público pela herança. Em 2027, a direita vai ter de escolher entre os votos da família e os da paz.
+    - se: { tem: flavio_coleira }
+      texto: Trump manteve Flávio nos Estados Unidos e cobrou silêncio em troca. Flávio fala menos, e cada palavra dele passa a ter dono.
+    - se: { tem: lula_xi_miami }
+      texto: Em Miami, Lula saiu com uma conversa com Xi e sem a foto com Trump. A China comprou mais; Washington anotou.
+    - se: { tem: bloqueio_adiado }
+      texto: O bloqueio dos bens de Flávio ficou para 2027. Moraes esperou a Procuradoria, e o PT esperou com ele, sem paciência.
+    - se: { tem: indicacao_retirada }
+      texto: Lula retirou o nome antes do voto. A cadeira do Supremo entra em 2027 vazia, e a próxima indicação começa do zero.
+    - se: { tem: lula_cobra }
+      texto: Lula apoiou Alcolumbre e mandou a conta junto. Em 2027, o PT vai cobrar cada linha.
+    - se: { tem: lula_neutro }
+      texto: Lula deixou o Senado decidir sozinho. Quem ganhar em fevereiro não vai dever nada ao Planalto.
+    - se: { tem: tereza_aceita }
+      texto: A frente de novembro acabou num jantar de dezembro. Em 2027, quem quiser unir a direita no Senado vai ter de começar de novo.
+    - se: { tem: oposicao_unida }
+      texto: Em novembro, a direita aprendeu a juntar PL e PP num nome só. Alcolumbre e o governo anotaram como ela fez.
+    - se: { tem: pl_espera }
+      texto: Em novembro, o PL preferiu esperar. A espera deixou espaço para quem queria escolher por ele.
     - Este é o fim do capítulo 2. A história continua conforme a realidade andar.

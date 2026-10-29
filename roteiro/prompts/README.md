@@ -52,6 +52,8 @@ As seis lentes recebem as mesmas 19 perguntas, no mesmo formato: [`roteiro/paine
 
 Os dois leitores rodaram ao mesmo tempo, com o mesmo prompt, mudando só o lado, e sem ler a revisão anterior.
 
+A [revisão de cobertura](revisao/cobertura.md) confere se as escolhas de cada cena cobrem o que a pesquisa e o painel apontam. Ela nasceu de uma auditoria de 29/10/2026 e roda no fim de cada lote de cenas novas.
+
 ### 4. Checagem de fontes
 
 | Prompt | Rodado em (UTC) | Mexeu em |
@@ -66,7 +68,11 @@ Esses prompts citam exemplos de veículos lidos mais à direita ou mais à esque
 
 A rodada que confere as notícias e atualiza o jogo segue a skill [`atualizar-jogo`](../../.claude/skills/atualizar-jogo/SKILL.md), com os briefings dos agentes de busca em [`references/briefings.md`](../../.claude/skills/atualizar-jogo/references/briefings.md).
 
-### 6. Imagens
+### 6. Escrita das cenas
+
+O formato dos cartões, o que é jargão e como se escreve um rótulo de escolha estão em [escrita.md](escrita.md). O validador do jogo confere esse formato.
+
+### 7. Imagens
 
 As ilustrações saem de um modelo de pesos abertos (FLUX.1-schnell) rodando no computador, com o prompt, a configuração e a seed de cada imagem no repositório. Como funciona e como gerar de novo: [imagens.md](imagens.md).
 

@@ -99,8 +99,7 @@ nos:
     escolhas:
       - id: preventiva
         rotulo: Moraes manda prender Flávio
-        marca: [flavio_preventiva]
-        vai_para: foragido
+        vai_para: a_votacao_da_prisao
       - id: espera
         rotulo: Moraes espera e não decide agora
         marca: [flavio_sem_preventiva]
@@ -109,15 +108,50 @@ nos:
         rotulo: A Procuradoria se manifesta contra, e Moraes não prende
         marca: [flavio_sem_preventiva, pgr_contra]
         vai_para: o_parecer
+      - id: bloqueia_sem_prender
+        rotulo: Moraes não prende, mas bloqueia parte dos bens
+        marca: [flavio_sem_preventiva, bloqueio_sem_prisao]
+        vai_para: o_prazo
+
+  # A prisão de senador passa pelo Senado (Constituição, art. 53). É o que faltava entre a ordem e a Interpol.
+  # Precedente real: Delcídio do Amaral, 2015. A fundamentação da ordem e a votação são simulação.
+  - id: a_votacao_da_prisao
+    lugar: Brasília, plenário do Senado
+    imagem: imagens/cap01/a_votacao_da_prisao.webp
+    texto:
+      - Moraes manda prender Flávio. Senador só pode ser preso em flagrante de crime inafiançável, e a maioria do Senado decide se a prisão continua.
+      - A ordem diz que a fuga é um crime que continua acontecendo. A defesa lembra que a Polícia Federal disse que ele não é foragido, e que isso não é flagrante.
+      - Alcolumbre, o presidente do Senado, marca a votação para a mesma noite. Ninguém quer votar, e todos vão ter de votar.
+    fatos:
+      - texto: Pela Constituição, deputados e senadores só podem ser presos em flagrante de crime inafiançável. Nesse caso, o processo vai à Casa em 24 horas, e a maioria decide se a prisão continua.
+        fontes:
+          - https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
+      - texto: Em novembro de 2015, o Senado decidiu manter, por 59 votos a 13, a prisão do senador Delcídio do Amaral, determinada pelo Supremo.
+        fontes:
+          - https://www12.senado.leg.br/noticias/materias/2015/11/25/senadores-decidem-manter-prisao-de-delcidio-do-amaral
+    lados:
+      - Para quem pede a prisão, um senador que foge não pode se esconder atrás do mandato. Para quem é contra, prender um senador sem flagrante abre um precedente que vale para todos.
+      - Para Alcolumbre, qualquer resultado custa votos em fevereiro. Para o PL, é a primeira chance de mostrar que o Senado protege os seus.
+    escolhas:
+      - id: senado_mantem
+        rotulo: O Senado mantém a prisão de Flávio
+        marca: [flavio_preventiva]
+        vai_para: foragido
+      - id: senado_derruba
+        rotulo: O Senado derruba a prisão
+        marca: [flavio_sem_preventiva, prisao_derrubada]
+        vai_para: o_prazo
 
   - id: foragido
     lugar: Miami, dias depois
     imagem: imagens/cap01/foragido.webp
     texto:
-      - Moraes manda prender Flávio e pede que o nome dele entre no alerta internacional de procurados.
+      - O Senado mantém a prisão. Moraes pede que o nome de Flávio entre no alerta internacional de procurados.
       - A primeira versão da carta dizia que não havia ordem de prisão contra ele. A ordem saiu dias depois.
       - Ele grava um vídeo de Miami. Diz que é perseguido e que continua sendo o líder do Brasil.
     # "não existe nenhum mandado de prisão contra mim": 1ª versão da carta.
+    # Trilho A, "A caçada": com Flávio foragido, a frente é a polícia e Washington, não a diplomacia com Milei.
+    # Pula itamaraty e a_rota e volta à espinha em eleicao_eua.
     fatos:
       - texto: O alerta vermelho da Interpol é um pedido, não uma ordem de prisão internacional. Cada país decide, pelas próprias leis, se prende ou não.
         fontes:
@@ -128,13 +162,75 @@ nos:
           - https://agenciabrasil.ebc.com.br/justica/noticia/2026-10/moraes-determina-emissao-de-mandado-de-prisao-contra-eduardo-bolsonaro
           - https://www.brasildefato.com.br/2026/10/08/stf-determina-prisao-cancelamento-de-passaportes-e-perda-de-cargo-de-eduardo-bolsonaro/
           - https://www.gazetadopovo.com.br/republica/moraes-manda-iniciar-cumprimento-pena-eduardo-bolsonaro/
-    segue: itamaraty
+      - texto: A Interpol já recusou pedidos de Moraes contra brasileiros. Negou o de Allan dos Santos por falta de informações e o de Oswaldo Eustáquio citando a regra que a proíbe de agir em casos de caráter político.
+        fontes:
+          - https://www.poder360.com.br/poder-justica/lista-vermelha-interpol-ja-negou-outros-2-pedidos-de-moraes/
+          - https://revistaoeste.com/politica/interpol-ja-negou-inclusao-de-allan-dos-santos-e-oswaldo-eustaquio-na-lista/
+    lados:
+      - Para quem pediu a prisão, a Interpol deve aceitar porque a acusação é de crime comum. Para a defesa, o caso é político, e a própria Interpol já disse isso de outros brasileiros.
+    escolhas:
+      - id: interpol_sim
+        rotulo: A Interpol aceita o alerta contra Flávio
+        marca: [interpol_aceita]
+        vai_para: o_cerco
+      - id: interpol_nao
+        rotulo: A Interpol recusa, por ver o caso como político
+        marca: [interpol_recusa]
+        vai_para: a_recusa
+      - id: interpol_espera
+        rotulo: A Interpol pede mais informações e não decide
+        marca: [interpol_espera]
+        vai_para: o_cerco
+
+  - id: o_cerco
+    lugar: Brasília, Palácio do Planalto
+    imagem: imagens/cap01/o_cerco.webp
+    texto:
+      - se: { tem: interpol_aceita }
+        texto: A Interpol aceita. O nome de Flávio entra no alerta internacional de procurados. Se ele sair dos Estados Unidos, pode ser preso em qualquer escala.
+        senao: Sem o alerta da Interpol, resta o caminho direto, pedir aos Estados Unidos que mandem Flávio de volta.
+      - O pedido sai do Supremo, mas passa pelo governo. No Planalto, a pergunta é se pede agora a Trump, e quanto isso custa na conversa sobre a taxa.
+    fatos:
+      - texto: Pela lei americana, a extradição passa por um juiz, que ouve as provas, e só depois vai ao secretário de Estado.
+        fontes:
+          - https://www.govinfo.gov/content/pkg/USCODE-2023-title18/html/USCODE-2023-title18-partII-chap209-sec3184.htm
+    lados:
+      - Para o PT, não pedir a extradição é tratar um foragido como hóspede. Para quem negocia com Washington, pedir agora é dar a Trump mais um motivo para manter a taxa.
+      - Para juristas do governo, depois de fevereiro, sem o mandato de senador, o pedido fica mais forte. Para a oposição, esperar é só um jeito de não decidir.
+    escolhas:
+      - id: pede_extradicao
+        rotulo: O governo pede a extradição de Flávio aos EUA
+        marca: [extradicao_pedida]
+        vai_para: eleicao_eua
+      - id: espera_fevereiro
+        rotulo: O governo espera o mandato dele acabar em fevereiro
+        marca: [extradicao_em_fevereiro]
+        vai_para: eleicao_eua
+      - id: guarda_extradicao
+        rotulo: O governo não pede, para não brigar com Trump
+        marca: [extradicao_guardada]
+        vai_para: eleicao_eua
+
+  - id: a_recusa
+    lugar: Washington, Capitólio
+    imagem: imagens/cap01/a_recusa.webp
+    texto:
+      - A Interpol recusa. Diz que o caso tem caráter político.
+      - Em Miami, Flávio mostra a resposta como prova de perseguição. Eduardo leva o papel a deputados republicanos.
+      - No Brasil, a ordem de prisão continua valendo. Fora dele, ninguém é obrigado a cumpri-la.
+    # Simulação: a recusa no caso de Flávio e a agenda de Eduardo. Real: as recusas anteriores (fatos em foragido).
+    lados:
+      - Para a família, a recusa é a sentença que faltava, vinda de fora. Para quem pediu a prisão, é uma regra de procedimento, e o crime investigado continua o mesmo.
+    segue: o_cerco
+
 
   - id: o_prazo
     lugar: Brasília, Senado Federal
     imagem: imagens/cap01/o_prazo.webp
     texto:
-      - Sem prisão, o relógio que importa é outro. Senador que falta demais pode perder o cargo.
+      - se: { tem: prisao_derrubada }
+        texto: O Senado derrubou a prisão. Agora, o relógio que importa é outro. Senador que falta demais pode perder o cargo.
+        senao: Sem prisão, o relógio que importa é outro. Senador que falta demais pode perder o cargo.
       - As faltas de Flávio chegam ao limite em dezembro. Quem comanda esse processo é Davi Alcolumbre, o presidente do Senado.
       - Alcolumbre quer ser reeleito presidente do Senado em fevereiro. E a carta de Flávio apoiou o rival dele.
     # Data estimada (~17/12): Diario de Pernambuco (pesquisa 03). Rito, com a passagem pela CCJ (RISF, art. 32): pesquisa 09.
@@ -152,10 +248,20 @@ nos:
     lugar: Brasília, Procuradoria-Geral da República
     imagem: imagens/cap01/o_parecer.webp
     texto:
-      - A Procuradoria-Geral, que faz a acusação nos processos, dá parecer contra a prisão. Diz que as provas são fracas.
-      - Moraes não manda prender. Muita gente lê isso como um recuo.
-      - Flávio comemora. Em Brasília, a pergunta passa a ser quem tem coragem de contrariar o Supremo, e o que ganha com isso.
-    segue: itamaraty
+      - A Procuradoria-Geral, que faz a acusação nos processos, dá parecer contra a prisão. Diz que os motivos não bastam para prender um senador.
+      - Moraes não manda prender. A oposição chama de recuo; o governo, de prudência.
+      - Flávio comemora. Em Brasília, a pergunta passa a ser quem se dispõe a contrariar o Supremo, e o que ganha com isso.
+    # Simulação: o parecer e o pedido de arquivamento. Real: a PGR criticou em reserva a medida dos passaportes (pesquisa 06).
+    lados:
+      - Para a defesa, o parecer mostra que nem a acusação vê base para prender. Para quem pediu a prisão, a Procuradoria protege um político que saiu do país contra a ordem.
+    escolhas:
+      - id: pgr_arquiva
+        rotulo: A Procuradoria pede para arquivar um dos inquéritos
+        marca: [pgr_pede_arquivamento]
+        vai_para: itamaraty
+      - id: pgr_so_prisao
+        rotulo: A Procuradoria só se opõe à prisão
+        vai_para: itamaraty
 
   - id: itamaraty
     lugar: Brasília, Palácio do Itamaraty
@@ -182,10 +288,19 @@ nos:
           - https://timesbrasil.com.br/brasil/decisao-de-moraes-sobre-passaportes-de-flavio-causa-incomodo-no-governo-e-discurso-de-perseguicao-preocupa-lula/
     lados:
       - Para o governo, ficar calado tira o palco de Flávio e evita ter de defender em público uma decisão de Moraes que nem todos no Planalto apoiam. Para a oposição, o silêncio é sinal de que o governo prefere não ser cobrado pela decisão.
+      - Para o Itamaraty do chanceler Mauro Vieira, a conversa sobre a taxa com Washington pesa mais que a carta. Com a Argentina, a relação já estava rebaixada desde agosto. Pedir dados pela polícia, e não pela diplomacia, evita uma crise nova.
     escolhas:
       - id: silencio
         rotulo: Lula ignora a carta
         marca: [governo_silencio]
+        vai_para: a_rota
+      - id: policia
+        rotulo: O governo pede dados à Argentina pela Polícia Federal
+        marca: [pedido_policial]
+        vai_para: a_rota
+      - id: rubio
+        rotulo: Mauro Vieira leva o caso a Rubio, sem nota
+        marca: [caso_com_rubio]
         vai_para: a_rota
       - id: cobra
         rotulo: Lula cobra explicações de Trump e de Milei
@@ -196,11 +311,14 @@ nos:
     lugar: Buenos Aires, início de novembro
     imagem: imagens/cap01/a_rota.webp
     texto:
-      - Na Argentina, a carta virou escândalo. Flávio cruzou a fronteira por terra e pegou um jatinho do lado argentino.
+      - Na Argentina, a fuga virou escândalo. Flávio cruzou a fronteira por terra e pegou um jatinho do lado argentino. A Justiça de lá já investiga.
       - A oposição argentina acusa o governo Milei de ter ajudado. O governo nega. Um assessor de Milei é citado pela imprensa argentina, e também nega.
       - se: { tem: crise_diplomatica }
         texto: O pedido de explicações do Brasil chega no meio da briga.
-        senao: O Brasil não pediu nada. Quem faz as perguntas é a oposição argentina.
+      - se: { tem: pedido_policial }
+        texto: O pedido da Polícia Federal chega à Justiça argentina, sem nota e sem discurso.
+      - se: { tem: governo_silencio }
+        texto: O Brasil não pediu nada. Quem faz as perguntas é a oposição argentina.
       - Sobre a carta que o agradece, Milei não diz uma palavra.
     # Negativa do governo argentino ("de manera enfática"): Perfil, 28/10 (link abaixo, no fato do Caputo).
     fatos:
@@ -217,27 +335,35 @@ nos:
         fontes:
           - https://www.perfil.com/politica/tension-en-el-gobierno-tras-el-escape-de-bolsonaro-a-ee.uu.-bullrich-se-desmarco-de-milei-y-siguen-las-dudas-sobre-el-rol-de-santiago-caputo-abCex7S7Kv4m
           - https://www.lanacion.com.ar/politica/santiago-caputo-fue-identificado-por-un-control-policial-tras-el-operativo-de-huida-de-bolsonaro-nid28102026/
+      - texto: A Justiça argentina já investiga. Uma denúncia contra o governo está com a juíza María Eugenia Capuchetti, e o fiscal federal de Puerto Iguazú pediu informações a órgãos oficiais.
+        fontes:
+          - https://www.ambito.com/politica/fuga-flavio-bolsonaro-la-justicia-argentina-ya-investiga-y-ordena-medidas-n6338971
+          - https://www.tiempoar.com.ar/ta_article/la-jueza-capuchetti-investigara-la-denuncia-contra-el-gobierno-por-ayudar-en-la-fuga-de-bolsonaro
       - texto: A senadora Patricia Bullrich, do partido de Milei, defendeu que a vontade das urnas no Brasil seja respeitada.
         fontes:
           - https://www.perfil.com/politica/tension-en-el-gobierno-tras-el-escape-de-bolsonaro-a-ee.uu.-bullrich-se-desmarco-de-milei-y-siguen-las-dudas-sobre-el-rol-de-santiago-caputo-abCex7S7Kv4m
           - https://www.infobae.com/politica/2026/10/28/patricia-bullrich-reconocio-el-triunfo-de-lula-en-brasil-y-cuestiono-la-utilizacion-de-la-justicia-para-perseguir-a-flavio-bolsonaro/
     escolhas:
-      - id: silencio_milei
-        rotulo: Milei fica calado, e o caso esfria
-        marca: [milei_silencio]
-        vai_para: eleicao_eua
-      - id: investiga
-        rotulo: A Justiça argentina investiga o voo
+      - id: chega_ao_governo
+        rotulo: A investigação chega perto do governo Milei
         marca: [caputo_investigado]
         vai_para: o_voo_fretado
+      - id: interpelacao
+        rotulo: O Congresso argentino chama o chanceler para explicar
+        marca: [chanceler_interpelado]
+        vai_para: eleicao_eua
+      - id: silencio_milei
+        rotulo: A investigação não acha participação do governo
+        marca: [milei_silencio]
+        vai_para: eleicao_eua
 
   - id: o_voo_fretado
     lugar: Puerto Iguazú, novembro
     imagem: imagens/cap01/o_voo_fretado.webp
     texto:
-      - Um promotor da fronteira pede as câmeras do aeroporto, a lista de passageiros e o contrato do jatinho.
+      - A juíza do caso cruza os papéis que a deputada Marcela Pagano pediu. Câmeras do aeroporto, planos de voo, lista de passageiros e o contrato do jatinho.
       - Se alguém do governo argentino ajudou, vai aparecer nesses papéis. Se ninguém ajudou, também.
-      - A carta deixa de ser só um texto e vira um caso entre dois países. Os aliados de Flávio dizem que a Argentina só carimbou um passaporte.
+      - A fuga deixa de ser um caso só do Brasil. Os aliados de Flávio dizem que a Argentina só carimbou um passaporte.
     segue: eleicao_eua
 
   - id: eleicao_eua
@@ -246,10 +372,12 @@ nos:
     texto:
       - Os Estados Unidos votam para escolher o novo Congresso.
       - Em Miami, Flávio e o irmão Eduardo acompanham pela TV. Na carta, Flávio chamou Trump de grande defensor da liberdade.
-      - Se os adversários de Trump ganharem, ficar nos Estados Unidos pode ficar mais difícil.
+      - se: { tem: flavio_preventiva }
+        texto: Para um foragido, a eleição decide quem manda no Congresso que pode pressionar Trump, a favor dele ou contra.
+        senao: Se os adversários de Trump ganharem, a pressão contra Flávio nos Estados Unidos cresce.
     # "grande defensor da liberdade de expressão": íntegra da carta.
     fatos:
-      - texto: Às vésperas da eleição, as pesquisas dão vantagem aos democratas na disputa pela Câmara. A aprovação de Trump fica entre 33% e 37%, conforme a pesquisa, perto das mais baixas do mandato.
+      - texto: Às vésperas da eleição, as pesquisas dão vantagem aos democratas na disputa pela Câmara. A aprovação de Trump está perto das mais baixas do mandato.
         fontes:
           - https://theconversation.com/democrats-remain-clear-favourites-to-gain-control-of-congress-at-midterms-as-trumps-ratings-slide-again-295134
           - https://www.fox29.com/news/trump-approval-hits-record-low-midterms-near-poll.amp
@@ -257,8 +385,12 @@ nos:
       - se: { tem: crise_diplomatica }
         texto: O pedido de explicações do Itamaraty ainda não teve resposta de Washington. Para o governo, o silêncio americano já diz algo. Para os aliados de Flávio, mostra que o pedido não pesou.
     escolhas:
+      - id: dividido
+        rotulo: Democratas ganham a Câmara, e republicanos seguram o Senado
+        marca: [eua_dem_camara, eua_senado_rep]
+        vai_para: noite_democrata
       - id: democratas
-        rotulo: Os democratas, adversários de Trump, ganham a Câmara
+        rotulo: Os democratas ganham a Câmara e o Senado
         marca: [eua_dem_camara]
         vai_para: noite_democrata
       - id: republicanos
@@ -272,7 +404,9 @@ nos:
     texto:
       - Os democratas ganham a Câmara. E já têm uma lista de assuntos. O Brasil está nela.
       - Uma reportagem disse que funcionários do governo Trump fizeram campanha para a família Bolsonaro voltar ao poder. Os democratas querem que eles deponham em janeiro.
-      - Mas a taxa de 25% sobre a maior parte dos produtos brasileiros continua. Quem decide isso é o governo Trump, não o Congresso.
+      - se: { tem: eua_senado_rep }
+        texto: Mas o Senado fica com os republicanos, e a taxa de 25% sobre a maior parte dos produtos brasileiros continua. Quem decide a taxa é o governo Trump.
+        senao: Mas a taxa de 25% sobre a maior parte dos produtos brasileiros continua. Quem decide isso é o governo Trump, não o Congresso.
     fatos:
       - texto: Uma reportagem da Reuters, com base em dez fontes, disse que dois funcionários do Departamento de Estado, Darren Beattie e Ricardo Pita, atuaram para a família Bolsonaro voltar ao poder. A Reuters não conseguiu saber se eles agiam por ordem da Casa Branca.
         fontes:
@@ -316,7 +450,7 @@ nos:
       - Ele mesmo citou Guaidó, que se declarou presidente da Venezuela e foi reconhecido por dezenas de países.
       - Flávio não foi reconhecido por nenhum governo. Quase todos parabenizaram Lula, inclusive governos de direita. Milei e Trump não.
       - se: { tem: flavio_preventiva }
-        texto: Com a ordem de prisão, voltar não é mais uma opção.
+        texto: Com a ordem de prisão, voltar agora quer dizer ser preso na chegada.
         senao: E, enquanto ele fica fora, as faltas no Senado se acumulam.
     # Reconhecimentos de Lula: pesquisa 07.
     fatos:
@@ -330,16 +464,20 @@ nos:
         senao: Para os aliados de Flávio, com os republicanos firmes na Câmara, Washington não vai atrapalhar. Para o governo Lula, isso deixa a saída dele sem custo em Washington.
     escolhas:
       - id: governo
-        rotulo: Flávio volta a se dizer presidente e monta um governo no exílio
+        rotulo: Flávio se diz presidente e monta um governo no exílio
         marca: [governo_exilio]
         vai_para: pl
       - id: voz
-        rotulo: Flávio fica como líder da oposição, com lives todas as noites
+        rotulo: Flávio vira líder da oposição, com lives toda noite
         marca: [flavio_live]
         vai_para: pl
       - id: discreto
-        rotulo: Flávio para de falar e deixa o caso com os advogados
+        rotulo: Flávio para de falar e deixa o caso aos advogados
         marca: [flavio_discreto]
+        vai_para: pl
+      - id: asilo
+        rotulo: Flávio pede asilo político nos Estados Unidos
+        marca: [asilo_pedido]
         vai_para: pl
 
   - id: pl
@@ -354,8 +492,13 @@ nos:
         texto: E toda noite a live de Miami diz o que o partido deveria fazer. Nem sempre é o que o partido quer.
       - se: { tem: flavio_discreto }
         texto: E Flávio quase não fala. Sem a voz dele, o partido decide sozinho, e a base pergunta por quê.
-      - Em fevereiro, o Senado escolhe seu presidente. União e PP, aliados do PL, já fecharam com Alcolumbre. Negociar rende cargos, mas a base vai chamar de traição.
+      - Em fevereiro, o Senado escolhe seu presidente. União e PP já fecharam com Alcolumbre. Mas Tereza Cristina, do PP, conversa com Marinho sobre um nome só contra ele.
+    # Marinho e Tereza Cristina negociando candidatura única, com o apoio de Tarcísio: RODADAS, 29/10 (InfoMoney, CNN).
     fatos:
+      - texto: Os senadores Rogério Marinho, do PL, e Tereza Cristina, do PP, negociam uma candidatura única da oposição contra a reeleição de Alcolumbre. Tarcísio defende a candidatura única.
+        fontes:
+          - https://www.infomoney.com.br/politica/alcolumbre-enfrenta-avanco-da-direita-e-disputa-pelo-controle-do-senado-em-2027/
+          - https://www.cnnbrasil.com.br/blogs/caio-junqueira/politica/tarcisio-projeta-lideranca-da-oposicao-e-candidatura-em-2030/
       - texto: Marinho foi lançado à presidência do Senado pelo próprio Valdemar, em 5 de outubro. Valdemar ligou a candidatura à vitória de Flávio.
         fontes:
           - https://www.congressoemfoco.com.br/noticia/122994/valdemar-diz-que-pl-quer-eleger-rogerio-marinho-presidente-do-senado
@@ -366,6 +509,7 @@ nos:
           - https://www.diariodepernambuco.com.br/politica/2026/10/11727799-uniao-pp-declara-apoio-a-reeleicao-de-alcolumbre-para-presidente-do-senado.html
     lados:
       - A carta reafirmou o nome de Marinho justamente quando o partido pesava se a candidatura ainda valia a pena. Para quem quer negociar, insistir custa cargos. Para quem quer confronto, recuar custa a base.
+      - Para quem quer um nome só, juntar PL e PP é a única chance de vencer Alcolumbre no voto secreto. Para os aliados de Flávio, trocar Marinho é ceder a quem aceitou a derrota.
       - se: { tem: crise_diplomatica }
         texto: No PL, a cobrança do Itamaraty é lida como um presente. A carta ganhou importância, e o partido, uma bandeira.
       - se: { tem: governo_silencio }
@@ -376,11 +520,19 @@ nos:
         texto: E há o relógio das faltas. Em dezembro, Alcolumbre pode decidir o mandato de Flávio.
     escolhas:
       - id: negocia
-        rotulo: Valdemar aceita a derrota e negocia com Alcolumbre
+        rotulo: O PL negocia cargos com Alcolumbre
         marca: [pl_negocia]
         vai_para: a_ligacao
+      - id: unida
+        rotulo: A oposição se une em Tereza Cristina, com Tarcísio
+        marca: [oposicao_unida]
+        vai_para: o_nome_unico
+      - id: espera
+        rotulo: O PL mantém Marinho, longe da carta, e espera
+        marca: [pl_espera]
+        vai_para: o_racha
       - id: obstrui
-        rotulo: O PL mantém Marinho e parte para o confronto
+        rotulo: O PL abraça a carta e parte para o confronto
         marca: [pl_obstrui]
         vai_para: a_convocacao
 
@@ -412,6 +564,33 @@ nos:
         texto: Depois de fevereiro, quem presidir o Senado vai receber os pedidos de impeachment contra o ministro que mandou prender Flávio.
       - Na mesma noite, Marinho diz a aliados que continua candidato.
 
+  # Final C — a frente: um nome só contra Alcolumbre.
+  # Real: a negociação Marinho–Tereza Cristina e o apoio de Tarcísio (fatos em `pl`). Simulação: o almoço, a escolha de Tereza, a condição de Valdemar.
+  - id: o_nome_unico
+    lugar: Brasília, Senado Federal
+    imagem: imagens/cap01/o_nome_unico.webp
+    texto:
+      - Marinho e Tereza Cristina almoçam juntos. Sai um nome só, o dela, que conversa com o PL e com o centro.
+      - Tarcísio liga para os dois no mesmo dia. Valdemar aceita, desde que Marinho ganhe um lugar na Mesa.
+      - Pela primeira vez, Alcolumbre conta votos com cuidado. No voto secreto, ninguém sabe quem vai trair quem.
+      - Em Miami, a carta perde o candidato que tinha. No Planalto, a dúvida é se vale entrar nessa briga.
+    lados:
+      - Para quem apoia a frente, um nome que fala com o centro é o único que pode vencer Alcolumbre. Para os aliados de Flávio, a direita trocou o candidato da carta pelo de Tarcísio.
+      - Para Alcolumbre, perder o PP muda a conta. Para o governo, apoiá-lo agora tem preço maior.
+
+  # Final D — a espera: o PL fica com Marinho sem abraçar a carta e empurra a decisão. É o estado real em 28/10 (pesquisa 06, item d).
+  # Real: aliados de Alcolumbre dentro do PL (pesquisa 09, "Estratégia de Alcolumbre"). Simulação: a reunião e o anúncio.
+  - id: o_racha
+    lugar: Brasília, sede do PL
+    imagem: imagens/cap01/o_racha.webp
+    texto:
+      - A reunião acaba sem acordo. O PL fica com Marinho, não assina a carta e deixa a decisão para fevereiro.
+      - Enquanto isso, os senadores do PL mais próximos de Alcolumbre avisam que não vão votar contra ele.
+      - Em Miami, a família chama os dissidentes de traidores. Os dissidentes respondem que o partido precisa de espaço no Senado para atender os estados.
+      - Para Alcolumbre, é o melhor cenário. O maior partido do Senado chega a fevereiro dividido.
+    lados:
+      - Para Valdemar, esperar evita escolher entre a carta e os cargos. Para a base, o silêncio é cobrado como medo, e para Alcolumbre, como chance de dividir o partido.
+
   # Final B — a briga
   - id: a_convocacao
     lugar: Brasília, Esplanada dos Ministérios
@@ -421,7 +600,7 @@ nos:
       - se: { tem: flavio_preventiva }
         texto: O tema é a perseguição. A ordem de prisão vai estar nas faixas.
         senao: No telão, Flávio vai falar de Miami.
-      - Tarcísio, governador de São Paulo, avisa que não vai. Ele já aceitou a vitória de Lula.
+      - Tarcísio, governador de São Paulo, avisa que não vai. Para ele, a eleição acabou, e a briga é no Senado.
       - No governo, alívio discreto. Com a oposição na rua, o Planalto ganha um adversário para apontar. No Centrão, alguém faz as contas.
     lados:
       - Para o Centrão, com a oposição dividida entre a carta e o Senado, o apoio ao governo fica mais caro, e mais fácil de vender. Para o PL, a rua mostra que a base continua de pé, mesmo sem Flávio no país.

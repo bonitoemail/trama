@@ -22,7 +22,7 @@ C:\Users\USER\trama\pesquisa\RODADAS.md.
 
 Os nós de decisão abertos no jogo são:
 <NOS>
-Para cada um, diga se a realidade já decidiu (por qual fato, com link) ou se segue aberto (e o que vigiar).
+Para cada um, diga se a realidade já decidiu (por qual fato, com link) ou se segue aberto (e o que vigiar). Diga também se a realidade abriu um desfecho plausível que nenhuma das opções prevê, ou trouxe um ator de peso que o nó não tem: as opções foram escritas antes dos fatos e podem estar curtas.
 
 Regras:
 - [FATO] só com duas fontes independentes de veículos estabelecidos, de linhas editoriais diferentes (uma mais lida à direita, outra à esquerda ou ao centro), ou documento oficial. Blog, rede social ou Wikipédia sozinhos não bastam. Traga os links das duas fontes de cada fato.

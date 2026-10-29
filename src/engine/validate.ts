@@ -1,6 +1,7 @@
 import { isoDoFato } from './calendario';
+import { avisosDeFormato } from './formato';
 import { problemasDasFontes } from './fontes';
-import { FIM, escolhasDisponiveis, escolhasVisiveis, saidaDoCapitulo } from './engine';
+import { FIM, escolhasDisponiveis, escolhasVisiveis, marcasDeFluxo, saidaDoCapitulo } from './engine';
 import type { Capitulo, Condicao, Jogo, Texto } from './schema';
 
 export interface Relatorio {
@@ -10,7 +11,7 @@ export interface Relatorio {
     estados: number;
     nosAlcancados: number;
     nosTotais: number;
-    /** Combinações distintas de marcas com que se chega ao fim do jogo. */
+    /** Combinações distintas das marcas que mudam o caminho (marcasDeFluxo) com que se chega ao fim do jogo. */
     finaisDistintos: number;
     truncado: boolean;
   };
@@ -107,13 +108,16 @@ interface Exploracao {
   alcancados: Set<string>;
   finais: Set<string>;
   problemas: Set<string>;
+  /** Nós de decisão que, em algum caminho, sobram com uma escolha só (sem contar travas reais). */
+  unicas: Set<string>;
   estados: number;
   truncado: boolean;
 }
 
 /**
  * Joga todas as combinações possíveis (capítulo, nó, marcas) para achar
- * becos sem saída, capítulos sem saída e nós que ninguém alcança.
+ * becos sem saída, capítulos sem saída e nós que ninguém alcança. Só as marcas de fluxo entram
+ * no estado: as de texto não mudam o caminho, e guardá-las multiplicaria os estados à toa.
  * Com `ignorarTravas`, também percorre escolhas que a realidade travou.
  */
 function explorar(jogo: Jogo, ignorarTravas: boolean): Exploracao {
@@ -122,9 +126,12 @@ function explorar(jogo: Jogo, ignorarTravas: boolean): Exploracao {
   const alcancados = new Set<string>();
   const finais = new Set<string>();
   const problemas = new Set<string>();
+  const unicas = new Set<string>();
   const fila: Array<{ cap: string; no: string; marcas: string[] }> = [];
+  const fluxo = marcasDeFluxo(jogo);
 
-  const enfileirar = (cap: string, no: string, marcas: string[]) => {
+  const enfileirar = (cap: string, no: string, todas: string[]) => {
+    const marcas = todas.filter((m) => fluxo.has(m));
     const chave = `${cap}|${no}|${marcas.join(',')}`;
     if (vistos.has(chave)) return;
     vistos.add(chave);
@@ -161,6 +168,7 @@ function explorar(jogo: Jogo, ignorarTravas: boolean): Exploracao {
 
     if (n.escolhas && n.escolhas.length) {
       const disp = ignorarTravas ? escolhasVisiveis(n, marcas) : escolhasDisponiveis(n, marcas);
+      if (disp.length === 1 && n.escolhas.length > 1) unicas.add(`${capId}/${noId}: só uma escolha com [${marcas.join(', ') || 'nenhuma'}]`);
       if (disp.length === 0) {
         problemas.add(`${capId}/${noId}: beco sem saída, nenhuma escolha disponível com [${marcas.join(', ') || 'nenhuma'}]`);
       }
@@ -176,7 +184,7 @@ function explorar(jogo: Jogo, ignorarTravas: boolean): Exploracao {
     }
   }
 
-  return { alcancados, finais, problemas, estados: vistos.size, truncado };
+  return { alcancados, finais, problemas, unicas, estados: vistos.size, truncado };
 }
 
 function exploracao(jogo: Jogo, erros: string[], avisos: string[]): Relatorio['estatisticas'] {
@@ -186,6 +194,8 @@ function exploracao(jogo: Jogo, erros: string[], avisos: string[]): Relatorio['e
   const semTravas = explorar(jogo, true);
 
   erros.push(...real.problemas);
+  // Com as travas ignoradas: uma escolha só por causa da realidade é esperado; por causa das marcas, não.
+  avisos.push(...semTravas.unicas);
   let total = 0;
   for (const c of jogo.capitulos) {
     for (const n of c.nos) {
@@ -211,6 +221,7 @@ export function validar(jogo: Jogo): Relatorio {
   const erros: string[] = [];
   const avisos: string[] = [];
   estrutura(jogo, erros, avisos);
+  avisos.push(...avisosDeFormato(jogo));
   // Referências quebradas fariam a exploração mentir; só explora estrutura sã.
   const estatisticas = erros.length
     ? { estados: 0, nosAlcancados: 0, nosTotais: 0, finaisDistintos: 0, truncado: false }

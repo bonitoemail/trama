@@ -10,8 +10,9 @@ import {
   vale,
 } from './engine';
 import { dataCurta, falta, isoDoFato, regua } from './calendario';
+import { avisosDeFormato } from './formato';
 import { problemasDasFontes, veiculo } from './fontes';
-import { contarCaminhos, linhaDoTempo } from './historia';
+import { contarCaminhos, contarPartidas, linhaDoTempo } from './historia';
 import { carregarJogo } from './load';
 import { JogoSchema, type Jogo } from './schema';
 import { validar } from './validate';
@@ -166,6 +167,11 @@ describe('linha do tempo', () => {
     expect(linhaDoTempo(j, s.historico)[2].alternativas).toBe(0);
   });
 
+  it('conta as histórias completas, do início ao fim do jogo', () => {
+    // x→so_x→c2, x→todos→c2, y→todos→FIM; c2 tem um caminho só.
+    expect(contarPartidas(jogoMinimo())).toBe(3);
+  });
+
   it('conta os caminhos distintos de cada capítulo', () => {
     // c1: x→so_x, x→todos, y→todos. c2: um caminho só (sem escolhas).
     expect(contarCaminhos(jogoMinimo())).toEqual({ c1: 3, c2: 1 });
@@ -195,6 +201,11 @@ describe('validador', () => {
     j.capitulos[0].saidas = [{ para: 'c2', quando: { tem: 'mx' } }];
     const { erros } = validar(j);
     expect(erros.some((e) => e.includes('beco sem saída'))).toBe(true);
+  });
+
+  it('avisa decisão que sobra com uma escolha só em algum caminho', () => {
+    // Com y, em c só "todos" está disponível ("so_x" pede a marca mx).
+    expect(validar(jogoMinimo()).avisos.some((x) => x.startsWith('c1/c: só uma escolha'))).toBe(true);
   });
 
   it('o conteúdo real em content/ é válido', () => {
@@ -249,5 +260,28 @@ describe('regra das fontes', () => {
     expect(problemasDasFontes(['https://g1.globo.com/a', 'https://oglobo.globo.com/b'])).toHaveLength(1);
     expect(problemasDasFontes(['https://pt.wikipedia.org/a', 'https://www.metropoles.com/b'])).toHaveLength(2);
     expect(veiculo('https://noticias.uol.com.br/x')).toBe('uol.com.br');
+  });
+});
+
+describe('formato dos cartões', () => {
+  it('avisa cartão longo, cena com cartões demais, rótulo longo e jargão', () => {
+    const j = jogoMinimo();
+    const longo = Array.from({ length: 40 }, () => 'palavra').join(' ');
+    j.capitulos[0].nos[1].texto = ['Um.', 'Dois.', 'Três.', 'Quatro.', longo];
+    j.capitulos[0].nos[0].escolhas![0].rotulo = 'A comissão vota o rito de um jeito que ninguém entende direito';
+    j.capitulos[0].nos[2].texto = ['A CCJ decide.'];
+    const avisos = avisosDeFormato(j).join('\n');
+    expect(avisos).toMatch(/c1\/b: 5 cartões/);
+    expect(avisos).toMatch(/c1\/b: cartão com 40 palavras/);
+    expect(avisos).toMatch(/rótulo "x" com 12 palavras/);
+    expect(avisos).toMatch(/jargão no rótulo "x" \("rito"\)/);
+    expect(avisos).toMatch(/c1\/c: jargão no cartão \("CCJ"\)/);
+  });
+
+  it('conta só um dos condicionais e não confunde "rito" dentro de outras palavras', () => {
+    const j = jogoMinimo();
+    j.capitulos[0].nos[1].texto = ['Um.', 'Dois.', 'Três.', { se: { tem: 'mx' }, texto: 'A.' }, { se: { tem: 'my' }, texto: 'B.' }];
+    j.capitulos[0].nos[2].texto = ['O inquérito segue no Distrito Federal.'];
+    expect(avisosDeFormato(j)).toEqual([]);
   });
 });

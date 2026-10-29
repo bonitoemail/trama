@@ -11,7 +11,7 @@ O Trama promete que qualquer pessoa pode conferir os prompts dos agentes e repet
 
 1. O prompt de cada agente é o bloco ` ````text ` do arquivo em `roteiro/prompts/`:
    - painel: `painel/<lente>.md` (seis) e `painel/agregador.md`;
-   - revisão: `revisao/neutralidade.md`, `revisao/leitor-direita.md`, `revisao/leitor-esquerda.md`.
+   - revisão: `revisao/neutralidade.md`, `revisao/leitor-direita.md`, `revisao/leitor-esquerda.md`, `revisao/cobertura.md`.
 2. Precisa mudar algo (a data de "Hoje é", os arquivos de pesquisa a ler, as perguntas de uma mini-rodada)? **Edite o arquivo primeiro**, mostre a diferença ao usuário e só então rode. Nunca acrescente, corte ou reescreva texto ao passar o prompt para o agente.
 3. Passe ao subagente o conteúdo do bloco, sem mudar nada. Os caminhos no prompt são relativos à raiz do repositório; diga ao subagente só isto, numa linha antes do prompt: "Os caminhos abaixo são relativos a <raiz do repositório>."
 4. As perguntas comuns das lentes ficam em `roteiro/painel/perguntas.md`. Mudou uma pergunta? Também é edição de arquivo, antes de rodar.
@@ -28,7 +28,8 @@ O Trama promete que qualquer pessoa pode conferir os prompts dos agentes e repet
 
 1. Revisor de neutralidade: `revisao/neutralidade.md`; escreve `roteiro/painel/01-neutralidade.md`.
 2. Leitores: `revisao/leitor-direita.md` e `revisao/leitor-esquerda.md`, em paralelo, sem lerem a revisão anterior. Eles respondem na conversa: cole cada resposta, como veio, na seção "Resposta do agente" do arquivo do prompt, trocando a anterior (a antiga fica no git).
-3. Atualize "Rodado em" e registre em `pesquisa/RODADAS.md`.
+3. Cobertura das escolhas: `revisao/cobertura.md`, um subagente por capítulo, no fim de cada lote de cenas novas e quando a pesquisa mudar. Troque só os campos `<CAP>` e `<PESQUISA>`. Resposta na conversa; resumo em `pesquisa/RODADAS.md`.
+4. Atualize "Rodado em" e registre em `pesquisa/RODADAS.md`.
 
 ## Depois
 

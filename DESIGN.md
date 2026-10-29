@@ -194,12 +194,14 @@ Origem: `roteiro/painel/01-neutralidade.md`.
 
 O jogo é para a pessoa comum, no celular. Cada cena é lida como **stories**: um cartão por vez, toque para avançar.
 
+O texto que quem escreve segue, com exemplos, está publicado em [`roteiro/prompts/escrita.md`](roteiro/prompts/escrita.md). `npm run validate` avisa quando uma cena sai do formato (`src/engine/formato.ts`). Resumo:
+
 1. **Cartão curto.** Cada parágrafo de `texto` é um cartão: uma ideia, no máximo ~30 palavras. No máximo 4 cartões por cena.
 2. **Gente apresentada pelo que faz**, na primeira aparição de cada cena: "Alcolumbre, o presidente do Senado"; "Moraes, o ministro do Supremo que cuida do caso".
-3. **Sem jargão no cartão.** Nada de "rito", "CCJ", "difusão vermelha", "monocrática", "decurso". Se o termo é necessário, ele vai para o `detalhe`, com explicação.
-4. **O técnico vai em `detalhe`** ("saiba mais"): regras, prazos, nomes de fontes, números exatos, a checagem da acusação. Opcional para o jogador, obrigatório para o rigor.
+3. **Sem jargão no cartão.** Nada de "rito", "CCJ", "difusão vermelha", "monocrática", "decurso". Se o termo é necessário, ele vai para "Fatos e fontes", com explicação.
+4. **O técnico vai em "Fatos e fontes"**: `fatos` (o que aconteceu, com fonte: regras, prazos, números exatos) e `lados` (a leitura de cada lado, em par). Opcional para o jogador, obrigatório para o rigor.
 5. **Rótulo de escolha com verbo simples e no máximo ~10 palavras**: "Moraes manda prender Flávio", não "decreta a prisão preventiva".
-6. **Condicionais com parcimônia.** No máximo um ou dois parágrafos condicionais por cena no `texto`; ecos menores vão para o `detalhe`.
+6. **Condicionais com parcimônia.** No máximo um ou dois parágrafos condicionais por cena no `texto` (mais, só se forem exclusivos entre si); ecos menores vão para `lados`.
 7. **As regras 8 e 8.1 continuam valendo** dentro dos cartões: simplificar não pode tirar o interesse de nenhum lado nem transformar boato em fato.
 
 ## 9. Backend e dados públicos

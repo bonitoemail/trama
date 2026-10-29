@@ -7,6 +7,7 @@ import {
   escolher,
   escolhasDisponiveis,
   escolhasVisiveis,
+  marcasDeFluxo,
   no,
   novoJogo,
   paragrafos,
@@ -116,29 +117,28 @@ export function contarCaminhos(jogo: Jogo): Record<string, number> {
   return Object.fromEntries([...caminhos].map(([id, s]) => [id, s.size]));
 }
 
-const LIMITE_PARTIDAS = 2_000_000;
-
 /**
  * Quantas histórias completas o jogo tem: cada sequência distinta de escolhas do primeiro
- * capítulo até o epílogo. Para no limite (e devolve o limite) para não travar o build.
+ * capítulo até o epílogo. O que vem pela frente só depende do ponto da história e das marcas de
+ * fluxo, então cada estado é contado uma vez e reaproveitado (sem percorrer caminho por caminho).
  */
 export function contarPartidas(jogo: Jogo): number {
-  let partidas = 0;
-  const pilha: Estado[] = [novoJogo(jogo)];
-  while (pilha.length && partidas < LIMITE_PARTIDAS) {
-    const e = pilha.pop()!;
-    if (e.fase === 'fim_jogo') {
-      partidas++;
-      continue;
+  const fluxo = marcasDeFluxo(jogo);
+  const memo = new Map<string, number>();
+  const contar = (e: Estado): number => {
+    if (e.fase === 'fim_jogo') return 1;
+    const chave = `${e.fase}|${e.capitulo}|${e.no}|${e.marcas.filter((m) => fluxo.has(m)).sort().join(',')}`;
+    const pronto = memo.get(chave);
+    if (pronto !== undefined) return pronto;
+    let total: number;
+    if (e.fase === 'fim_capitulo') total = contar(continuar(jogo, e));
+    else {
+      const n = no(jogo, e.capitulo, e.no);
+      const disp = n.escolhas?.length ? escolhasDisponiveis(n, e.marcas) : [];
+      total = disp.length ? disp.reduce((s, c) => s + contar(escolher(jogo, e, c.id)), 0) : contar(escolher(jogo, e, null));
     }
-    if (e.fase === 'fim_capitulo') {
-      pilha.push(continuar(jogo, e));
-      continue;
-    }
-    const n = no(jogo, e.capitulo, e.no);
-    const disp = n.escolhas?.length ? escolhasDisponiveis(n, e.marcas) : [];
-    if (disp.length) disp.forEach((c) => pilha.push(escolher(jogo, e, c.id)));
-    else pilha.push(escolher(jogo, e, null));
-  }
-  return partidas;
+    memo.set(chave, total);
+    return total;
+  };
+  return contar(novoJogo(jogo));
 }

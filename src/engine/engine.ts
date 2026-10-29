@@ -26,6 +26,25 @@ export interface Estado {
 
 export const FIM = 'FIM';
 
+/**
+ * Marcas que mudam o caminho: as testadas em escolhas (`se`) e nas saídas dos capítulos.
+ * As de texto só mudam o que se lê. Explorar e contar só com estas evita a explosão de estados.
+ */
+export function marcasDeFluxo(jogo: Jogo): Set<string> {
+  const out = new Set<string>();
+  const junta = (c: Condicao | undefined) => {
+    if (!c) return;
+    if ('tem' in c) out.add(c.tem);
+    else if ('nao_tem' in c) out.add(c.nao_tem);
+    else ('todas' in c ? c.todas : c.qualquer).forEach(junta);
+  };
+  for (const cap of jogo.capitulos) {
+    cap.saidas.forEach((s) => junta(s.quando));
+    for (const n of cap.nos) n.escolhas?.forEach((e) => junta(e.se));
+  }
+  return out;
+}
+
 export function vale(cond: Condicao | undefined, marcas: ReadonlySet<string> | string[]): boolean {
   if (!cond) return true;
   const set = marcas instanceof Set ? marcas : new Set(marcas);

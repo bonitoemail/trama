@@ -32,10 +32,16 @@ CENAS = {
         "small seated dark figures, all facing a huge flat electronic panel on the front wall "
         "showing only blocks of light, no letters or numbers. Accent: the large glowing panel."),
     "a_herdeira": ("direita",
-        "Composition: wide frontal shot of an apartment at dusk. One small woman in a dark dress "
-        "with long hair stands at a very tall window, seen from behind, looking at a flat city "
-        "of low modernist buildings. Long flat shadow on the floor. Accent: a round sun setting "
-        "over the city."),
+        "Composition: wide frontal shot of a very large empty plaza at dusk, low horizon. In the "
+        "center, one empty low speaker's stand with a single microphone. Far from it and far from "
+        "each other, three small figures in dark suits stand apart, each seen from behind and "
+        "facing a different direction. Long flat shadows on the ground. Accent: the small round "
+        "light on the microphone."),
+    "o_governador": ("planalto",
+        "Composition: very wide frontal shot, low horizon, huge empty pale sky. A long low "
+        "modernist palace as one pale horizontal block with a flat roof and a long even row of "
+        "square windows, a flat lawn in front. All windows dark except one. Inside the lit "
+        "window, one tiny dark silhouette of a man in a suit. Accent: the single lit window."),
     "a_estreia": ("congresso",
         "Composition: wide shot of a long meeting room. One small woman in a dark dress stands at "
         "the head of a long table, speaking; small seated figures in dark suits on both sides "
@@ -93,4 +99,69 @@ CENAS = {
         "Composition: wide frontal shot of a very large empty hall. Two separate groups of small "
         "dark figures stand on opposite sides of the hall, facing each other across an empty "
         "floor. Accent: a single block of light on the empty floor between them."),
+    "a_gaveta": ("supremo",
+        "Composition: symbolic moment, wide frontal shot. A long row of slender pale columns, "
+        "mostly in shadow. In front, one tall empty high-backed chair stands alone on a dark "
+        "floor, with a small closed drawer cabinet beside it. Nobody in the room. Accent: a "
+        "single block of light on the empty chair."),
+    "a_custodia": ("supremo",
+        "Composition: wide frontal shot at night of the plain wall of a large stone building with "
+        "one tall doorway. On the sidewalk in front, two small groups of dark figures stand apart, "
+        "separated by a short straight line of small figures in caps. Long flat shadows. Accent: "
+        "the lit tall doorway."),
+    "a_rua": ("direita",
+        "Composition: wide frontal shot of a plain office meeting room. A long table seen from the "
+        "side, small figures in dark suits standing around it, all turned toward the empty chair "
+        "at the head of the table, with a dark jacket hanging on that chair. Accent: a small desk "
+        "lamp lit next to the empty chair."),
+    "a_anistia_na_rua": ("planalto",
+        "Composition: very wide shot, low horizon, huge empty pale sky. A long flat avenue filled with a "
+        "dense crowd of tiny dark figures seen from far away, a small flat truck in the middle of the "
+        "crowd. Far away on the horizon, two very thin tall pale towers side by side. Nobody holds "
+        "anything above the crowd. Accent: a round sun low on the horizon."),
+    "a_moeda_de_troca": ("congresso",
+        "Composition: wide frontal shot of a large quiet office with a tall window. Two small "
+        "figures in dark suits sit on opposite sides of a wide dark desk, facing each other. "
+        "Between them on the desk, one closed folder. Accent: the closed folder in a block of "
+        "light from the window."),
+    "a_contagem": ("planalto",
+        "Composition: wide frontal shot of a plain pale office. One small woman with short hair in a "
+        "dark jacket sits at a desk, seen from the side, looking at a large sheet of paper pinned on "
+        "the wall in front of her, covered with many small rows of plain marks. A telephone on the "
+        "desk. Accent: a small desk lamp lit on the desk."),
+    "o_lado_de_lula": ("planalto",
+        "Composition: very wide frontal shot of a long low modernist palace with thin columns and a "
+        "flat roof, raised above a flat lawn, a long ramp leading up to it. All windows dark except "
+        "one. Inside the lit window, two tiny dark silhouettes. Accent: the single lit window."),
+    "a_frente_desfeita": ("supremo",
+        "Composition: symbolic moment, wide frontal shot. A long empty table in a dark room, many "
+        "empty chairs pushed back from it, one chair fallen on its side. Nobody in the room. Accent: "
+        "a single block of light on the middle of the empty table."),
+    "o_indulto": ("planalto",
+        "Composition: wide frontal shot of a large pale office with a tall window. In the middle, "
+        "a wide desk with a single sheet of paper and a pen on it. One small man in a dark suit "
+        "stands beside the desk, seen from behind, looking at the paper. Accent: the single sheet "
+        "of paper in a block of light from the window."),
+    "a_paz_de_natal": ("planalto",
+        "Composition: very wide shot at dusk, low horizon, huge empty pale sky. A long row of plain "
+        "pale government buildings seen from far away along a flat empty avenue. No people. "
+        "Accent: one single lit window far away."),
+    "a_anistia_no_congresso": ("congresso",
+        "Composition: wide frontal shot of a large legislative chamber seen from the back: a "
+        "semicircle of empty dark seats in rows facing a long raised table at the front. Nobody "
+        "in the room. Accent: one small lit microphone on the raised table."),
+    "a_briga": ("direita",
+        "Composition: wide frontal shot of a plain room split in two by a tall bare wall in the "
+        "middle. On the left side, one small man in a dark suit speaks to a phone on a small "
+        "tripod. On the right side, two small figures stand turned away, looking at a phone screen. "
+        "Accent: the tiny round recording light on the tripod phone."),
+    "a_conversa_com_xi": ("mundo",
+        "Composition: wide frontal shot of a plain hotel meeting room with a tall window. Two small "
+        "men in dark suits sit in two armchairs facing each other, a low table between them with "
+        "two cups. Behind each armchair, one small standing aide. Accent: the block of light from "
+        "the window on the low table."),
+    "o_senado_sem_a_direita": ("congresso",
+        "Composition: wide frontal shot of a large legislative chamber seen from the side: the "
+        "seats on the left half are full of small dark seated figures, the seats on the right half "
+        "are completely empty. Accent: one small lamp lit on the raised table at the front."),
 }

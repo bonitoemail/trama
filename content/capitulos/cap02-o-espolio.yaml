@@ -52,11 +52,15 @@ nos:
     texto:
       - Cabe a Lula escolher o novo ministro do Supremo. Na mesa dele há um nome só, Rodrigo Pacheco.
       - Alcolumbre, o presidente do Senado, quer Pacheco no Supremo ainda este ano. Ministros do Supremo também.
-      - Pacheco passa fácil no Senado. Mas fica devendo o cargo a Alcolumbre, e não só a Lula.
-      - O PL acha que Pacheco fortaleceria Moraes. Parte do PT acha que é uma vaga dada de presente ao Centrão.
+      - Os aliados contam que Pacheco passa com folga no Senado. Mas ele fica devendo o cargo a Alcolumbre, e não só a Lula.
+      - O PL acha que Pacheco fortaleceria Moraes. O PT cobra que a vaga que ele deixa no Tribunal de Contas fique com Gleisi Hoffmann.
     # Pacheco como único nome; 41 votos secretos; regra de não reapresentar; vaga do TCU: pesquisa 09.
     # "Quem escolhe o substituto no TCU é o Senado" só a Folha afirma: ficou em lados, como leitura.
     fatos:
+      - texto: Em 28 de outubro, a CNN e o Estado de Minas noticiaram que Lula avalia apoiar Gleisi Hoffmann para a vaga de Pacheco no Tribunal de Contas da União. Segundo a CNN, a bancada do PT apoia a ideia.
+        fontes:
+          - https://www.cnnbrasil.com.br/blogs/gustavo-uribe/politica/com-pacheco-no-stf-lula-avalia-gleisi-para-o-tcu/
+          - https://www.em.com.br/politica/2026/10/7529396-indicacao-de-rodrigo-pacheco-ao-stf-pode-levar-gleisi-para-o-tcu.html
       - texto: Pela Constituição, o ministro do Supremo é indicado pelo presidente e só é nomeado se a maioria absoluta do Senado aprovar, em voto secreto, depois de uma sabatina pública. São 41 dos 81 senadores.
         fontes:
           - https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
@@ -105,7 +109,9 @@ nos:
     lugar: Brasília, Supremo Tribunal Federal
     imagem: imagens/cap02/a_espera.webp
     texto:
-      - Lula não indica ninguém. O Supremo fecha o ano com dez ministros.
+      - se: { tem: indicacao_retirada }
+        texto: Lula retira o nome antes do voto. O Supremo fecha o ano com dez ministros.
+        senao: Lula não indica ninguém. O Supremo fecha o ano com dez ministros.
       - O cálculo é não arriscar uma segunda derrota no Senado antes de fevereiro.
       - O custo é deixar o tempo correr. Em fevereiro, o PL terá 29 senadores, e a vaga vai ter de passar por eles também.
     segue: a_herdeira
@@ -118,7 +124,9 @@ nos:
       - se: { tem: pacheco_indicado }
         texto: Pacheco conhece cada senador pelo nome. A oposição pergunta sobre Moraes. Ele diz que vai julgar com independência.
         senao: O indicado responde bem sobre a lei e mal sobre política. A oposição pergunta sobre Moraes; o Centrão, sobre verbas.
-      - O voto é secreto. Os líderes contam 45 votos a favor. Os líderes sempre contam mais do que a urna dá.
+      - se: { tem: pacheco_indicado }
+        texto: O voto é secreto. Os líderes contam mais de 50 votos a favor. Ninguém conta em voz alta os que podem faltar.
+        senao: O voto é secreto. Os líderes contam 45 votos a favor. Com Messias, em abril, a conta dos líderes também parecia boa.
     fatos:
       - texto: É preciso maioria absoluta, 41 dos 81 senadores, em voto secreto.
         fontes:
@@ -150,6 +158,35 @@ nos:
         se: { tem: nome_do_governo }
         marca: [stf_rejeitado]
         vai_para: a_segunda_derrota
+      - id: adiada
+        rotulo: A votação fica para fevereiro
+        marca: [votacao_adiada]
+        vai_para: a_gaveta
+      - id: retirada
+        rotulo: Lula retira o nome antes do voto
+        marca: [indicacao_retirada]
+        vai_para: a_espera
+
+  # A sabatina escorrega para 2027: risco de calendário, não de votos (painel P3; pesquisa 09, Nó 2).
+  - id: a_gaveta
+    lugar: Brasília, Senado Federal
+    imagem: imagens/cap02/a_gaveta.webp
+    texto:
+      - se: { tem: nome_do_governo }
+        texto: A sabatina acabou, mas Alcolumbre cumpre o que disse. Sem pressa, a votação em plenário não entra na pauta antes do recesso.
+        senao: A sabatina acabou tarde, e a pauta do plenário já está cheia antes do recesso. A votação fica para fevereiro.
+      - O Supremo fecha o ano com dez ministros. A cadeira vazia vira moeda da eleição de fevereiro.
+      - Em fevereiro, o indicado vai ser votado pelo Senado novo, com 29 senadores do PL.
+      - Para o governo, é esperar sem trocar de nome. Para o PL, é ganhar um veto que ainda não tinha.
+    fatos:
+      - texto: Jorge Messias foi indicado ao Supremo em 20 de novembro de 2025. A sabatina chegou a ser anunciada para 10 de dezembro, mas só aconteceu em 29 de abril de 2026, no dia em que o Senado o rejeitou.
+        fontes:
+          - https://www.poder360.com.br/poder-congresso/sabatina-de-jorge-messias-pode-ser-remarcada-diz-otto/
+          - https://revistaoeste.com/politica/ccj-adia-sabatina-de-jorge-messias-para-29-de-abril/
+          - https://www12.senado.leg.br/noticias/materias/2026/04/29/indicacao-de-jorge-messias-ao-stf-e-rejeitada-pelo-senado
+    lados:
+      - Para Alcolumbre, com a votação em fevereiro, o governo segue precisando dele. Para o governo, correr agora arriscava uma segunda derrota no ano.
+    segue: a_herdeira
 
   - id: a_segunda_derrota
     lugar: Brasília, plenário do Senado
@@ -173,16 +210,32 @@ nos:
     imagem: imagens/cap02/a_herdeira.webp
     texto:
       - Quem fala pela direita no Brasil enquanto Flávio está em Miami?
-      - Michelle Bolsonaro foi a senadora mais votada do Distrito Federal. Ainda não disse o que vai ser em 2027.
+      - Tarcísio, reeleito em São Paulo, avisou aos aliados que quer liderar a oposição. Para parte da família, ele é o candidato do sistema.
+      - se: { tem: oposicao_unida }
+        texto: Michelle, eleita senadora pelo Distrito Federal, tem o apoio de Valdemar. No Senado, a oposição já tem nome desde novembro, Tereza Cristina.
+        senao: Michelle, eleita senadora pelo Distrito Federal, tem o apoio de Valdemar. No Senado, Marinho e Tereza Cristina discutem quem enfrenta Alcolumbre em fevereiro.
       - se: { tem: governo_exilio }
-        texto: Em Miami, já existe um governo no exílio. Uma líder no Brasil seria um segundo centro de comando.
-        senao: Eduardo, de Miami, gravou um vídeo pedindo que outros países não reconheçam a eleição.
-      - Para Tarcísio, quanto mais tempo a sucessão ficar aberta, melhor. Para o governo, uma oposição sem dono é mais fácil de enfrentar, e mais difícil de negociar.
+        texto: Em Miami, já existe um governo no exílio. Qualquer líder no Brasil vira um segundo centro de comando.
+        senao: Em outubro, Eduardo gravou de Miami um vídeo pedindo que outros países não reconheçam a eleição.
+    # Tarcísio quer liderar (CNN, Caio Junqueira, 28/10; Jussara Soares, 27/10; Folhapress, 29/10).
+    # "Candidato do sistema": crítica de Eduardo a Tarcísio, pesquisa 10 (InfoMoney).
     # Valdemar autorizado a visitar Jair (29/10); vídeo de Eduardo; Michelle fora do PL Mulher desde jun/2026: pesquisa 10.
     # Domiciliar humanitária, outra leitura: Nexo (pesquisa 03 e 04).
     #   https://www.nexojornal.com.br/expresso/2026/03/24/prisao-domiciliar-bolsonaro-decisao-moraes
     # A live e o silêncio de Flávio são simulação (marcas do cap01): ficam em lados.
     fatos:
+      - texto: Depois da saída de Flávio, Tarcísio de Freitas sinalizou a aliados que quer liderar a oposição a Lula, com foco em economia e segurança. Segundo a CNN, ele pensa em disputar a Presidência em 2030 se terminar o mandato com aprovação acima de 60%.
+        fontes:
+          - https://www.cnnbrasil.com.br/blogs/caio-junqueira/politica/tarcisio-projeta-lideranca-da-oposicao-e-candidatura-em-2030/
+          - https://jornaldebrasilia.com.br/noticias/politica-e-poder/fuga-de-flavio-precipita-ascensao-de-tarcisio-e-direita-aposta-em-nomes-do-senado-para-liderar-oposicao/
+      - texto: Em 27 de outubro, Valdemar recebeu Michelle Bolsonaro na sede do PL para falar do futuro do partido, e escreveu que os dois seguem unidos. Segundo a CNN, Valdemar elogia a liderança dela, que enfrenta resistência dentro da família.
+        fontes:
+          - https://www.gazetadopovo.com.br/republica/valdemar-e-michelle-discutem-futuro-do-pl-apos-flavio-deixar-o-pais/
+          - https://www.cnnbrasil.com.br/blogs/jussara-soares/politica/aliados-veem-tarcisio-como-principal-opositor-a-lula-apos-fuga-de-flavio/
+      - texto: Os senadores Rogério Marinho, do PL, e Tereza Cristina, do PP, negociam uma candidatura única da oposição contra a reeleição de Alcolumbre na presidência do Senado. Tarcísio defende a candidatura única.
+        fontes:
+          - https://www.infomoney.com.br/politica/alcolumbre-enfrenta-avanco-da-direita-e-disputa-pelo-controle-do-senado-em-2027/
+          - https://www.cnnbrasil.com.br/blogs/caio-junqueira/politica/tarcisio-projeta-lideranca-da-oposicao-e-candidatura-em-2030/
       - texto: Em 28 de outubro, Alexandre de Moraes autorizou Valdemar Costa Neto, presidente do PL, a visitar Jair Bolsonaro no dia seguinte.
         fontes:
           - https://sbtnews.sbt.com.br/noticia/politica/moraes-autoriza-visita-de-valdemar-a-bolsonaro
@@ -198,30 +251,63 @@ nos:
           - https://www.poder360.com.br/poder-eleicoes-2026/eduardo-bolsonaro-pede-que-estrangeiros-nao-reconhecam-eleicao/
           - https://www.metropoles.com/brasil/em-video-em-ingles-eduardo-bolsonaro-acusa-eleicoes-de-fraude-sem-provas
     lados:
+      - Para os aliados de Tarcísio, ele é o único nome que junta direita, Centrão e o eleitor de centro. Para parte da família, ele aceitou a derrota rápido demais.
+      - Para o governo, uma oposição com dono é mais difícil de enfrentar, e mais fácil de negociar. Para a direita, sem dono ela chega dividida a fevereiro.
+      - Para os aliados da família, quem tem os votos de Bolsonaro deve comandar a oposição. Para o Centrão, a família perdeu a eleição e agora mora em Miami.
       - se: { tem: flavio_live }
         texto: Para os aliados de Flávio, a live de Miami mantém a família no comando da oposição. Para o resto da direita, a resposta sobre quem deve liderar muda conforme a semana.
       - se: { tem: flavio_discreto }
         texto: Para quem quer o lugar de Flávio, o silêncio dele em Miami abre espaço. Para os aliados dele, é prudência enquanto a Justiça decide.
     escolhas:
+      - id: tarcisio
+        rotulo: Tarcísio assume a oposição, de São Paulo
+        marca: [tarcisio_lider]
+        vai_para: o_governador
       - id: michelle
-        rotulo: Michelle assume a liderança da oposição
+        rotulo: O PL de Valdemar põe Michelle na frente da oposição
         marca: [michelle_lider]
         vai_para: a_estreia
-      - id: porta_voz
-        rotulo: Michelle fala em nome da família, sem cargo próprio
-        marca: [michelle_porta_voz]
-        vai_para: a_conta
       - id: ninguem
-        rotulo: Ninguém assume, e a direita fica sem dono
+        rotulo: Ninguém assume, e cada um fica no seu canto
         marca: [direita_sem_dono]
         vai_para: o_vazio
+      - id: briga
+        rotulo: A família briga em público pela herança
+        marca: [familia_em_guerra]
+        vai_para: a_briga
+
+  # Racha aberto da família (pesquisa 10, "A herdeira": média). Real: Eduardo já chamou Tarcísio de
+  # "candidato do sistema" e Michelle de "imatura" (pesquisa 10). O vídeo novo e as respostas são simulação.
+  - id: a_briga
+    lugar: Miami e Brasília, dezembro
+    imagem: imagens/cap02/a_briga.webp
+    texto:
+      - Eduardo grava um vídeo de Miami. Chama Tarcísio de candidato do sistema e diz que Michelle não fala pela família.
+      - Michelle responde com um versículo. Tarcísio não responde, e os aliados dele respondem por ele.
+      - Valdemar tenta apagar o incêndio. Jair, em casa e sem redes, manda recados que cada lado lê do seu jeito.
+      - Para o governo, a briga é presente. Para o Centrão, é hora de esperar para ver quem sobra.
+    lados:
+      - Para a família, quem herda os votos de Bolsonaro precisa ser alguém da família. Para Tarcísio e o PL de Valdemar, brigar agora entrega 2030 ao governo.
+    segue: a_conta
+
+  - id: o_governador
+    lugar: São Paulo, Palácio dos Bandeirantes
+    imagem: imagens/cap02/o_governador.webp
+    texto:
+      - Tarcísio grava um vídeo do palácio. Fala de juros, de segurança e de 2030 sem dizer 2030.
+      - O Centrão gosta do tom. Kassab liga no mesmo dia. Em Miami, Eduardo repete que ele é o candidato do sistema.
+      - O custo vem de Brasília. São Paulo depende de dinheiro federal, e todo pedido do governador agora passa por um adversário.
+      - Para o governo, um opositor claro ajuda a unir a base. E é alguém com quem dá para negociar.
+    # Simulação: o vídeo, a ligação de Kassab e a fala de Eduardo depois de 29/10.
+    # Real: Tarcísio quer liderar (CNN, 28/10); Eduardo já o chamou de candidato do sistema (pesquisa 10).
+    segue: a_conta
 
   - id: a_estreia
-    lugar: Brasília, Senado Federal
+    lugar: Brasília, sede do PL
     imagem: imagens/cap02/a_estreia.webp
     texto:
       - Michelle fala para a bancada do PL por oito minutos. Fala de Jair e da união da direita. Não cita Flávio.
-      - Quem no PL negocia com Alcolumbre gosta do tom. Em Miami, alguém repara no que ficou de fora.
+      - Quem no PL negocia com Alcolumbre gosta do tom. Em Miami, a família nota que Flávio não foi citado.
       - Tarcísio manda uma nota curta de apoio. Kassab não manda nada.
     segue: a_conta
 
@@ -245,6 +331,8 @@ nos:
         texto: Mas não é automático. É um processo, e o Senado entra de férias no fim do ano. Quem decide se ele anda rápido ou devagar é Alcolumbre.
         senao: Quem decide é Moraes. O mesmo valor já foi bloqueado de um advogado investigado no mesmo caso.
       - Para o PT, decidir rápido mostra que a lei vale para todos, e demorar seria privilégio. Para o PL, decidir rápido mostra pressa em punir quem nem foi denunciado.
+      - se: { todas: [{ tem: flavio_sem_preventiva }, { nao_tem: bloqueio_sem_prisao }] }
+        texto: E o pedido do PT para bloquear os bens dele segue sem resposta no Supremo.
     # Rito das faltas, licença e bloqueios: pesquisa 09. RISF art. 32, §§ 3º a 5º, conferido no PDF oficial.
     fatos:
       - se: { tem: flavio_sem_preventiva }
@@ -293,12 +381,17 @@ nos:
         marca: [mandato_decurso]
         vai_para: o_orcamento
       - id: licenca
-        rotulo: Flávio pede licença do cargo, e as faltas param de contar
+        rotulo: Flávio pede licença, e as faltas param de contar
         se: { tem: flavio_sem_preventiva }
         marca: [flavio_licenca]
         vai_para: o_orcamento
+      - id: volta_mandato
+        rotulo: Flávio volta ao Brasil para defender o mandato
+        se: { tem: flavio_sem_preventiva }
+        marca: [flavio_voltou]
+        vai_para: o_orcamento
       - id: bloqueia
-        rotulo: Moraes bloqueia os bens de Flávio
+        rotulo: Moraes bloqueia os bens que Flávio declarou
         se: { tem: flavio_preventiva }
         marca: [bens_bloqueados]
         vai_para: o_orcamento
@@ -306,6 +399,16 @@ nos:
         rotulo: Moraes nega o bloqueio de bens
         se: { tem: flavio_preventiva }
         marca: [bloqueio_negado]
+        vai_para: o_orcamento
+      - id: ouve_pgr
+        rotulo: Moraes ouve a Procuradoria e não decide este ano
+        se: { tem: flavio_preventiva }
+        marca: [bloqueio_adiado]
+        vai_para: o_orcamento
+      - id: volta_entrega
+        rotulo: Flávio volta ao Brasil e se entrega
+        se: { tem: flavio_preventiva }
+        marca: [flavio_voltou]
         vai_para: o_orcamento
 
   - id: o_suplente
@@ -326,7 +429,7 @@ nos:
     lugar: Brasília, Ministério da Fazenda, dezembro
     imagem: imagens/cap02/o_orcamento.webp
     texto:
-      - Enquanto a direita disputa a herança, o governo tem a própria conta. O Orçamento de 2027 precisa ser votado até o fim do ano.
+      - Enquanto a direita disputa a herança, o governo tem a própria conta. O Orçamento de 2027 está no Congresso.
       - Dario Durigan, o ministro da Fazenda, prometeu mirar o centro da meta das contas públicas. Só para cumprir o mínimo, faltam cerca de R$ 36 bilhões.
       - Os juros estão em 13,75%. Uns economistas dizem que é preciso cortar gastos para eles caírem. Outros, que são os próprios juros que fazem a dívida crescer.
       - Toda saída tem um preço, e parte dele cai sobre quem apoiou Lula.
@@ -361,27 +464,55 @@ nos:
           - https://www.congressoemfoco.com.br/noticia/121966/emendas-parlamentares-podem-chegar-a-r-57-5-bilhoes-em-2027
     lados:
       - Para o mercado e os economistas mais ortodoxos, sem um corte de gastos que convença, os juros não caem. Para os economistas heterodoxos, são os próprios juros que fazem a dívida crescer, e cortar gastos pode frear a economia.
-      - Para quem defende o ajuste, o caminho é rever benefícios fiscais de empresas e programas sociais que se sobrepõem, como o Bolsa Família e o abono salarial. No PT, mexer nesses programas é tabu, e a saída preferida é cobrar mais de quem ganha mais.
+      - Para quem defende o ajuste, o caminho é rever benefícios fiscais de empresas e programas sociais que se sobrepõem, como o Bolsa Família e o abono salarial. No PT, esses programas sustentam o voto que fez a virada, e a saída preferida é cobrar mais de quem ganha mais. Para os críticos, isso adia a conta.
     escolhas:
       - id: corta
         rotulo: Durigan corta gastos e mira o centro da meta
+        se: { nao_tem: flavio_voltou }
         marca: [ajuste_corte]
         vai_para: miami
       - id: adia
         rotulo: Lula segura os programas e adia o ajuste
+        se: { nao_tem: flavio_voltou }
         marca: [ajuste_adiado]
         vai_para: miami
       - id: taxa
         rotulo: O governo propõe cobrar mais imposto de quem ganha mais
+        se: { nao_tem: flavio_voltou }
         marca: [ajuste_imposto]
         vai_para: miami
+      - id: menor
+        rotulo: O Congresso aprova um ajuste menor, pago em emendas
+        se: { nao_tem: flavio_voltou }
+        marca: [ajuste_menor]
+        vai_para: miami
+      - id: corta_volta
+        rotulo: Durigan corta gastos e mira o centro da meta
+        se: { tem: flavio_voltou }
+        marca: [ajuste_corte]
+        vai_para: o_voo_de_volta
+      - id: adia_volta
+        rotulo: Lula segura os programas e adia o ajuste
+        se: { tem: flavio_voltou }
+        marca: [ajuste_adiado]
+        vai_para: o_voo_de_volta
+      - id: taxa_volta
+        rotulo: O governo propõe cobrar mais imposto de quem ganha mais
+        se: { tem: flavio_voltou }
+        marca: [ajuste_imposto]
+        vai_para: o_voo_de_volta
+      - id: menor_volta
+        rotulo: O Congresso aprova um ajuste menor, pago em emendas
+        se: { tem: flavio_voltou }
+        marca: [ajuste_menor]
+        vai_para: o_voo_de_volta
 
   - id: miami
     lugar: Miami, 14 de dezembro
     imagem: imagens/cap02/miami.webp
     texto:
       - O G20, encontro das maiores economias do mundo, acontece num clube de golfe de Trump. Na mesma cidade onde Flávio está.
-      - Xi Jinping, da China, também vem. O Brasil quer falar da taxa de 25% sobre seus produtos.
+      - Fala-se que Xi Jinping, da China, também pode vir. O Brasil quer falar da taxa de 25% sobre parte dos seus produtos.
       - Se Lula for e não falar com Trump, perde a viagem. Se falar, dá a Trump uma foto que ele vai usar como quiser. Se não for, deixa a cadeira vazia.
     # G20, Lula, Xi, minerais: pesquisa 10. Xi em Miami: só o CSIS confirmou a intenção (CNN.com e SCMP
     # não abriram), então ficou fora de fatos.
@@ -419,14 +550,18 @@ nos:
         rotulo: Lula vai e conversa com Trump
         marca: [lula_trump_miami]
         vai_para: a_conversa
+      - id: com_xi
+        rotulo: Lula vai, e a conversa que rende é com Xi
+        marca: [lula_xi_miami]
+        vai_para: a_conversa_com_xi
       - id: so_cupula
         rotulo: Lula vai, mas não conversa a sós com Trump
         marca: [lula_sem_trump]
-        vai_para: a_mesa
+        vai_para: a_moeda
       - id: nao_vai
         rotulo: Lula não vai e manda o ministro das Relações Exteriores
         marca: [lula_ausente_g20]
-        vai_para: a_mesa
+        vai_para: a_moeda
 
   - id: a_conversa
     lugar: Miami, um salão do clube
@@ -437,6 +572,18 @@ nos:
       - A oposição acusa Lula de pedir favor a quem acolhe o adversário. A base de Lula reclama do sorriso para quem chamou a eleição de fraude.
     segue: a_moeda
 
+  # Trump e Xi roubam a cena, e Lula fala com Xi (pesquisa 10, "Miami": média). Simulação.
+  - id: a_conversa_com_xi
+    lugar: Miami, um hotel perto do clube
+    imagem: imagens/cap02/a_conversa_com_xi.webp
+    texto:
+      - Trump e Xi tomam conta das fotos. Lula consegue meia hora com Xi num hotel do outro lado da rua.
+      - Falam de soja, de carros elétricos e de minerais. A China quer comprar mais. O Brasil quer vender sem escolher lado.
+      - Em Washington, a conversa é anotada. Para quem negocia a taxa, foi o recado errado na hora errada. Para o Itamaraty, foi o certo.
+    lados:
+      - Para o agro e a indústria que vendem à China, a conversa vale mais que a foto com Trump. Para quem quer a taxa americana derrubada, provocar Washington agora custa caro.
+    segue: a_moeda
+
   # Galho de baixa probabilidade (aposta): deportação, não extradição. O painel (roteiro/painel/juridico.md,
   # internacional.md) vê a extradição como quase impossível até 2029; a deportação é decisão política do governo
   # americano. A divisão na direita americana é real: críticos de "abrigar criminoso" contra influenciadores MAGA
@@ -445,8 +592,10 @@ nos:
     lugar: Washington, dezembro
     imagem: imagens/cap02/a_moeda.webp
     texto:
-      - Nas redes americanas, até na direita, cresce uma pergunta. Por que os Estados Unidos abrigam um político investigado em outro país?
-      - Parte dos aliados de Trump defende Flávio e repetem que a eleição foi roubada. Trump diz que a família é gente boa.
+      - Em Washington, uma pergunta começa a aparecer. Por que os Estados Unidos abrigam um político investigado em outro país?
+      - se: { tem: asilo_pedido }
+        texto: O pedido de asilo de Flávio está com o governo americano, e ainda não tem resposta.
+      - Aliados de Trump defendem Flávio. Trump diz que a família é gente boa.
       - Mas Trump também quer um acordo com o Brasil sobre minerais. E a autorização de Flávio pode ser cancelada a qualquer momento.
     # "Demora anos" (extradição) não achei em fonte; saiu. A divisão na direita americana (Axios) não abri: fica no comentário acima.
     fatos:
@@ -472,26 +621,38 @@ nos:
     lados:
       - Para os aliados de Flávio, ele é um perseguido político, e a proteção de Trump é questão de princípio. Para quem negocia com o Brasil em Washington, a família é uma carta que pode ser trocada por minerais e tarifas.
     escolhas:
+      - id: coleira
+        rotulo: Trump mantém Flávio, mas cobra silêncio
+        marca: [flavio_coleira]
+        vai_para: a_mesa
       - id: protege
-        rotulo: Trump mantém a proteção aos dois irmãos
+        rotulo: Trump mantém a autorização de Flávio
         marca: [eua_protege]
         vai_para: a_mesa
       - id: deporta
-        rotulo: Trump cancela a proteção e manda Flávio e Eduardo de volta
-        marca: [deportados]
+        rotulo: Trump cancela a proteção e manda os irmãos de volta
+        marca: [deportados, flavio_voltou]
         vai_para: o_voo_de_volta
 
+  # Trilho C, "A volta": Flávio no Brasil. Duas portas (Trump deporta, ou ele volta por conta própria).
+  # Não passa por a_mesa: com Flávio no país, dezembro é outro.
   - id: o_voo_de_volta
-    lugar: Brasília, aeroporto, fim de dezembro
+    lugar: Brasília, aeroporto, dezembro
     imagem: imagens/cap02/o_voo_de_volta.webp
     texto:
-      - O avião pousa de madrugada. A Polícia Federal espera na pista.
-      - Eduardo desce e é preso, porque já tinha mandado de prisão.
+      - se: { tem: deportados }
+        texto: O avião pousa de madrugada. A Polícia Federal espera na pista.
+        senao: Flávio avisa a hora do voo pelas redes. Quando o avião pousa, a pista tem câmeras e a Polícia Federal.
+      - se: { tem: deportados }
+        texto: Eduardo desce e é preso, porque já tinha mandado de prisão.
+        senao: Eduardo fica em Miami. Diz que o irmão foi corajoso, e que ele não vai.
       - se: { tem: flavio_preventiva }
-        texto: Flávio também é preso. A ordem de Moraes ainda valia.
+        texto: Flávio é preso na pista. A ordem de Moraes ainda valia.
         senao: Flávio desce livre. Não há ordem de prisão contra ele.
-      - Em Miami, os apoiadores chamam de traição de Trump. No Brasil, a direita ganha mártires e perde a base no exterior. E a oposição acusa Lula de ter trocado os dois por uma taxa menor.
-    # A volta é simulação; real é só o mandado de prisão de Eduardo.
+      - se: { tem: deportados }
+        texto: Em Miami, chamam de traição de Trump. A oposição acusa Lula de trocar os dois por uma taxa menor. O governo diz que não pediu a deportação.
+        senao: Em Miami, a família se divide sobre a volta. No Brasil, a direita ganha um rosto, e o governo, um problema que achava resolvido.
+    # A volta é simulação, pelas duas portas; real é só o mandado de prisão de Eduardo.
     fatos:
       - texto: Eduardo Bolsonaro tem mandado de prisão desde outubro de 2026, para cumprir a pena de 4 anos e 2 meses por coação no curso do processo.
         fontes:
@@ -502,26 +663,168 @@ nos:
         texto: Flávio volta sem mandato. A cadeira de senador já está com o suplente.
       - se: { tem: flavio_licenca }
         texto: Flávio volta ainda senador, de licença, até 31 de janeiro.
-      - O governo americano diz que a decisão é de imigração, não de política. A família e seus aliados leem como traição. No governo Lula, a resposta é que agora o caso é da Justiça brasileira.
-    segue: a_mesa
+      - se: { tem: deportados }
+        texto: O governo americano diz que a decisão é de imigração, não de política. A família e seus aliados leem como traição. No governo Lula, a resposta é que agora o caso é da Justiça brasileira.
+        senao: Para os aliados, voltar prova que ele não tem medo da Justiça. Para o PT, prova que em Miami ele não tinha mais para onde ir.
+    segue: a_custodia
+
+  - id: a_custodia
+    lugar: Brasília, Supremo Tribunal Federal
+    imagem: imagens/cap02/a_custodia.webp
+    texto:
+      - se: { tem: flavio_preventiva }
+        texto: No dia seguinte, a audiência de custódia. Moraes decide se Flávio continua preso.
+        senao: Flávio chega a Brasília livre. A ordem de entregar o passaporte continua valendo, e ele segue investigado em três inquéritos no Supremo.
+      - se: { tem: flavio_preventiva }
+        texto: A defesa diz que, no Brasil, ele não tem mais como fugir. Os deputados do PT que pediram a prisão dizem que fugir uma vez basta.
+        senao: Ele pode aparecer e falar todos os dias. Ou ficar em casa e deixar que os advogados falem por ele.
+      - se: { tem: mandato_cassado_faltas }
+        texto: O mandato ele já perdeu. A cadeira de senador está com o suplente.
+      - Do lado de fora, apoiadores com faixas e militantes do PT dividem a mesma calçada, separados pela polícia.
+    # Audiência de custódia: regra real (CNJ). O que Moraes decide é simulação.
+    fatos:
+      - texto: Pela regra do Conselho Nacional de Justiça, toda pessoa presa, também por mandado, deve ser levada a um juiz em até 24 horas, na audiência de custódia.
+        fontes:
+          - https://www.cnj.jus.br/wp-content/uploads/2019/04/resoluo-n213-15-12-2015-presidncia.pdf
+    lados:
+      - Para os aliados de Flávio, prender quem voltou por vontade própria, ou foi mandado de volta, é castigo e não cautela. Para quem pediu a prisão, ele só voltou porque ficou sem saída.
+    escolhas:
+      - id: mantem
+        rotulo: Moraes mantém a prisão
+        se: { tem: flavio_preventiva }
+        marca: [flavio_preso_no_brasil]
+        vai_para: a_rua
+      - id: tornozeleira
+        rotulo: Moraes troca a prisão por tornozeleira
+        se: { tem: flavio_preventiva }
+        marca: [tornozeleira]
+        vai_para: a_rua
+      - id: plenario
+        rotulo: Flávio volta ao plenário do Senado
+        se: { todas: [{ tem: flavio_sem_preventiva }, { nao_tem: mandato_cassado_faltas }] }
+        marca: [flavio_no_plenario]
+        vai_para: a_rua
+      - id: nas_ruas
+        rotulo: Flávio vai às redes e aos atos, todos os dias
+        se: { tem: flavio_sem_preventiva }
+        marca: [flavio_nas_ruas]
+        vai_para: a_rua
+      - id: recolhido
+        rotulo: Flávio fica em casa e fala pelos advogados
+        se: { tem: flavio_sem_preventiva }
+        marca: [flavio_recolhido]
+        vai_para: a_rua
+
+  - id: a_rua
+    lugar: Brasília, sede do PL
+    imagem: imagens/cap02/a_rua.webp
+    texto:
+      - se: { tem: flavio_preso_no_brasil }
+        texto: Com Flávio preso no Brasil, o PL tem um mártir e uma pergunta. O que fazer com ele?
+      - se: { tem: tornozeleira }
+        texto: Flávio está em casa, de tornozeleira, proibido de dar entrevistas. O PL fala por ele.
+      - se: { tem: flavio_no_plenario }
+        texto: Flávio volta ao plenário e discursa por vinte minutos. Metade do Senado sai da sala.
+      - se: { tem: flavio_recolhido }
+        texto: Flávio não aparece. A casa dele vira ponto de peregrinação de deputados do PL.
+      - se: { tem: flavio_nas_ruas }
+        texto: Flávio está em todo lugar. Faz live de manhã, ato à tarde e entrevista à noite.
+      - Nikolas pede calma. Valdemar pensa em fevereiro. Tarcísio diz que a Justiça tem de ser justa, e mais nada.
+      - No governo, a volta reabre o tema que o Planalto queria fechar. A anistia.
+    # Simulação: as reações. Real: Nikolas pediu em outubro que a base não fosse às ruas (pesquisa 10).
+    lados:
+      - Para o PL, Flávio no Brasil vale mais que Flávio em Miami, como bandeira ou como moeda. Para o governo, ele é um adversário que une a direita na hora errada.
+      - Para Tarcísio, um Flávio forte é concorrência. Um Flávio preso é um problema que ele não pode ignorar.
+    escolhas:
+      - id: ato
+        rotulo: O PL convoca um ato nacional pela anistia
+        marca: [ato_anistia]
+        vai_para: a_anistia_na_rua
+      - id: trunfo
+        rotulo: O PL usa Flávio para negociar com Alcolumbre
+        marca: [pl_usa_flavio]
+        vai_para: a_moeda_de_troca
+      - id: distancia
+        rotulo: O PL guarda distância de Flávio e espera fevereiro
+        marca: [pl_distancia_flavio]
+        vai_para: a_mesa
+
+  # Final D — a anistia vai para a rua.
+  - id: a_anistia_na_rua
+    lugar: Brasília, Esplanada dos Ministérios, fim de dezembro
+    imagem: imagens/cap02/a_anistia_na_rua.webp
+    texto:
+      - A Esplanada enche num domingo de dezembro. Cada lado conta a multidão de um jeito.
+      - se: { tem: flavio_preso_no_brasil }
+        texto: No carro de som, a foto de Flávio atrás das grades. O pedido é anistia para ele, para o pai e para os presos do 8 de janeiro.
+        senao: O pedido é anistia para Flávio, para o pai e para os presos do 8 de janeiro.
+      - Tarcísio não vai. Alcolumbre diz que o Senado não decide sob pressão.
+      - Para quem está no carro de som, anistia é pacificação. No PT, o ato prova que a democracia ainda está sob ameaça. No Centrão, que a anistia tem rua, e preço.
+    # Simulação: o ato, as falas e a resposta da esquerda. Real: Jair condenado e em domiciliar (fatos em a_herdeira).
+    lados:
+      - Para quem foi à rua, a anistia é pacificação. Para quem se opõe, é perdoar crimes contra a democracia que o Supremo já julgou.
+    escolhas:
+      - id: contra_ato
+        rotulo: Centrais e movimentos marcam um ato contra a anistia
+        marca: [contra_ato]
+        vai_para: o_domingo_seguinte
+      - id: base_em_casa
+        rotulo: Lula pede que a base não vá às ruas
+        marca: [base_em_casa]
+        vai_para: o_domingo_seguinte
+
+  # Final D2 — a resposta da esquerda à rua. Simulação.
+  - id: o_domingo_seguinte
+    lugar: Brasília e São Paulo, último domingo do ano
+    imagem: imagens/cap02/o_domingo_seguinte.webp
+    texto:
+      - se: { tem: contra_ato }
+        texto: No domingo seguinte, centrais sindicais e movimentos enchem a Avenida Paulista. Sem anistia, diz a faixa.
+        senao: Lula pede que a base não vá às ruas. Diz que a resposta vem nas urnas e na Justiça, não no grito.
+      - se: { tem: contra_ato }
+        texto: Agora são duas ruas, e cada lado conta a sua multidão. No Senado, a anistia fica mais cara, e mais difícil.
+        senao: A militância obedece, e reclama. Nas redes, a pergunta é por que só um lado pode ir à rua.
+      - Para o Centrão, duas ruas valem mais que uma. Cada lado agora precisa dele para ganhar em fevereiro.
+    lados:
+      - Para a esquerda, ocupar a rua mostra que a anistia não passa sem resistência. Para o governo, rua contra rua é o país que a eleição queria deixar para trás.
+
+  # Final E — Flávio vira moeda de troca.
+  - id: a_moeda_de_troca
+    lugar: Brasília, Senado Federal, fim de dezembro
+    imagem: imagens/cap02/a_moeda_de_troca.webp
+    texto:
+      - Valdemar leva a Alcolumbre uma proposta. Os votos do PL em fevereiro, em troca de o Senado pautar a anistia.
+      - se: { tem: flavio_preso_no_brasil }
+        texto: Flávio, preso, não participa da conversa.
+        senao: Flávio diz que ninguém negocia em nome dele.
+      - Alcolumbre ouve e não promete. No Planalto, a pergunta é se o Acordo agora inclui a família.
+      - A base do PL chama de rendição. A do PT, de traição. As duas falam da mesma conversa.
+    lados:
+      - Para Valdemar, trocar votos por pauta é fazer política com o que se tem. Para quem quer Flávio livre, a anistia não se negocia, se exige.
+      - Para Alcolumbre, pautar a anistia rende votos em fevereiro e briga com o Supremo depois.
 
   - id: a_mesa
     lugar: Brasília, última semana do ano
     imagem: imagens/cap02/a_mesa.webp
     texto:
-      - Faltam cinco semanas para a eleição do presidente do Senado. MDB, PSD, União e PP já apoiam Alcolumbre. O PL tem Marinho.
-      - se: { tem: deportados }
-        texto: Com a família de volta ao Brasil, o PL ganha uma causa e perde o comando de Miami.
+      - Faltam cinco semanas para a eleição do presidente do Senado. MDB, PSD e União apoiam Alcolumbre. O PP fechou com ele, mas Tereza Cristina negocia contra.
+      - se: { tem: pl_distancia_flavio }
+        texto: Flávio está no Brasil, e o PL finge que não. Cada voto de fevereiro vai ser medido contra ele.
       - se: { tem: stf_rejeitado }
         texto: Com a derrota no Supremo, ninguém sabe ao certo de quem Alcolumbre é aliado. Talvez nem ele.
       - O que for combinado agora vale por dois anos. Em 2029, Alcolumbre não pode mais se reeleger.
     # Os parágrafos de lados dependem das escolhas do jogador: são leituras simuladas, não fatos.
+    # Tereza Cristina e Marinho: RODADAS 29/10. PT sem apoio formal e Lira sem voto declarado: pesquisa 09.
     fatos:
       - texto: MDB e PSD declararam apoio à reeleição de Alcolumbre. Em 27 de outubro, União Brasil e PP anunciaram o mesmo.
         fontes:
           - https://ndmais.com.br/politica/davi-alcolumbre-mdb-senado-lira-senado/
           - https://gazetadoparana.com.br/publico/alcolumbre-apoio-uniao-brasil-pp-presidencia-senado-2027
           - https://www.gazetadopovo.com.br/republica/uniao-pp-contrariam-alianca-flavio-apoio-reeleicao-alcolumbre/
+      - texto: Os senadores Rogério Marinho, do PL, e Tereza Cristina, do PP, negociam uma candidatura única da oposição contra a reeleição de Alcolumbre.
+        fontes:
+          - https://www.infomoney.com.br/politica/alcolumbre-enfrenta-avanco-da-direita-e-disputa-pelo-controle-do-senado-em-2027/
+          - https://www.cnnbrasil.com.br/blogs/caio-junqueira/politica/tarcisio-projeta-lideranca-da-oposicao-e-candidatura-em-2030/
       - texto: Na carta divulgada dos Estados Unidos, Flávio chamou Rogério Marinho de "meu candidato à presidência do Senado".
         fontes:
           - https://www.metropoles.com/brasil/veja-integra-de-carta-assinada-por-flavio-bolsonaro-apos-fugir-do-brasil
@@ -531,20 +834,29 @@ nos:
           - https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
           - https://noticias.stf.jus.br/postsnoticias/stf-consolida-tese-sobre-eleicoes-para-mesas-das-assembleias-legislativas/
     lados:
+      - Para o PT, apoiar Alcolumbre garante dois anos de Senado previsível, e a base cobra o preço. Arthur Lira, eleito senador pelo PP, não diz em quem vota.
+      - se: { tem: oposicao_unida }
+        texto: Desde novembro, a oposição tem um nome só, Tereza Cristina. Falta saber se o voto secreto respeita o acordo.
+      - se: { tem: pl_espera }
+        texto: O PL esperou desde novembro. Nesse tempo, os senadores mais próximos de Alcolumbre já votam com ele nas comissões.
       - se: { tem: stf_aprovado }
         texto: Com a vaga do Supremo preenchida, Alcolumbre tem uma vitória para mostrar, e credores.
       - se: { tem: vaga_segurada }
         texto: A vaga do Supremo segue aberta, e entra na negociação de fevereiro como mais uma moeda.
+      - se: { tem: votacao_adiada }
+        texto: O indicado de Lula espera na gaveta de Alcolumbre. Quem votar com ele em fevereiro sabe que a sabatina vem depois.
       - se: { tem: mandato_cassado_faltas }
         texto: A cassação por faltas deixou o PL ressentido com Alcolumbre.
       - se: { tem: mandato_decurso }
         texto: Alcolumbre deixou o mandato de Flávio acabar sozinho. O PL leu isso como um gesto, e vai cobrar.
       - se: { tem: flavio_licenca }
         texto: A licença de Flávio mostrou ao Senado que o calendário não é só de Alcolumbre.
+      - se: { tem: tarcisio_lider }
+        texto: De São Paulo, Tarcísio liga para a bancada e pede um nome só contra Alcolumbre. Em Miami, a família lembra que os votos são de Bolsonaro.
       - se: { tem: michelle_lider }
         texto: Michelle chega à última reunião do ano como a voz da bancada. A primeira pergunta é sobre fevereiro.
       - se: { tem: direita_sem_dono }
-        texto: Sem dono, o PL decide o voto de fevereiro em assembleia. Cada senador tem um preço.
+        texto: Sem dono, o PL decide o voto de fevereiro em assembleia. Cada senador negocia o próprio voto.
       - se: { tem: eua_protege }
         texto: Em Miami, a proteção de Trump continua. A família segue mandando recados de longe.
     escolhas:
@@ -552,15 +864,118 @@ nos:
         rotulo: O PL fecha com Alcolumbre em troca de cargos
         marca: [acordo_fechado]
         vai_para: natal_do_acordo
-      - id: marinho
-        rotulo: O PL fica com Marinho e vai à disputa em fevereiro
+      - id: disputa
+        rotulo: A oposição leva a briga a fevereiro
+        se: { nao_tem: oposicao_unida }
         marca: [guerra_fevereiro]
         vai_para: guerra_de_fevereiro
+      - id: campanha
+        rotulo: A frente de Tereza Cristina sai atrás de cada voto
+        se: { tem: oposicao_unida }
+        vai_para: a_contagem
       - id: racha
         rotulo: O PL racha, metade com cada um
-        se: { qualquer: [{ tem: direita_sem_dono }, { tem: michelle_porta_voz }] }
         marca: [pl_rachado]
         vai_para: heranca_em_disputa
+      - id: sem_direita
+        rotulo: Alcolumbre fecha com o governo e isola o PL
+        marca: [senado_sem_a_direita]
+        vai_para: o_senado_sem_a_direita
+
+  # Trilho D, "A campanha": só para quem uniu a oposição no cap. 1 (oposicao_unida). Em vez de negociar,
+  # dezembro vira campanha pela presidência do Senado. Real: a negociação Marinho–Tereza Cristina e o apoio
+  # de Tarcísio (fatos em a_mesa); o que o PT quer em troca (Gleisi no TCU). O resto é simulação.
+  - id: a_contagem
+    lugar: Brasília, gabinete de Tereza Cristina, fim de dezembro
+    imagem: imagens/cap02/a_contagem.webp
+    texto:
+      - Tereza Cristina, a senadora do PP que a oposição escolheu, tem uma lista com os 81 senadores e três cores.
+      - O PL dá a base, se ninguém trair. O resto custa uma conversa por senador.
+      - se: { tem: tarcisio_lider }
+        texto: De São Paulo, Tarcísio liga para governadores e pede que cada um fale com os seus senadores.
+        senao: Sem um líder que fale por todos, cada senador da frente negocia o próprio apoio.
+      - Alcolumbre responde com o que tem na mão. Comissões, relatorias e a vice-presidência da Casa.
+    lados:
+      - Para a frente, um nome que conversa com o centro é a única chance de vencer no voto secreto. Para Alcolumbre, cada voto da frente tem preço, e ele sabe qual é.
+    segue: a_oferta
+
+  - id: a_oferta
+    lugar: Brasília, residência oficial do Senado
+    imagem: imagens/cap02/a_oferta.webp
+    texto:
+      - Alcolumbre chama Tereza Cristina para jantar. Oferece a vice-presidência do Senado e a comissão mais disputada.
+      - Em troca, ela sai da disputa, e o PP volta a ficar inteiro com ele.
+      - Para o PP, é cargo garantido sem risco. Para o PL, seria a frente desmontada num jantar.
+    lados:
+      - Para quem aceita, cargo na mão vale mais que vitória incerta. Para quem recusa, aceitar agora é provar que a frente sempre esteve à venda.
+    escolhas:
+      - id: recusa
+        rotulo: Tereza Cristina recusa e segue na disputa
+        marca: [tereza_recusa]
+        vai_para: o_lado_de_lula
+      - id: aceita
+        rotulo: Tereza Cristina aceita, e a frente acaba
+        marca: [tereza_aceita]
+        vai_para: a_frente_desfeita
+
+  - id: o_lado_de_lula
+    lugar: Brasília, Palácio do Planalto
+    imagem: imagens/cap02/o_lado_de_lula.webp
+    texto:
+      - No Planalto, a pergunta deixa de ser se Alcolumbre ganha. É quanto o governo vai gastar para ele ganhar.
+      - se: { todas: [{ tem: pacheco_indicado }, { tem: stf_aprovado }] }
+        texto: O PT quer Alcolumbre, mas cobra a vaga que Pacheco deixou no Tribunal de Contas para Gleisi Hoffmann.
+        senao: O PT quer Alcolumbre, mas cobra espaço no Senado e no governo em troca.
+      - Se a frente ganhar, o Senado terá uma presidente da oposição, eleita contra o governo.
+    fatos:
+      - se: { todas: [{ tem: pacheco_indicado }, { tem: stf_aprovado }] }
+        texto: Em 28 de outubro, a CNN e o Estado de Minas noticiaram que Lula avalia apoiar Gleisi Hoffmann para a vaga de Pacheco no Tribunal de Contas da União. Segundo a CNN, a bancada do PT apoia a ideia.
+        fontes:
+          - https://www.cnnbrasil.com.br/blogs/gustavo-uribe/politica/com-pacheco-no-stf-lula-avalia-gleisi-para-o-tcu/
+          - https://www.em.com.br/politica/2026/10/7529396-indicacao-de-rodrigo-pacheco-ao-stf-pode-levar-gleisi-para-o-tcu.html
+    lados:
+      - Para o governo, entrar com tudo garante dois anos de Senado previsível, e uma dívida de Alcolumbre. Ficar de fora poupa cargos e emendas, mas deixa a votação na mão do voto secreto.
+      - Para a oposição, um governo que entra na disputa prova que Alcolumbre é o candidato de Lula.
+    escolhas:
+      - id: tudo
+        rotulo: Lula entra com tudo por Alcolumbre
+        marca: [lula_por_alcolumbre]
+        vai_para: fevereiro_em_aberto
+      - id: cobra
+        rotulo: Lula apoia Alcolumbre e cobra o preço do PT
+        marca: [lula_cobra]
+        vai_para: fevereiro_em_aberto
+      - id: neutro
+        rotulo: Lula fica neutro e deixa o Senado decidir
+        marca: [lula_neutro]
+        vai_para: fevereiro_em_aberto
+
+  # Final F — a eleição mais disputada em anos.
+  - id: fevereiro_em_aberto
+    lugar: Brasília, fim de dezembro
+    imagem: imagens/cap02/fevereiro_em_aberto.webp
+    texto:
+      - O ano acaba sem favorito. Alcolumbre tem os partidos. Tereza tem a lista. O voto secreto tem a última palavra.
+      - se: { tem: lula_por_alcolumbre }
+        texto: O governo entrou com ministérios e emendas. Se Alcolumbre ganhar, deve a Lula. Se perder, Lula perde junto.
+      - se: { tem: lula_cobra }
+        texto: O governo apoia, mas com a conta na mesa. Alcolumbre sabe o que vai dever ao PT antes de ganhar.
+      - se: { tem: lula_neutro }
+        texto: Lula ficou de fora. Se Alcolumbre ganhar, não deve nada ao governo. Se perder, ninguém culpa o Planalto.
+      - Para a direita, é a primeira chance em anos de comandar o Senado. Para o governo, a primeira votação de 2027 vale o mandato inteiro.
+    lados:
+      - Para a frente, perder por pouco já mostra força para 2030. Para Alcolumbre, ganhar apertado é ganhar devendo a muita gente.
+
+  # Final G — a frente desfeita.
+  - id: a_frente_desfeita
+    lugar: Brasília, véspera de Natal
+    imagem: imagens/cap02/a_frente_desfeita.webp
+    texto:
+      - A foto do jantar sai no dia seguinte. A frente acaba no mesmo dia.
+      - O PL volta a ter Marinho, e só Marinho. Em Miami, a família lembra que nunca quis a frente.
+      - Alcolumbre garante a reeleição antes de fevereiro. Fica devendo ao PP, e lembra quem tentou.
+    lados:
+      - Para quem montou a frente, a lição é que no Senado o cargo vence o projeto. Para quem aceitou, a frente nunca teve os votos para vencer.
 
   # Final A — o Acordo fecha, com todas as partes pagando e recebendo.
   - id: natal_do_acordo
@@ -568,20 +983,108 @@ nos:
     imagem: imagens/cap02/natal_do_acordo.webp
     texto:
       - Ninguém assina nada. Existe uma lista de cargos, uma gaveta que não vai ser aberta e uma conta que cada um guarda de cabeça.
-      - O PL ganha cargos e larga Marinho. Alcolumbre ganha a reeleição e fica devendo a todos. Lula ganha um Senado calmo e engaveta o que a base dele pedia contra a família Bolsonaro.
-      - Em Miami, a família chama de traição. No PT, a militância chama de outra coisa, com a mesma raiva. As duas bases perderam a mesma noite.
+      - O PL ganha cargos e larga Marinho. Alcolumbre ganha a reeleição e fica devendo a todos. Lula ganha um Senado calmo e engaveta o pedido de que Flávio responda à Justiça.
+      - se: { tem: flavio_voltou }
+        texto: A família chama de traição. No PT, a militância chama de outra coisa, com a mesma raiva. As duas bases perderam a mesma noite.
+        senao: Em Miami, a família chama de traição. No PT, a militância chama de outra coisa, com a mesma raiva. As duas bases perderam a mesma noite.
+      - Falta uma peça. Alcolumbre quer que Lula dê a Jair um indulto humanitário, em nome da pacificação.
+    # Trilho E, "O indulto". Real: Alcolumbre considera liderar um movimento por indulto e anistia (CNN; Folha via Fórum).
+    # O pedido a Lula, a decisão e as reações são simulação.
+    fatos:
+      - texto: Segundo a CNN e a Folha de S.Paulo, Alcolumbre defende uma "pacificação" e considera liderar um movimento por indulto a Jair Bolsonaro e anistia aos condenados do 8 de janeiro. Nada foi anunciado.
+        fontes:
+          - https://www.cnnbrasil.com.br/blogs/caio-junqueira/politica/alcolumbre-defende-pacificacao-e-considera-indulto-a-bolsonaro-e-anistia/
+          - https://revistaforum.com.br/politica/alcolumbre-perdao-bolsonaro/
+      - texto: O indulto é um perdão de pena dado pelo presidente da República. Em maio de 2023, o Supremo anulou, por 8 votos a 2, o perdão que Bolsonaro tinha dado ao então deputado Daniel Silveira, por desvio de finalidade.
+        fontes:
+          - https://jovempan.com.br/politica/stf-conclui-julgamento-e-anula-indulto-de-bolsonaro-a-daniel-silveira/
+          - https://www.conjur.com.br/2023-mai-10/stf-confirma-anulacao-graca-concedida-bolsonaro-silveira//?print=1
     lados:
       - se: { tem: stf_aprovado }
         texto: O Supremo ganha a gaveta dos pedidos de impeachment de ministros, e paga aceitando um ministro que deve a cadeira ao Senado.
-      - se: { tem: deportados }
-        texto: Com Flávio e Eduardo no Brasil, o acordo também decide o que o Senado vai fazer quando a família pedir anistia.
+      - Para Alcolumbre, o indulto fecha a conta da direita e encerra a briga com o Supremo. Para a base de Lula, perdoar um condenado por tentativa de golpe desfaz o que a eleição defendeu.
+      - Para Jair e o PL, um perdão de Lula é saída e humilhação ao mesmo tempo.
+    escolhas:
+      - id: da_indulto
+        rotulo: Lula dá o indulto humanitário a Jair
+        marca: [indulto_dado]
+        vai_para: o_indulto
+      - id: recusa_indulto
+        rotulo: Lula recusa o indulto
+        marca: [indulto_recusado]
+        vai_para: a_anistia_no_congresso
+      - id: sem_resposta
+        rotulo: Lula não responde, e o preço fica para 2027
+        marca: [indulto_em_aberto]
+        vai_para: o_preco_em_aberto
+
+  - id: o_indulto
+    lugar: Brasília, Palácio do Planalto, véspera de Natal
+    imagem: imagens/cap02/o_indulto.webp
+    texto:
+      - Lula assina o indulto. Jair continua em casa, agora sem pena para cumprir.
+      - No PT, a militância que fez a virada vai para as redes. Parte da bancada diz que não foi consultada.
+      - No Supremo, ministros lembram que, em 2023, o tribunal anulou um perdão dado a um aliado político.
+      - No PL, a festa é discreta. Há quem agradeça a Lula, e quem diga que não pediu nada a ele.
+    lados:
+      - Para quem apoia, o indulto encerra um capítulo que dividia o país. Para quem critica, ele avisa que tentar um golpe tem perdão.
+    segue: a_paz_de_natal
+
+  # Final H — a paz de Natal: todos pagam.
+  - id: a_paz_de_natal
+    lugar: Brasília, Natal
+    imagem: imagens/cap02/a_paz_de_natal.webp
+    texto:
+      - Ninguém sai inteiro. Lula ganha o Senado e perde uma parte da própria base.
+      - Alcolumbre ganha a reeleição e um Supremo desconfiado. O PL ganha Jair livre e perde a bandeira da anistia.
+      - se: { tem: flavio_voltou }
+        texto: No Brasil, Flávio agradece ao pai, e não a Lula.
+        senao: Em Miami, Flávio agradece ao pai, e não a Lula.
+    lados:
+      - Para o governo, a paz custa caro, mas dá dois anos de Senado. Para a oposição, o perdão de Lula solta Jair sem reconhecer injustiça nenhuma, e a família queria revisão, não favor. Para a base de Lula, perdoar é admitir que havia o que perdoar.
+
+  # Final J — o preço em aberto: o desfecho mais provável pelo painel (P5). A revisão criminal é a via que a
+  # lente institucional aponta (painel, P5 e "Achados"); aqui é só simulação: advogados estudam.
+  - id: o_preco_em_aberto
+    lugar: Brasília, véspera de Natal
+    imagem: imagens/cap02/o_preco_em_aberto.webp
+    texto:
+      - Lula não diz sim nem não. O pedido fica na gaveta, junto com o resto do Acordo.
+      - Alcolumbre entende o recado. O Senado fica calmo até fevereiro, e o preço continua em aberto.
+      - Os advogados de Jair estudam outro caminho, pedir ao próprio Supremo que reveja a condenação.
+    lados:
+      - Para o governo, não responder evita perder a base agora. Para Alcolumbre e o PL, deixa Lula devendo uma resposta, e eles vão cobrar.
+
+  # Final I — o Acordo sem o perdão.
+  - id: a_anistia_no_congresso
+    lugar: Brasília, véspera de Natal
+    imagem: imagens/cap02/a_anistia_no_congresso.webp
+    texto:
+      - Lula diz não. Para ele, perdoar um condenado por tentativa de golpe não é pacificação.
+      - Alcolumbre lembra que há outro caminho, a anistia votada no Congresso. O Acordo fica de pé, com uma conta em aberto.
+      - O PL promete a anistia para fevereiro. O PT promete obstruir. No Supremo, o recado é que qualquer anistia vai parar lá.
+    lados:
+      - Para a base de Lula, recusar mantém a palavra da campanha. Para Alcolumbre e o PL, deixa a anistia, e a briga, para o Senado novo.
+
+  # Final K — o Senado sem a direita (pesquisa 00, Congresso: média; painel P2, "sem a direita" 30%).
+  - id: o_senado_sem_a_direita
+    lugar: Brasília, última semana do ano
+    imagem: imagens/cap02/o_senado_sem_a_direita.webp
+    texto:
+      - Alcolumbre não precisa do PL. Fecha com o governo, o PSD, o MDB e o Centrão, e deixa a maior bancada de fora.
+      - O PL fica sem cargos na Mesa, e com todos os motivos para obstruir em 2027.
+      - Lula ganha o Senado e paga com ministérios. A direita ganha uma bandeira, a de um Senado contra ela.
+    lados:
+      - Para o governo, um Senado sem o PL na Mesa é dois anos de pauta. Para o PL, ser deixado de fora junta a direita como nenhum líder conseguiu.
 
   # Final B — a briga vai para fevereiro.
   - id: guerra_de_fevereiro
     lugar: Brasília, fim de dezembro
     imagem: imagens/cap02/guerra_de_fevereiro.webp
     texto:
-      - O PL fica com Marinho e anuncia que vai disputar voto por voto. Precisa convencer treze senadores de fora do partido.
+      - se: { tem: oposicao_unida }
+        texto: A oposição vai com Tereza Cristina, e o PL abre mão de Marinho. Com parte do PP, faltam menos votos, mas ainda faltam.
+        senao: O PL fica com Marinho e anuncia que vai disputar voto por voto. Precisa convencer treze senadores de fora do partido.
       - Alcolumbre tem os partidos que já o apoiam, e a lembrança de que o voto é secreto para os dois lados.
       - Ganha a base do PL, que queria briga. Perde quem queria cargos, e perde Lula, que começa o mandato com a primeira votação valendo tudo.
     lados:
@@ -594,8 +1097,11 @@ nos:
     imagem: imagens/cap02/heranca_em_disputa.webp
     texto:
       - O PL termina o ano com duas listas de votos e nenhum dono. Metade promete Alcolumbre; metade, Marinho.
-      - Em Miami, a culpa é de quem ficou no Brasil. No Brasil, é de quem foi embora. Tarcísio não diz nada e aparece em todas as fotos.
-      - "Ganham Alcolumbre e Kassab. Perde a direita, com a maior bancada e a menor união. No governo, aliados de Lula temem outra coisa: sem um adversário claro, cada derrota de 2027 vai ser cobrada só do Planalto."
+      - se: { tem: tarcisio_lider }
+        texto: Em Miami, a culpa é de quem ficou no Brasil. No Brasil, é de quem foi embora. Tarcísio pediu um nome só e não foi ouvido.
+        senao: Em Miami, a culpa é de quem ficou no Brasil. No Brasil, é de quem foi embora. Tarcísio não diz nada e aparece em todas as fotos.
+      - Ganham Alcolumbre e Kassab. Perde a direita, com a maior bancada e a menor união.
+      - "No governo, aliados de Lula temem outra coisa: sem um adversário claro, cada derrota de 2027 vai ser cobrada só do Planalto."
 
 saidas:
   - para: FIM
