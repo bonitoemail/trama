@@ -50,7 +50,10 @@ Sem as variáveis do Supabase, o jogo funciona igual e só não registra as part
 
 ## Licença
 
-Tudo neste repositório (código, cenas, pesquisa, prompts e imagens) está sob a licença [Creative Commons Atribuição 4.0 Internacional (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/deed.pt-br). Você pode copiar, adaptar e usar, inclusive comercialmente, desde que dê o crédito ao Trama, com o link para este repositório, e diga se fez mudanças. O texto completo está em [`LICENSE`](LICENSE).
+São duas licenças, cada uma para uma parte:
+
+- **Código** (`src/`, `scripts/`, `supabase/`, os arquivos Python de `estilo/` e as configurações): [MIT](LICENSE). Pode usar, copiar e mudar à vontade, mantendo o aviso de copyright; vem sem garantia.
+- **Conteúdo** (cenas em `content/`, pesquisa, prompts, textos, imagens em `public/imagens/` e a documentação): [Creative Commons Atribuição 4.0 Internacional (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/deed.pt-br), texto completo em [`LICENSE-CONTEUDO`](LICENSE-CONTEUDO). Pode copiar, adaptar e usar, inclusive comercialmente, desde que dê o crédito ao Trama, com o link para este repositório, e diga se fez mudanças.
 
 As fontes citadas nos fatos continuam sendo dos veículos e órgãos que as publicaram; o Trama só aponta para elas.
 
