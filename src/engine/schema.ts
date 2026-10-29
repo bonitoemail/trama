@@ -32,10 +32,23 @@ export const TextoSchema = z.union([
   z.array(z.union([z.string(), TrechoCondicionalSchema])).min(1),
 ]);
 
+/**
+ * Fontes de um fato: links. Vale documento oficial (gov.br, jus.br, leg.br...) ou pelo menos duas
+ * fontes independentes, de linhas editoriais diferentes. O validador confere (validate.ts).
+ */
+export const FontesSchema = z.array(z.url()).min(1);
+
 /** A realidade decidiu este nó: a escolha fica travada como o que aconteceu (DESIGN 6.1). */
 export const RealSchema = z.strictObject({
   data: z.string(),
-  fonte: z.string().optional(),
+  fontes: FontesSchema,
+});
+
+/** Fato real citado numa cena ("Fatos e fontes"): o texto, as fontes e, se preciso, uma condição. */
+export const FatoDeCenaSchema = z.strictObject({
+  texto: z.string(),
+  fontes: FontesSchema,
+  se: CondicaoSchema.optional(),
 });
 
 export const EscolhaSchema = z.strictObject({
@@ -57,8 +70,10 @@ export const NoSchema = z.strictObject({
   imagem: z.string().optional(),
   /** Cada parágrafo vira um cartão (formato stories): curto, uma ideia por cartão. */
   texto: TextoSchema,
-  /** "Saiba mais": detalhe técnico e contexto, opcional, para quem quiser. */
-  detalhe: TextoSchema.optional(),
+  /** "Fatos e fontes", parte 1: o que aconteceu de verdade, cada fato com suas fontes. */
+  fatos: z.array(FatoDeCenaSchema).min(1).optional(),
+  /** "Fatos e fontes", parte 2: como cada lado vê. Posições e motivos, não fatos. */
+  lados: TextoSchema.optional(),
   escolhas: z.array(EscolhaSchema).optional(),
   /** Nó só de texto: segue direto para outro nó. */
   segue: z.string().optional(),
@@ -93,7 +108,7 @@ export const FatoSchema = z.strictObject({
   /** Manchete curta (uma linha) para a lista de fatos; o texto abre ao tocar. */
   titulo: z.string().optional(),
   texto: z.string(),
-  fonte: z.string().optional(),
+  fontes: FontesSchema,
 });
 
 /** Tela inicial: o que é o jogo e como funciona, em poucos passos. */

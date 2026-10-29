@@ -10,6 +10,7 @@ import {
   vale,
 } from './engine';
 import { dataCurta, falta, isoDoFato, regua } from './calendario';
+import { problemasDasFontes, veiculo } from './fontes';
 import { contarCaminhos, linhaDoTempo } from './historia';
 import { carregarJogo } from './load';
 import { JogoSchema, type Jogo } from './schema';
@@ -20,7 +21,7 @@ function jogoMinimo(over: Partial<Jogo> = {}): Jogo {
     versao: 't',
     titulo: 'T',
     aviso: 'a',
-    prologo: [{ data: 'd', texto: 'x' }],
+    prologo: [{ data: 'd', texto: 'x', fontes: ['https://www.tse.jus.br/'] }],
     primeiro_capitulo: 'c1',
     epilogo: { id: 'e', titulo: 'E', texto: 'fim' },
     capitulos: [
@@ -113,7 +114,7 @@ describe('motor', () => {
 describe('trava de escolha real', () => {
   function jogoTravado() {
     const j = jogoMinimo();
-    j.capitulos[0].nos[0].escolhas![1].real = { data: '03/11/2026' };
+    j.capitulos[0].nos[0].escolhas![1].real = { data: '03/11/2026', fontes: ['https://www.tse.jus.br/'] };
     return j;
   }
 
@@ -138,7 +139,7 @@ describe('trava de escolha real', () => {
 
   it('recusa duas escolhas reais no mesmo nó', () => {
     const j = jogoTravado();
-    j.capitulos[0].nos[0].escolhas![0].real = { data: '04/11/2026' };
+    j.capitulos[0].nos[0].escolhas![0].real = { data: '04/11/2026', fontes: ['https://www.tse.jus.br/'] };
     expect(validar(j).erros.some((e) => e.includes('mais de uma'))).toBe(true);
   });
 });
@@ -222,7 +223,7 @@ describe('régua da capa', () => {
     const r = regua(j);
     expect(r).not.toBeNull();
     expect(r!.marcos.every((m) => m.data > r!.agora)).toBe(true);
-    const adiante = { ...j, prologo: [...j.prologo, { data: '10 de novembro de 2026', texto: 'x' }] };
+    const adiante = { ...j, prologo: [...j.prologo, { data: '10 de novembro de 2026', texto: 'x', fontes: ['https://www.tse.jus.br/'] }] };
     expect(regua(adiante)!.marcos.some((m) => m.nome === 'Eleição nos EUA')).toBe(false);
   });
 });
@@ -235,5 +236,18 @@ describe('endereços das telas', () => {
     expect(telaDoCaminho('/como-fazemos/')).toBe('metodo');
     expect(telaDoCaminho('/partida')).toBe('partida');
     expect(telaDoCaminho('/qualquer')).toBe('capa');
+  });
+});
+
+describe('regra das fontes', () => {
+  it('aceita documento oficial ou dois veículos diferentes', () => {
+    expect(problemasDasFontes(['https://www.tse.jus.br/x'])).toEqual([]);
+    expect(problemasDasFontes(['https://www.metropoles.com/a', 'https://www.gazetadopovo.com.br/b'])).toEqual([]);
+  });
+  it('recusa fonte única, o mesmo veículo duas vezes e a Wikipédia', () => {
+    expect(problemasDasFontes(['https://www.metropoles.com/a'])).toHaveLength(1);
+    expect(problemasDasFontes(['https://g1.globo.com/a', 'https://oglobo.globo.com/b'])).toHaveLength(1);
+    expect(problemasDasFontes(['https://pt.wikipedia.org/a', 'https://www.metropoles.com/b'])).toHaveLength(2);
+    expect(veiculo('https://noticias.uol.com.br/x')).toBe('uol.com.br');
   });
 });

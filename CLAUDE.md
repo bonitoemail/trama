@@ -20,8 +20,8 @@ Next.js 16 (App Router) · React 19 · TypeScript 5 (estrito) · Zod 4 · YAML �
 - `public/imagens/<cap>/<no>.webp`: imagens publicadas.
 
 ## Conceitos do conteúdo
-- **Nó**: `texto` + `escolhas`, ou `segue` (nó só de texto), ou nenhum dos dois (fim do capítulo). `imagem` opcional.
-- **Escolha**: `rotulo`, `marca`, `vai_para`, `se`, e `real: { data, fonte }` quando a realidade decidiu (as outras ficam travadas).
+- **Nó**: `texto` + `escolhas`, ou `segue` (nó só de texto), ou nenhum dos dois (fim do capítulo). `imagem` opcional. "Fatos e fontes" (o antigo "saiba mais"): `fatos` (`{ texto, fontes, se? }`, o que aconteceu de verdade) e `lados` (posições de cada lado, sem fonte, regra do par).
+- **Escolha**: `rotulo`, `marca`, `vai_para`, `se`, e `real: { data, fontes }` quando a realidade decidiu (as outras ficam travadas).
 - **Marca**: string, só "tem/não tem". Memória invisível da história. Toda marca precisa ser usada em alguma condição.
 - **Texto condicional**: lista de parágrafos; item `{se, texto, senao?}`.
 - **Tipo de cena** (inferido): primeira do capítulo = abertura; com escolha = decisão; sem escolha e `segue` = consequência (despacho com eco da escolha); sem escolha e sem `segue` = final.
@@ -37,7 +37,7 @@ npm run build      # falha se o conteúdo tiver erro
 
 ## Regras
 - **Equilíbrio (DESIGN.md 8 e 8.1)**: motivo e interesse para todos os lados, nenhuma escolha sem custo, regra do par, narrador sem piada, boato só como boato, mesma regra de nome, sem crime atribuído a pessoa real.
-- Fato real novo → prólogo ou trava, com data e fonte (duas fontes independentes, ou documento oficial).
+- Fato real novo → prólogo ou trava, com data e `fontes`. **Regra das fontes** (validador cobra em `src/engine/fontes.ts`; detalhe na skill): documento oficial, ou pelo menos duas fontes de veículos diferentes e, sempre que der, de linhas editoriais diferentes. Wikipédia não conta. Cada link aberto e conferido. Nunca escreva rótulo de "direita"/"esquerda" de veículo no conteúdo.
 - Suba `versao` em `content/jogo.yaml` quando um nó for removido ou renomeado (descarta partidas salvas antigas).
 - Ao mudar conteúdo: `npm run validate` sem erros; ao mudar imagens: `npm run estado` sem imagens órfãs.
 - Testar no navegador pode usar a aba e a partida do usuário.

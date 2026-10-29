@@ -1,6 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { dominio } from '@/engine/fontes';
+
+/** Fato real da cena, já filtrado pelas marcas. */
+export interface FatoDaCena {
+  texto: string;
+  fontes: string[];
+}
 
 interface Props {
   /** Cada texto é um cartão. */
@@ -10,8 +17,10 @@ interface Props {
   topo?: React.ReactNode;
   /** Conteúdo extra do primeiro cartão, abaixo da imagem (ex.: título do capítulo). */
   abertura?: React.ReactNode;
-  /** "Saiba mais": parágrafos opcionais, abertos só por quem quiser. */
-  detalhe?: string[];
+  /** "Fatos e fontes", parte 1: o que aconteceu de verdade, com as fontes. */
+  fatos?: FatoDaCena[];
+  /** "Fatos e fontes", parte 2: como cada lado vê (posições, não fatos). */
+  lados?: string[];
   /** Escolhas ou botão de seguir: aparecem só no último cartão. */
   children: React.ReactNode;
 }
@@ -20,11 +29,12 @@ interface Props {
  * Leitura em formato stories: um cartão por vez, toque à direita avança, à esquerda volta.
  * O estado reinicia quando o componente é remontado (a cena usa `key` por nó).
  */
-export default function Cartoes({ textos, imagem, topo, abertura, detalhe, children }: Props) {
+export default function Cartoes({ textos, imagem, topo, abertura, fatos, lados, children }: Props) {
   const total = Math.max(1, textos.length);
   const [i, setI] = useState(0);
   const [aberto, setAberto] = useState(false);
   const ultimo = i === total - 1;
+  const temFontes = Boolean(fatos?.length || lados?.length);
 
   const avancar = () => setI((x) => Math.min(total - 1, x + 1));
   const voltar = () => setI((x) => Math.max(0, x - 1));
@@ -85,25 +95,56 @@ export default function Cartoes({ textos, imagem, topo, abertura, detalhe, child
 
       {ultimo && (
         <div className="fim-cartoes">
-          {(i > 0 || (detalhe && detalhe.length > 0)) && (
+          {(i > 0 || temFontes) && (
             <div className="apoio">
               {i > 0 && (
                 <button type="button" className="voltar-cartao" onClick={voltar}>
                   ← voltar
                 </button>
               )}
-              {detalhe && detalhe.length > 0 && (
-                <button type="button" className="saiba-botao" onClick={() => setAberto((a) => !a)}>
-                  {aberto ? 'fechar' : 'saiba mais'}
+              {temFontes && (
+                <button type="button" className="saiba-botao" aria-expanded={aberto} onClick={() => setAberto((a) => !a)}>
+                  {aberto ? 'fechar' : 'fatos e fontes'}
                 </button>
               )}
             </div>
           )}
-          {aberto && detalhe && (
+          {aberto && temFontes && (
+            // Separa o que é fato (com fonte) do que é leitura de cada lado, e diz o que é simulação.
             <div className="saiba">
-              {detalhe.map((d, k) => (
-                <p key={k}>{d}</p>
-              ))}
+              {fatos && fatos.length > 0 && (
+                <section>
+                  <p className="saiba-rotulo">O que aconteceu</p>
+                  <ul className="saiba-fatos">
+                    {fatos.map((f, k) => (
+                      <li key={k}>
+                        <p>{f.texto}</p>
+                        <p className="saiba-fontes">
+                          {f.fontes.map((u) => (
+                            <a key={u} href={u} target="_blank" rel="noreferrer">
+                              {dominio(u)}
+                            </a>
+                          ))}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+              {lados && lados.length > 0 && (
+                <section>
+                  <p className="saiba-rotulo">Como cada lado vê</p>
+                  {lados.map((d, k) => (
+                    <p key={k} className="saiba-lado">
+                      {d}
+                    </p>
+                  ))}
+                </section>
+              )}
+              <p className="saiba-nota">
+                A cena é simulação. Os fatos acima são reais: cada um tem documento oficial ou duas fontes independentes, de linhas
+                editoriais diferentes.
+              </p>
             </div>
           )}
           {children}

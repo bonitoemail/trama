@@ -692,7 +692,13 @@ body:has(.cena-final) {
   background: rgba(29, 27, 24, 0.06);
   border-color: var(--tinta);
 }
+/* "Fatos e fontes" (Cartoes.tsx): o que aconteceu, com fontes; depois, como cada lado vê. */
 .saiba {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.saiba section {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -703,11 +709,54 @@ body:has(.cena-final) {
   font-size: 14px;
   line-height: 1.55;
   color: var(--texto-2);
+}
+.saiba .saiba-rotulo {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--texto-3);
+}
+.saiba-fatos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.saiba-fatos li p:first-child {
+  color: var(--texto);
+}
+.saiba .saiba-fontes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 4px;
+  font-size: 12px;
+}
+.saiba-fontes a {
+  color: var(--texto-2);
+  text-decoration: underline;
+  text-decoration-color: var(--linha);
+  text-underline-offset: 3px;
+}
+.saiba-fontes a:hover {
+  color: var(--texto);
+}
+.saiba .saiba-lado {
   border-left: 2px solid var(--linha);
   padding-left: 12px;
 }
-.despacho .saiba p {
+.saiba .saiba-nota {
+  font-size: 12px;
+  color: var(--texto-3);
+}
+.despacho .saiba p,
+.despacho .saiba-fontes a,
+.despacho .saiba-fatos li p:first-child {
   color: var(--tinta-2);
+}
+.despacho .saiba .saiba-lado {
   border-left-color: rgba(29, 27, 24, 0.2);
 }
 

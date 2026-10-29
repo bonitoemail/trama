@@ -1,5 +1,6 @@
 # Capítulo 1 — A carta
-# Linguagem simples (DESIGN.md 8.2): cada parágrafo de `texto` é um cartão; o técnico vai em `detalhe`.
+# Linguagem simples (DESIGN.md 8.2): cada parágrafo de `texto` é um cartão; o que aconteceu de verdade
+# vai em `fatos` (com fontes) e as posições de cada lado vão em `lados`.
 # Fatos: pesquisa/00-sintese.md, 01, 03, 06, 07, 09, 10 e RODADAS.md. Equilíbrio: DESIGN.md 8.1.
 # Íntegra da carta (1ª versão): https://www.metropoles.com/brasil/veja-integra-de-carta-assinada-por-flavio-bolsonaro-apos-fugir-do-brasil
 # Candidatas a trava (pesquisa/relogios.yaml): pedido, itamaraty, a_rota, eleicao_eua, o_exilio, pl.
@@ -19,20 +20,42 @@ nos:
       - Ele entrou nos Estados Unidos com uma autorização de um ano para ficar. Não é asilo político.
       - Na mesma noite, publicou uma carta dizendo que era o verdadeiro presidente. Horas depois, trocou a palavra por "líder do Brasil".
       - A carta fala em fraude, sem provas. E aponta Rogério Marinho como seu candidato para comandar o Senado.
-    # Parole: Metrópoles/Folha (pesquisa 07). Prorrogação e votos após as 17h: pesquisa 03 e 06. Três versões da carta: pesquisa 10.
-    # Proibição de sair do país (25–26/10): Gazeta do Povo e Congresso em Foco (pesquisa 04).
+    # Parole: pesquisa 07. Prorrogação e votos após as 17h: pesquisa 03 e 06. Três versões da carta: pesquisa 10.
+    # Outras fontes da pesquisa (04 e 05), não usadas nos fatos:
     #   https://www.gazetadopovo.com.br/republica/moraes-ordena-cancelamento-de-passaporte-de-flavio-bolsonaro-apos-eleicoes/
-    #   https://www.congressoemfoco.com.br/noticia/123352/flavio-e-alvo-de-inquerito-na-pf-por-suspeita-de-lavagem-de-dinheiro
-    # Três inquéritos: CNN 27/10 e Metrópoles 25/10 (pesquisa 09).
-    #   https://www.cnnbrasil.com.br/politica/inqueritos-contra-flavio-podem-continuar-no-stf-mesmo-com-perda-de-foro/
-    #   https://www.metropoles.com/brasil/flavio-perde-eleicao-o-que-muda-nos-inqueritos-contra-ele
-    # Margem de ~4,4 milhões e ~35 mil votos após as 17h: Aos Fatos e Al Jazeera (pesquisa 04 e 05).
     #   https://www.aosfatos.org/noticias/derrotado-flavio-mente-sugerir-eleicao-fraudada/
     #   https://www.aljazeera.com/news/2026/10/27/bolsonaros-party-accepts-result-after-trump-suggests-vote-was
-    detalhe:
-      - A autorização é humanitária (parole) e vale até outubro de 2027, segundo registros vistos pela imprensa. A Polícia Federal diz que Flávio não é foragido. Ele é investigado em três inquéritos no Supremo, sem denúncia. Os casos tratam de suspeita de lavagem de dinheiro com apostas, ligada ao advogado Willer Tomaz, do financiamento do filme sobre o pai e de calúnia contra Lula. Flávio nega e chama os casos de fake news.
-      - O fato real que a carta usa é a prorrogação do horário de votação, decidida pelo ministro Zanin a pedido da campanha de Lula. A campanha de Flávio também tinha pedido prorrogações. Depois das 17h votaram cerca de 35 mil pessoas. A diferença final entre os dois foi de cerca de 4,4 milhões de votos.
-      - Fontes do PL disseram que o partido não tem relação com a carta. Valdemar Costa Neto, presidente do partido, tinha reconhecido o resultado em 26 de outubro.
+    fatos:
+      - texto: Flávio entrou nos Estados Unidos com uma autorização temporária (parole), que pode ser dada por razões humanitárias e vale até 27 de outubro de 2027, segundo registros da alfândega americana vistos pela imprensa. Não é asilo.
+        fontes:
+          - https://www.metropoles.com/colunas/igor-gadelha/flavio-entrou-nos-eua-com-autorizacao-humanitaria-de-1-ano-de-permanencia
+          - https://jornaldebrasilia.com.br/noticias/politica-e-poder/flavio-bolsonaro-chega-aos-eua-com-status-que-permite-ficar-1-ano/
+          - https://ndmais.com.br/politica/flavio-bolsonaro-recebe-autorizacao-para-ficar-um-ano-nos-eua/
+      - texto: A Polícia Federal disse, em nota, que descumprir a restrição aos passaportes não caracteriza a condição de foragido nem autoriza a prisão.
+        fontes:
+          - https://www.gazetadopovo.com.br/republica/pf-viagem-flavio-eua-nao-caracteriza-fuga-nem-prisao/
+          - https://www.poder360.com.br/poder-justica/decisao-de-moraes-nao-autorizava-prisao-de-flavio-diz-pf/
+      - texto: Flávio é investigado em três inquéritos no Supremo, sem denúncia. Um trata de suspeita de lavagem de dinheiro ligada ao advogado Willer Tomaz e a apostas; outro, do financiamento do filme sobre o pai; o terceiro, de calúnia contra Lula. Flávio nega irregularidades.
+        fontes:
+          - https://www.cnnbrasil.com.br/politica/inqueritos-contra-flavio-podem-continuar-no-stf-mesmo-com-perda-de-foro/
+          - https://www.metropoles.com/brasil/flavio-perde-eleicao-o-que-muda-nos-inqueritos-contra-ele
+          - https://www.congressoemfoco.com.br/noticia/123352/flavio-e-alvo-de-inquerito-na-pf-por-suspeita-de-lavagem-de-dinheiro
+      - texto: Logo depois da eleição, Moraes proibiu Flávio de sair do país e mandou entregar os passaportes.
+        fontes:
+          - https://www.gazetadopovo.com.br/republica/flavio-bolsonaro-tem-passaportes-apreendidos-e-esta-proibido-de-deixar-o-pais/
+          - https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/moraes-manda-flavio-entregar-passaporte-e-o-proibe-de-deixar-o-pais
+      - texto: O fato real que a carta usa é a prorrogação do horário de votação até as 19h, decidida pelo ministro Cristiano Zanin a pedido da campanha de Lula. A medida veio depois de as duas campanhas relatarem problemas no dia da votação.
+        fontes:
+          - https://www.tse.jus.br/comunicacao/noticias/2026/Outubro/eleicoes-2026-mais-de-34-mil-votos-foram-registrados-apos-as-17h-no-2o-turno
+          - https://www.poder360.com.br/poder-eleicoes-2026/zanin-prorroga-votacao-do-2o-turno-ate-19h/
+      - texto: Depois das 17h votaram cerca de 34 mil pessoas. A diferença final entre os dois foi de cerca de 4,4 milhões de votos.
+        fontes:
+          - https://www.tse.jus.br/comunicacao/noticias/2026/Outubro/eleicoes-2026-mais-de-34-mil-votos-foram-registrados-apos-as-17h-no-2o-turno
+          - https://www.tse.jus.br/comunicacao/noticias/2026/Outubro/presidente-do-tse-anuncia-reeleicao-de-lula-e-faz-balanco-do-2o-turno-das-eleicoes-2026
+      - texto: Valdemar Costa Neto, presidente do PL, reconheceu o resultado em nota de 26 de outubro, e cobrou esclarecimentos sobre os gastos do governo perto da votação.
+        fontes:
+          - https://agenciabrasil.ebc.com.br/politica/noticia/2026-10/partido-de-flavio-pl-reconhece-vitoria-de-lula-nas-eleicoes
+          - https://oantagonista.com.br/brasil/pl-reconhece-vitoria-de-lula-mas-reforca-duvidas-sobre-eleicao/
     segue: pedido
 
   - id: pedido
@@ -43,16 +66,35 @@ nos:
       - Os aliados dele dizem que é perseguição política. A Polícia Federal diz que ele não é foragido.
       - Quem decide é Alexandre de Moraes, o ministro do Supremo que cuida do caso.
       - Prender pode transformar Flávio em mártir. Não prender pode passar a ideia de que a lei não vale para ele.
-    # Pedidos do PT e do PSOL: pesquisa 03 e 06. Marinho: O Antagonista / Gazeta do Povo. PGR em off: CNN, 28/10.
-    # Crítica ao inquérito de ofício (Raquel Dodge, 2019) e defesa de Moraes ("acerto histórico", 2023):
-    #   https://www.poder360.com.br/justica/inquerito-aberto-para-investigar-fake-news-ao-stf-vai-continuar-diz-moraes/
+    fatos:
+      - texto: Os deputados do PT Lindbergh Farias, Rogério Correia e Ana Elisa Santos pediram a Moraes a prisão preventiva de Flávio e o nome dele no alerta vermelho da Interpol, por ter descumprido a ordem sobre os passaportes.
+        fontes:
+          - https://www.poder360.com.br/poder-congresso/pt-pede-prisao-de-flavio-bolsonaro-e-alerta-vermelho-da-interpol/
+          - https://www.gazetadopovo.com.br/republica/pt-pede-prisao-preventiva-de-flavio-bolsonaro-e-inclusao-na-difusao-vermelha-da-interpol/
+      - texto: Deputados do PT também pediram ao Supremo o bloqueio de até R$ 6 bilhões em bens de Flávio.
+        fontes:
+          - https://www.metropoles.com/colunas/neila-guimaraes/pt-pede-bloqueio-de-ate-r-6-bilhoes-de-flavio-bolsonaro
+          - https://timesbrasil.com.br/brasil/pt-pede-ao-stf-bloqueio-de-ate-r-6-bilhoes-em-bens-de-flavio-bolsonaro/
+      - texto: Parlamentares do PSOL pediram ao Senado que avalie suspender o salário de Flávio e, se houver base legal, declarar a perda do mandato.
+        fontes:
+          - https://brasil.perfil.com/politica/flavio-bolsonaro-e-alvo-de-pedido-de-perda-de-mandato-e-corte-de-salario-apos-viagem-aos-eua.phtml
+          - https://tribunadoplanalto.com.br/?p=116271
+      - texto: Rogério Marinho questionou o momento das medidas contra Flávio, pedidas pela Polícia Federal logo depois da proclamação do resultado.
+        fontes:
+          - https://oantagonista.com.br/brasil/rogerio-marinho-diz-que-nao-foi-avisado-sobre-saida-de-flavio-do-pais/
+          - https://www.gazetadopovo.com.br/republica/rogerio-marinho-cita-surpresa-com-viagem-de-flavio-e-questiona-medidas-de-moraes/
+      - texto: Em 2019, a então procuradora-geral Raquel Dodge mandou arquivar o inquérito das fake news, aberto pelo próprio Supremo. Disse que só o Ministério Público pode acusar. Moraes, relator, manteve o inquérito.
+        fontes:
+          - https://www.poder360.com.br/justica/inquerito-aberto-para-investigar-fake-news-ao-stf-vai-continuar-diz-moraes/
+          - https://www.metropoles.com/brasil/justica/raquel-dodge-arquiva-inquerito-de-fake-news-e-ofensas-contra-stf
+    # Defesa de Moraes ("acerto histórico", 2023), só uma fonte; ficou como posição em `lados`:
     #   https://www.opovo.com.br/noticias/politica/2023/03/31/alexandre-diz-que-inquerito-das-fake-news-foi-acerto-historico-do-stf.html
-    detalhe:
-      - O PT também pediu o bloqueio de até R$ 6 bilhões em bens de Flávio, e o PSOL pediu ao Senado a perda do mandato. Para a esquerda, prender mostraria que a lei vale para todos, e manter Flávio no noticiário também rende votos. Para o PL, cada pedido do PT reforça a história da perseguição, que também mobiliza a base.
-      - Rogério Marinho disse que o momento das medidas contra Flávio era uma coincidência que precisa ser analisada.
+    # PGR em reserva ("precipitada"): só a CNN apurou, os outros reproduzem; fora dos fatos.
+    #   https://www.cnnbrasil.com.br/blogs/taina-falcao/politica/decisao-de-moraes-contra-flavio-gera-criticas-na-cupula-da-pgr/
+    lados:
+      - Para a esquerda, prender mostraria que a lei vale para todos, e manter Flávio no noticiário também rende votos. Para o PL, cada pedido do PT reforça a história da perseguição, que também mobiliza a base.
       - Para Moraes, decidir rápido reforça a autoridade do Supremo no caso. Recuar pode ser lido como fraqueza, e prender, como pressa.
-      - Críticos do Supremo lembram o inquérito das fake news, aberto pelo próprio tribunal em 2019. Dizem que o STF não pode investigar e julgar no mesmo caso. Moraes chama aquele inquérito de acerto histórico, em defesa da democracia.
-      - Integrantes da Procuradoria-Geral disseram a jornalistas, em reserva, que a apreensão do passaporte foi precipitada, mas que a saída do país abre caminho para a prisão.
+      - Críticos do Supremo lembram o inquérito das fake news e dizem que o tribunal não pode investigar e julgar no mesmo caso. Para Moraes e quem o defende, aquele inquérito protegeu o tribunal e a democracia.
     escolhas:
       - id: preventiva
         rotulo: Moraes manda prender Flávio
@@ -75,8 +117,16 @@ nos:
       - A primeira versão da carta dizia que não havia ordem de prisão contra ele. A ordem saiu dias depois.
       - Ele grava um vídeo de Miami. Diz que é perseguido e que continua sendo o líder do Brasil.
     # "não existe nenhum mandado de prisão contra mim": 1ª versão da carta.
-    detalhe:
-      - O alerta da Interpol é um pedido, não uma ordem. Cada país decide o que fazer com ele. Eduardo Bolsonaro, condenado e com mandado de prisão no Brasil, vive nos Estados Unidos desde 2025.
+    fatos:
+      - texto: O alerta vermelho da Interpol é um pedido, não uma ordem de prisão internacional. Cada país decide, pelas próprias leis, se prende ou não.
+        fontes:
+          - https://www.congressoemfoco.com.br/noticia/109168/o-que-e-o-alerta-vermelho-da-interpol-contra-carla-zambelli
+          - https://www.brasilparalelo.com.br/noticias/alerta-vermelho-da-interpol-os-paises-sao-obrigados-a-prender-procurados
+      - texto: Eduardo Bolsonaro, condenado pelo Supremo por coação no curso do processo e com mandado de prisão no Brasil, vive nos Estados Unidos desde 2025.
+        fontes:
+          - https://agenciabrasil.ebc.com.br/justica/noticia/2026-10/moraes-determina-emissao-de-mandado-de-prisao-contra-eduardo-bolsonaro
+          - https://www.brasildefato.com.br/2026/10/08/stf-determina-prisao-cancelamento-de-passaportes-e-perda-de-cargo-de-eduardo-bolsonaro/
+          - https://www.gazetadopovo.com.br/republica/moraes-manda-iniciar-cumprimento-pena-eduardo-bolsonaro/
     segue: itamaraty
 
   - id: o_prazo
@@ -86,9 +136,15 @@ nos:
       - Sem prisão, o relógio que importa é outro. Senador que falta demais pode perder o cargo.
       - As faltas de Flávio chegam ao limite em dezembro. Quem comanda esse processo é Davi Alcolumbre, o presidente do Senado.
       - Alcolumbre quer ser reeleito presidente do Senado em fevereiro. E a carta de Flávio apoiou o rival dele.
-    # Data estimada (~17/12): Diario de Pernambuco (pesquisa 03). Rito: pesquisa 09.
-    detalhe:
-      - A perda do mandato por faltas não é automática. O pedido passa pela Comissão de Constituição e Justiça antes de a Mesa do Senado decidir. A partir de fevereiro, o PL terá 29 senadores.
+    # Data estimada (~17/12): Diario de Pernambuco (pesquisa 03). Rito, com a passagem pela CCJ (RISF, art. 32): pesquisa 09.
+    fatos:
+      - texto: Pela Constituição, perde o mandato quem faltar a um terço das sessões ordinárias do ano sem licença. A perda não é automática. A Mesa do Senado a declara, por conta própria ou a pedido de um senador ou partido, com direito a defesa.
+        fontes:
+          - https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
+      - texto: Pela projeção feita com dados do Senado e pela nota do partido, o PL terá 29 senadores a partir de fevereiro, a maior bancada da Casa.
+        fontes:
+          - https://acritica.net/nacional/composicao-senado-2027-pl-29-senadores-19-mulheres/
+          - https://cearaagora.com.br/valdemar-costa-neto-presidente-do-pl-reconhece-vitoria-de-lula-veja-nota-do-partido/
     segue: itamaraty
 
   - id: o_parecer
@@ -109,9 +165,22 @@ nos:
         texto: E o Brasil tem uma ordem de prisão contra o homem que agradeceu aos dois.
       - Lula chamou a fuga de vergonhosa e disse que a família lambe as botas dos Estados Unidos. Depois, mandou os ministros pararem de falar do assunto.
       - Responder dá importância à carta. Ficar calado deixa a carta sem resposta.
-    # "lambe botas": Tribuna do Sertão / NBC (pesquisa 03). Orientação aos ministros: CNN, 28/10. "Precipitada": Metrópoles (pesquisa 01).
-    detalhe:
-      - O motivo oficial do silêncio é não alimentar a ideia de perseguição. Há outro, dito em reserva por ministros, que acham precipitada a decisão do Supremo sobre o passaporte e não querem ter de defendê-la em público.
+    # "lambe botas" também em Tribuna do Sertão / NBC (pesquisa 03).
+    fatos:
+      - texto: Lula disse que a saída de Flávio do Brasil foi um ato vergonhoso e que a primeira pátria da família Bolsonaro é "lamber bota" dos americanos.
+        fontes:
+          - https://www.gazetadopovo.com.br/republica/lula-chama-viagem-de-flavio-de-vergonhosa-e-lembra-da-propria-prisao-na-lava-jato/
+          - https://sbtnews.sbt.com.br/noticia/politica/quem-sai-escondido-deve-algo-diz-lula-sobre-flavio
+      - texto: O governo orientou os ministros a não explorar o caso e a deixá-lo com a Polícia Federal e a Justiça. O motivo dito é não alimentar o discurso de perseguição à família Bolsonaro.
+        fontes:
+          - https://www.cnnbrasil.com.br/blogs/taina-falcao/politica/lula-orienta-ministros-a-nao-explorar-fuga-de-flavio/
+          - https://www.metropoles.com/brasil/planalto-orienta-ministros-a-tratar-fuga-de-flavio-como-caso-de-justica
+      - texto: Em reserva, integrantes do governo e aliados de Lula disseram a jornalistas que a decisão de Moraes sobre os passaportes veio em mau momento e pode reforçar a ideia de perseguição.
+        fontes:
+          - https://www.metropoles.com/colunas/milena-teixeira/ministros-de-lula-culpam-moraes-por-possivel-fuga-de-flavio-bolsonaro
+          - https://timesbrasil.com.br/brasil/decisao-de-moraes-sobre-passaportes-de-flavio-causa-incomodo-no-governo-e-discurso-de-perseguicao-preocupa-lula/
+    lados:
+      - Para o governo, ficar calado tira o palco de Flávio e evita ter de defender em público uma decisão de Moraes que nem todos no Planalto apoiam. Para a oposição, o silêncio é sinal de que o governo prefere não ser cobrado pela decisão.
     escolhas:
       - id: silencio
         rotulo: Lula ignora a carta
@@ -132,9 +201,25 @@ nos:
         texto: O pedido de explicações do Brasil chega no meio da briga.
         senao: O Brasil não pediu nada. Quem faz as perguntas é a oposição argentina.
       - Sobre a carta que o agradece, Milei não diz uma palavra.
-    # Migração 22h50, decolagem 23h30 (Ámbito); denúncias penais (elDiarioAR); Caputo nega; Bullrich: pesquisa 07.
-    detalhe:
-      - A imigração argentina registrou a entrada de Flávio por Puerto Iguazú às 22h50 de 27 de outubro. Quarenta minutos depois, um jato fretado decolou para Guayaquil. Deputados da oposição apresentaram denúncias penais contra o governo. O assessor Santiago Caputo chama as notícias de "infinitas idioteces". A ministra Patricia Bullrich escreveu que a vontade das urnas deve ser respeitada.
+    # Negativa do governo argentino ("de manera enfática"): Perfil, 28/10 (link abaixo, no fato do Caputo).
+    fatos:
+      - texto: A imigração argentina registrou a entrada de Flávio pela ponte de Foz do Iguaçu às 22h50 de 27 de outubro. Às 23h30, ele embarcou num jato fretado com destino declarado a Guayaquil, no Equador.
+        fontes:
+          - https://www.cnnbrasil.com.br/internacional/argentina-diz-que-flavio-entrou-no-pais-na-noite-de-terca-e-voou-ao-equador/
+          - https://www.poder360.com.br/poder-internacional/flavio-cruzou-a-fronteira-e-pegou-aviao-para-o-equador-diz-migracao-argentina/
+          - https://www.ambito.com/politica/fuga-flavio-bolsonaro-la-justicia-argentina-ya-investiga-y-ordena-medidas-n6338971
+      - texto: Deputados da oposição argentina apresentaram denúncias penais contra o governo. A deputada Marcela Pagano pediu à Justiça as câmeras, os planos de voo, a lista de passageiros e o contrato do fretamento.
+        fontes:
+          - https://www.eldiarioar.com/politica/oposicion-denuncio-milei-fuga-bolsonaro-pidio-interpelar-funcionarios-gobierno_1_13622906.html
+          - https://www.ambito.com/politica/fuga-flavio-bolsonaro-la-justicia-argentina-ya-investiga-y-ordena-medidas-n6338971
+      - texto: Santiago Caputo, assessor de Milei, rejeita as notícias sobre seu papel na saída de Flávio.
+        fontes:
+          - https://www.perfil.com/politica/tension-en-el-gobierno-tras-el-escape-de-bolsonaro-a-ee.uu.-bullrich-se-desmarco-de-milei-y-siguen-las-dudas-sobre-el-rol-de-santiago-caputo-abCex7S7Kv4m
+          - https://www.lanacion.com.ar/politica/santiago-caputo-fue-identificado-por-un-control-policial-tras-el-operativo-de-huida-de-bolsonaro-nid28102026/
+      - texto: A senadora Patricia Bullrich, do partido de Milei, defendeu que a vontade das urnas no Brasil seja respeitada.
+        fontes:
+          - https://www.perfil.com/politica/tension-en-el-gobierno-tras-el-escape-de-bolsonaro-a-ee.uu.-bullrich-se-desmarco-de-milei-y-siguen-las-dudas-sobre-el-rol-de-santiago-caputo-abCex7S7Kv4m
+          - https://www.sitioandino.com.ar/patricia-bullrich-tension-milei-ausencia-gabinete-brasil-2027
     escolhas:
       - id: silencio_milei
         rotulo: Milei fica calado, e o caso esfria
@@ -161,11 +246,15 @@ nos:
       - Os Estados Unidos votam para escolher o novo Congresso.
       - Em Miami, Flávio e o irmão Eduardo acompanham pela TV. Na carta, Flávio chamou Trump de grande defensor da liberdade.
       - Se os adversários de Trump ganharem, ficar nos Estados Unidos pode ficar mais difícil.
-    # "grande defensor da liberdade de expressão": íntegra da carta. Aprovação de 37%: pesquisa 05.
-    detalhe:
-      - As pesquisas dão vantagem aos democratas na Câmara. Trump chega à eleição com 37% de aprovação.
+    # "grande defensor da liberdade de expressão": íntegra da carta.
+    fatos:
+      - texto: Às vésperas da eleição, as pesquisas dão vantagem aos democratas na disputa pela Câmara. A aprovação de Trump fica entre 33% e 37%, conforme a pesquisa, perto das mais baixas do mandato.
+        fontes:
+          - https://theconversation.com/democrats-remain-clear-favourites-to-gain-control-of-congress-at-midterms-as-trumps-ratings-slide-again-295134
+          - https://www.fox29.com/news/trump-approval-hits-record-low-midterms-near-poll.amp
+    lados:
       - se: { tem: crise_diplomatica }
-        texto: O pedido de explicações do Itamaraty ainda não teve resposta de Washington.
+        texto: O pedido de explicações do Itamaraty ainda não teve resposta de Washington. Para o governo, o silêncio americano já diz algo. Para os aliados de Flávio, mostra que o pedido não pesou.
     escolhas:
       - id: democratas
         rotulo: Os democratas, adversários de Trump, ganham a Câmara
@@ -183,9 +272,15 @@ nos:
       - Os democratas ganham a Câmara. E já têm uma lista de assuntos. O Brasil está nela.
       - Uma reportagem disse que funcionários do governo Trump fizeram campanha para a família Bolsonaro voltar ao poder. Os democratas querem que eles deponham em janeiro.
       - Mas a taxa de 25% sobre produtos brasileiros continua. Quem decide isso é Trump, não o Congresso.
-    # Reuters sobre Beattie e Pita: pesquisa 05. Inquérito de Dino (Rockbridge): pesquisa 03.
-    detalhe:
-      - A reportagem é da Reuters e cita dois funcionários do Departamento de Estado, Darren Beattie e Ricardo Pita. No Brasil, o ministro Flávio Dino mandou a Polícia Federal investigar outra suspeita de interferência estrangeira, ligada a empresários e a um grupo americano interessado em terras raras.
+    fatos:
+      - texto: Uma reportagem da Reuters, com base em dez fontes, disse que dois funcionários do Departamento de Estado, Darren Beattie e Ricardo Pita, atuaram para a família Bolsonaro voltar ao poder. A Reuters não conseguiu saber se eles agiam por ordem da Casa Branca.
+        fontes:
+          - https://www.thestar.com.my/news/world/2026/10/25/inside-the-trump-administration-campaign-to-return-brazils-bolsonaro-clan-to-power
+          - https://moderndiplomacy.eu/2026/10/25/the-trump-teams-quiet-campaign-to-put-the-bolsonaros-back-in-power/
+      - texto: No Brasil, o ministro Flávio Dino mandou a Polícia Federal investigar outra suspeita de interferência estrangeira, ligada a empresários e a um grupo americano, e se houve interesse em terras raras. Um dos empresários citados nega.
+        fontes:
+          - https://www.congressoemfoco.com.br/noticia/129246/dino-manda-pf-investigar-possivel-interferencia-externa-nas-eleicoes
+          - https://www.gazetadopovo.com.br/republica/dino-manda-pf-investigar-suposto-financiamento-estrangeiro-a-campanha-de-flavio/
     segue: o_exilio
 
   - id: noite_republicana
@@ -198,8 +293,12 @@ nos:
     # Eduardo e as sanções (2025) e o pedido de retomada (2026): InfoMoney e Gazeta do Povo.
     #   https://www.infomoney.com.br/politica/eduardo-bolsonaro-agradece-tarifa-de-trump-e-pede-apoio-de-sancoes-contra-moraes/
     #   https://www.gazetadopovo.com.br/republica/eduardo-diz-ter-pedido-a-trump-volta-de-moraes-a-magnitsky-e-cita-zelle-como-pix-dos-eua/
-    detalhe:
-      - Uma semana antes, Trump tinha dito duas coisas sobre o Brasil. Que a eleição pareceu ter fraude, e que ele gosta de Lula.
+    fatos:
+      - texto: Uma semana antes, Trump tinha dito duas coisas sobre o Brasil. Que a eleição pareceu fraudada, sem apresentar provas, e que ele gosta de Lula.
+        fontes:
+          - https://www.france24.com/en/live-news/20261027-lula-s-re-election-revives-brazil-us-tensions
+          - https://batimes.com.ar/news/world/trump-slams-rigged-brazil-election-after-ally-flavio-bolsonaro-loses.phtml
+          - https://www.irishtimes.com/world/americas/2026/10/27/trump-says-brazil-election-looked-rigged-as-bolsonaros-party-recognises-lula-win/
     segue: o_exilio
 
   - id: o_exilio
@@ -213,11 +312,15 @@ nos:
         texto: Com a ordem de prisão, voltar não é mais uma opção.
         senao: E, enquanto ele fica fora, as faltas no Senado se acumulam.
     # Reconhecimentos de Lula: pesquisa 07.
-    detalhe:
-      - A autorização para ficar nos Estados Unidos vence em outubro de 2027.
+    fatos:
+      - texto: A autorização para ficar nos Estados Unidos vence em 27 de outubro de 2027, segundo registros da alfândega americana vistos pela imprensa.
+        fontes:
+          - https://www.metropoles.com/colunas/igor-gadelha/flavio-entrou-nos-eua-com-autorizacao-humanitaria-de-1-ano-de-permanencia
+          - https://jornaldebrasilia.com.br/noticias/politica-e-poder/flavio-bolsonaro-chega-aos-eua-com-status-que-permite-ficar-1-ano/
+    lados:
       - se: { tem: eua_dem_camara }
-        texto: Com os democratas na Câmara, cada passo dele vai ser observado em Washington.
-        senao: Com os republicanos firmes na Câmara, Washington não vai atrapalhar.
+        texto: Para os democratas na Câmara, cada passo dele em Washington vai ser observado. Para os aliados de Flávio, quem decide a autorização ainda é o governo Trump.
+        senao: Para os aliados de Flávio, com os republicanos firmes na Câmara, Washington não vai atrapalhar. Para o governo Lula, isso deixa a saída dele sem custo em Washington.
     escolhas:
       - id: governo
         rotulo: Flávio volta a se dizer presidente e monta um governo no exílio
@@ -245,9 +348,17 @@ nos:
       - se: { tem: flavio_discreto }
         texto: E Flávio quase não fala. Sem a voz dele, o partido decide sozinho, e a base pergunta por quê.
       - Em fevereiro, o Senado escolhe seu presidente. União e PP, aliados do PL, já fecharam com Alcolumbre. Negociar rende cargos, mas a base vai chamar de traição.
-    # Marinho lançado por Valdemar em 05/10: Congresso em Foco (pesquisa 01). União e PP: Gazeta do Povo (pesquisa 06).
-    detalhe:
-      - Marinho foi lançado ao Senado pelo próprio Valdemar em outubro. A carta só reafirmou o nome, justamente quando o partido pesava se ainda valia a pena.
+    fatos:
+      - texto: Marinho foi lançado à presidência do Senado pelo próprio Valdemar, em 5 de outubro. Valdemar ligou a candidatura à vitória de Flávio.
+        fontes:
+          - https://www.congressoemfoco.com.br/noticia/122994/valdemar-diz-que-pl-quer-eleger-rogerio-marinho-presidente-do-senado
+          - https://ndmais.com.br/politica/alcolumbre-senado-eleicao-lira-eleicoes-2026/
+      - texto: Em 27 de outubro, um dia antes da carta, os presidentes do União Brasil e do PP anunciaram apoio à reeleição de Alcolumbre.
+        fontes:
+          - https://www.gazetadopovo.com.br/republica/uniao-pp-contrariam-alianca-flavio-apoio-reeleicao-alcolumbre/
+          - https://www.diariodepernambuco.com.br/politica/2026/10/11727799-uniao-pp-declara-apoio-a-reeleicao-de-alcolumbre-para-presidente-do-senado.html
+    lados:
+      - A carta reafirmou o nome de Marinho justamente quando o partido pesava se a candidatura ainda valia a pena. Para quem quer negociar, insistir custa cargos. Para quem quer confronto, recuar custa a base.
       - se: { tem: crise_diplomatica }
         texto: No PL, a cobrança do Itamaraty é lida como um presente. A carta ganhou importância, e o partido, uma bandeira.
       - se: { tem: governo_silencio }
@@ -267,7 +378,8 @@ nos:
         vai_para: a_convocacao
 
   # Final A — a semente do Acordo, com todos os lados dentro.
-  # Alvorada 26/10 (Metrópoles); lobby de ministros por Pacheco (Lauro Jardim, bastidor); PEC da Segurança (O Antagonista, bastidor).
+  # PEC da Segurança na conta do acordo: só O Antagonista (bastidor); ficou como motivo em `lados`.
+  #   https://oantagonista.com.br/brasil/lula-e-alcolumbre-fecham-acordo-para-indicacao-de-pacheco-ao-stf/
   - id: a_ligacao
     lugar: Brasília, uma noite de novembro
     imagem: imagens/cap01/a_ligacao.webp
@@ -276,8 +388,17 @@ nos:
       - Falam de fevereiro. E de Rodrigo Pacheco, que Alcolumbre quer ver no Supremo ainda este ano.
       - Lula também quer Pacheco no Supremo. Ministros do Supremo também. A conversa tem mais de dois lados, e todos sabem.
       - É assim que começa um acordo. Com conversas que todo mundo confirma e ninguém conta.
-    detalhe:
-      - No dia seguinte à eleição, Alcolumbre e Hugo Motta, presidente da Câmara, estiveram no Palácio da Alvorada para falar da vaga com Lula. Segundo colunistas, quatro ministros do Supremo torcem por Pacheco, e o apoio de Alcolumbre à PEC da Segurança, do governo, estaria na mesma conta.
+    fatos:
+      - texto: No dia seguinte à eleição, Alcolumbre e Hugo Motta, presidente da Câmara, visitaram Lula. Depois da visita, ganhou força a ideia de indicar Pacheco ao Supremo.
+        fontes:
+          - https://www.metropoles.com/brasil/indicacao-de-pacheco-para-o-stf-esta-escalando-dizem-aliados
+          - https://oantagonista.com.br/brasil/lula-e-alcolumbre-fecham-acordo-para-indicacao-de-pacheco-ao-stf/
+      - texto: Reportagens e colunas apontam que ministros do Supremo como Gilmar Mendes, Alexandre de Moraes, Flávio Dino e Cristiano Zanin preferem Pacheco para a vaga.
+        fontes:
+          - https://www.opovo.com.br/noticias/politica/2025/10/15/ala-politica-do-stf-prefere-rodrigo-pacheco-mas-senador-nao-e-unanimidade-entre-ministros.html
+          - https://www.em.com.br/politica/2026/10/7529396-indicacao-de-rodrigo-pacheco-ao-stf-pode-levar-gleisi-para-o-tcu.html
+    lados:
+      - Para o governo, Pacheco no Supremo pode vir junto com o apoio de Alcolumbre a projetos parados no Senado, como a PEC da Segurança. Para Alcolumbre, emplacar um aliado no tribunal fortalece a reeleição. Para o PL, negociar agora rende espaço, mas deixa Marinho sozinho.
       - se: { tem: flavio_sem_preventiva }
         texto: As faltas de Flávio não entram na ligação. Não precisam.
       - se: { tem: flavio_preventiva }
@@ -295,8 +416,8 @@ nos:
         senao: No telão, Flávio vai falar de Miami.
       - Tarcísio, governador de São Paulo, avisa que não vai. Ele já aceitou a vitória de Lula.
       - No governo, alívio discreto. Com a oposição na rua, o Planalto ganha um adversário para apontar. No Centrão, alguém faz as contas.
-    detalhe:
-      - Com a oposição dividida entre a carta e o Senado, o apoio do Centrão ao governo fica mais caro, e mais fácil de vender.
+    lados:
+      - Para o Centrão, com a oposição dividida entre a carta e o Senado, o apoio ao governo fica mais caro, e mais fácil de vender. Para o PL, a rua mostra que a base continua de pé, mesmo sem Flávio no país.
 
 saidas:
   - para: cap02

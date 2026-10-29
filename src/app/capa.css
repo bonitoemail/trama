@@ -120,6 +120,18 @@ body:has(.capa) {
 .capa .fonte:hover {
   color: var(--c-texto);
 }
+.capa .fontes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 0;
+}
+.regra-fontes {
+  margin: 4px 0 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--c-texto-2);
+}
 
 /* ---------- Capa ---------- */
 .inicio {

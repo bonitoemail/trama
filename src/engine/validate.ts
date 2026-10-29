@@ -1,4 +1,5 @@
 import { isoDoFato } from './calendario';
+import { problemasDasFontes } from './fontes';
 import { FIM, escolhasDisponiveis, escolhasVisiveis, saidaDoCapitulo } from './engine';
 import type { Capitulo, Condicao, Jogo, Texto } from './schema';
 
@@ -47,6 +48,11 @@ function estrutura(jogo: Jogo, erros: string[], avisos: string[]) {
     });
   }
 
+  // Fontes: documento oficial ou duas fontes independentes (fontes.ts).
+  const conferir = (onde: string, fontes: string[]) =>
+    problemasDasFontes(fontes).forEach((p) => erros.push(`${onde}: ${p}`));
+  jogo.prologo.forEach((f, i) => conferir(`prólogo ${i + 1} (${f.titulo ?? f.data})`, f.fontes));
+
   const criadas = new Set<string>();
   const usadas = new Set<string>();
   marcasDoTexto(jogo.epilogo.texto, usadas);
@@ -62,7 +68,11 @@ function estrutura(jogo: Jogo, erros: string[], avisos: string[]) {
     for (const n of cap.nos) {
       const onde = `${cap.id}/${n.id}`;
       marcasDoTexto(n.texto, usadas);
-      if (n.detalhe) marcasDoTexto(n.detalhe, usadas);
+      if (n.lados) marcasDoTexto(n.lados, usadas);
+      n.fatos?.forEach((f, i) => {
+        conferir(`${onde}, fato ${i + 1}`, f.fontes);
+        marcasDaCondicao(f.se, usadas);
+      });
       if (n.escolhas && n.segue) erros.push(`${onde}: tem escolhas e "segue" ao mesmo tempo`);
       if (n.segue && !noIds.has(n.segue)) erros.push(`${onde}: segue para nó inexistente "${n.segue}"`);
       if (n.escolhas && n.escolhas.length < 2) avisos.push(`${onde}: só uma escolha escrita`);
@@ -78,6 +88,7 @@ function estrutura(jogo: Jogo, erros: string[], avisos: string[]) {
           erros.push(`${onde}/${e.id}: vai_para nó inexistente "${e.vai_para}"`);
         }
         marcasDaCondicao(e.se, usadas);
+        if (e.real) conferir(`${onde}/${e.id} (trava real)`, e.real.fontes);
         for (const m of e.marca ?? []) criadas.add(m);
       }
     }

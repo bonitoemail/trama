@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Dica from './Dica';
-import Fatos, { Fonte } from './Fatos';
+import Fatos, { Fontes } from './Fatos';
 import Metodo from './Metodo';
 import { diaEMes, falta, isoPorExtenso, regua } from '@/engine/calendario';
 import type { Jogo } from '@/engine/schema';
@@ -76,7 +76,7 @@ export default function Inicio({ jogo, tela, partidas, capituloAtual, capituloIn
             </Dica>
           </p>
           <h2 id="agora-tit">{agora.titulo ?? agora.texto}</h2>
-          {agora.fonte && <Fonte url={agora.fonte} />}
+          <Fontes urls={agora.fontes} />
         </section>
 
         <div className="partida">

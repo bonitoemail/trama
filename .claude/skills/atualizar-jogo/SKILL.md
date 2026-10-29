@@ -29,7 +29,7 @@ A skill tem dois modos:
 - Remover ou renomear nó, ou subir a `versao` (apaga as partidas salvas dos jogadores).
 - Aplicar a regra de recuo (o capítulo 1 inteiro ficou para trás) ou mexer em cismas e finais.
 - Mexer no visual, na tela inicial ou no código do jogo (`src/`), salvo correção de um erro que impeça o build por causa do conteúdo.
-- Escrever fato que só tem uma fonte, ou boato fora da voz de um personagem.
+- Escrever fato que só tem uma fonte, ou boato fora da voz de um personagem (ver "Regra das fontes").
 - Push, deploy, publicar em qualquer lugar fora do repositório.
 
 **Revisão de equilíbrio obrigatória**
@@ -43,7 +43,7 @@ Depois de escrever e antes de commitar, rode **dois agentes em paralelo**, um le
 **Relatório**
 Escreva `pesquisa/rodada-AAAA-MM-DD.md` (entra no mesmo commit) com estas seções, nesta ordem:
 1. **Resumo** em 3 a 5 linhas.
-2. **Fatos confirmados** (com links) e **boatos descartados**.
+2. **Fatos confirmados** (com os links das duas fontes ou do documento oficial) e **boatos descartados**.
 3. **O que mudou no jogo**: travas, textos, nós novos, imagens (reaproveitadas, refeitas, novas), com arquivo e id.
 4. **Revisão de equilíbrio**: o que os dois leitores apontaram e o que foi corrigido.
 5. **Precisa de você**: o que ficou de fora pelas regras acima, com a proposta pronta para aplicar.
@@ -57,6 +57,16 @@ Arquivos que esta skill usa:
 - `roteiro/` (esqueletos dos capítulos futuros) e `roteiro/painel/00-agregado.md` (estrutura 2027–2030, ecos, finais).
 - `DESIGN.md` 6.1 (travar o caminho real) e 8 / 8.1 (regras de conteúdo e de equilíbrio).
 - `estilo/GUIA.md`, `estilo/prompts.py`, `estilo/cenas_cap*.py`, `estilo/escolhas.json`.
+
+## Regra das fontes (vale em toda rodada, nos dois modos)
+A fonte é o que sustenta a neutralidade do jogo: é a primeira coisa que um crítico de qualquer lado vai atacar. Por isso:
+- **Todo fato tem `fontes:` (lista), nunca um link só.** Vale **um documento oficial** (domínio `.gov.br`, `.jus.br`, `.leg.br`, `.mp.br`, `.gov`: TSE, STF, Agência Senado, Câmara, Diário Oficial, Departamento de Estado) **ou pelo menos duas fontes de veículos diferentes**. Veículos do mesmo grupo contam como um (g1 e O Globo; Folha e UOL).
+- **Linhas editoriais diferentes.** Sempre que der, uma fonte mais lida à direita (ex.: Gazeta do Povo, O Antagonista, Revista Oeste, CNN Brasil, Jovem Pan) e uma mais lida à esquerda ou ao centro (ex.: Folha, Estadão, O Globo/g1, Poder360, UOL, Metrópoles, Agência Brasil, BBC Brasil, CartaCapital, Brasil de Fato). Esses rótulos são só critério de escolha: **nunca** aparecem no conteúdo.
+- **Wikipédia não é fonte.** Resultado de eleição vem do TSE.
+- **Cada link foi aberto e diz o que o fato afirma.** Nunca escreva URL de cabeça.
+- **Fato e leitura separados.** Nas cenas, "Fatos e fontes" tem duas partes: `fatos:` (`{ texto, fontes, se? }`, o que aconteceu e pode ser conferido, inclusive declarações atribuídas) e `lados:` (posições e motivos de cada lado, sem fonte, com a regra do par). Nunca ponha leitura em `fatos` nem fato sem fonte em `lados`.
+- **Sem segunda fonte:** reescreva para só o que as fontes confirmam, ou mova para `lados` se for leitura, ou deixe fora e registre no relatório. Nunca rebaixe a regra.
+- O validador cobra (`src/engine/fontes.ts`): fato do prólogo, fato de cena ou trava `real` com uma fonte só, ou com Wikipédia, é **erro** e o build falha.
 
 ---
 
@@ -81,7 +91,7 @@ Cada agente escreve `pesquisa/NN-<tema>.md` (próximo número livre) e devolve u
 ## Etapa 2 — Confirmação
 
 Para cada fato candidato:
-- **Fato** exige **duas fontes independentes de veículos estabelecidos**, ou um documento oficial (STF, TSE, Senado, Diário Oficial, nota de governo). Blog, perfil em rede social ou agregador sozinho **não** confirma.
+- **Fato** exige **duas fontes independentes de veículos estabelecidos, de linhas editoriais diferentes**, ou um documento oficial (STF, TSE, Senado, Diário Oficial, nota de governo). Blog, perfil em rede social, agregador ou Wikipédia **não** confirmam. Guarde os links das duas: vão para `fontes:` (ver "Regra das fontes").
 - Confira **a expressão exata** (ex.: "líder do Brasil", não "líder da oposição"). Notícia sobre texto de pessoa real só entra depois de ver o texto ou a íntegra.
 - Classifique: **[FATO]**, **[ANÁLISE]** (quem, onde), **[BOATO]** (sem confirmação), **[CONTRADIÇÃO]** (fontes divergem: registrar as duas versões).
 - Investigado não é culpado. Pedido não é decisão.
@@ -92,8 +102,8 @@ Monte uma **tabela de impacto**: fato confirmado → o que muda no jogo. Cada fa
 
 | Tipo | Quando | O que fazer |
 |---|---|---|
-| **Prólogo** | o fato acontece **antes** do início do capítulo 1 | nova entrada em `prologo` com data, `titulo` (manchete curta, uma linha) e fonte |
-| **Trava** | o fato decide uma escolha existente | `real: { data, fonte }` na escolha (só uma por nó); relógio vira `aconteceu` |
+| **Prólogo** | o fato acontece **antes** do início do capítulo 1 | nova entrada em `prologo` com data, `titulo` (manchete curta, uma linha) e `fontes` (oficial ou duas) |
+| **Trava** | o fato decide uma escolha existente | `real: { data, fontes }` na escolha (só uma por nó); relógio vira `aconteceu` |
 | **Opção nova travada** | a realidade foi por um caminho que nenhuma opção previa | nova escolha já com `real`, e os nós que vêm depois dela |
 | **Texto** | o fato muda o que uma cena afirma | reescrever só o trecho; manter os ids |
 | **Galho morto** | o fato torna um galho impossível | não apagar: travar a escolha real; se não houver escolha real ainda, reescrever o rótulo como aposta (ex.: "retoma o título de presidente") |
@@ -119,9 +129,9 @@ Se o usuário já disse "atualize o jogo" sem pedir revisão, aplique o automát
 
 ## Etapa 5 — Aplicar texto e travas
 
-- Siga **DESIGN.md 8, 8.1 e 8.2** em cada trecho novo (linguagem simples: cartões curtos, sem jargão, técnico no `detalhe`): motivo e interesse para todos, nenhuma escolha sem custo, regra do par, narrador sem piada, boato só como boato, gancho e checagem, mesma regra de nome.
-- Toda paráfrase de pessoa ou instituição real ganha comentário YAML com o link.
-- Trava: `real: { data: "DD/MM/AAAA", fonte: "<url>" }`. A interface mostra "aconteceu em…" e o fio laranja na linha do tempo.
+- Siga **DESIGN.md 8, 8.1 e 8.2** em cada trecho novo (linguagem simples: cartões curtos, sem jargão; o técnico vai em "Fatos e fontes": `fatos` com fontes e `lados`): motivo e interesse para todos, nenhuma escolha sem custo, regra do par, narrador sem piada, boato só como boato, gancho e checagem, mesma regra de nome.
+- Toda paráfrase de pessoa ou instituição real ganha comentário YAML com o link; se for fato citado na cena, vai também para `fatos:` com as fontes.
+- Trava: `real: { data: "DD/MM/AAAA", fontes: ["<url>", "<url>"] }` (oficial ou duas). A interface mostra "aconteceu em…" e o fio laranja na linha do tempo.
 - **Versão** (`content/jogo.yaml`): suba quando um nó for **removido ou renomeado** ou um capítulo mudar de início (partidas salvas antigas são descartadas). Só texto, trava ou nó novo: não precisa subir.
 - Atualize `pesquisa/relogios.yaml`: `status: aconteceu` + `resultado` com fonte; crie relógios novos.
 
@@ -161,6 +171,6 @@ npm run estado
 
 ## Etapa 9 — Registrar e entregar
 
-- `pesquisa/RODADAS.md`: nova entrada com data, fatos (com fonte), boatos descartados, o que mudou no jogo e o que ficou pendente.
+- `pesquisa/RODADAS.md`: nova entrada com data, fatos (com as fontes), boatos descartados, o que mudou no jogo e o que ficou pendente.
 - Resumo ao usuário: o que travou, o que mudou no texto, imagens reaproveitadas, refeitas e descartadas, o que foi ajustado no futuro, e o que ficou para aprovação.
 - Ofereça o commit (o usuário costuma aprovar; não faça sem ele pedir). No modo autônomo, o commit faz parte da rodada (ver "Modo autônomo").

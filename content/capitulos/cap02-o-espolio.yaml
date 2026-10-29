@@ -21,9 +21,29 @@ nos:
         senao: O feriado de 15 de novembro passa quieto. Nikolas Ferreira pediu que a base não fosse às ruas, e ela não foi.
       - Tarcísio, governador de São Paulo, respondeu à carta. Disse que a eleição acabou. Kassab, do PSD, já tinha cumprimentado Lula.
       - Duas cadeiras decidem o fim do ano. Uma no Supremo, vaga há um ano. Outra no comando do Senado, que se vota em fevereiro.
-    # Tarcísio, Kassab, Michelle, Nikolas: pesquisa 10.
-    detalhe:
-      - Michelle Bolsonaro só publicou mensagens de fé e não comentou a carta. Carlos Bolsonaro, eleito senador por Santa Catarina, visitou o pai em casa.
+    # Tarcísio, Kassab, Michelle, Nikolas, Carlos: pesquisa 10.
+    # O ato do PL e "ela não foi" são simulação; real é só o pedido de Nikolas.
+    fatos:
+      - texto: Em 26 de outubro, o deputado Nikolas Ferreira, do PL, gravou um vídeo pedindo que os apoiadores não fossem às ruas protestar contra o resultado.
+        fontes:
+          - https://tribunademinas.com.br/noticias/politica/26-10-2026/nikolas-ferreira-pede-que-apoiadores-nao-vao-as-ruas-apos-derrota-de-flavio-bolsonaro.html
+          - https://www.terra.com.br/noticias/eleicoes/nikolas-ferreira-diz-que-chance-de-anular-eleicao-e-quase-nula-e-pede-que-apoiadores-nao-protestem,4a7cb70fd72a55967c788a4f9b8c9580dei9erre.html
+      - texto: Em 26 de outubro, Gilberto Kassab, presidente do PSD, cumprimentou Lula pela reeleição em nota do partido e disse que os eleitos do PSD manterão uma relação republicana com o governo.
+        fontes:
+          - https://www.gazetadopovo.com.br/eleicoes/2026/kassab-reconhece-vitoria-de-lula-e-sinaliza-cooperacao-do-psd/
+          - https://www.radiopampa.com.br/presidente-nacional-do-psd-gilberto-kassab-parabeniza-lula-e-acena-com-apoio-no-congresso-apos-neutralidade-no-segundo-turno/
+      - texto: Em 28 de outubro, Tarcísio de Freitas respondeu à carta de Flávio. Disse entender a indignação dele, mas que a eleição acabou e que é hora de olhar para a frente.
+        fontes:
+          - https://oantagonista.com.br/brasil/tarcisio-rebate-carta-de-flavio-a-eleicao-acabou/
+          - https://nilljunior.com.br/tarcisio-diz-entender-indignacao-de-flavio-apos-carta-golpista-mas-cobra-respeito-ao-resultado-e-responsabilidade/
+      - texto: Depois da derrota, Michelle Bolsonaro publicou só mensagens de fé, sem citar Lula nem Flávio.
+        fontes:
+          - https://www.otempo.com.br/eleicoes/2026/presidentes/2026/10/26/apos-derrota-de-flavio-michelle-bolsonaro-diz-que-deus-e-o-dono-do-brasil
+          - https://www.correio24horas.com.br/eleicoes/michelle-bolsonaro-publica-mensagem-de-fe-apos-derrota-de-flavio-para-lula-1026
+      - texto: Carlos Bolsonaro, eleito senador por Santa Catarina, visitou o pai em 28 de outubro. Contou que pediu desculpas a ele pela derrota.
+        fontes:
+          - https://www.cnnbrasil.com.br/politica/carlos-relata-pedido-de-desculpa-a-jair-em-visita-a-gente-falhou/
+          - https://www.poder360.com.br/poder-eleicoes-2026/carlos-bolsonaro-pede-piedade-de-deus-apos-fuga-de-flavio-para-os-eua/
     segue: a_cadeira
 
   - id: a_cadeira
@@ -34,9 +54,30 @@ nos:
       - Alcolumbre, o presidente do Senado, quer Pacheco no Supremo ainda este ano. Ministros do Supremo também.
       - Pacheco passa fácil no Senado. Mas fica devendo o cargo a Alcolumbre, e não só a Lula.
       - O PL acha que Pacheco fortaleceria Moraes. Parte do PT acha que é uma vaga dada de presente ao Centrão.
-    # Pacheco como único nome; 41 votos secretos; regra de não reapresentar; vaga do TCU pelo Senado: pesquisa 09.
-    detalhe:
-      - São 41 votos no Senado, em voto secreto. Se o nome for rejeitado, só pode voltar no ano seguinte. Jorge Messias foi rejeitado em abril. Pacheco hoje é ministro do Tribunal de Contas da União, e quem escolhe o substituto dele lá é o Senado.
+    # Pacheco como único nome; 41 votos secretos; regra de não reapresentar; vaga do TCU: pesquisa 09.
+    # "Quem escolhe o substituto no TCU é o Senado" só a Folha afirma: ficou em lados, como leitura.
+    fatos:
+      - texto: Pela Constituição, o ministro do Supremo é indicado pelo presidente e só é nomeado se a maioria absoluta do Senado aprovar, em voto secreto, depois de uma sabatina pública. São 41 dos 81 senadores.
+        fontes:
+          - https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
+      - texto: Uma regra do Senado, de 2010, proíbe votar de novo, no mesmo ano legislativo, um nome já rejeitado. Ele só pode voltar a partir de fevereiro do ano seguinte.
+        fontes:
+          - https://www.infomoney.com.br/politica/regra-do-senado-impede-lula-de-reapresentar-jorge-messias-ao-stf-em-2026/
+          - https://www.diariodepernambuco.com.br/politica/2026/05/11714500-regimento-interno-impede-nova-analise-de-jorge-messias-ao-stf-em-2026.html
+      - texto: Em 29 de abril de 2026, o Senado rejeitou Jorge Messias, o indicado de Lula para a mesma vaga, por 42 votos a 34.
+        fontes:
+          - https://www12.senado.leg.br/noticias/materias/2026/04/29/indicacao-de-jorge-messias-ao-stf-e-rejeitada-pelo-senado
+      - texto: Pacheco é ministro do Tribunal de Contas da União. O Senado aprovou o nome dele em 1º de setembro, por 63 votos a 4, num projeto apresentado por Alcolumbre.
+        fontes:
+          - https://www12.senado.leg.br/noticias/materias/2026/09/01/senado-aprova-ex-presidente-rodrigo-pacheco-para-o-tcu
+      - texto: Segundo a Folha de S.Paulo e a CNN Brasil, Pacheco é o nome nas conversas do governo para a vaga, Alcolumbre é o principal defensor dele e o governo quer concluir a escolha ainda este ano.
+        fontes:
+          - https://jornaldebrasilia.com.br/noticias/politica-e-poder/lula-pode-indicar-pacheco-ao-stf-antes-da-posse-de-novos-senadores-e-planeja-reforma-moderada-do-judiciario/
+          - https://www.cnnbrasil.com.br/blogs/taina-falcao/politica/lula-quer-negociar-indicacao-ao-stf-com-alcolumbre-ainda-neste-ano/
+    lados:
+      - Para o governo, indicar ainda este ano evita sabatinar o nome no Senado eleito, mais à direita, e reaproxima Lula do Centrão.
+      - Para Alcolumbre, um aliado no Supremo e a vaga que Pacheco deixaria no Tribunal de Contas são mais duas moedas na mão do Senado.
+      - Para o PL, Pacheco fortaleceria Moraes. Para parte do PT, a vaga vai para um nome de fora do partido, e a compensação teria de vir no Tribunal de Contas.
     escolhas:
       - id: pacheco
         rotulo: Lula indica Pacheco
@@ -78,10 +119,16 @@ nos:
         texto: Pacheco conhece cada senador pelo nome. A oposição pergunta sobre Moraes. Ele diz que vai julgar com independência.
         senao: O indicado responde bem sobre a lei e mal sobre política. A oposição pergunta sobre Moraes; o Centrão, sobre verbas.
       - O voto é secreto. Os líderes contam 45 votos a favor. Os líderes sempre contam mais do que a urna dá.
-    detalhe:
-      - É preciso maioria absoluta, 41 dos 81 senadores.
+    fatos:
+      - texto: É preciso maioria absoluta, 41 dos 81 senadores, em voto secreto.
+        fontes:
+          - https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
+      - texto: Em abril, Jorge Messias precisava de 41 votos e teve 34. Foram 42 contra.
+        fontes:
+          - https://www12.senado.leg.br/noticias/materias/2026/04/29/indicacao-de-jorge-messias-ao-stf-e-rejeitada-pelo-senado
+    lados:
       - se: { tem: pgr_contra }
-        texto: O parecer da Procuradoria contra a prisão de Flávio aparece em três perguntas. O indicado não comenta casos concretos.
+        texto: Para a oposição, o parecer da Procuradoria contra a prisão de Flávio mostra que Moraes foi longe demais, e o tema aparece em três perguntas. Para a base do governo, o indicado faz bem em não comentar casos concretos.
     escolhas:
       - id: aprovado_pacheco
         rotulo: O Senado aprova Pacheco
@@ -111,8 +158,14 @@ nos:
       - O placar aparece no painel. É a segunda vez no ano que o Senado rejeita um nome de Lula para o Supremo.
       - Perde Lula. Perdem os ministros do Supremo que torciam pelo indicado. Ganha quem ficou de fora das conversas de bastidor.
       - No Planalto, a pergunta é quem traiu. Ninguém responde. O voto é secreto justamente para isso.
-    detalhe:
-      - Pela regra do Senado, o mesmo nome só pode ser apresentado de novo no ano seguinte.
+    fatos:
+      - texto: Pela regra do Senado, um nome rejeitado não pode ser votado de novo no mesmo ano legislativo. Só a partir de fevereiro do ano seguinte.
+        fontes:
+          - https://www.infomoney.com.br/politica/regra-do-senado-impede-lula-de-reapresentar-jorge-messias-ao-stf-em-2026/
+          - https://www.diariodepernambuco.com.br/politica/2026/05/11714500-regimento-interno-impede-nova-analise-de-jorge-messias-ao-stf-em-2026.html
+      - texto: A primeira derrota foi real. Em 29 de abril de 2026, o Senado rejeitou Jorge Messias por 42 votos a 34.
+        fontes:
+          - https://www12.senado.leg.br/noticias/materias/2026/04/29/indicacao-de-jorge-messias-ao-stf-e-rejeitada-pelo-senado
     segue: a_herdeira
 
   - id: a_herdeira
@@ -126,15 +179,29 @@ nos:
         senao: Eduardo, de Miami, gravou um vídeo pedindo que outros países não reconheçam a eleição.
       - Para Tarcísio, quanto mais tempo a sucessão ficar aberta, melhor. Para o governo, uma oposição sem dono é mais fácil de enfrentar, e mais difícil de negociar.
     # Valdemar autorizado a visitar Jair (29/10); vídeo de Eduardo; Michelle fora do PL Mulher desde jun/2026: pesquisa 10.
-    # Condenação na AP 2668 e domiciliar humanitária: STF e Nexo (pesquisa 03 e 04).
-    #   https://noticias.stf.jus.br/postsnoticias/stf-mantem-ex-presidente-bolsonaro-em-prisao-domiciliar/
+    # Domiciliar humanitária, outra leitura: Nexo (pesquisa 03 e 04).
     #   https://www.nexojornal.com.br/expresso/2026/03/24/prisao-domiciliar-bolsonaro-decisao-moraes
-    detalhe:
-      - Valdemar Costa Neto foi autorizado pela Justiça a visitar Jair Bolsonaro, condenado pelo Supremo a 27 anos por tentativa de golpe e em prisão domiciliar por motivo de saúde.
+    # A live e o silêncio de Flávio são simulação (marcas do cap01): ficam em lados.
+    fatos:
+      - texto: Em 28 de outubro, Alexandre de Moraes autorizou Valdemar Costa Neto, presidente do PL, a visitar Jair Bolsonaro no dia seguinte.
+        fontes:
+          - https://sbtnews.sbt.com.br/noticia/politica/moraes-autoriza-visita-de-valdemar-a-bolsonaro
+          - https://www.metropoles.com/colunas/manoela-alcantara/moraes-libera-visita-de-valdemar-a-bolsonaro-e-reparo-em-internet-da-claro
+      - texto: Jair Bolsonaro foi condenado pelo Supremo a 27 anos e 3 meses por tentativa de golpe e outros crimes. Cumpre prisão domiciliar humanitária, concedida depois de uma internação em março e mantida em julho.
+        fontes:
+          - https://noticias.stf.jus.br/postsnoticias/stf-mantem-ex-presidente-bolsonaro-em-prisao-domiciliar/
+      - texto: Michelle Bolsonaro foi eleita senadora pelo Distrito Federal e toma posse em fevereiro de 2027.
+        fontes:
+          - https://www12.senado.leg.br/noticias/materias/2026/10/25/fim-da-eleicao-define-composicao-do-senado-em-2027-com-13-partidos
+      - texto: Em 26 de outubro, Eduardo Bolsonaro, que mora nos Estados Unidos, divulgou um vídeo em inglês pedindo que outros países não reconheçam a eleição. Alegou fraude sem apresentar provas.
+        fontes:
+          - https://www.poder360.com.br/poder-eleicoes-2026/eduardo-bolsonaro-pede-que-estrangeiros-nao-reconhecam-eleicao/
+          - https://www.metropoles.com/brasil/em-video-em-ingles-eduardo-bolsonaro-acusa-eleicoes-de-fraude-sem-provas
+    lados:
       - se: { tem: flavio_live }
-        texto: Toda noite, a live de Miami diz quem deveria liderar a oposição no Brasil. A resposta muda conforme a semana.
+        texto: Para os aliados de Flávio, a live de Miami mantém a família no comando da oposição. Para o resto da direita, a resposta sobre quem deve liderar muda conforme a semana.
       - se: { tem: flavio_discreto }
-        texto: De Miami, quase nenhuma palavra. O silêncio de Flávio abre espaço para quem quiser ocupar o lugar dele.
+        texto: Para quem quer o lugar de Flávio, o silêncio dele em Miami abre espaço. Para os aliados dele, é prudência enquanto a Justiça decide.
     escolhas:
       - id: michelle
         rotulo: Michelle assume a liderança da oposição
@@ -178,12 +245,42 @@ nos:
         texto: Mas não é automático. É um processo, e o Senado entra de férias no fim do ano. Quem decide se ele anda rápido ou devagar é Alcolumbre.
         senao: Quem decide é Moraes. O mesmo valor já foi bloqueado de um advogado investigado no mesmo caso.
       - Para o PT, decidir rápido mostra que a lei vale para todos, e demorar seria privilégio. Para o PL, decidir rápido mostra pressa em punir quem nem foi denunciado.
-    # Rito das faltas (CCJ, até 15 dias úteis, depois a Mesa), licença congela a contagem, suplente Paulo Marinho,
-    # bloqueio de Willer Tomaz: pesquisa 09.
-    detalhe:
+    # Rito das faltas, licença e bloqueios: pesquisa 09. RISF art. 32, §§ 3º a 5º, conferido no PDF oficial.
+    fatos:
       - se: { tem: flavio_sem_preventiva }
-        texto: Pela Constituição, quem falta a um terço das sessões perde o mandato. O pedido passa pela Comissão de Constituição e Justiça, que tem até quinze dias úteis, e depois a Mesa decide. O mandato de Flávio acaba de qualquer jeito em 31 de janeiro. Uma licença do cargo para a contagem de faltas.
-        senao: O advogado é Willer Tomaz, investigado no mesmo inquérito das apostas em que Flávio é investigado. Nenhum dos dois foi denunciado. O pedido de bloqueio dos bens de Flávio foi feito por deputados do PT.
+        texto: Pela Constituição, perde o mandato quem falta a um terço das sessões ordinárias do ano, salvo licença ou missão autorizada. Quem declara a perda é a Mesa, com direito de defesa.
+        fontes:
+          - https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
+      - se: { tem: flavio_sem_preventiva }
+        texto: Pelo Regimento do Senado, o pedido vai à Comissão de Constituição e Justiça, que tem quinze dias úteis para dar parecer. Depois, a Mesa decide.
+        fontes:
+          - https://www25.senado.leg.br/documents/12427/45868/RISF+2018+Volume+1.pdf/cd5769c8-46c5-4c8a-9af7-99be436b89c4
+      - se: { tem: flavio_sem_preventiva }
+        texto: O mandato de Flávio vai de 2019 a 2027 e acaba antes de 1º de fevereiro, quando o Senado novo toma posse. O primeiro suplente é Paulo Marinho.
+        fontes:
+          - https://www25.senado.leg.br/web/senadores/senador/-/perfil/5894
+          - https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
+      - se: { tem: flavio_sem_preventiva }
+        texto: O senador pode tirar licença sem salário para tratar de interesse particular, por até 120 dias no ano. Ausência com licença não conta como falta.
+        fontes:
+          - https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
+      - se: { nao_tem: flavio_sem_preventiva }
+        texto: Em 23 de outubro, Moraes bloqueou até R$ 6 bilhões em bens do advogado Willer Tomaz.
+        fontes:
+          - https://www.poder360.com.br/poder-justica/moraes-proibe-flavio-de-se-comunicar-com-willer-tomaz/
+          - https://www.terra.com.br/noticias/moraes-determina-bloqueio-e-quebra-de-sigilo-de-contas-de-willer-tomaz-aliado-de-flavio-bolsonaro,ed29cab79251784cb2f9b024f6b9a9375ehffo39.html
+          - https://www.diariodepernambuco.com.br/politica/2026/10/11727483-moraes-bloqueia-rs-6-bilhoes-e-cancela-passaportes-de-advogado-investigado-com-flavio-bolsonaro.html
+      - se: { nao_tem: flavio_sem_preventiva }
+        texto: Willer e Flávio são investigados no mesmo inquérito, sobre lavagem de dinheiro ligada a apostas. Nenhum dos dois foi denunciado, e os dois negam irregularidades.
+        fontes:
+          - https://www.poder360.com.br/poder-justica/moraes-proibe-flavio-de-se-comunicar-com-willer-tomaz/
+          - https://www.cnnbrasil.com.br/politica/inqueritos-contra-flavio-podem-continuar-no-stf-mesmo-com-perda-de-foro/
+          - https://www.metropoles.com/brasil/flavio-perde-eleicao-o-que-muda-nos-inqueritos-contra-ele
+      - se: { nao_tem: flavio_sem_preventiva }
+        texto: Em 27 de outubro, três deputados do PT pediram ao Supremo o bloqueio de até R$ 6 bilhões em bens de Flávio.
+        fontes:
+          - https://www.metropoles.com/colunas/neila-guimaraes/pt-pede-bloqueio-de-ate-r-6-bilhoes-de-flavio-bolsonaro
+          - https://timesbrasil.com.br/brasil/pt-pede-ao-stf-bloqueio-de-ate-r-6-bilhoes-em-bens-de-flavio-bolsonaro/
     escolhas:
       - id: acelera
         rotulo: Alcolumbre acelera, e Flávio perde o mandato antes das férias
@@ -221,14 +318,9 @@ nos:
     segue: o_orcamento
 
   # O custo do próprio governo, que não depende da família Bolsonaro (revisão de equilíbrio, RODADAS 28/10).
-  # IFI: déficit de R$ 86,1 bi em 2027 e bloqueio de ~R$ 35,7 bi para o piso (Brasil 61; IFI, RAF 116).
-  #   https://brasil61.com/n/ifi-projeta-que-cumprimento-da-meta-fiscal-de-2027-pode-exigir-corte-de-r-35-7-bilhoes-bras2617365
-  #   https://www12.senado.leg.br/ifi/relatorio-de-acompanhamento-fiscal
-  # Durigan e o PLP do centro da meta: Poder360, CNN Brasil, Metrópoles (pesquisa 02).
-  #   https://www.poder360.com.br/poder-economia/governo-prepara-texto-para-atingir-centro-da-meta-fiscal-diz-durigan/
-  #   https://www.cnnbrasil.com.br/economia/money/macroeconomia/durigan-diz-que-vai-propor-ajustes-fiscais-para-perseguir-centro-da-meta/
-  # Selic 13,75% (Copom 16/09): ASA. Cada ponto de Selic, mais de R$ 50 bi na dívida (estimativa do BC): Agência Brasil.
-  # Emendas de R$ 44,8 bi no PLOA 2027: SBT News. Medidas estudadas: CNN Brasil, 26/10 (fonte única: fica no detalhe, atribuída).
+  # Lista dos RAF da IFI: https://www12.senado.leg.br/ifi/relatorio-de-acompanhamento-fiscal
+  # Medidas estudadas (benefícios fiscais, Bolsa Família e abono): só a CNN Brasil, 26/10, e reproduções dela
+  # (Juruá 24h, Goiás 246). Fonte única: saiu de fatos e virou posição em lados.
   # A escolha não decide o efeito na economia (painel 00-agregado, Ajustes, Cisma I): cada galho tem ganho e custo.
   - id: o_orcamento
     lugar: Brasília, Ministério da Fazenda, dezembro
@@ -238,11 +330,38 @@ nos:
       - Dario Durigan, o ministro da Fazenda, prometeu mirar o centro da meta das contas públicas. Só para cumprir o mínimo, faltam cerca de R$ 36 bilhões.
       - Os juros estão em 13,75%. Uns economistas dizem que é preciso cortar gastos para eles caírem. Outros, que são os próprios juros que fazem a dívida crescer.
       - Toda saída tem um preço, e parte dele cai sobre quem apoiou Lula.
-    detalhe:
-      - A conta dos R$ 36 bilhões é da Instituição Fiscal Independente, do Senado, que projeta um déficit de R$ 86 bilhões em 2027. O governo diz que as medidas do ano eleitoral não pesam no ano que vem.
-      - Pela estimativa do Banco Central, cada ponto a mais na taxa de juros acrescenta mais de R$ 50 bilhões à dívida.
-      - Segundo a CNN Brasil, a equipe econômica estuda cortar benefícios fiscais de empresas e rever sobreposições entre programas como o Bolsa Família e o abono salarial. No PT, mexer nisso é tabu.
-      - O Orçamento enviado ao Congresso já reserva R$ 44,8 bilhões para emendas dos parlamentares.
+    fatos:
+      - texto: Em 27 de outubro, Durigan disse que o governo vai mandar ao Congresso um projeto para buscar o centro da meta das contas públicas, e não mais o mínimo. Disse também que outras medidas estão em avaliação.
+        fontes:
+          - https://www.poder360.com.br/poder-economia/governo-prepara-texto-para-atingir-centro-da-meta-fiscal-diz-durigan/
+          - https://www.cnnbrasil.com.br/economia/money/macroeconomia/durigan-diz-que-vai-propor-ajustes-fiscais-para-perseguir-centro-da-meta/
+          - https://www.metropoles.com/brasil/governo-apresentara-proposta-para-perseguir-centro-da-meta-diz-durigan
+      - texto: A conta dos R$ 36 bilhões é da Instituição Fiscal Independente, do Senado. Em setembro, ela projetou um déficit de R$ 86,1 bilhões em 2027, contra um superávit de R$ 18,6 bilhões previsto pelo governo, e um bloqueio de R$ 35,7 bilhões para cumprir o mínimo da meta.
+        fontes:
+          - https://brasil61.com/n/ifi-projeta-que-cumprimento-da-meta-fiscal-de-2027-pode-exigir-corte-de-r-35-7-bilhoes-bras2617365
+          - https://www.infomoney.com.br/economia/contas-da-ifi-divergem-do-governo-e-preveem-deficit-primario-de-r-861-bi-em-2027/
+      - texto: Em 29 de outubro, a mesma instituição calculou que três compromissos novos, o reajuste do Bolsa Família, o fim das bets e o pacote para os microempreendedores, somam R$ 40 bilhões fora do Orçamento, e que o déficit de 2027 pode chegar a 1% do PIB.
+        fontes:
+          - https://www12.senado.leg.br/ifi/publicacoes-1/relatorio/2026/outubro/relatorio-de-acompanhamento-fiscal-out-2026
+      - texto: Em setembro, Durigan disse que o reajuste do Bolsa Família, que custa R$ 22 bilhões em 2027, cabe no Orçamento sem mudar as regras fiscais.
+        fontes:
+          - https://www.infomoney.com.br/politica/durigan-aumento-do-bolsa-familia-cabe-no-orcamento-e-cita-pec-kamikaze-de-bolsonaro/
+          - https://jornaldebrasilia.com.br/noticias/economia/durigan-reajuste-do-bolsa-familia-e-compativel-com-responsabilidade-fiscal/
+      - texto: A taxa básica de juros, a Selic, está em 13,75% ao ano desde a reunião do Copom de setembro.
+        fontes:
+          - https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/1?formato=json
+          - https://www.asa.com.br/central-de-conteudos/macroeconomia/copom-selic-juros
+      - texto: Pelas contas do Banco Central citadas pela imprensa, cada ponto a mais na Selic custa às contas públicas mais de R$ 50 bilhões.
+        fontes:
+          - https://agenciabrasil.ebc.com.br/economia/noticia/2026-05/juros-pressionam-divida-mais-que-gastos-publicos-dizem-economistas
+          - https://www.jb.com.br/colunistas/o-outro-lado-da-moeda/2026/08/1060756-cada-ponto-na-selic-custa-rs-689-bilhoes.html
+      - texto: O Orçamento de 2027 enviado ao Congresso reserva R$ 44,8 bilhões para emendas individuais e de bancada dos parlamentares.
+        fontes:
+          - https://sbtnews.sbt.com.br/noticia/politica/governo-guarda-r-44-8-bi-para-emendas-parlamentares-em-2027
+          - https://jornalgrandebahia.com.br/2026/09/ploa-2027-preve-r-448-bilhoes-para-emendas-parlamentares-valor-pode-chegar-a-r-577-bilhoes/
+    lados:
+      - Para o mercado e os economistas mais ortodoxos, sem um corte de gastos que convença, os juros não caem. Para os economistas heterodoxos, são os próprios juros que fazem a dívida crescer, e cortar gastos pode frear a economia.
+      - Para quem defende o ajuste, o caminho é rever benefícios fiscais de empresas e programas sociais que se sobrepõem, como o Bolsa Família e o abono salarial. No PT, mexer nesses programas é tabu, e a saída preferida é cobrar mais de quem ganha mais.
     escolhas:
       - id: corta
         rotulo: Durigan corta gastos e mira o centro da meta
@@ -264,9 +383,30 @@ nos:
       - O G20, encontro das maiores economias do mundo, acontece num clube de golfe de Trump. Na mesma cidade onde Flávio está.
       - Xi Jinping, da China, também vem. O Brasil quer falar da taxa de 25% sobre seus produtos.
       - Se Lula for e não falar com Trump, perde a viagem. Se falar, dá a Trump uma foto que ele vai usar como quiser. Se não for, deixa a cadeira vazia.
-    # G20 em 14–15/12 no Trump National Doral; Lula "pretende" ir; Xi também; minerais críticos e a cláusula recusada em julho: pesquisa 10.
-    detalhe:
-      - A cúpula vai de 14 a 15 de dezembro no Trump National Doral. Também estão na pauta os minerais críticos. Em julho, o Brasil recusou uma cláusula contra a China num acordo com os americanos.
+    # G20, Lula, Xi, minerais: pesquisa 10. Xi em Miami: só o CSIS confirmou a intenção (CNN.com e SCMP
+    # não abriram), então ficou fora de fatos.
+    #   https://www.csis.org/analysis/takeaways-trump-xi-white-house-summit
+    # "Cláusula contra a China": as duas fontes falam em investimentos estrangeiros e "não orientados pelo
+    # mercado", sem citar a China; o alvo chinês ficou em lados.
+    fatos:
+      - texto: A cúpula de líderes do G20 está marcada para 14 e 15 de dezembro no Trump National Doral, clube de golfe de Trump perto de Miami.
+        fontes:
+          - https://www.cbsnews.com/amp/miami/news/trump-g20-summit-2026-doral-resort-florida
+          - https://bmcnews.com.br/internacional/lula-e-trump-devem-se-reencontrar-na-cupula-do-g20-em-miami/
+          - https://www.cartacapital.com.br/politica/apos-vitoria-nas-urnas-lula-vai-retomar-viagens-internacionais/
+      - texto: Segundo a Agência Brasil, Lula pretende ir à cúpula em 14 de dezembro, mas o Planalto ainda não confirmou a viagem.
+        fontes:
+          - https://www.cartacapital.com.br/politica/apos-vitoria-nas-urnas-lula-vai-retomar-viagens-internacionais/
+          - https://bmcnews.com.br/internacional/lula-e-trump-devem-se-reencontrar-na-cupula-do-g20-em-miami/
+      - texto: Em julho de 2026, o governo americano impôs uma tarifa de 25% sobre parte dos produtos brasileiros.
+        fontes:
+          - https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ustr-section-301-action-brazils-unreasonable-acts-policies-and-practices
+      - texto: Em julho, o ministro Márcio Elias Rosa disse que o Brasil recusou uma proposta formal dos Estados Unidos para limitar investimentos estrangeiros e de agentes "não orientados pelo mercado" em minerais críticos e terras raras.
+        fontes:
+          - https://www.infomoney.com.br/economia/eua-queriam-acordo-que-limitava-investimentos-em-minerais-criticos-brasil-recusou/
+          - https://www.cnnbrasil.com.br/infra/ministro-eua-pediram-restricao-a-investimentos-em-terras-raras-no-brasil/
+    lados:
+      - Para Washington, a proposta sobre minerais mirava o capital estatal chinês, que derruba preços. Para o governo brasileiro, terras raras e minerais críticos pertencem ao povo brasileiro e não entram na troca pela tarifa.
       - se: { tem: eua_dem_camara }
         texto: Com a Câmara democrata, Trump chega precisando de vitórias que caibam numa foto.
         senao: Com o Congresso a favor, Trump chega sem pressa de ceder nada.
@@ -308,8 +448,29 @@ nos:
       - Nas redes americanas, até na direita, cresce uma pergunta. Por que os Estados Unidos abrigam um político investigado em outro país?
       - Parte dos aliados de Trump defende Flávio e repetem que a eleição foi roubada. Trump diz que a família é gente boa.
       - Mas Trump também quer um acordo com o Brasil sobre minerais. E a autorização de Flávio pode ser cancelada a qualquer momento.
-    detalhe:
-      - Extraditar alguém passa pela Justiça americana e demora anos. Deportar é diferente. O governo pode simplesmente cancelar a autorização para ficar no país. Eduardo Bolsonaro já foi condenado no Brasil e tem mandado de prisão.
+    # "Demora anos" (extradição) não achei em fonte; saiu. A divisão na direita americana (Axios) não abri: fica no comentário acima.
+    fatos:
+      - texto: Flávio entrou nos Estados Unidos com uma autorização humanitária temporária, o parole, válida até outubro de 2027, segundo registros da alfândega vistos pelo Metrópoles. Não é asilo nem residência.
+        fontes:
+          - https://www.metropoles.com/colunas/igor-gadelha/flavio-entrou-nos-eua-com-autorizacao-humanitaria-de-1-ano-de-permanencia
+          - https://www.gazetaweb.com/noticias/eleicoes/flavio-bolsonaro-recebeu-asilo-nos-eua-entenda-a-autorizacao-humanitaria-945786
+      - texto: Pelas regras do serviço de imigração americano, o parole não é um status migratório e pode ser revogado a qualquer momento, sem aviso.
+        fontes:
+          - https://www.uscis.gov/humanitarian/humanitarian_parole
+      - texto: Pela lei americana, a extradição passa por um juiz, que ouve as provas, e só depois vai ao secretário de Estado.
+        fontes:
+          - https://www.govinfo.gov/content/pkg/USCODE-2023-title18/html/USCODE-2023-title18-partII-chap209-sec3184.htm
+      - texto: Em 28 de outubro, Trump disse que os Estados Unidos autorizaram a entrada de Flávio, chamou a eleição brasileira de estranha e disse que os Bolsonaro são "gente boa".
+        fontes:
+          - https://sbtnews.sbt.com.br/noticia/mundo/carta-golpista-de-flavio-trump-diz-que-nao-vai-se-envolver
+          - https://www.newsweek.com/flavio-bolsonaro-us-election-defeat-trump-12625868
+      - texto: Eduardo Bolsonaro foi condenado pelo Supremo em junho de 2026 a 4 anos e 2 meses por coação no curso do processo do pai. Em outubro, Moraes mandou expedir o mandado de prisão. Ele mora nos Estados Unidos.
+        fontes:
+          - https://noticias.stf.jus.br/postsnoticias/stf-condena-eduardo-bolsonaro-por-coacao-no-curso-do-processo-sobre-tentativa-de-golpe/
+          - https://agenciabrasil.ebc.com.br/justica/noticia/2026-10/moraes-determina-emissao-de-mandado-de-prisao-contra-eduardo-bolsonaro
+          - https://www.brasildefato.com.br/2026/10/08/stf-determina-prisao-cancelamento-de-passaportes-e-perda-de-cargo-de-eduardo-bolsonaro/
+    lados:
+      - Para os aliados de Flávio, ele é um perseguido político, e a proteção de Trump é questão de princípio. Para quem negocia com o Brasil em Washington, a família é uma carta que pode ser trocada por minerais e tarifas.
     escolhas:
       - id: protege
         rotulo: Trump mantém a proteção aos dois irmãos
@@ -330,12 +491,18 @@ nos:
         texto: Flávio também é preso. A ordem de Moraes ainda valia.
         senao: Flávio desce livre. Não há ordem de prisão contra ele.
       - Em Miami, os apoiadores chamam de traição de Trump. No Brasil, a direita ganha mártires e perde a base no exterior. E a oposição acusa Lula de ter trocado os dois por uma taxa menor.
-    detalhe:
+    # A volta é simulação; real é só o mandado de prisão de Eduardo.
+    fatos:
+      - texto: Eduardo Bolsonaro tem mandado de prisão desde outubro de 2026, para cumprir a pena de 4 anos e 2 meses por coação no curso do processo.
+        fontes:
+          - https://agenciabrasil.ebc.com.br/justica/noticia/2026-10/moraes-determina-emissao-de-mandado-de-prisao-contra-eduardo-bolsonaro
+          - https://www.brasildefato.com.br/2026/10/08/stf-determina-prisao-cancelamento-de-passaportes-e-perda-de-cargo-de-eduardo-bolsonaro/
+    lados:
       - se: { tem: mandato_cassado_faltas }
         texto: Flávio volta sem mandato. A cadeira de senador já está com o suplente.
       - se: { tem: flavio_licenca }
         texto: Flávio volta ainda senador, de licença, até 31 de janeiro.
-      - O governo americano diz que a decisão é de imigração, não de política. Ninguém acredita totalmente.
+      - O governo americano diz que a decisão é de imigração, não de política. A família e seus aliados leem como traição. No governo Lula, a resposta é que agora o caso é da Justiça brasileira.
     segue: a_mesa
 
   - id: a_mesa
@@ -348,8 +515,22 @@ nos:
       - se: { tem: stf_rejeitado }
         texto: Com a derrota no Supremo, ninguém sabe ao certo de quem Alcolumbre é aliado. Talvez nem ele.
       - O que for combinado agora vale por dois anos. Em 2029, Alcolumbre não pode mais se reeleger.
-    # Proibição de reeleição na mesma legislatura: STF, 2020 (ADI 6524), pesquisa 04 e painel.
-    detalhe:
+    # Os parágrafos de lados dependem das escolhas do jogador: são leituras simuladas, não fatos.
+    fatos:
+      - texto: MDB e PSD declararam apoio à reeleição de Alcolumbre. Em 27 de outubro, União Brasil e PP anunciaram o mesmo.
+        fontes:
+          - https://ndmais.com.br/politica/davi-alcolumbre-mdb-senado-lira-senado/
+          - https://gazetadoparana.com.br/publico/alcolumbre-apoio-uniao-brasil-pp-presidencia-senado-2027
+          - https://www.gazetadopovo.com.br/republica/uniao-pp-contrariam-alianca-flavio-apoio-reeleicao-alcolumbre/
+      - texto: Na carta divulgada dos Estados Unidos, Flávio chamou Rogério Marinho de "meu candidato à presidência do Senado".
+        fontes:
+          - https://www.metropoles.com/brasil/veja-integra-de-carta-assinada-por-flavio-bolsonaro-apos-fugir-do-brasil
+          - https://www.portalclaudiooliveira.com/2026/10/na-carta-flavio-bolsonaro-cita-rogerio.html
+      - texto: A Constituição dá dois anos de mandato à Mesa e proíbe a recondução para o mesmo cargo na eleição seguinte. Em 2020, o Supremo decidiu que a proibição vale dentro da mesma legislatura.
+        fontes:
+          - https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
+          - https://noticias.stf.jus.br/postsnoticias/stf-consolida-tese-sobre-eleicoes-para-mesas-das-assembleias-legislativas/
+    lados:
       - se: { tem: stf_aprovado }
         texto: Com a vaga do Supremo preenchida, Alcolumbre tem uma vitória para mostrar, e credores.
       - se: { tem: vaga_segurada }
@@ -389,7 +570,7 @@ nos:
       - Ninguém assina nada. Existe uma lista de cargos, uma gaveta que não vai ser aberta e uma conta que cada um guarda de cabeça.
       - O PL ganha cargos e larga Marinho. Alcolumbre ganha a reeleição e fica devendo a todos. Lula ganha um Senado calmo e engaveta o que a base dele pedia contra a família Bolsonaro.
       - Em Miami, a família chama de traição. No PT, a militância chama de outra coisa, com a mesma raiva. As duas bases perderam a mesma noite.
-    detalhe:
+    lados:
       - se: { tem: stf_aprovado }
         texto: O Supremo ganha a gaveta dos pedidos de impeachment de ministros, e paga aceitando um ministro que deve a cadeira ao Senado.
       - se: { tem: deportados }
@@ -403,8 +584,9 @@ nos:
       - O PL fica com Marinho e anuncia que vai disputar voto por voto. Precisa convencer treze senadores de fora do partido.
       - Alcolumbre tem os partidos que já o apoiam, e a lembrança de que o voto é secreto para os dois lados.
       - Ganha a base do PL, que queria briga. Perde quem queria cargos, e perde Lula, que começa o mandato com a primeira votação valendo tudo.
-    detalhe:
-      - Se Marinho perder, o PL perde junto. Se ganhar, os pedidos de impeachment de ministros do Supremo podem sair da gaveta em março.
+    lados:
+      - Para o PL, se Marinho perder, o partido perde junto. Se ganhar, os pedidos de impeachment de ministros do Supremo podem sair da gaveta em março.
+      - Para Alcolumbre e o governo, uma vitória em fevereiro encerra a ameaça e garante dois anos de Senado previsível.
 
   # Final C — a herança em disputa.
   - id: heranca_em_disputa

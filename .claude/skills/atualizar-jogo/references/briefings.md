@@ -25,7 +25,7 @@ Os nós de decisão abertos no jogo são:
 Para cada um, diga se a realidade já decidiu (por qual fato, com link) ou se segue aberto (e o que vigiar).
 
 Regras:
-- [FATO] só com duas fontes independentes de veículos estabelecidos, ou documento oficial. Blog ou rede social sozinho não basta.
+- [FATO] só com duas fontes independentes de veículos estabelecidos, de linhas editoriais diferentes (uma mais lida à direita, outra à esquerda ou ao centro), ou documento oficial. Blog, rede social ou Wikipédia sozinhos não bastam. Traga os links das duas fontes de cada fato.
 - Para texto de pessoa real (carta, nota, post), confira a expressão exata, e de preferência a íntegra.
 - Marque [FATO] (data, link), [ANÁLISE] (quem, veículo, data, link, paráfrase; citação literal de no máximo 15 palavras), [BOATO], [CONTRADIÇÃO] (as duas versões).
 - Investigado não é culpado; pedido não é decisão. Seja equilibrado entre campos.

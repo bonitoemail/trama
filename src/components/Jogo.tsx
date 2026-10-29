@@ -16,6 +16,7 @@ import {
   no,
   novoJogo,
   paragrafos,
+  vale,
 } from '@/engine/engine';
 import type { Jogo as JogoT } from '@/engine/schema';
 import { useNavegacao } from '@/lib/navegacao';
@@ -163,7 +164,9 @@ export default function Jogo({
   const tipo = tipoDeCena(primeiroNo, opcoes.length > 0, Boolean(atual.segue));
   const eco = tipo === 'consequencia' || tipo === 'final' ? ecoDaEscolha(jogo, estado.historico) : null;
   const textos = paragrafos(atual.texto, estado.marcas);
-  const detalhe = atual.detalhe ? paragrafos(atual.detalhe, estado.marcas) : undefined;
+  // "Fatos e fontes": os fatos que valem para estas marcas e a leitura de cada lado.
+  const fatos = atual.fatos?.filter((f) => vale(f.se, estado.marcas));
+  const lados = atual.lados ? paragrafos(atual.lados, estado.marcas) : undefined;
   const avancar = () => atualizar(escolher(jogo, estado, null), [`${cap.id}/${atual.id}`]);
   const chave = `${cap.id}/${atual.id}`;
   const lugar = atual.lugar && <p className="lugar">{atual.lugar}</p>;
@@ -175,7 +178,7 @@ export default function Jogo({
         <Cartoes
           textos={textos}
           imagem={atual.imagem}
-          detalhe={detalhe}
+          fatos={fatos} lados={lados}
           abertura={
             <div className="hero-titulo">
               <p className="rotulo">Capítulo {cap.numero}</p>
@@ -197,7 +200,7 @@ export default function Jogo({
       <main className="tela cena cena-consequencia" key={chave}>
         <Cabecalho numero={cap.numero} titulo={cap.titulo} periodo={cap.periodo} />
         <article className="despacho">
-          <Cartoes textos={textos} imagem={atual.imagem} detalhe={detalhe} topo={<>{linhaEco}{lugar}</>}>
+          <Cartoes textos={textos} imagem={atual.imagem} fatos={fatos} lados={lados} topo={<>{linhaEco}{lugar}</>}>
             <Acao onClick={avancar}>Seguir</Acao>
           </Cartoes>
         </article>
@@ -211,7 +214,7 @@ export default function Jogo({
         <Cartoes
           textos={textos}
           imagem={atual.imagem}
-          detalhe={detalhe}
+          fatos={fatos} lados={lados}
           abertura={<p className="rotulo desfecho">Desfecho do capítulo {cap.numero}</p>}
           topo={<>{linhaEco}{lugar}</>}
         >
@@ -224,7 +227,7 @@ export default function Jogo({
   return (
     <main className="tela cena" key={chave}>
       <Cabecalho numero={cap.numero} titulo={cap.titulo} periodo={cap.periodo} />
-      <Cartoes textos={textos} imagem={atual.imagem} detalhe={detalhe} topo={lugar}>
+      <Cartoes textos={textos} imagem={atual.imagem} fatos={fatos} lados={lados} topo={lugar}>
         <p className="pergunta">O que acontece agora?</p>
         <div className="escolhas">
           {opcoes.map(({ escolha: e, status }, i) => (
