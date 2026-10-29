@@ -46,6 +46,9 @@ Dois leitores simulados, um de direita e um de esquerda, jogaram os caps. 1 e 2 
 - **Feito depois:** cena `o_orcamento` no cap. 2 (dezembro, entre `a_conta` e `miami`): o Orçamento de 2027, com três saídas e custo em cada uma (cortar gastos, adiar o ajuste, cobrar mais imposto de quem ganha mais) e ecos no epílogo. As duas lentes da economia aparecem no texto; o efeito na economia fica para 2027.
 - **Fica para depois:** mais agência da esquerda além de Lula; a cor da luz do título (decisão do usuário).
 
+### Rodada 3 (autônoma) — 29/10/2026, 00h
+Janela de cerca de uma hora desde o último trabalho. **Nenhum fato novo com duas fontes**; tudo o que a busca trouxe (pedido de preventiva, Pacheco, PLP do centro da meta, União/PP com Alcolumbre, vistos e *parole*) já estava nos arquivos 01–10. Descartados por falta de segunda fonte: reação de Alcolumbre à carta e fala de Marinho contra intervenção. **No jogo:** nada mudou. Relatório: `rodada-2026-10-29.md` (inclui a proposta de mudar o horário da tarefa agendada).
+
 ## Ainda pendente (para a rodada 3)
 - Análises pós-eleição de Marcus André Melo, Lynch (conteúdo do vídeo), Limongi, Couto, Traumann, Moura, Andrea Freitas, Falcão, Pereira, Glezer, Da Ros, Barbosa, Laura Carvalho, Armínio, Marcos Mendes: ainda não publicadas ou não encontráveis em 28/10.
 - Contradições: passaporte usado na entrada (italiano ou diplomático); DI de fechamento de 28/10.
