@@ -101,7 +101,38 @@ button {
   text-transform: uppercase;
   margin: 0 0 0 -0.03em;
   color: var(--destaque);
-  text-shadow: 0 1px 24px rgba(0, 0, 0, 0.55);
+  filter: drop-shadow(0 1px 18px rgba(0, 0, 0, 0.5));
+}
+/* Uma faixa de luz atravessa o título sem parar, como o "pensando" de um assistente:
+   a história está sempre em andamento. */
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .inicio-titulo .marca {
+    background: linear-gradient(
+      105deg,
+      var(--destaque) 0%,
+      var(--destaque) 40%,
+      #fff4e2 47%,
+      #ffd29a 50%,
+      #fff4e2 53%,
+      var(--destaque) 60%,
+      var(--destaque) 100%
+    );
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: luz-passa 4.5s cubic-bezier(0.45, 0, 0.55, 1) 0.6s infinite;
+  }
+}
+@keyframes luz-passa {
+  from { background-position: 100% 0; }
+  to { background-position: 0% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .inicio-titulo .marca {
+    animation: none;
+    background-position: 100% 0;
+  }
 }
 .como {
   margin: 20px 0 0;
