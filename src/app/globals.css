@@ -57,7 +57,7 @@ button {
 .sub {
   font-size: 20px;
   color: var(--texto-2);
-  margin: 8px 0 40px;
+  margin: 8px 0 28px;
 }
 .aviso {
   font-family: var(--sans);
@@ -66,7 +66,7 @@ button {
   color: var(--texto-3);
   border-left: 2px solid var(--linha);
   padding-left: 12px;
-  margin: 0 0 40px;
+  margin: 32px 0 0;
 }
 .acoes {
   display: flex;
@@ -346,49 +346,6 @@ button {
 }
 .escolha.travada .letra {
   opacity: 0.5;
-}
-
-/* Prólogo */
-.fatos {
-  list-style: none;
-  padding: 0;
-  margin: 24px 0 32px;
-  border-left: 1px solid var(--linha);
-}
-.fatos li {
-  padding: 0 0 28px 20px;
-  position: relative;
-}
-.fatos li::before {
-  content: '';
-  position: absolute;
-  left: -4px;
-  top: 6px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--texto-2);
-}
-.fatos time {
-  font-family: var(--sans);
-  font-size: 13px;
-  color: var(--texto-2);
-}
-.fatos p {
-  font-size: 18px;
-  line-height: 1.55;
-  margin: 6px 0;
-}
-.fatos a {
-  font-family: var(--sans);
-  font-size: 12px;
-  color: var(--texto-3);
-}
-.ponte {
-  font-style: italic;
-  color: var(--texto-2);
-  font-size: 18px;
-  margin: 0 0 24px;
 }
 
 /* Fim de capítulo e epílogo */
@@ -680,43 +637,83 @@ body:has(.cena-final) {
   flex-direction: column;
   gap: 14px;
 }
-/* Fatos (Fatos.tsx): o prólogo como changelog, uma linha por fato. */
-.titulo-fatos {
-  font-weight: 400;
-  font-size: 30px;
-  line-height: 1.15;
-  margin: 4px 0 18px;
+/* Fatos (Fatos.tsx): o prólogo como changelog na tela inicial, o mais novo em cima. */
+.fatos-lista {
+  margin: 0 0 28px;
+  border: 1px solid var(--linha);
+  border-radius: 10px;
+  overflow: hidden;
 }
-.atualizado {
+.fatos-topo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  padding: 10px 14px;
   font-family: var(--sans);
-  font-size: 13px;
-  line-height: 1.5;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--texto-2);
-  border-left: 3px solid var(--real);
-  padding-left: 12px;
-  margin: 0 0 18px;
+  border-bottom: 1px solid var(--linha);
 }
-.atualizado strong {
-  color: var(--texto);
+.fatos-topo .atualizado {
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 12px;
+  color: var(--texto-3);
+}
+.fatos-topo .atualizado strong {
+  color: var(--real);
   font-weight: 600;
 }
 .fatos-lista ol {
   list-style: none;
-  margin: 0 0 24px;
+  margin: 0;
   padding: 0;
-  border-top: 1px solid var(--linha);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--linha) transparent;
 }
-.fatos-lista li {
-  border-bottom: 1px solid var(--linha);
+.alca {
+  display: none;
+}
+/* Alça de arrastar só com mouse; no toque ela disputaria com a rolagem. */
+@media (pointer: fine) {
+  .alca {
+    display: flex;
+    justify-content: center;
+    padding: 6px 0;
+    border-top: 1px solid var(--linha);
+    cursor: ns-resize;
+    touch-action: none;
+  }
+  .alca span {
+    width: 36px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--linha);
+  }
+  .alca:hover span {
+    background: var(--texto-3);
+  }
+}
+body.arrastando {
+  cursor: ns-resize;
+  user-select: none;
+}
+.fatos-lista li + li {
+  border-top: 1px solid var(--linha);
 }
 .linha-fato {
   display: grid;
-  grid-template-columns: 1fr 24px;
+  grid-template-columns: 1fr 20px;
   grid-template-areas: 'data mais' 'manchete mais';
-  gap: 2px 12px;
+  gap: 1px 10px;
   align-items: center;
   width: 100%;
-  padding: 14px 2px;
+  padding: 9px 14px;
   text-align: left;
   background: none;
   border: 0;
@@ -727,20 +724,21 @@ body:has(.cena-final) {
   grid-area: data;
   font-family: var(--sans);
   font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--texto-3);
 }
 .linha-fato .manchete {
   grid-area: manchete;
   font-family: var(--serif);
-  font-size: 18px;
-  line-height: 1.35;
+  font-size: 16px;
+  line-height: 1.3;
+}
+.fatos-lista li:first-child .linha-fato time {
+  color: var(--real);
 }
 .linha-fato .mais {
   grid-area: mais;
   font-family: var(--sans);
-  font-size: 18px;
+  font-size: 16px;
   color: var(--real);
   text-align: center;
 }
@@ -748,15 +746,15 @@ body:has(.cena-final) {
   color: #fff;
 }
 .corpo-fato {
-  padding: 0 2px 16px 12px;
-  margin-left: 2px;
+  margin: 0 14px 12px;
+  padding-left: 10px;
   border-left: 2px solid var(--real);
 }
 .corpo-fato p {
-  font-size: 16px;
-  line-height: 1.55;
+  font-size: 15px;
+  line-height: 1.5;
   color: var(--texto-2);
-  margin: 0 0 8px;
+  margin: 0 0 6px;
 }
 .corpo-fato a {
   font-family: var(--sans);

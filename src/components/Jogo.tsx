@@ -20,7 +20,7 @@ import {
 import type { Jogo as JogoT } from '@/engine/schema';
 import { apagarPartida, lerPartida, lerVistos, salvarPartida, salvarVistos } from '@/lib/storage';
 
-type Tela = 'carregando' | 'abertura' | 'prologo' | 'fatos' | 'partida';
+type Tela = 'carregando' | 'abertura' | 'partida';
 
 export default function Jogo({ jogo, caminhos }: { jogo: JogoT; caminhos: Record<string, number> }) {
   const [tela, setTela] = useState<Tela>('carregando');
@@ -67,17 +67,18 @@ export default function Jogo({ jogo, caminhos }: { jogo: JogoT; caminhos: Record
     apagarPartida(jogo.versao);
     setEstado(null);
     setConfirmarNova(false);
-    setTela('prologo');
+    atualizar(novoJogo(jogo));
+    setTela('partida');
   }
 
   if (tela === 'carregando') return <main className="tela" />;
 
-  if (tela === 'abertura') {
+  if (tela === 'abertura' || !estado) {
     return (
       <main className="tela abertura">
         <h1 className="marca">{jogo.titulo}</h1>
         <p className="sub">O que pode acontecer com o Brasil até 2030. Você decide.</p>
-        <p className="aviso">{jogo.aviso}</p>
+        <Fatos fatos={jogo.prologo} />
         <div className="acoes">
           {estado && !confirmarNova && (
             <Acao primario onClick={() => setTela('partida')}>Continuar partida</Acao>
@@ -95,40 +96,8 @@ export default function Jogo({ jogo, caminhos }: { jogo: JogoT; caminhos: Record
               Começar
             </Acao>
           )}
-          {!confirmarNova && <Acao onClick={() => setTela('fatos')}>De onde vêm os fatos</Acao>}
         </div>
-      </main>
-    );
-  }
-
-  // Consulta aos fatos a qualquer momento, sem mexer na partida.
-  if (tela === 'fatos') {
-    return (
-      <main className="tela prologo">
-        <p className="rotulo">De onde vêm os fatos</p>
-        <h2 className="titulo-fatos">O que já aconteceu de verdade</h2>
-        <Fatos fatos={jogo.prologo} />
-        <Acao onClick={() => setTela('abertura')}>Voltar</Acao>
-      </main>
-    );
-  }
-
-  if (tela === 'prologo' || !estado) {
-    return (
-      <main className="tela prologo">
-        <p className="rotulo">Prólogo</p>
-        <h2 className="titulo-fatos">O que já aconteceu de verdade</h2>
-        <Fatos fatos={jogo.prologo} />
-        <p className="ponte">Daqui em diante, nada aconteceu ainda. Quem decide é você.</p>
-        <Acao
-          primario
-          onClick={() => {
-            atualizar(novoJogo(jogo));
-            setTela('partida');
-          }}
-        >
-          O que acontece agora?
-        </Acao>
+        <p className="aviso">{jogo.aviso}</p>
       </main>
     );
   }
