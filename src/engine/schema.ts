@@ -108,7 +108,7 @@ export const ApresentacaoSchema = z.strictObject({
 const Bloco = z.strictObject({
   titulo: z.string(),
   texto: z.string(),
-  /** Frase em destaque, mostrada como citação antes do texto (tela "Para que serve"). */
+  /** Frase em destaque, mostrada como citação no lugar do título (tela "Para que serve"). */
   destaque: z.string().optional(),
 });
 
@@ -116,13 +116,7 @@ const Bloco = z.strictObject({
 export const ExplicacaoSchema = z.strictObject({
   titulo: z.string(),
   texto: z.string(),
-  /** Uma linha para o cartão que abre a tela, na capa. Sem ela, vale `texto`. */
-  chamada: z.string().optional(),
   etapas: z.array(Bloco).min(1),
-  /** Esquema da tela do método: a base, as leituras e as duas saídas (concordam, divergem). */
-  esquema: z
-    .strictObject({ base: Bloco, leituras: Bloco, concordam: Bloco, divergem: Bloco })
-    .optional(),
   /** As lentes do painel (só na tela do método). */
   lentes: z.array(z.strictObject({ nome: z.string(), texto: z.string() })).min(1).optional(),
   nota: z.string().optional(),

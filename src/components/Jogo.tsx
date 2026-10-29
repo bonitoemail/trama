@@ -18,21 +18,25 @@ import {
   paragrafos,
 } from '@/engine/engine';
 import type { Jogo as JogoT } from '@/engine/schema';
+import { useNavegacao } from '@/lib/navegacao';
 import { apagarPartida, lerPartida, lerVistos, salvarPartida, salvarVistos } from '@/lib/storage';
-
-type Tela = 'carregando' | 'abertura' | 'partida';
+import type { Tela } from '@/lib/telas';
 
 export default function Jogo({
   jogo,
   caminhos,
   partidas,
+  inicial,
 }: {
   jogo: JogoT;
   caminhos: Record<string, number>;
   /** Histórias completas possíveis (contarPartidas), mostradas na tela inicial. */
   partidas: number;
+  /** Tela do endereço em que a pessoa chegou (/, /para-que-serve, /como-fazemos, /partida). */
+  inicial: Tela;
 }) {
-  const [tela, setTela] = useState<Tela>('carregando');
+  const { tela, ir, voltar, corrigir } = useNavegacao(inicial);
+  const [carregado, setCarregado] = useState(false);
   const [estado, setEstado] = useState<Estado | null>(null);
   const [vistos, setVistos] = useState<Set<string>>(new Set());
   const [decidindo, setDecidindo] = useState<string | null>(null);
@@ -52,13 +56,21 @@ export default function Jogo({
     }
     setEstado(valida);
     setVistos(lerVistos());
-    setTela('abertura');
-  }, [jogo.versao]);
+    setCarregado(true);
+    // /partida sem partida salva não tem o que mostrar: vira a capa.
+    if (!valida && inicial === 'partida') corrigir('capa');
+  }, [jogo.versao, inicial, corrigir]);
 
-  // Rola para o topo a cada nova cena.
+  // O título da aba acompanha a tela (o do servidor só vale para a primeira).
+  useEffect(() => {
+    const t = tela === 'objetivo' ? jogo.objetivo?.titulo : tela === 'metodo' ? jogo.metodo?.titulo : undefined;
+    document.title = t ? `${t} · ${jogo.titulo}` : jogo.titulo;
+  }, [tela, jogo]);
+
+  // Rola para o topo a cada nova cena (a rolagem entre telas fica com useNavegacao).
   useEffect(() => {
     window.scrollTo({ top: 0 });
-  }, [tela, estado?.no, estado?.fase, estado?.capitulo]);
+  }, [estado?.no, estado?.fase, estado?.capitulo]);
 
   function atualizar(novo: Estado, marcarVisto: string[] = []) {
     setEstado(novo);
@@ -75,19 +87,22 @@ export default function Jogo({
     apagarPartida(jogo.versao);
     setEstado(null);
     atualizar(novoJogo(jogo));
-    setTela('partida');
+    if (tela !== 'partida') ir('partida');
   }
 
-  if (tela === 'carregando') return <main className="tela" />;
+  if (!carregado) return <main className="tela" />;
 
-  if (tela === 'abertura' || !estado) {
+  if (tela !== 'partida' || !estado) {
     return (
       <Inicio
         jogo={jogo}
+        tela={tela === 'partida' ? 'capa' : tela}
         partidas={partidas}
         capituloAtual={estado ? nomeDoCapitulo(capitulo(jogo, estado.capitulo)) : undefined}
         capituloInicial={nomeDoCapitulo(capitulo(jogo, jogo.primeiro_capitulo))}
-        onContinuar={() => setTela('partida')}
+        onIr={ir}
+        onVoltar={voltar}
+        onContinuar={() => ir('partida')}
         onComecar={comecar}
       />
     );
@@ -120,7 +135,7 @@ export default function Jogo({
           <Acao primario onClick={comecar}>
             Jogar de novo
           </Acao>
-          <Acao onClick={() => setTela('abertura')}>Voltar ao início</Acao>
+          <Acao onClick={voltar}>Voltar ao início</Acao>
         </div>
       </main>
     );
@@ -287,7 +302,7 @@ function Acao({
   );
 }
 
-/** "Capítulo 1 · A carta". */
+/** "Capítulo 1, A carta". */
 function nomeDoCapitulo(c: { numero: number; titulo: string }): string {
-  return `Capítulo ${c.numero} · ${c.titulo}`;
+  return `Capítulo ${c.numero}, ${c.titulo}`;
 }

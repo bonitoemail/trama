@@ -54,3 +54,19 @@ export function regua(jogo: Jogo): Regua | null {
   const marcos = jogo.calendario.filter((m) => m.data > agora).sort((a, b) => a.data.localeCompare(b.data));
   return marcos.length ? { agora, marcos } : null;
 }
+
+/** "28 de outubro de 2026, mais tarde" vira "28 de outubro". */
+export function diaEMes(data: string): string {
+  return data.replace(/ de \d{4}.*$/, '');
+}
+
+/** "28 de outubro de 2026, à noite" vira "28 out". */
+export function diaMesCurto(data: string): string {
+  return dataCurta(data).split(' · ')[0];
+}
+
+/** "2026-11-03" vira "3 de novembro". */
+export function isoPorExtenso(iso: string): string {
+  const [, mes, dia] = iso.split('-').map(Number);
+  return `${dia} de ${MESES[mes - 1]}`;
+}

@@ -226,3 +226,14 @@ describe('régua da capa', () => {
     expect(regua(adiante)!.marcos.some((m) => m.nome === 'Eleição nos EUA')).toBe(false);
   });
 });
+
+describe('endereços das telas', () => {
+  it('cada caminho leva à sua tela; o resto, à capa', async () => {
+    const { telaDoCaminho } = await import('@/lib/telas');
+    expect(telaDoCaminho('/')).toBe('capa');
+    expect(telaDoCaminho('/para-que-serve')).toBe('objetivo');
+    expect(telaDoCaminho('/como-fazemos/')).toBe('metodo');
+    expect(telaDoCaminho('/partida')).toBe('partida');
+    expect(telaDoCaminho('/qualquer')).toBe('capa');
+  });
+});

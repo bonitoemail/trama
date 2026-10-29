@@ -1,0 +1,213 @@
+<!doctype html>
+<!--
+  Rodada 3 · B3 "menos" · capa
+  Mesma ideia da B2 (o Agora com a última notícia), com metade das coisas. Ousadia só no título;
+  a régua vira uma frase; fatos, propósito e método ficam atrás de um toque; uma coluna só.
+  Plano e crítica em b3-plano.md.
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trama · B3 · Capa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Rodada 3 · B3 "menos": base comum às três páginas. Plano em b3-plano.md. */
+:root {
+  --fundo: #111314;
+  --texto: #ece8df;
+  --texto-2: #9d9a93;
+  --linha: #26292b;
+  --serif: 'Source Serif 4', Georgia, serif;
+  --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--fundo); color: var(--texto); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+body { overflow-x: clip; }
+button { font: inherit; color: inherit; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--texto); outline-offset: 3px; border-radius: 4px; }
+
+.coluna { max-width: 560px; margin: 0 auto; padding: 0 20px; }
+
+/* O único lugar ousado: o título. */
+.marca {
+  font-family: 'Unbounded', sans-serif; font-weight: 500; text-transform: uppercase;
+  line-height: 0.95; letter-spacing: 0.04em; margin: 0; color: var(--texto);
+}
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .marca.luz {
+    background: linear-gradient(105deg, var(--texto) 0%, var(--texto) 36%, #2fae5b 44%, #f7d23e 50%, #2fae5b 56%, var(--texto) 64%, var(--texto) 100%);
+    background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: luz 4.5s cubic-bezier(0.45, 0, 0.55, 1) 0.6s infinite;
+  }
+}
+@keyframes luz { from { background-position: 100% 0; } to { background-position: 0% 0; } }
+
+/* Botão: claro, sem seta, sem acento. */
+.botao {
+  display: block; width: 100%; min-height: 56px; padding: 0 20px; border: 0; border-radius: 12px; cursor: pointer;
+  background: var(--texto); color: var(--fundo); font-size: 16px; font-weight: 600; text-align: center;
+  transition: background 0.15s, transform 0.1s;
+}
+.botao:hover { background: #fff; }
+.botao:active { transform: translateY(1px); }
+.legenda { margin: 10px 0 0; text-align: center; font-size: 13px; color: var(--texto-2); }
+.link { background: none; border: 0; padding: 10px; cursor: pointer; font-size: 14px; color: var(--texto-2); text-decoration: underline; text-decoration-color: var(--linha); text-underline-offset: 4px; }
+.link:hover { color: var(--texto); }
+.nota { margin: 0 0 14px; text-align: center; font-size: 14px; line-height: 1.5; color: var(--texto-2); }
+
+[data-quando] { display: none; }
+body[data-estado="salva"] [data-quando="salva"],
+body[data-estado="nova"] [data-quando="nova"],
+body[data-estado="confirmar"] [data-quando="confirmar"] { display: flex; flex-direction: column; align-items: center; }
+[data-quando] > .botao { align-self: stretch; }
+
+.sketch { margin: 48px 0 0; font-size: 12px; color: var(--texto-2); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.sketch button { background: none; border: 1px solid var(--linha); border-radius: 99px; padding: 4px 10px; cursor: pointer; font-size: 12px; color: var(--texto-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  .marca.luz { animation: none; background-position: 100% 0; }
+  * { transition: none !important; animation: none !important; }
+}
+</style>
+<style>
+  .capa { padding: max(64px, calc(env(safe-area-inset-top) + 48px)) 0 64px; }
+
+  /* O título mede pela coluna (cqi), não pela tela: nunca passa da largura e nunca é cortado. */
+  .cabeca { text-align: center; container-type: inline-size; }
+  .cabeca .marca { font-size: 20cqi; padding-left: 0.04em; }
+  .cabeca p { margin: 14px 0 0; font-size: 15px; color: var(--texto-2); }
+
+  /* A notícia: sem cartão; o espaço a separa do título. */
+  .agora { margin-top: 72px; }
+  .quando { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; font-size: 14px; color: var(--texto-2); font-variant-numeric: tabular-nums; }
+  .agora h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(28px, 8vw, 36px); line-height: 1.12; margin: 0 0 12px; text-wrap: balance; }
+  .fonte { font-size: 13px; color: var(--texto-2); text-underline-offset: 3px; text-decoration-color: var(--linha); }
+  .fonte:hover { color: var(--texto); }
+
+  /* "?": pequeno, ao lado da data. */
+  .dica { position: relative; display: inline-flex; }
+  .ajuda { position: relative; width: 20px; height: 20px; padding: 0; border-radius: 50%; border: 1px solid var(--linha); background: none; cursor: pointer; font-size: 12px; line-height: 1; color: var(--texto-2); }
+  .ajuda::after { content: ""; position: absolute; inset: -12px; }
+  .ajuda:hover, .dica.aberta .ajuda { color: var(--texto); border-color: var(--texto-2); }
+  .balao { position: absolute; left: -10px; top: calc(100% + 10px); z-index: 5; width: min(260px, calc(100vw - 60px)); padding: 12px 14px; border-radius: 10px; background: #1c1f21; border: 1px solid var(--linha); box-shadow: 0 16px 32px -12px rgba(0,0,0,.7); font-size: 14px; line-height: 1.5; color: var(--texto); opacity: 0; visibility: hidden; transform: translateY(-4px); transition: opacity .15s, transform .15s var(--ease), visibility 0s .15s; }
+  .dica.aberta .balao { opacity: 1; visibility: visible; transform: none; transition: opacity .15s, transform .15s var(--ease), visibility 0s; }
+
+  .partida { margin-top: 32px; }
+
+  /* O que vem: uma frase no lugar da régua. */
+  .adiante { margin: 40px 0 0; font-family: var(--serif); font-size: 17px; line-height: 1.55; color: var(--texto-2); }
+  .adiante b { font-weight: 500; color: var(--texto); }
+
+  /* Aprofundar: linhas simples, sem cartões. */
+  .mais { list-style: none; margin: 56px 0 0; padding: 0; border-top: 1px solid var(--linha); }
+  .mais > li { border-bottom: 1px solid var(--linha); }
+  .linha { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; min-height: 60px; padding: 0; border: 0; background: none; cursor: pointer; text-align: left; text-decoration: none; font-family: var(--serif); font-size: 18px; color: var(--texto); list-style: none; }
+  .linha::-webkit-details-marker { display: none; }
+  .linha span { font-family: var(--sans); font-size: 14px; color: var(--texto-2); }
+  .linha:hover { color: #fff; }
+  details[open] .linha .sinal { transform: rotate(180deg); }
+  .sinal { display: inline-block; transition: transform .2s var(--ease); }
+
+  .fatos { list-style: none; margin: 0 0 12px; padding: 0; }
+  .fatos li { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 10px 0; }
+  .fatos time { font-size: 13px; color: var(--texto-2); font-variant-numeric: tabular-nums; padding-top: 2px; }
+  .fatos p { margin: 0; font-family: var(--serif); font-size: 16px; line-height: 1.45; }
+  .fatos a { display: inline-block; margin-top: 4px; font-family: var(--sans); font-size: 12px; color: var(--texto-2); text-underline-offset: 3px; text-decoration-color: var(--linha); }
+
+  .aviso { margin: 32px 0 0; font-size: 13px; line-height: 1.6; color: var(--texto-2); }
+
+  @media (min-width: 960px) {
+    .capa { padding-top: 96px; }
+    .coluna { max-width: 600px; }
+    .cabeca p { font-size: 16px; }
+    .agora { margin-top: 96px; }
+    .agora h2 { font-size: 40px; }
+  }
+</style>
+</head>
+<body data-estado="salva">
+<main class="capa coluna">
+  <header class="cabeca">
+    <h1 class="marca luz">Trama</h1>
+    <p>Simulação preditiva do Brasil até 2030</p>
+  </header>
+
+  <section class="agora" aria-labelledby="agora-tit">
+    <p class="quando">
+      <span>Agora, 28 de outubro</span>
+      <span class="dica" id="dica">
+        <button type="button" class="ajuda" aria-label="O que é o Agora?" aria-describedby="dica-txt" aria-expanded="false">?</button>
+        <span class="balao" role="tooltip" id="dica-txt">A simulação começa a partir desta notícia, a mais recente que importa. Daqui em diante, é você quem decide o que acontece.</span>
+      </span>
+    </p>
+    <h2 id="agora-tit">A carta muda: “líder do Brasil”</h2>
+    <a class="fonte" href="https://www.congressoemfoco.com.br/noticia/129622/flavio-muda-carta-e-troca-presidente-eleito-por-lider-do-brasil" target="_blank" rel="noreferrer">congressoemfoco.com.br</a>
+  </section>
+
+  <div class="partida">
+    <div data-quando="salva">
+      <button class="botao" type="button">Continuar partida</button>
+      <p class="legenda">Capítulo 1, A carta</p>
+      <button class="link" type="button" data-estado="confirmar">Começar outra partida</button>
+    </div>
+    <div data-quando="confirmar">
+      <p class="nota">A partida atual será apagada. As escolhas não voltam.</p>
+      <button class="botao" type="button" data-estado="nova">Começar do zero</button>
+      <button class="link" type="button" data-estado="salva">Manter a partida atual</button>
+    </div>
+    <div data-quando="nova">
+      <button class="botao" type="button">Começar</button>
+      <p class="legenda">Capítulo 1, A carta</p>
+    </div>
+  </div>
+
+  <p class="adiante">Pela frente: <b>eleição nos EUA, em 3 de novembro</b>. Faltam 3 anos e 11 meses para a eleição de 2030.</p>
+
+  <ul class="mais">
+    <li>
+      <details>
+        <summary class="linha">O que já aconteceu <span>6 fatos <span class="sinal" aria-hidden="true">⌄</span></span></summary>
+        <ol class="fatos">
+          <li><time>28 out</time><div><p>A carta: “verdadeiro presidente eleito”.</p><a href="https://www.metropoles.com/mundo/em-carta-flavio-se-declara-verdadeiro-presidente-eleito-do-brasil" target="_blank" rel="noreferrer">metropoles.com</a></div></li>
+          <li><time>28 out</time><div><p>Flávio chega a Miami.</p><a href="https://www.metropoles.com/mundo/governo-trump-confirma-emissao-de-vistos-para-flavio-bolsonaro-e-familia" target="_blank" rel="noreferrer">metropoles.com</a></div></li>
+          <li><time>27 out</time><div><p>Flávio sai do Brasil.</p><a href="https://www.nexojornal.com.br/expresso/2026/10/27/flavio-bolsonaro-fugiu-argentina-pf-passaporte" target="_blank" rel="noreferrer">nexojornal.com.br</a></div></li>
+          <li><time>26 out</time><div><p>Supremo manda apreender o passaporte de Flávio.</p><a href="https://www.gazetadopovo.com.br/republica/pf-confirma-flavio-bolsonaro-deixou-brasil/" target="_blank" rel="noreferrer">gazetadopovo.com.br</a></div></li>
+          <li><time>25 out</time><div><p>Lula vira e é reeleito.</p><a href="https://tvbrasil.ebc.com.br/reporter-brasil-tarde/2026/10/eleicoes-2026-pl-forma-maior-bancada-no-congresso" target="_blank" rel="noreferrer">tvbrasil.ebc.com.br</a></div></li>
+          <li><time>4 out</time><div><p>Flávio vence o 1º turno.</p><a href="https://pt.wikipedia.org/wiki/Elei%C3%A7%C3%A3o_presidencial_no_Brasil_em_2026" target="_blank" rel="noreferrer">pt.wikipedia.org</a></div></li>
+        </ol>
+      </details>
+    </li>
+    <li><a class="linha" href="b3-para-que-serve.html">Para que serve o Trama <span class="sinal" aria-hidden="true">›</span></a></li>
+    <li><a class="linha" href="b3-como-fazemos.html">Como fazemos as previsões <span class="sinal" aria-hidden="true">›</span></a></li>
+  </ul>
+
+  <p class="aviso">Trama é uma obra de ficção especulativa. Figuras públicas aparecem como personagens em situações hipotéticas, inspiradas em suas posições públicas. Nenhuma cena descreve fatos reais além dos listados em “O que já aconteceu”.</p>
+
+  <div class="sketch">Sketch: <button data-estado="salva">com partida</button><button data-estado="nova">sem partida</button><button data-estado="confirmar">confirmar</button></div>
+</main>
+
+<script>
+  var KEY = 'trama-b3-estado';
+  try { var s = localStorage.getItem(KEY); if (s) document.body.dataset.estado = s; } catch (e) {}
+  document.querySelectorAll('[data-estado]').forEach(function (el) {
+    if (el === document.body) return;
+    el.addEventListener('click', function () { document.body.dataset.estado = el.dataset.estado; try { localStorage.setItem(KEY, el.dataset.estado); } catch (e) {} });
+  });
+  (function () {
+    var dica = document.getElementById('dica'), btn = dica.querySelector('.ajuda'), p = null;
+    function abrir(v) { dica.classList.toggle('aberta', v); btn.setAttribute('aria-expanded', v); }
+    btn.addEventListener('pointerdown', function (e) { p = e.pointerType; });
+    btn.addEventListener('click', function () { if (p === 'mouse') abrir(true); else abrir(!dica.classList.contains('aberta')); p = null; });
+    dica.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') abrir(true); });
+    dica.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') abrir(false); });
+    document.addEventListener('pointerdown', function (e) { if (!dica.contains(e.target)) abrir(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') abrir(false); });
+  })();
+</script>
+</body>
+</html>

@@ -1,271 +1,209 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Dica from './Dica';
 import Fatos, { Fonte } from './Fatos';
 import Metodo from './Metodo';
-import Regua from './Regua';
-import { dataCurta, regua } from '@/engine/calendario';
+import { diaEMes, falta, isoPorExtenso, regua } from '@/engine/calendario';
 import type { Jogo } from '@/engine/schema';
+import { CAMINHOS, type Tela } from '@/lib/telas';
 
 interface Props {
   jogo: Jogo;
+  tela: Exclude<Tela, 'partida'>;
   partidas: number;
-  /** "Capítulo 1 · A carta" da partida salva; sem partida, não vem. */
+  /** "Capítulo 1, A carta" da partida salva; sem partida, não vem. */
   capituloAtual?: string;
-  /** "Capítulo 1 · A carta" de onde começa uma partida nova. */
+  /** "Capítulo 1, A carta" de onde começa uma partida nova. */
   capituloInicial: string;
+  onIr: (tela: Tela, opcoes?: { trocar?: boolean }) => void;
+  onVoltar: () => void;
   onContinuar: () => void;
   onComecar: () => void;
 }
 
 /**
- * Tela inicial em torno do presente: título, a régua "Pela frente" e o cartão "Agora" com o
- * último fato real e as ações da partida. Depois, os fatos anteriores, as portas para as telas
- * de explicação e "Como funciona". No celular, quando o cartão sai da tela, uma barra presa
- * embaixo traz a ação principal; no PC são três colunas e o cartão fica parado à esquerda.
+ * Capa e telas de explicação. Ousadia só no título; o resto quieto. Na capa, a notícia do Agora,
+ * a partida e o que vem pela frente; depois, atrás de um toque, os fatos, o propósito e o método.
+ * No PC, duas colunas: o agora parado à esquerda, o aprofundamento rolando à direita, com os
+ * fatos já abertos.
  */
-export default function Inicio({ jogo, partidas, capituloAtual, capituloInicial, onContinuar, onComecar }: Props) {
+export default function Inicio({ jogo, tela, partidas, capituloAtual, capituloInicial, onIr, onVoltar, onContinuar, onComecar }: Props) {
   const [confirmar, setConfirmar] = useState(false);
-  const [pagina, setPagina] = useState<'metodo' | 'objetivo' | null>(null);
-  const [longe, setLonge] = useState(false);
-  const cartao = useRef<HTMLElement>(null);
-  const voltar = useCallback(() => setPagina(null), []);
   const contar = (t: string) => t.replaceAll('{partidas}', emMil(partidas));
+  const principal = capituloAtual ? onContinuar : onComecar;
 
-  const ap = jogo.apresentacao;
+  if (tela !== 'capa') {
+    const explicacao = tela === 'metodo' ? jogo.metodo : jogo.objetivo;
+    const outra = tela === 'metodo' ? jogo.objetivo : jogo.metodo;
+    if (explicacao) {
+      return (
+        <Metodo
+          tipo={tela}
+          explicacao={explicacao}
+          passos={tela === 'objetivo' ? jogo.apresentacao?.passos : undefined}
+          partidas={emMil(partidas)}
+          contar={contar}
+          titulo={jogo.titulo}
+          outra={outra?.titulo}
+          onOutra={() => onIr(tela === 'metodo' ? 'objetivo' : 'metodo', { trocar: true })}
+          onVoltar={onVoltar}
+          principal={{ rotulo: capituloAtual ? 'Continuar partida' : 'Começar', curto: capituloAtual ? 'Continuar' : 'Começar', onClick: principal }}
+          capitulo={capituloAtual ?? capituloInicial}
+        />
+      );
+    }
+  }
+
   const agora = jogo.prologo[jogo.prologo.length - 1];
   const antes = jogo.prologo.slice(0, -1);
   const pelaFrente = regua(jogo);
 
-  useEffect(() => {
-    const el = cartao.current;
-    if (!el || !('IntersectionObserver' in window)) return;
-    const obs = new IntersectionObserver(([e]) => setLonge(!e.isIntersecting), { threshold: 0.15 });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [pagina]);
-
-  const acoes = { capituloAtual, capituloInicial, confirmar, setConfirmar, onContinuar, onComecar };
-
-  const explicacao = pagina === 'metodo' ? jogo.metodo : pagina === 'objetivo' ? jogo.objetivo : undefined;
-  if (pagina && explicacao) {
-    const outra = pagina === 'metodo' ? jogo.objetivo : jogo.metodo;
-    return (
-      <Metodo
-        tipo={pagina}
-        explicacao={explicacao}
-        partidas={emMil(partidas)}
-        contar={contar}
-        titulo={jogo.titulo}
-        outra={outra && { titulo: outra.titulo, tag: pagina === 'metodo' ? 'O propósito' : 'O método' }}
-        onOutra={() => setPagina(pagina === 'metodo' ? 'objetivo' : 'metodo')}
-        onVoltar={voltar}
-        acoes={(lugar) => <Acoes {...acoes} lugar={lugar} />}
-      />
-    );
-  }
-
   return (
-    <div className="capa">
-      <main className="pagina">
-        <header className="cabeca">
-          <h1 className="marca luz">{jogo.titulo}</h1>
-          <p className="ficha">{ap?.ficha ?? 'Experiência interativa · Brasil até 2030'}</p>
-        </header>
+    <main className="capa inicio">
+      <header className="cabeca">
+        <h1 className="marca luz">{jogo.titulo}</h1>
+        {jogo.apresentacao?.ficha && <p>{jogo.apresentacao.ficha}</p>}
+      </header>
 
-        {pelaFrente && <Regua regua={pelaFrente} />}
-
-        <div className="grade">
-          <div className="col-agora">
-            <article className="agora" ref={cartao} aria-labelledby="agora-tit">
-              <div className="agora-topo">
-                <div className="agora-rotulo">
-                  <span>Agora</span>
-                  <Dica rotulo="O que é o Agora?">
-                    A história começa a partir desta notícia, a mais recente que importa. Daqui em diante, é ficção.
-                  </Dica>
-                </div>
-                <time>{dataCurta(agora.data)}</time>
-              </div>
-              <h2 id="agora-tit">{agora.titulo ?? agora.texto}</h2>
-              {agora.titulo && <p className="agora-texto">{agora.texto}</p>}
-              {agora.fonte && <Fonte url={agora.fonte} />}
-              <div className="corte">depois disso, é ficção</div>
-              <Acoes {...acoes} lugar="cartao" />
-            </article>
-          </div>
-
-          {antes.length > 0 && (
-            <section className="bloco" aria-labelledby="antes">
-              <p className="rot" id="antes">
-                Antes disso · o que já aconteceu
-              </p>
-              <Fatos fatos={antes} />
-            </section>
-          )}
-
-          <div className="col-apoio">
-            {(jogo.objetivo || jogo.metodo) && (
-              <section className="bloco portas" aria-label={`Sobre o ${jogo.titulo}`}>
-                {jogo.objetivo && (
-                  <Porta tag="O propósito" titulo={jogo.objetivo.titulo} onClick={() => setPagina('objetivo')}>
-                    {contar(jogo.objetivo.chamada ?? jogo.objetivo.texto)}
-                  </Porta>
-                )}
-                {jogo.metodo && (
-                  <Porta tag="O método" titulo={jogo.metodo.titulo} onClick={() => setPagina('metodo')}>
-                    {contar(jogo.metodo.chamada ?? jogo.metodo.texto)}
-                  </Porta>
-                )}
-              </section>
-            )}
-            {ap && (
-              <section className="bloco" aria-labelledby="como">
-                <p className="rot" id="como">
-                  Como funciona
-                </p>
-                <ol className="passos">
-                  {ap.passos.map((p, i) => (
-                    <li key={i}>
-                      <span className="n">{String(i + 1).padStart(2, '0')}</span>
-                      <b>{p.titulo}</b>
-                      <span>{p.texto}</span>
-                    </li>
-                  ))}
-                </ol>
-              </section>
-            )}
-            <p className="aviso">{jogo.aviso}</p>
-          </div>
-        </div>
-      </main>
-
-      <div className={`barra-partida barra-capa ${longe ? 'visivel' : ''}`} aria-hidden={!longe}>
-        <div>
-          {confirmar ? (
-            <Botao onClick={() => cartao.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })} seta="↑" foco={longe}>
-              Confirmar nova partida
-            </Botao>
-          ) : capituloAtual ? (
-            <Botao onClick={onContinuar} detalhe={capituloAtual} foco={longe}>
-              Continuar partida
-            </Botao>
-          ) : (
-            <Botao onClick={onComecar} detalhe={capituloInicial} foco={longe}>
-              Começar daqui
-            </Botao>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export type Lugar = 'cartao' | 'lado' | 'barra';
-
-/** Ações da partida. No cartão da capa e na barra/coluna das telas de explicação. */
-function Acoes({
-  lugar,
-  capituloAtual,
-  capituloInicial,
-  confirmar,
-  setConfirmar,
-  onContinuar,
-  onComecar,
-}: {
-  lugar: Lugar;
-  capituloAtual?: string;
-  capituloInicial: string;
-  confirmar: boolean;
-  setConfirmar: (v: boolean) => void;
-  onContinuar: () => void;
-  onComecar: () => void;
-}) {
-  // No cartão, o capítulo vai dentro do botão; ao lado, vai em cima, como legenda.
-  const noBotao = lugar === 'cartao';
-  if (confirmar) {
-    return (
-      <div className="acoes-partida">
-        <p className="nota-acao">A partida atual será perdida. As escolhas não voltam.</p>
-        <Botao onClick={onComecar}>Começar do zero</Botao>
-        <button type="button" className="sub" onClick={() => setConfirmar(false)}>
-          Manter a partida atual
-        </button>
-      </div>
-    );
-  }
-  if (capituloAtual) {
-    return (
-      <div className="acoes-partida">
-        {!noBotao && (
-          <p className="onde">
-            Sua partida<b>{capituloAtual}</b>
+      <div className="esquerda">
+        <section className="agora" aria-labelledby="agora-tit">
+          <p className="quando">
+            <span>Agora, {diaEMes(agora.data)}</span>
+            <Dica rotulo="O que é o Agora?">
+              A simulação começa a partir desta notícia, a mais recente que importa. Daqui em diante, é você quem decide o que
+              acontece.
+            </Dica>
           </p>
-        )}
-        <Botao onClick={onContinuar} detalhe={noBotao ? capituloAtual : undefined}>
-          Continuar partida
-        </Botao>
-        <button type="button" className="sub" onClick={() => setConfirmar(true)}>
-          Começar uma nova partida
-        </button>
+          <h2 id="agora-tit">{agora.titulo ?? agora.texto}</h2>
+          {agora.fonte && <Fonte url={agora.fonte} />}
+        </section>
+
+        <div className="partida">
+          {confirmar ? (
+            <>
+              <p className="nota">A partida atual será apagada. As escolhas não voltam.</p>
+              <button type="button" className="botao-claro" onClick={onComecar}>
+                Começar do zero
+              </button>
+              <button type="button" className="link-sub" onClick={() => setConfirmar(false)}>
+                Manter a partida atual
+              </button>
+            </>
+          ) : (
+            <>
+              <button type="button" className="botao-claro" onClick={principal}>
+                {capituloAtual ? 'Continuar partida' : 'Começar'}
+              </button>
+              <p className="legenda">{capituloAtual ?? capituloInicial}</p>
+              {capituloAtual && (
+                <button type="button" className="link-sub" onClick={() => setConfirmar(true)}>
+                  Começar outra partida
+                </button>
+              )}
+            </>
+          )}
+        </div>
+
+        {pelaFrente && <PelaFrente agora={pelaFrente.agora} marcos={pelaFrente.marcos} />}
       </div>
-    );
-  }
+
+      <div className="direita">
+        <ul className="mais">
+          {antes.length > 0 && (
+            <li>
+              <FatosAbertosNoPc total={antes.length}>
+                <Fatos fatos={antes} />
+              </FatosAbertosNoPc>
+            </li>
+          )}
+          {jogo.objetivo && (
+            <li>
+              <Linha tela="objetivo" onIr={onIr}>
+                {jogo.objetivo.titulo}
+              </Linha>
+            </li>
+          )}
+          {jogo.metodo && (
+            <li>
+              <Linha tela="metodo" onIr={onIr}>
+                {jogo.metodo.titulo}
+              </Linha>
+            </li>
+          )}
+        </ul>
+        <p className="aviso">{jogo.aviso}</p>
+      </div>
+    </main>
+  );
+}
+
+/** "Pela frente: eleição nos EUA, em 3 de novembro. Faltam 3 anos e 11 meses para a eleição para presidente de 2030." */
+function PelaFrente({ agora, marcos }: { agora: string; marcos: { data: string; nome: string }[] }) {
+  const prox = marcos[0];
+  const fim = marcos[marcos.length - 1];
   return (
-    <div className="acoes-partida">
-      {!noBotao && (
-        <p className="onde">
-          Começa no<b>{capituloInicial}</b>
-        </p>
+    <p className="adiante">
+      Pela frente:{' '}
+      <b>
+        {minuscula(prox.nome)}, em {isoPorExtenso(prox.data)}
+      </b>
+      .
+      {fim !== prox && (
+        <>
+          {' '}
+          Faltam {falta(agora, fim.data)} para a {minuscula(fim.nome)} de {fim.data.slice(0, 4)}.
+        </>
       )}
-      <Botao onClick={onComecar} detalhe={noBotao ? capituloInicial : undefined}>
-        {noBotao ? 'Começar daqui' : 'Começar'}
-      </Botao>
-    </div>
+    </p>
   );
 }
 
-function Botao({
-  children,
-  detalhe,
-  seta = '→',
-  foco = true,
-  onClick,
-}: {
-  children: React.ReactNode;
-  detalhe?: string;
-  seta?: string;
-  /** false tira o botão da ordem do Tab (barra escondida). */
-  foco?: boolean;
-  onClick: () => void;
-}) {
+/** Lista de fatos: fechada atrás de um toque no celular, aberta no PC (há espaço, e dá contexto). */
+function FatosAbertosNoPc({ total, children }: { total: number; children: React.ReactNode }) {
+  const ref = useRef<HTMLDetailsElement>(null);
+  useEffect(() => {
+    const pc = window.matchMedia('(min-width: 960px)');
+    const ajustar = () => ref.current && (ref.current.open = pc.matches);
+    ajustar();
+    pc.addEventListener('change', ajustar);
+    return () => pc.removeEventListener('change', ajustar);
+  }, []);
   return (
-    <button type="button" className="botao-partida" onClick={onClick} tabIndex={foco ? undefined : -1}>
-      <span>
-        {children}
-        {detalhe && <small>{detalhe}</small>}
-      </span>
-      <span className="circulo" aria-hidden>
-        {seta}
-      </span>
-    </button>
+    <details ref={ref} className="fatos-caixa">
+      <summary className="linha-mais">
+        O que já aconteceu
+        <span>
+          {total} {total > 1 ? 'fatos' : 'fato'} <span className="sinal" aria-hidden>⌄</span>
+        </span>
+      </summary>
+      {children}
+    </details>
   );
 }
 
-function Porta({ tag, titulo, children, onClick }: { tag: string; titulo: string; children: React.ReactNode; onClick: () => void }) {
+/** Link para uma tela interna: endereço de verdade (abre em nova aba, dá para enviar), sem recarregar. */
+function Linha({ tela, onIr, children }: { tela: Tela; onIr: Props['onIr']; children: React.ReactNode }) {
   return (
-    <button type="button" className="porta" onClick={onClick}>
-      <span className="porta-texto">
-        <span className="tag">{tag}</span>
-        <b>{titulo}</b>
-        <span className="t">{children}</span>
+    <a
+      className="linha-mais"
+      href={CAMINHOS[tela]}
+      onClick={(e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        onIr(tela);
+      }}
+    >
+      {children}
+      <span className="sinal" aria-hidden>
+        ›
       </span>
-      <span className="circulo-linha" aria-hidden>
-        →
-      </span>
-    </button>
+    </a>
   );
+}
+
+function minuscula(s: string): string {
+  return s.charAt(0).toLowerCase() + s.slice(1);
 }
 
 /** 184320 vira "184 mil"; abaixo de mil, o número inteiro. Arredonda para baixo: o texto diz "mais de". */

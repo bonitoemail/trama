@@ -1,12 +1,9 @@
-import { dataCurta } from '@/engine/calendario';
+import { diaMesCurto } from '@/engine/calendario';
 import type { Jogo } from '@/engine/schema';
 
 type Fato = Jogo['prologo'][number];
 
-/**
- * Os fatos reais anteriores ao "Agora", como changelog: o mais novo em cima, uma linha por fato
- * (data + manchete); tocar abre o texto e a fonte.
- */
+/** Os fatos reais anteriores ao "Agora", o mais novo em cima: data, manchete, texto e fonte. */
 export default function Fatos({ fatos }: { fatos: Fato[] }) {
   // O YAML guarda em ordem cronológica; a lista mostra do mais recente para o mais antigo.
   const recentes = [...fatos].reverse();
@@ -15,19 +12,12 @@ export default function Fatos({ fatos }: { fatos: Fato[] }) {
     <ol className="fatos">
       {recentes.map((f, i) => (
         <li key={`${f.data}-${i}`}>
-          <details>
-            <summary>
-              <time>{dataCurta(f.data)}</time>
-              <span className="tit">{f.titulo ?? f.texto}</span>
-              <span className="mais" aria-hidden>
-                +
-              </span>
-            </summary>
-            <div className="fato-corpo">
-              <p>{f.texto}</p>
-              {f.fonte && <Fonte url={f.fonte} />}
-            </div>
-          </details>
+          <time>{diaMesCurto(f.data)}</time>
+          <div>
+            <p className="fato-tit">{f.titulo ?? f.texto}</p>
+            {f.titulo && <p className="fato-texto">{f.texto}</p>}
+            {f.fonte && <Fonte url={f.fonte} />}
+          </div>
         </li>
       ))}
     </ol>
@@ -37,7 +27,7 @@ export default function Fatos({ fatos }: { fatos: Fato[] }) {
 export function Fonte({ url }: { url: string }) {
   return (
     <a className="fonte" href={url} target="_blank" rel="noreferrer">
-      {dominio(url)} ↗
+      {dominio(url)}
     </a>
   );
 }

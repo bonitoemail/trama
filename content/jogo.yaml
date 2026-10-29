@@ -3,11 +3,12 @@ titulo: Trama
 aviso: >
   Trama é uma obra de ficção especulativa. Figuras públicas aparecem como
   personagens em situações hipotéticas, inspiradas em suas posições públicas.
-  Nenhuma cena descreve fatos reais além do prólogo.
+  Nenhuma cena descreve fatos reais além dos listados em "O que já aconteceu".
 
-# Tela inicial: o que é o jogo e como funciona. Linguagem simples (DESIGN 8.2).
+# Capa: a linha sob o título. Os passos de "Como funciona" aparecem no fim de "Para que serve".
+# Linguagem simples (DESIGN 8.2).
 apresentacao:
-  ficha: Experiência interativa · Brasil até 2030
+  ficha: Simulação preditiva do Brasil até 2030
   passos:
     - titulo: Começa no último fato real
       texto: Parte do acontecimento mais recente, com data e fonte.
@@ -58,7 +59,6 @@ objetivo:
 metodo:
   titulo: Como fazemos as previsões
   texto: Os caminhos do Trama não saem da cabeça de uma pessoa. Saem de um método que dá para conferir.
-  chamada: Pesquisa, seis lentes e revisão de equilíbrio.
   etapas:
     - titulo: Pesquisa
       texto: >
@@ -82,11 +82,6 @@ metodo:
       texto: >
         Quando um fato novo acontece, a escolha que se confirmou fica travada e
         as previsões do que vem depois são refeitas.
-  esquema:
-    base: { titulo: Uma base de pesquisa, texto: "Os mesmos fatos, com data e fonte." }
-    leituras: { titulo: Seis leituras, texto: Cada lente responde às mesmas perguntas. }
-    concordam: { titulo: Concordam, texto: Caminho principal. }
-    divergem: { titulo: Divergem, texto: Decisão difícil. }
   lentes:
     - nome: Instituições
       texto: Congresso, Supremo e a relação entre os Poderes.
@@ -137,7 +132,7 @@ prologo:
       inquéritos no Supremo, sem denúncia, e continua senador até 31 de janeiro.
     fonte: https://www.metropoles.com/mundo/governo-trump-confirma-emissao-de-vistos-para-flavio-bolsonaro-e-familia
   - data: 28 de outubro de 2026, à noite
-    titulo: "A carta: \"verdadeiro presidente eleito\""
+    titulo: "A carta: “verdadeiro presidente eleito”"
     texto: >
       Aliados divulgam uma carta em que Flávio se declara "o verdadeiro presidente eleito do
       Brasil". Sem apresentar provas, ele fala em fraude, agradece a Milei e a Trump, diz que vai
@@ -145,7 +140,7 @@ prologo:
       Senado. Fontes do PL dizem que o partido não tem relação com a carta.
     fonte: https://www.metropoles.com/mundo/em-carta-flavio-se-declara-verdadeiro-presidente-eleito-do-brasil
   - data: 28 de outubro de 2026, mais tarde
-    titulo: "A carta muda: \"líder do Brasil\""
+    titulo: "A carta muda: “líder do Brasil”"
     texto: >
       Depois da repercussão, Flávio apaga a carta e publica uma nova versão. "Presidente eleito"
       vira "líder do Brasil". As acusações de fraude, de perseguição política e as críticas ao STF
