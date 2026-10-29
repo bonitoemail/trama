@@ -56,65 +56,64 @@ export function linhaDoTempo(jogo: Jogo, historico: Passo[]): Momento[] {
   });
 }
 
-const LIMITE_CAMINHOS = 200_000;
-
 /**
- * Quantos caminhos distintos (sequências de escolhas) cada capítulo tem, considerando todas as
- * combinações de marcas com que se pode chegar nele e as travas da realidade.
+ * Quantos caminhos distintos (sequências de escolhas) cada capítulo tem. O capítulo pode ser
+ * alcançado com várias combinações de marcas; o número mostrado é o da entrada com mais caminhos.
+ * Só as marcas de fluxo contam, e cada estado (nó, marcas) é contado uma vez: percorrer caminho
+ * por caminho trava quando os trilhos multiplicam as combinações.
  */
 export function contarCaminhos(jogo: Jogo): Record<string, number> {
-  const caminhos = new Map<string, Set<string>>();
+  const fluxo = marcasDeFluxo(jogo);
+  const so = (m: string[]) => [...new Set(m.filter((x) => fluxo.has(x)))].sort();
   const entradas = new Map<string, Set<string>>([[jogo.primeiro_capitulo, new Set([''])]]);
+  const resultado: Record<string, number> = {};
   const fila = [jogo.primeiro_capitulo];
-  let total = 0;
+  const feitos = new Set<string>();
 
-  while (fila.length && total < LIMITE_CAMINHOS) {
+  while (fila.length) {
     const capId = fila.shift()!;
     const cap = capitulo(jogo, capId);
-    const vistos = caminhos.get(capId) ?? new Set<string>();
-    caminhos.set(capId, vistos);
-
     for (const entrada of entradas.get(capId) ?? []) {
-      const pilha: Array<{ no: string; marcas: string[]; rastro: string }> = [
-        { no: cap.inicio, marcas: entrada ? entrada.split(',') : [], rastro: '' },
-      ];
-      while (pilha.length && total < LIMITE_CAMINHOS) {
-        const { no: noId, marcas, rastro } = pilha.pop()!;
+      const chaveEntrada = `${capId}|${entrada}`;
+      if (feitos.has(chaveEntrada)) continue;
+      feitos.add(chaveEntrada);
+
+      const memo = new Map<string, number>();
+      const contar = (noId: string, marcas: string[]): number => {
+        const chave = `${noId}|${marcas.join(',')}`;
+        const pronto = memo.get(chave);
+        if (pronto !== undefined) return pronto;
         const n = no(jogo, capId, noId);
         const disp = n.escolhas?.length ? escolhasDisponiveis(n, marcas) : [];
-
-        const encerrar = (m: string[], r: string) => {
-          if (!vistos.has(r)) {
-            vistos.add(r);
-            total++;
-          }
+        const fimDoCapitulo = (m: string[]) => {
           const proximo = saidaDoCapitulo(cap, m);
-          if (proximo === FIM) return;
-          const chave = [...m].sort().join(',');
-          const set = entradas.get(proximo) ?? new Set<string>();
-          if (!set.has(chave)) {
-            set.add(chave);
-            entradas.set(proximo, set);
-            if (!fila.includes(proximo)) fila.push(proximo);
+          if (proximo !== FIM) {
+            const set = entradas.get(proximo) ?? new Set<string>();
+            const k = m.join(',');
+            if (!set.has(k)) {
+              set.add(k);
+              entradas.set(proximo, set);
+              if (!fila.includes(proximo)) fila.push(proximo);
+            }
           }
+          return 1;
         };
-
+        let total: number;
         if (disp.length) {
-          for (const e of disp) {
-            const novas = [...new Set([...marcas, ...(e.marca ?? [])])];
-            const r = `${rastro}/${noId}:${e.id}`;
-            if (e.vai_para) pilha.push({ no: e.vai_para, marcas: novas, rastro: r });
-            else encerrar(novas, r);
-          }
-        } else if (n.segue) {
-          pilha.push({ no: n.segue, marcas, rastro });
-        } else {
-          encerrar(marcas, rastro);
-        }
-      }
+          total = disp.reduce((s, e) => {
+            const novas = so([...marcas, ...(e.marca ?? [])]);
+            return s + (e.vai_para ? contar(e.vai_para, novas) : fimDoCapitulo(novas));
+          }, 0);
+        } else if (n.segue) total = contar(n.segue, marcas);
+        else total = fimDoCapitulo(marcas);
+        memo.set(chave, total);
+        return total;
+      };
+      const n = contar(cap.inicio, entrada ? entrada.split(',') : []);
+      resultado[capId] = Math.max(resultado[capId] ?? 0, n);
     }
   }
-  return Object.fromEntries([...caminhos].map(([id, s]) => [id, s.size]));
+  return resultado;
 }
 
 /**
