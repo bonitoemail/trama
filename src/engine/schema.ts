@@ -102,11 +102,23 @@ export const ApresentacaoSchema = z.strictObject({
   passos: z.array(z.strictObject({ titulo: z.string(), texto: z.string() })).min(1),
 });
 
+const Bloco = z.strictObject({ titulo: z.string(), texto: z.string() });
+
+/** Tela "Como fazemos as previsões": as etapas do método e as lentes do painel. */
+export const MetodoSchema = z.strictObject({
+  titulo: z.string(),
+  texto: z.string(),
+  etapas: z.array(Bloco).min(1),
+  lentes: z.array(z.strictObject({ nome: z.string(), texto: z.string() })).min(1),
+  nota: z.string().optional(),
+});
+
 export const JogoSchema = z.strictObject({
   versao: z.string(),
   titulo: z.string(),
   aviso: z.string(),
   apresentacao: ApresentacaoSchema.optional(),
+  metodo: MetodoSchema.optional(),
   prologo: z.array(FatoSchema).min(1),
   primeiro_capitulo: z.string(),
   capitulos: z.array(CapituloSchema).min(1),

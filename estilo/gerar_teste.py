@@ -51,10 +51,12 @@ def montar(frente: str, cena: str) -> str:
 def main():
     """Uso: gerar_teste.py [--cenas cenas_cap01] [cena ...]. Sem cenas, gera todas."""
     args = sys.argv[1:]
-    cenas, prefixo = CENAS, "v2"
+    cenas, prefixo, tamanho = CENAS, "v2", (1344, 768)
     if args[:1] == ["--cenas"]:
-        modulo = args[1]
-        cenas, prefixo, args = import_module(modulo).CENAS, modulo.removeprefix("cenas_"), args[2:]
+        mod = import_module(args[1])
+        cenas, prefixo, args = mod.CENAS, args[1].removeprefix("cenas_"), args[2:]
+        # Um módulo de cenas pode pedir outro formato (ex.: a capa, em faixa larga).
+        tamanho = getattr(mod, "TAMANHO", tamanho)
     OUT.mkdir(parents=True, exist_ok=True)
     tok = T5TokenizerFast.from_pretrained(flux.REPO, subfolder="tokenizer_2")
     prompts = {}
@@ -72,7 +74,7 @@ def main():
         for s in SEEDS:
             img = pipe(
                 prompt=p, num_inference_steps=4, guidance_scale=0.0,
-                width=1344, height=768, max_sequence_length=LIMITE,
+                width=tamanho[0], height=tamanho[1], max_sequence_length=LIMITE,
                 generator=torch.Generator("cuda").manual_seed(s),
             ).images[0]
             caminho = OUT / f"{prefixo}-{nome}-{s}.png"

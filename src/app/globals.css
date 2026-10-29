@@ -63,26 +63,35 @@ button {
   display: block;
   width: calc(100% + 40px);
   margin: 0 -20px;
-  height: 38svh;
-  min-height: 220px;
+  height: 46svh;
+  min-height: 260px;
   object-fit: cover;
-  object-position: center 35%;
-  -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent);
-  mask-image: linear-gradient(to bottom, #000 45%, transparent);
+  object-position: center 40%;
+  /* Escurece em cima (para o título) e some embaixo, no fundo da página. */
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, #000 38%, #000 62%, transparent);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, #000 38%, #000 62%, transparent);
   animation: capa-entra 1.6s ease both;
 }
 @keyframes capa-entra {
   from { opacity: 0; }
   to { opacity: 0.9; }
 }
+/* TRAMA no alto da tela, por cima da imagem. */
+.inicio-titulo {
+  position: absolute;
+  top: max(18px, env(safe-area-inset-top));
+  left: 20px;
+  right: 20px;
+}
 .ficha {
   font-family: var(--sans);
   font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--texto-2);
-  margin: -28px 0 6px;
-  position: relative;
+  color: var(--destaque);
+  opacity: 0.85;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7);
+  margin: 8px 0 0;
 }
 .marca {
   font-size: clamp(48px, 14vw, 72px);
@@ -92,6 +101,7 @@ button {
   text-transform: uppercase;
   margin: 0 0 0 -0.03em;
   color: var(--destaque);
+  text-shadow: 0 1px 24px rgba(0, 0, 0, 0.55);
 }
 .como {
   margin: 20px 0 0;
@@ -155,8 +165,12 @@ button {
     max-width: 1180px;
     display: grid;
     grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-    gap: 72px;
+    gap: 0 72px;
     padding: 0 48px;
+  }
+  /* A faixa usa 100vw; sem isso a barra de rolagem vertical cria rolagem lateral. */
+  body:has(.inicio) {
+    overflow-x: clip;
   }
   .inicio-coluna {
     position: sticky;
@@ -166,15 +180,31 @@ button {
     overflow-y: auto;
     scrollbar-width: none;
   }
+  /* Capa em faixa larga, de ponta a ponta da tela, sobre as duas colunas. */
   .inicio-cabeca {
-    margin: 0;
+    grid-column: 1 / -1;
+    position: relative;
+    margin: 0 calc(50% - 50vw);
     padding: 0;
   }
   .inicio-capa {
     width: 100%;
     margin: 0;
-    height: 24svh;
-    border-radius: 0 0 4px 4px;
+    height: min(52svh, 560px);
+    object-position: center 60%;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, #000 34%, #000 60%, transparent);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, #000 34%, #000 60%, transparent);
+  }
+  .inicio-titulo {
+    top: 40px;
+    left: 0;
+    right: 0;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .inicio-titulo .marca {
+    font-size: 88px;
   }
   /* Presas no pé da coluna da esquerda: à vista mesmo quando a coluna precisa rolar. */
   .inicio-acoes {
@@ -192,7 +222,7 @@ button {
   }
   .inicio-fatos {
     margin-top: 0;
-    padding: 72px 0 72px;
+    padding: 28px 0 72px;
     border-top: 0;
   }
 }
@@ -223,6 +253,125 @@ button {
   font-size: 14px;
   color: var(--texto-2);
   margin: 0;
+}
+
+/* Link para "Como fazemos as previsões", fecho do Como funciona. */
+.link-metodo {
+  display: inline-flex;
+  gap: 8px;
+  margin: 22px 0 0 42px;
+  padding: 0;
+  background: none;
+  border: 0;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--real);
+  cursor: pointer;
+}
+.link-metodo span {
+  transition: transform 0.2s;
+}
+.link-metodo:hover span {
+  transform: translateX(4px);
+}
+
+/* Como fazemos as previsões (Metodo.tsx). */
+.inicio.pagina-metodo {
+  padding-bottom: 200px;
+}
+.metodo {
+  padding: max(24px, env(safe-area-inset-top)) 0 0;
+  animation: surgir 0.4s ease both;
+}
+.metodo-voltar {
+  background: none;
+  border: 0;
+  padding: 6px 0;
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--texto-2);
+  cursor: pointer;
+}
+.metodo-voltar:hover {
+  color: var(--destaque);
+}
+.metodo-titulo {
+  font-weight: 400;
+  font-size: clamp(32px, 8vw, 44px);
+  line-height: 1.1;
+  margin: 20px 0 14px;
+}
+.metodo .lead {
+  font-size: 20px;
+  line-height: 1.5;
+  margin: 0 0 36px;
+}
+.metodo-etapas {
+  list-style: none;
+  margin: 0 0 44px;
+  padding: 0;
+  display: grid;
+  gap: 22px;
+}
+.metodo-etapas li {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+.metodo-etapas h2,
+.lentes h3 {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  margin: 3px 0 4px;
+}
+.metodo-etapas p,
+.lentes p {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--texto-2);
+  margin: 0;
+}
+.metodo > .rotulo {
+  font-weight: 400;
+  margin: 0 0 14px;
+}
+.lentes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--linha);
+}
+.lentes li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--linha);
+}
+.lentes h3 {
+  margin-top: 0;
+}
+@media (min-width: 680px) {
+  .lentes {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 32px;
+  }
+}
+@media (min-width: 960px) {
+  .inicio.pagina-metodo {
+    display: block;
+    max-width: 760px;
+  }
+  .pagina-metodo .metodo {
+    padding-top: 64px;
+  }
+  .pagina-metodo .inicio-acoes {
+    max-width: 420px;
+  }
 }
 
 /* Botões de ação (Acao em Jogo.tsx): caixa-alta espaçada, seta num círculo.
@@ -760,6 +909,13 @@ body:has(.cena-final) {
   min-height: 0;
   cursor: default;
 }
+.toque-tela {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
 .cartao .texto {
   font-size: 23px;
   line-height: 1.45;
@@ -804,7 +960,8 @@ body:has(.cena-final) {
   gap: 12px;
   align-items: start;
 }
-.passos .num {
+.passos .num,
+.metodo-etapas .num {
   font-family: var(--sans);
   font-size: 12px;
   line-height: 26px;

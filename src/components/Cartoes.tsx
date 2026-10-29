@@ -54,18 +54,20 @@ export default function Cartoes({ textos, imagem, topo, abertura, detalhe, child
         ))}
       </div>
 
-      <div
-        className={`cartao ${ultimo ? 'ultimo' : ''}`}
-        onClick={(e) => {
-          if (ultimo) return;
-          const r = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
-          if (e.clientX - r.left < r.width * 0.3) voltar();
-          else avancar();
-        }}
-        role={ultimo ? undefined : 'button'}
-        aria-label={ultimo ? undefined : 'Toque para continuar'}
-        key={i}
-      >
+      {/* Enquanto há cartões pela frente, a tela inteira é área de toque (como nos stories):
+          terço esquerdo volta, o resto avança. */}
+      {!ultimo && (
+        <div
+          className="toque-tela"
+          role="button"
+          aria-label="Toque para continuar"
+          onClick={(e) => {
+            if (e.clientX < window.innerWidth * 0.3) voltar();
+            else avancar();
+          }}
+        />
+      )}
+      <div className={`cartao ${ultimo ? 'ultimo' : ''}`} key={i}>
         {imagem &&
           (i === 0 ? (
             // eslint-disable-next-line @next/next/no-img-element

@@ -7,28 +7,62 @@ aviso: >
 
 # Tela inicial: o que é o jogo e como funciona. Linguagem simples (DESIGN 8.2).
 apresentacao:
-  texto: >
-    Uma história interativa sobre o Brasil de agora até a próxima eleição.
-    Você não joga como um político: você é o rumo dos acontecimentos. Cada
-    partida é uma versão possível do país.
+  texto: Uma história sobre o Brasil até 2030. Você decide o rumo.
   passos:
     - titulo: Começa no último fato real
-      texto: >
-        A história parte do acontecimento mais recente confirmado. Em "O que
-        já aconteceu" estão os fatos reais, com data e fonte.
+      texto: Parte do acontecimento mais recente, com data e fonte.
     - titulo: Você escolhe o que vem depois
-      texto: >
-        Em cada cena, duas ou três saídas. Cada escolha fecha as outras e
-        deixa marcas que voltam mais adiante.
+      texto: Duas ou três saídas por cena. Cada escolha deixa marcas.
     - titulo: Ficção, mas possível
-      texto: >
-        Os caminhos são inventados, mas partem de pesquisa e de análises de
-        todos os lados. Só entra o que tem chance real de acontecer. Nenhum
-        lado é o certo.
+      texto: Caminhos inventados a partir de pesquisa de todos os lados.
     - titulo: A história anda com o tempo
+      texto: Quando a realidade decide, o jogo se atualiza.
+
+# Tela "Como fazemos as previsões". Fiel a roteiro/painel/ (00-agregado, regra de desenho)
+# e à skill atualizar-jogo. Mudou o método? Mude aqui também.
+metodo:
+  titulo: Como fazemos as previsões
+  texto: Os caminhos do Trama não saem da cabeça de uma pessoa. Saem de um método que dá para conferir.
+  etapas:
+    - titulo: Pesquisa
       texto: >
-        Quando a realidade decide, o jogo é atualizado. Previsões confirmadas
-        viram fato; caminhos que a realidade descartou ficam fechados.
+        Juntamos os fatos com data e fonte. Só vira fato o que tem duas fontes
+        independentes ou documento oficial. Boato fica marcado como boato.
+    - titulo: Seis lentes
+      texto: >
+        Seis analistas simulados por IA respondem às mesmas perguntas, cada um
+        pelo seu ângulo. Não são especialistas reais, e nenhuma previsão é
+        atribuída a pessoas reais.
+    - titulo: Consenso e divergência
+      texto: >
+        Comparamos as seis respostas. Onde concordam, nasce o caminho
+        principal. Onde divergem, nasce uma das decisões difíceis do jogo.
+    - titulo: Revisão de equilíbrio
+      texto: >
+        Uma revisão de neutralidade confere se todos os lados têm motivo,
+        interesse e custo. A chance decide quanto texto um caminho tem, não se
+        ele é bem escrito.
+    - titulo: A realidade confere
+      texto: >
+        Quando um fato novo acontece, a escolha que se confirmou fica travada e
+        as previsões do que vem depois são refeitas.
+  lentes:
+    - nome: Instituições
+      texto: Congresso, Supremo e a relação entre os Poderes.
+    - nome: Economia ortodoxa
+      texto: Contas públicas, juros e confiança do mercado.
+    - nome: Economia heterodoxa
+      texto: Renda, emprego e o peso dos juros na dívida.
+    - nome: Jurídico
+      texto: O que a lei permite e quanto tempo cada processo leva.
+    - nome: Internacional
+      texto: EUA, América Latina e China, o Brasil visto de fora.
+    - nome: Eleitoral
+      texto: Voto, rejeição e quanto um líder consegue transferir.
+  nota: >
+    Nenhum número aparece durante o jogo, para não induzir a escolha. As seis
+    lentes leem a mesma base de pesquisa: quando concordam, pode ser fonte em
+    comum, e não acordo independente.
 
 # Fatos reais, não jogáveis. A primeira decisão é o acontecimento seguinte ao último fato.
 prologo:
