@@ -100,8 +100,8 @@ export const FatoSchema = z.strictObject({
 export const ApresentacaoSchema = z.strictObject({
   /** Linha curta sob o título. */
   ficha: z.string().optional(),
-  /** Frase de abertura. "{partidas}" vira o número de histórias possíveis (ex.: "61 mil"). */
-  texto: z.string(),
+  /** Frase de abertura, opcional. "{partidas}" vira o número de histórias possíveis (ex.: "61 mil"). */
+  texto: z.string().optional(),
   passos: z.array(z.strictObject({ titulo: z.string(), texto: z.string() })).min(1),
 });
 

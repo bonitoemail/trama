@@ -8,7 +8,6 @@ aviso: >
 # Tela inicial: o que é o jogo e como funciona. Linguagem simples (DESIGN 8.2).
 apresentacao:
   ficha: Experiência interativa · Brasil até 2030
-  texto: Uma história sobre o Brasil até 2030. Você decide o rumo.
   passos:
     - titulo: Começa no último fato real
       texto: Parte do acontecimento mais recente, com data e fonte.

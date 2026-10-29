@@ -259,7 +259,7 @@ button {
   cursor: pointer;
 }
 .link-metodo.link-objetivo {
-  margin: -14px 0 28px;
+  margin: 0 0 28px;
 }
 .metodo-etapas.sem-numero li {
   grid-template-columns: 1fr;

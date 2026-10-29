@@ -74,7 +74,7 @@ export default function Inicio({ jogo, partidas, temPartida, onContinuar, onCome
       <div className="inicio-coluna">
         {ap && (
           <section className="como" aria-labelledby="como-titulo">
-            <p className="lead">{contar(ap.texto)}</p>
+            {ap.texto && <p className="lead">{contar(ap.texto)}</p>}
             {jogo.objetivo && (
               <button type="button" className="link-metodo link-objetivo" onClick={() => setPagina('objetivo')}>
                 {jogo.objetivo.titulo} <span aria-hidden>→</span>
