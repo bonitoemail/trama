@@ -63,7 +63,7 @@ nos:
     imagem: imagens/cap01/pedido.webp
     texto:
       - Deputados do PT pedem a prisão de Flávio. Dizem que ele fugiu para não responder à Justiça.
-      - Os aliados dele dizem que é perseguição política. A Polícia Federal diz que ele não é foragido.
+      - Os aliados dele dizem que é perseguição política. Para a Polícia Federal, sair do país contra a ordem não faz dele um foragido.
       - Quem decide é Alexandre de Moraes, o ministro do Supremo que cuida do caso.
       - Prender pode transformar Flávio em mártir. Não prender pode passar a ideia de que a lei não vale para ele.
     fatos:
@@ -78,7 +78,8 @@ nos:
       - texto: Parlamentares do PSOL pediram ao Senado que avalie suspender o salário de Flávio e, se houver base legal, declarar a perda do mandato.
         fontes:
           - https://brasil.perfil.com/politica/flavio-bolsonaro-e-alvo-de-pedido-de-perda-de-mandato-e-corte-de-salario-apos-viagem-aos-eua.phtml
-          - https://tribunadoplanalto.com.br/?p=116271
+          - https://www.poder360.com.br/poder-justica/deputados-do-psol-protocolam-pedido-de-cassacao-de-flavio-no-senado/
+          - https://oantagonista.com.br/brasil/duda-salabert-pede-a-alcolumbre-suspensao-do-salario-de-flavio/
       - texto: Rogério Marinho questionou o momento das medidas contra Flávio, pedidas pela Polícia Federal logo depois da proclamação do resultado.
         fontes:
           - https://oantagonista.com.br/brasil/rogerio-marinho-diz-que-nao-foi-avisado-sobre-saida-de-flavio-do-pais/
@@ -121,7 +122,7 @@ nos:
       - texto: O alerta vermelho da Interpol é um pedido, não uma ordem de prisão internacional. Cada país decide, pelas próprias leis, se prende ou não.
         fontes:
           - https://www.congressoemfoco.com.br/noticia/109168/o-que-e-o-alerta-vermelho-da-interpol-contra-carla-zambelli
-          - https://www.brasilparalelo.com.br/noticias/alerta-vermelho-da-interpol-os-paises-sao-obrigados-a-prender-procurados
+          - https://www.em.com.br/internacional/2026/07/7466633-difusao-vermelha-o-que-e-o-alerta-maximo-emitido-pela-interpol.html
       - texto: Eduardo Bolsonaro, condenado pelo Supremo por coação no curso do processo e com mandado de prisão no Brasil, vive nos Estados Unidos desde 2025.
         fontes:
           - https://agenciabrasil.ebc.com.br/justica/noticia/2026-10/moraes-determina-emissao-de-mandado-de-prisao-contra-eduardo-bolsonaro
@@ -141,10 +142,10 @@ nos:
       - texto: Pela Constituição, perde o mandato quem faltar a um terço das sessões ordinárias do ano sem licença. A perda não é automática. A Mesa do Senado a declara, por conta própria ou a pedido de um senador ou partido, com direito a defesa.
         fontes:
           - https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
-      - texto: Pela projeção feita com dados do Senado e pela nota do partido, o PL terá 29 senadores a partir de fevereiro, a maior bancada da Casa.
+      - texto: Pela projeção da Agência Senado, o PL terá 29 senadores a partir de fevereiro, a maior bancada da Casa.
         fontes:
           - https://acritica.net/nacional/composicao-senado-2027-pl-29-senadores-19-mulheres/
-          - https://cearaagora.com.br/valdemar-costa-neto-presidente-do-pl-reconhece-vitoria-de-lula-veja-nota-do-partido/
+          - https://www12.senado.leg.br/noticias/materias/2026/10/25/fim-da-eleicao-define-composicao-do-senado-em-2027-com-13-partidos
     segue: itamaraty
 
   - id: o_parecer
@@ -196,7 +197,7 @@ nos:
     imagem: imagens/cap01/a_rota.webp
     texto:
       - Na Argentina, a carta virou escândalo. Flávio cruzou a fronteira por terra e pegou um jatinho do lado argentino.
-      - A oposição argentina acusa o governo Milei de ter ajudado. O governo nega. Um assessor de Milei aparece em boatos, e também nega.
+      - A oposição argentina acusa o governo Milei de ter ajudado. O governo nega. Um assessor de Milei é citado pela imprensa argentina, e também nega.
       - se: { tem: crise_diplomatica }
         texto: O pedido de explicações do Brasil chega no meio da briga.
         senao: O Brasil não pediu nada. Quem faz as perguntas é a oposição argentina.
@@ -219,7 +220,7 @@ nos:
       - texto: A senadora Patricia Bullrich, do partido de Milei, defendeu que a vontade das urnas no Brasil seja respeitada.
         fontes:
           - https://www.perfil.com/politica/tension-en-el-gobierno-tras-el-escape-de-bolsonaro-a-ee.uu.-bullrich-se-desmarco-de-milei-y-siguen-las-dudas-sobre-el-rol-de-santiago-caputo-abCex7S7Kv4m
-          - https://www.sitioandino.com.ar/patricia-bullrich-tension-milei-ausencia-gabinete-brasil-2027
+          - https://www.infobae.com/politica/2026/10/28/patricia-bullrich-reconocio-el-triunfo-de-lula-en-brasil-y-cuestiono-la-utilizacion-de-la-justicia-para-perseguir-a-flavio-bolsonaro/
     escolhas:
       - id: silencio_milei
         rotulo: Milei fica calado, e o caso esfria
@@ -271,16 +272,22 @@ nos:
     texto:
       - Os democratas ganham a Câmara. E já têm uma lista de assuntos. O Brasil está nela.
       - Uma reportagem disse que funcionários do governo Trump fizeram campanha para a família Bolsonaro voltar ao poder. Os democratas querem que eles deponham em janeiro.
-      - Mas a taxa de 25% sobre produtos brasileiros continua. Quem decide isso é Trump, não o Congresso.
+      - Mas a taxa de 25% sobre a maior parte dos produtos brasileiros continua. Quem decide isso é o governo Trump, não o Congresso.
     fatos:
       - texto: Uma reportagem da Reuters, com base em dez fontes, disse que dois funcionários do Departamento de Estado, Darren Beattie e Ricardo Pita, atuaram para a família Bolsonaro voltar ao poder. A Reuters não conseguiu saber se eles agiam por ordem da Casa Branca.
         fontes:
           - https://www.thestar.com.my/news/world/2026/10/25/inside-the-trump-administration-campaign-to-return-brazils-bolsonaro-clan-to-power
-          - https://moderndiplomacy.eu/2026/10/25/the-trump-teams-quiet-campaign-to-put-the-bolsonaros-back-in-power/
+          - https://www.yahoo.com/news/politics/articles/inside-trump-administration-campaign-return-214506018.html
       - texto: No Brasil, o ministro Flávio Dino mandou a Polícia Federal investigar outra suspeita de interferência estrangeira, ligada a empresários e a um grupo americano, e se houve interesse em terras raras. Um dos empresários citados nega.
         fontes:
           - https://www.congressoemfoco.com.br/noticia/129246/dino-manda-pf-investigar-possivel-interferencia-externa-nas-eleicoes
           - https://www.gazetadopovo.com.br/republica/dino-manda-pf-investigar-suposto-financiamento-estrangeiro-a-campanha-de-flavio/
+      # A Reuters cita tarifas de 50%: eram as de 2025, pela lei de emergência (IEEPA), derrubadas na
+      # Suprema Corte americana. A que vale hoje é a de 25%, pela Seção 301 (pesquisa/05, item 18).
+      - texto: Desde 22 de julho de 2026, uma tarifa de 25% vale para a maior parte dos produtos brasileiros que entram nos Estados Unidos. Ficaram de fora itens como carne bovina, café, energia e aviões. A decisão é do governo americano, não do Congresso.
+        fontes:
+          - https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ustr-section-301-action-brazils-unreasonable-acts-policies-and-practices
+          - https://www.nbcnews.com/world/brazil/us-launches-tariffs-25-tax-brazil-imports-rcna587780
     segue: o_exilio
 
   - id: noite_republicana
