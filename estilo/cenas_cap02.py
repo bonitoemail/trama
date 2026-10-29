@@ -84,6 +84,11 @@ CENAS = {
         "Composition: wide shot of a long dark corridor at night. Many small dark figures stand "
         "apart from each other along the walls, each one alone, each holding a phone to the ear. "
         "Accent: the small glowing screen of one phone in the center."),
+    "o_orcamento": ("planalto",
+        "Composition: wide frontal shot of a plain government office at night with a long low "
+        "window. A long wide table covered with tall stacks of paper. One small figure in a dark "
+        "suit stands at the end of the table, looking at the stacks; two others wait by the door. "
+        "Accent: a single desk lamp glowing over the stacks of paper."),
     "heranca_em_disputa": ("direita",
         "Composition: wide frontal shot of a very large empty hall. Two separate groups of small "
         "dark figures stand on opposite sides of the hall, facing each other across an empty "

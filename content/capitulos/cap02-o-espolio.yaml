@@ -194,22 +194,22 @@ nos:
         rotulo: Alcolumbre deixa correr, e o mandato acaba sozinho em janeiro
         se: { tem: flavio_sem_preventiva }
         marca: [mandato_decurso]
-        vai_para: miami
+        vai_para: o_orcamento
       - id: licenca
         rotulo: Flávio pede licença do cargo, e as faltas param de contar
         se: { tem: flavio_sem_preventiva }
         marca: [flavio_licenca]
-        vai_para: miami
+        vai_para: o_orcamento
       - id: bloqueia
         rotulo: Moraes bloqueia os bens de Flávio
         se: { tem: flavio_preventiva }
         marca: [bens_bloqueados]
-        vai_para: miami
+        vai_para: o_orcamento
       - id: nao_bloqueia
         rotulo: Moraes nega o bloqueio de bens
         se: { tem: flavio_preventiva }
         marca: [bloqueio_negado]
-        vai_para: miami
+        vai_para: o_orcamento
 
   - id: o_suplente
     lugar: Brasília, plenário do Senado
@@ -218,7 +218,44 @@ nos:
       - A Mesa do Senado tira o mandato de Flávio numa sessão de quinze minutos.
       - Quem assume é o suplente, Paulo Marinho, que já brigou e já fez as pazes com a família. Ele fica seis semanas no cargo.
       - O PT comemora. No PL, a pergunta é outra. Se Alcolumbre fez isso agora, o que vai querer em fevereiro?
-    segue: miami
+    segue: o_orcamento
+
+  # O custo do próprio governo, que não depende da família Bolsonaro (revisão de equilíbrio, RODADAS 28/10).
+  # IFI: déficit de R$ 86,1 bi em 2027 e bloqueio de ~R$ 35,7 bi para o piso (Brasil 61; IFI, RAF 116).
+  #   https://brasil61.com/n/ifi-projeta-que-cumprimento-da-meta-fiscal-de-2027-pode-exigir-corte-de-r-35-7-bilhoes-bras2617365
+  #   https://www12.senado.leg.br/ifi/relatorio-de-acompanhamento-fiscal
+  # Durigan e o PLP do centro da meta: Poder360, CNN Brasil, Metrópoles (pesquisa 02).
+  #   https://www.poder360.com.br/poder-economia/governo-prepara-texto-para-atingir-centro-da-meta-fiscal-diz-durigan/
+  #   https://www.cnnbrasil.com.br/economia/money/macroeconomia/durigan-diz-que-vai-propor-ajustes-fiscais-para-perseguir-centro-da-meta/
+  # Selic 13,75% (Copom 16/09): ASA. Cada ponto de Selic, mais de R$ 50 bi na dívida (estimativa do BC): Agência Brasil.
+  # Emendas de R$ 44,8 bi no PLOA 2027: SBT News. Medidas estudadas: CNN Brasil, 26/10 (fonte única: fica no detalhe, atribuída).
+  # A escolha não decide o efeito na economia (painel 00-agregado, Ajustes, Cisma I): cada galho tem ganho e custo.
+  - id: o_orcamento
+    lugar: Brasília, Ministério da Fazenda, dezembro
+    imagem: imagens/cap02/o_orcamento.webp
+    texto:
+      - Enquanto a direita disputa a herança, o governo tem a própria conta. O Orçamento de 2027 precisa ser votado até o fim do ano.
+      - Dario Durigan, o ministro da Fazenda, prometeu mirar o centro da meta das contas públicas. Só para cumprir o mínimo, faltam cerca de R$ 36 bilhões.
+      - Os juros estão em 13,75%. Uns economistas dizem que é preciso cortar gastos para eles caírem. Outros, que são os próprios juros que fazem a dívida crescer.
+      - Toda saída tem um preço, e parte dele cai sobre quem apoiou Lula.
+    detalhe:
+      - A conta dos R$ 36 bilhões é da Instituição Fiscal Independente, do Senado, que projeta um déficit de R$ 86 bilhões em 2027. O governo diz que as medidas do ano eleitoral não pesam no ano que vem.
+      - Pela estimativa do Banco Central, cada ponto a mais na taxa de juros acrescenta mais de R$ 50 bilhões à dívida.
+      - Segundo a CNN Brasil, a equipe econômica estuda cortar benefícios fiscais de empresas e rever sobreposições entre programas como o Bolsa Família e o abono salarial. No PT, mexer nisso é tabu.
+      - O Orçamento enviado ao Congresso já reserva R$ 44,8 bilhões para emendas dos parlamentares.
+    escolhas:
+      - id: corta
+        rotulo: Durigan corta gastos e mira o centro da meta
+        marca: [ajuste_corte]
+        vai_para: miami
+      - id: adia
+        rotulo: Lula segura os programas e adia o ajuste
+        marca: [ajuste_adiado]
+        vai_para: miami
+      - id: taxa
+        rotulo: O governo propõe cobrar mais imposto de quem ganha mais
+        marca: [ajuste_imposto]
+        vai_para: miami
 
   - id: miami
     lugar: Miami, 14 de dezembro

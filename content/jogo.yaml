@@ -180,6 +180,13 @@ epilogo:
       texto: Toda noite, uma live de Miami disputa com o PL quem fala pela direita.
     - se: { todas: [{ tem: flavio_discreto }, { nao_tem: deportados }] }
       texto: Flávio quase não falou desde novembro. A família chama de estratégia; parte da base, de abandono.
+    # Contas do governo (o_orcamento): cada saída com ganho e custo; o efeito na economia fica para 2027.
+    - se: { tem: ajuste_corte }
+      texto: O governo entra em 2027 cortando gastos. O mercado aplaude com cautela, e a militância que fez a virada de 2026 pergunta se foi para isso.
+    - se: { tem: ajuste_adiado }
+      texto: O governo entra em 2027 sem cortar. Os programas ficam, a base agradece, e o mercado e o Centrão passam a cobrar mais caro.
+    - se: { tem: ajuste_imposto }
+      texto: O governo pede ao Congresso que cobre mais imposto de quem ganha mais. A esquerda comemora; o Congresso novo, mais à direita, avisa que não vota sem contrapartida.
     # Supremo
     - se: { tem: stf_aprovado }
       texto: O Supremo volta a ter onze ministros. O novo chega com apoio no Senado e com cobranças de quem o apoiou.
