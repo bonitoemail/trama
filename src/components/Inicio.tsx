@@ -109,14 +109,8 @@ export default function Inicio({ jogo, tela, partidas, capituloAtual, capituloIn
       </div>
 
       <div className="direita">
+        {/* As duas telas vêm antes dos fatos: "o que é isso?" é a primeira dúvida de quem chega. */}
         <ul className="mais">
-          {antes.length > 0 && (
-            <li>
-              <FatosAbertosNoPc total={antes.length}>
-                <Fatos fatos={antes} />
-              </FatosAbertosNoPc>
-            </li>
-          )}
           {jogo.objetivo && (
             <li>
               <Linha tela="objetivo" onIr={onIr}>
@@ -129,6 +123,13 @@ export default function Inicio({ jogo, tela, partidas, capituloAtual, capituloIn
               <Linha tela="metodo" onIr={onIr}>
                 {jogo.metodo.titulo}
               </Linha>
+            </li>
+          )}
+          {antes.length > 0 && (
+            <li>
+              <FatosAbertosNoPc total={antes.length}>
+                <Fatos fatos={antes} />
+              </FatosAbertosNoPc>
             </li>
           )}
         </ul>
