@@ -1,21 +1,24 @@
-"""Gera cenas do Trama no FLUX.1-schnell local (NF4), reaproveitando o carregador
-da Garoupa. Os blocos de estilo vêm de prompts.py.
+"""Gera cenas do Trama no FLUX.1-schnell local (NF4, ver flux.py). Os blocos de estilo
+vêm de prompts.py; cada cena sai em 8 seeds fixas, e uma é escolhida à mão (escolhas.json).
 
-  C:/Users/USER/openmontage/.venv/Scripts/python.exe estilo/gerar_teste.py [cena ...]
+  python estilo/gerar_teste.py --cenas cenas_cap01 [cena ...]
 """
 
 import sys
-from pathlib import Path
-
-GAROUPA_BUILD = Path("C:/Users/USER/openmontage/projects/cabeca-da-garoupa/build")
-sys.path.insert(0, str(GAROUPA_BUILD))
 from importlib import import_module
+from pathlib import Path
 
 from transformers import T5TokenizerFast
 
+import flux
 from prompts import ACENTO, FRENTES, ICONES, MESTRE
 
-flux = import_module("09_flux_nf4")  # carrega o .env do openmontage (HF_TOKEN)
+# Nesta máquina o HF_TOKEN fica no .env do openmontage; fora dela, use HF_TOKEN ou o login do Hugging Face.
+_ENV_LOCAL = Path("C:/Users/USER/openmontage/.env")
+if _ENV_LOCAL.exists():
+    from dotenv import load_dotenv
+
+    load_dotenv(_ENV_LOCAL)
 
 OUT = Path(__file__).resolve().parent / "testes"
 LIMITE = 512

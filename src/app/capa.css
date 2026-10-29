@@ -90,6 +90,22 @@ body:has(.capa) {
   font-size: 13px;
   color: var(--c-texto-2);
 }
+/* Voltou pelo X do jogo: confirma, sem alarde, que a partida ficou guardada. */
+.capa .salva {
+  margin: 14px 0 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--c-texto-2);
+}
+.capa .salva::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
 .link-sub {
   background: none;
   border: 0;
@@ -638,4 +654,29 @@ body:has(.capa) {
     transition: none;
     animation: none;
   }
+}
+
+/* "Tudo aberto para conferir": links para o repositório público. */
+.metodo .codigo {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+  border-top: 1px solid var(--c-linha);
+}
+.metodo .codigo a {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--c-linha);
+  font-size: 16px;
+  color: var(--c-texto);
+  text-decoration: none;
+}
+.metodo .codigo a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.metodo .codigo .sinal {
+  color: var(--c-texto-2);
 }

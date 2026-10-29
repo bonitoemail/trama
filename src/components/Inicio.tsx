@@ -16,6 +16,8 @@ interface Props {
   capituloAtual?: string;
   /** "Capítulo 1, A carta" de onde começa uma partida nova. */
   capituloInicial: string;
+  /** Acabou de sair do jogo pelo X: confirma que a partida ficou salva. */
+  partidaSalva?: boolean;
   onIr: (tela: Tela, opcoes?: { trocar?: boolean }) => void;
   onVoltar: () => void;
   onContinuar: () => void;
@@ -28,7 +30,7 @@ interface Props {
  * No PC, duas colunas: o agora parado à esquerda, o aprofundamento rolando à direita, com os
  * fatos já abertos.
  */
-export default function Inicio({ jogo, tela, partidas, capituloAtual, capituloInicial, onIr, onVoltar, onContinuar, onComecar }: Props) {
+export default function Inicio({ jogo, tela, partidas, capituloAtual, capituloInicial, partidaSalva, onIr, onVoltar, onContinuar, onComecar }: Props) {
   const [confirmar, setConfirmar] = useState(false);
   const contar = (t: string) => t.replaceAll('{partidas}', emMil(partidas));
   const principal = capituloAtual ? onContinuar : onComecar;
@@ -96,6 +98,7 @@ export default function Inicio({ jogo, tela, partidas, capituloAtual, capituloIn
                 {capituloAtual ? 'Continuar partida' : 'Começar'}
               </button>
               <p className="legenda">{capituloAtual ?? capituloInicial}</p>
+              {partidaSalva && <p className="salva">Partida salva neste aparelho</p>}
               {capituloAtual && (
                 <button type="button" className="link-sub" onClick={() => setConfirmar(true)}>
                   Começar outra partida

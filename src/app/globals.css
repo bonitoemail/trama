@@ -766,3 +766,71 @@ body:has(.cena-final) {
   padding: 32px 20px;
   color: #f3b0a8;
 }
+
+/* Sair a qualquer momento (Jogo.tsx): um X fino embaixo de tudo, acima da área de toque. */
+.sair {
+  position: relative;
+  z-index: 4;
+  margin: auto auto 0;
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sair-x {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--linha);
+  background: none;
+  color: var(--texto-3);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.sair-x::after {
+  content: '';
+  position: absolute;
+  inset: -4px; /* área de toque de 44px */
+}
+.sair-x svg {
+  width: 11px;
+  height: 11px;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  fill: none;
+}
+.sair-x:hover,
+.sair-x:focus-visible {
+  color: var(--texto);
+  border-color: var(--texto-3);
+}
+.sair-balao {
+  position: absolute;
+  bottom: calc(100% - 30px);
+  white-space: nowrap;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--superficie);
+  border: 1px solid var(--linha);
+  font: 13px var(--sans);
+  color: var(--texto-2);
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+  transition: opacity 0.15s, transform 0.15s;
+}
+/* Só com mouse ou teclado: no toque, tocar já sai. */
+@media (hover: hover) {
+  .sair-x:hover + .sair-balao {
+    opacity: 1;
+    transform: none;
+  }
+}
+.sair-x:focus-visible + .sair-balao {
+  opacity: 1;
+  transform: none;
+}

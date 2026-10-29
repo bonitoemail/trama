@@ -104,6 +104,29 @@ metodo:
     Nenhum número aparece durante o jogo, para não induzir a escolha. As seis
     lentes leem a mesma base de pesquisa: quando concordam, pode ser fonte em
     comum, e não acordo independente.
+  codigo:
+    titulo: Tudo aberto para conferir
+    texto: >
+      O código do jogo está publicado, junto com as cenas, os fatos com fonte e o
+      texto exato que cada agente de IA recebeu: a pesquisa, as seis lentes, o
+      agregador e as revisões de equilíbrio. As ilustrações saem de um modelo de
+      imagem aberto, rodando no nosso computador, e o prompt e a seed de cada uma
+      também estão lá. Qualquer pessoa pode rodar os mesmos prompts e comparar com
+      o que publicamos. O texto dos agentes nunca sai igual, mas as previsões
+      devem ficar parecidas; se não ficarem, dá para apontar.
+    links:
+      - rotulo: Os prompts de cada agente e como repetir
+        url: https://github.com/bonitoemail/trama/tree/main/roteiro/prompts
+      - rotulo: Como as imagens são feitas
+        url: https://github.com/bonitoemail/trama/blob/main/roteiro/prompts/imagens.md
+      - rotulo: As respostas das seis lentes
+        url: https://github.com/bonitoemail/trama/tree/main/roteiro/painel
+      - rotulo: As cenas e os fatos, com as fontes
+        url: https://github.com/bonitoemail/trama/tree/main/content
+      - rotulo: O histórico de cada mudança
+        url: https://github.com/bonitoemail/trama/commits/main
+      - rotulo: O repositório completo
+        url: https://github.com/bonitoemail/trama
 
 # Fatos reais, não jogáveis. A primeira decisão é o acontecimento seguinte ao último fato.
 prologo:

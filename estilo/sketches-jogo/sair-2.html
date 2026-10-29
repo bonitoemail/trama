@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sair da partida</title>
+<style>
+  :root {
+    --fundo: #0f0f11; --linha: #2c2c31; --texto: #e9e5dc; --texto-2: #a19d94; --texto-3: #6b6862;
+    --papel: #ede5d6; --tinta: #1b1a18; --real: #f29a2e;
+    --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #1a1a1d; color: var(--texto); font-family: var(--sans); padding: 32px 16px 64px; }
+  h1 { font: 600 20px var(--sans); margin: 0 0 6px; }
+  .intro { color: var(--texto-2); max-width: 760px; margin: 0 0 32px; line-height: 1.5; font-size: 15px; }
+  .grade { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+  .variante { width: 375px; max-width: 100%; }
+  .variante h2 { font: 600 15px var(--sans); margin: 0 0 4px; }
+  .variante p.nota { color: var(--texto-2); font-size: 13px; line-height: 1.5; margin: 0 0 12px; min-height: 58px; }
+  .tel { background: var(--fundo); border-radius: 28px; padding: 28px 20px 24px; border: 1px solid #2a2a2e; height: 560px; overflow: hidden; position: relative; }
+
+  /* cabeçalho do jogo, como hoje */
+  .cab { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--linha); margin-bottom: 28px;
+         font: 12px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--texto-3); }
+  .cab .esq { display: flex; align-items: center; gap: 10px; }
+  .sair { all: unset; cursor: pointer; color: var(--texto-2); letter-spacing: .14em; text-transform: uppercase; font: 12px var(--sans); position: relative; }
+  .sair:hover { color: var(--texto); }
+  .sair::after { content: ''; position: absolute; inset: -14px -10px; }
+  .q { width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--linha); display: inline-grid; place-items: center; font-size: 11px; letter-spacing: 0; color: var(--texto-2); text-transform: none; }
+  .balao { position: absolute; left: 20px; top: 62px; width: 250px; padding: 12px 14px; border-radius: 10px; background: #1c1f21; border: 1px solid var(--linha);
+           box-shadow: 0 16px 32px -12px rgba(0,0,0,.7); font: 14px/1.5 var(--sans); color: var(--texto); letter-spacing: 0; text-transform: none; z-index: 2; }
+
+  /* cartão */
+  .cartao { background: var(--papel); color: var(--tinta); border-radius: 4px; overflow: hidden; }
+  .barras { display: flex; gap: 4px; padding: 22px 20px 14px; }
+  .barras i { flex: 1; height: 3px; background: #cfc6b6; border-radius: 2px; }
+  .barras i:first-child { background: var(--tinta); }
+  .cartao img { display: block; width: 100%; aspect-ratio: 16/10; object-fit: cover; }
+  .corpo { padding: 16px 20px 22px; }
+  .eco { border-left: 3px solid var(--real); padding-left: 10px; font: italic 13px var(--serif); color: #6d665b; margin: 0 0 14px; }
+  .lugar { font: 11px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: #6d665b; margin: 0 0 10px; }
+  .texto { font: 19px/1.4 var(--serif); margin: 0; }
+
+  /* capa resumida */
+  .capa { text-align: center; padding-top: 30px; }
+  .capa .marca { font: 800 54px var(--sans); letter-spacing: .02em; margin: 0; }
+  .capa .ficha { color: var(--texto-2); font-size: 14px; margin: 6px 0 40px; }
+  .capa .agora { text-align: left; border-top: 1px solid var(--linha); padding-top: 18px; color: var(--texto-2); font-size: 13px; }
+  .capa .agora b { display: block; color: var(--texto); font: 20px/1.35 var(--serif); margin-top: 8px; }
+  .botao { display: block; width: 100%; margin: 32px 0 10px; padding: 15px; border-radius: 999px; border: 0; background: var(--texto); color: var(--fundo); font: 600 15px var(--sans); }
+  .legenda { color: var(--texto-3); font-size: 13px; margin: 0; }
+  .salva { margin: 14px auto 0; display: inline-flex; gap: 8px; align-items: center; color: var(--texto-2); font-size: 13px; }
+  .salva::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #7fae8a; }
+</style>
+<style>
+  .tel.alto { height: 700px; }
+  .fecha-bloco { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 28px; }
+  .x { all: unset; cursor: pointer; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--linha); display: grid; place-items: center; color: var(--texto-2); position: relative; }
+  .x svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 1.5; }
+  .x:hover { color: var(--texto); border-color: var(--texto-3); }
+  .x::after { content: ''; position: absolute; inset: -6px; }
+  .x.sem-borda { border-color: transparent; }
+  .leg-x { font: 12px var(--sans); color: var(--texto-3); }
+  .linha-x { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; margin: 26px auto 0; font: 13px var(--sans); color: var(--texto-3); }
+  .linha-x svg { width: 10px; height: 10px; stroke: currentColor; stroke-width: 1.6; }
+  .centro { text-align: center; }
+  .cab .x { width: 28px; height: 28px; }
+</style>
+</head>
+<body>
+  <h1>Sair da partida, rodada 2: um X delicado embaixo</h1>
+  <p class="intro">O cabeçalho fica como está hoje. A saída vai para baixo do cartão, fora da área de toque que avança a história. Nos três, o X leva para a capa, que já mostra "Continuar partida".</p>
+  <div class="grade">
+    <section class="variante">
+      <h2>D · X com legenda curta</h2>
+      <p class="nota">Um círculo fino com o X e, embaixo, "Sair. Sua partida fica salva." Explica sem balão.</p>
+      <div class="tel alto"><header class="cab"><span>Capítulo 1, A carta</span><span>Fim de out. a nov. de 2026</span></header><div class="cartao">
+          <div class="barras"><i></i><i></i><i></i></div>
+          <img src="http://localhost:3000/imagens/cap01/pedido.webp" alt="">
+          <div class="corpo">
+            <p class="eco">Porque Moraes manda prender Flávio…</p>
+            <p class="lugar">Miami, dias depois</p>
+            <p class="texto">Moraes manda prender Flávio e pede que o nome dele entre no alerta internacional de procurados.</p>
+          </div>
+        </div>
+        <div class="fecha-bloco"><button class="x" aria-label="Sair"><svg viewBox="0 0 12 12"><path d="M1 1l10 10M11 1L1 11"/></svg></button><span class="leg-x">Sair. Sua partida fica salva.</span></div>
+      </div>
+    </section>
+    <section class="variante">
+      <h2>E · Só o X</h2>
+      <p class="nota">O mínimo: só o círculo com o X. O aviso "Partida salva" aparece na capa, ao voltar (como a C).</p>
+      <div class="tel alto"><header class="cab"><span>Capítulo 1, A carta</span><span>Fim de out. a nov. de 2026</span></header><div class="cartao">
+          <div class="barras"><i></i><i></i><i></i></div>
+          <img src="http://localhost:3000/imagens/cap01/pedido.webp" alt="">
+          <div class="corpo">
+            <p class="eco">Porque Moraes manda prender Flávio…</p>
+            <p class="lugar">Miami, dias depois</p>
+            <p class="texto">Moraes manda prender Flávio e pede que o nome dele entre no alerta internacional de procurados.</p>
+          </div>
+        </div>
+        <div class="fecha-bloco"><button class="x" aria-label="Sair e salvar a partida"><svg viewBox="0 0 12 12"><path d="M1 1l10 10M11 1L1 11"/></svg></button></div>
+      </div>
+    </section>
+    <section class="variante">
+      <h2>F · Linha de texto com X</h2>
+      <p class="nota">Sem círculo: um X pequeno e "Sair, a partida fica salva", em cinza, como uma nota de rodapé.</p>
+      <div class="tel alto"><header class="cab"><span>Capítulo 1, A carta</span><span>Fim de out. a nov. de 2026</span></header><div class="cartao">
+          <div class="barras"><i></i><i></i><i></i></div>
+          <img src="http://localhost:3000/imagens/cap01/pedido.webp" alt="">
+          <div class="corpo">
+            <p class="eco">Porque Moraes manda prender Flávio…</p>
+            <p class="lugar">Miami, dias depois</p>
+            <p class="texto">Moraes manda prender Flávio e pede que o nome dele entre no alerta internacional de procurados.</p>
+          </div>
+        </div>
+        <div class="centro"><button class="linha-x"><svg viewBox="0 0 12 12"><path d="M1 1l10 10M11 1L1 11"/></svg> Sair, a partida fica salva</button></div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

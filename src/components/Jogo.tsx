@@ -42,6 +42,8 @@ export default function Jogo({
   const [estado, setEstado] = useState<Estado | null>(null);
   const [vistos, setVistos] = useState<Set<string>>(new Set());
   const [decidindo, setDecidindo] = useState<string | null>(null);
+  // Saiu pelo X: a capa confirma que a partida ficou salva (só nessa volta).
+  const [saiu, setSaiu] = useState(false);
 
   useEffect(() => {
     guardarOrigem();
@@ -105,15 +107,27 @@ export default function Jogo({
         partidas={partidas}
         capituloAtual={estado ? nomeDoCapitulo(capitulo(jogo, estado.capitulo)) : undefined}
         capituloInicial={nomeDoCapitulo(capitulo(jogo, jogo.primeiro_capitulo))}
+        partidaSalva={saiu && Boolean(estado)}
         onIr={ir}
         onVoltar={voltar}
-        onContinuar={() => ir('partida')}
+        onContinuar={() => {
+          setSaiu(false);
+          ir('partida');
+        }}
         onComecar={comecar}
       />
     );
   }
 
   const cap = capitulo(jogo, estado.capitulo);
+  const sair = (
+    <Sair
+      onClick={() => {
+        setSaiu(true);
+        voltar();
+      }}
+    />
+  );
 
   if (estado.fase === 'fim_jogo') {
     const capsJogados = [...new Set(estado.historico.map((p) => p.capitulo))].map((id) => capitulo(jogo, id));
@@ -158,6 +172,7 @@ export default function Jogo({
         <Acao primario onClick={() => atualizar(continuar(jogo, estado))}>
           {estado.proximo === 'FIM' ? 'Ver o desfecho' : 'Próximo capítulo'}
         </Acao>
+        {sair}
       </main>
     );
   }
@@ -195,6 +210,7 @@ export default function Jogo({
         >
           <Acao primario onClick={avancar}>Começar o capítulo</Acao>
         </Cartoes>
+        {sair}
       </main>
     );
   }
@@ -208,6 +224,7 @@ export default function Jogo({
             <Acao onClick={avancar}>Seguir</Acao>
           </Cartoes>
         </article>
+        {sair}
       </main>
     );
   }
@@ -224,6 +241,7 @@ export default function Jogo({
         >
           <Acao primario onClick={avancar}>Fechar o capítulo</Acao>
         </Cartoes>
+        {sair}
       </main>
     );
   }
@@ -255,6 +273,7 @@ export default function Jogo({
           ))}
         </div>
       </Cartoes>
+      {sair}
     </main>
   );
 }
@@ -286,6 +305,25 @@ function Cabecalho({ numero, titulo, periodo }: { numero: number; titulo: string
       </span>
       <span>{periodo}</span>
     </header>
+  );
+}
+
+/**
+ * Sair a qualquer momento, embaixo de tudo: um X delicado. No PC, o balão diz que a partida fica
+ * salva; no celular, a capa confirma ao chegar (o toque já sai, não dá para mostrar balão antes).
+ */
+function Sair({ onClick }: { onClick: () => void }) {
+  return (
+    <div className="sair">
+      <button type="button" className="sair-x" aria-label="Sair. Sua partida fica salva neste aparelho." onClick={onClick}>
+        <svg viewBox="0 0 12 12" aria-hidden>
+          <path d="M1 1l10 10M11 1L1 11" />
+        </svg>
+      </button>
+      <span className="sair-balao" aria-hidden>
+        Sair. Sua partida fica salva.
+      </span>
+    </div>
   );
 }
 

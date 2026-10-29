@@ -161,6 +161,25 @@ function Ficha({ e }: { e: Explicacao }) {
           <p className="limite">{e.nota}</p>
         </>
       )}
+
+      {e.codigo && (
+        <>
+          <h3>{e.codigo.titulo}</h3>
+          <p className="limite">{e.codigo.texto}</p>
+          <ul className="codigo">
+            {e.codigo.links.map((l) => (
+              <li key={l.url}>
+                <a href={l.url} target="_blank" rel="noreferrer">
+                  {l.rotulo}
+                  <span className="sinal" aria-hidden>
+                    ↗
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </>
   );
 }

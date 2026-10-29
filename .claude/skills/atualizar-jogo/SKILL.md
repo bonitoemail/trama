@@ -153,10 +153,12 @@ Para gerar (siga `estilo/GUIA.md`):
 4. Publique: `python estilo/publicar.py <cap> <no>=<arquivo>` e regenere a galeria (`python estilo/galeria.py`).
 5. Mostre ao usuário as escolhas e a galeria (`localhost:8765/galeria.html`, config "galeria"). No modo autônomo, registre no relatório qual seed foi escolhida e por quê.
 
+**Imagem auditável** (o site promete isso em "Como fazemos", detalhe em `roteiro/prompts/imagens.md`): toda imagem publicada sai só deste caminho, `gerar_teste.py` com o carregador `estilo/flux.py`, os blocos de `prompts.py` e a cena escrita no arquivo `cenas_<cap>.py`, com uma das 8 seeds fixas. Nunca outro modelo, serviço online, prompt digitado na hora, retoque ou edição da imagem depois de gerada. Prompt da cena, WebP e `escolhas.json` entram no mesmo commit, para o histórico mostrar qual prompt gerou qual imagem.
+
 ## Etapa 7 — Ajustar o futuro
 
 - Esqueletos em `roteiro/`: perguntas resolvidas saem, perguntas novas entram, datas mudam.
-- `roteiro/painel/00-agregado.md`: se um fato muda muito uma probabilidade (ex.: um consenso do painel foi desmentido), anote em "Ajustes" e, se for grande, proponha ao usuário uma **mini-rodada do painel** só nas perguntas afetadas.
+- `roteiro/painel/00-agregado.md`: se um fato muda muito uma probabilidade (ex.: um consenso do painel foi desmentido), anote em "Ajustes" e, se for grande, proponha ao usuário uma **mini-rodada do painel** só nas perguntas afetadas, feita pela skill `painel` (prompts só de `roteiro/prompts/`, nunca escritos na hora).
 - Ecos longos: se uma marca do cap. 1 perdeu sentido, registre onde ela pagava e o que muda.
 
 ## Etapa 8 — Verificar

@@ -135,6 +135,14 @@ export const ExplicacaoSchema = z.strictObject({
   /** As lentes do painel (só na tela do método). */
   lentes: z.array(z.strictObject({ nome: z.string(), texto: z.string() })).min(1).optional(),
   nota: z.string().optional(),
+  /** Onde conferir: o repositório público, com o código, as cenas e as instruções dos agentes. */
+  codigo: z
+    .strictObject({
+      titulo: z.string(),
+      texto: z.string(),
+      links: z.array(z.strictObject({ rotulo: z.string(), url: z.url() })).min(1),
+    })
+    .optional(),
 });
 
 /** Data fixa e pública do calendário (eleição, posse), sem previsão: as paradas da régua da capa. */
