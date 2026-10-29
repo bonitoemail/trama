@@ -2,12 +2,6 @@ MIT License
 
 Copyright (c) 2026 Trama (https://github.com/bonitoemail/trama)
 
-This license covers the software in this repository: the source code in
-src/, scripts/, supabase/, the Python files in estilo/, and the project
-configuration files. The content (scenes, research, prompts, texts, images
-and documentation) is licensed separately under CC BY 4.0: see
-LICENSE-CONTEUDO.
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
