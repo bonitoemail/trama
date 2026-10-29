@@ -76,8 +76,15 @@ export default function Inicio({ jogo, partidas, temPartida, onContinuar, onCome
           <section className="como" aria-labelledby="como-titulo">
             {ap.texto && <p className="lead">{contar(ap.texto)}</p>}
             {jogo.objetivo && (
-              <button type="button" className="link-metodo link-objetivo" onClick={() => setPagina('objetivo')}>
-                {jogo.objetivo.titulo} <span aria-hidden>→</span>
+              // Porta de entrada do jogo, em cartão; o método fica como link discreto.
+              <button type="button" className="cartao-objetivo" onClick={() => setPagina('objetivo')}>
+                <span className="cartao-objetivo-texto">
+                  <strong>{jogo.objetivo.titulo}</strong>
+                  <span>{contar(jogo.objetivo.texto)}</span>
+                </span>
+                <span className="seta" aria-hidden>
+                  →
+                </span>
               </button>
             )}
             <h2 className="rotulo" id="como-titulo">

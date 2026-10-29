@@ -9,13 +9,13 @@ Quando o usuário disser **"atualize o jogo"** (ou mandar uma notícia nova), us
 Next.js 16 (App Router) · React 19 · TypeScript 5 (estrito) · Zod 4 · YAML · Vitest 5. CSS puro em `src/app/globals.css`. Imagens geradas no FLUX.1-schnell local (RTX 4080) via o Python do `C:/Users/USER/openmontage/.venv`.
 
 ## Onde fica cada coisa
-- `content/jogo.yaml`: versão, aviso, **prólogo (fatos reais com fonte)**, primeiro capítulo e epílogo.
+- `content/jogo.yaml`: versão, aviso, `apresentacao` (linha do cabeçalho e passos de "Como funciona"), `objetivo` (tela "Para que serve o Trama"), `metodo` (tela "Como fazemos as previsões"), **prólogo (fatos reais com fonte)**, primeiro capítulo e epílogo. `{partidas}` nos textos vira o número de histórias contado pelo motor; nunca escreva o número à mão.
 - `content/capitulos/*.yaml`: um arquivo por capítulo. **Escrever cena = escrever dado.** Paráfrase de pessoa real leva comentário com o link.
-- `src/engine/`: `schema.ts` (formato, Zod), `engine.ts` (motor puro, travas `real`), `validate.ts` (explora todas as combinações), `historia.ts` (linha do tempo e contagem de caminhos), `load.ts`.
-- `src/components/`: `Jogo.tsx` (telas e tipos de cena: abertura, decisão, consequência, final), `BotaoEscolha.tsx` (segurar para decidir), `LinhaDoTempo.tsx` (fim de capítulo).
+- `src/engine/`: `schema.ts` (formato, Zod), `engine.ts` (motor puro, travas `real`), `validate.ts` (explora todas as combinações), `historia.ts` (linha do tempo, caminhos por capítulo e `contarPartidas`, histórias completas), `load.ts`.
+- `src/components/`: `Jogo.tsx` (telas e tipos de cena: abertura, decisão, consequência, final), `Inicio.tsx` (tela inicial: título, cartão "Para que serve", "Como funciona", fatos, ações sempre à mão), `Metodo.tsx` (telas de explicação), `Fatos.tsx` (prólogo como changelog, mais novo em cima), `Cartoes.tsx` (stories: a tela inteira é área de toque), `BotaoEscolha.tsx` (segurar para decidir), `LinhaDoTempo.tsx` (fim de capítulo).
 - `pesquisa/`: rodadas de pesquisa (`00-sintese.md`, `01`…), `RODADAS.md` (histórico) e `relogios.yaml` (datas e eventos ligados aos nós).
 - `roteiro/`: esqueletos de capítulos futuros e `painel/` (painel de previsão com 6 lentes, `00-agregado.md` com cismas e finais, `01-neutralidade.md`).
-- `estilo/`: `GUIA.md` (estilo das ilustrações), `prompts.py`, `cenas_cap*.py`, `gerar_teste.py`, `publicar.py`, `galeria.py`, `escolhas.json` (qual geração está em cada nó), `referencias/`. Saídas de teste em `estilo/testes/` (fora do git).
+- `estilo/`: `GUIA.md` (estilo das ilustrações), `prompts.py`, `cenas_cap*.py`, `cenas_capa.py` (formato largo; capa hoje fora de uso), `sketch-titulo.html` (comparar fontes do título), `gerar_teste.py`, `publicar.py`, `galeria.py`, `escolhas.json` (qual geração está em cada nó), `referencias/`. Saídas de teste em `estilo/testes/` (fora do git).
 - `public/imagens/<cap>/<no>.webp`: imagens publicadas.
 
 ## Conceitos do conteúdo
@@ -40,6 +40,14 @@ npm run build      # falha se o conteúdo tiver erro
 - Suba `versao` em `content/jogo.yaml` quando um nó for removido ou renomeado (descarta partidas salvas antigas).
 - Ao mudar conteúdo: `npm run validate` sem erros; ao mudar imagens: `npm run estado` sem imagens órfãs.
 - Testar no navegador pode usar a aba e a partida do usuário.
+
+## Visual da tela inicial
+Título TRAMA em Unbounded (`next/font`, variável `--titulo`), só no título, com uma faixa de luz verde e amarela passando em loop. A cor da luz foi escolha do usuário mesmo sabendo que os dois leitores da revisão a leram como cor da direita: não troque sem perguntar. Sem imagem de capa. Mobile first; no PC, duas colunas (passos e ações à esquerda, fatos à direita).
+
+## Onde paramos (fim de 28/10/2026)
+Ver `pesquisa/RODADAS.md` (última entrada) para o detalhe.
+- **Feito:** tela inicial editorial; telas "Para que serve" e "Como fazemos as previsões"; revisão de equilíbrio por dois leitores (direita e esquerda) aplicada em dois lotes; cena `cap02/o_orcamento` (o custo do próprio governo); saída sóbria de Flávio (`flavio_discreto`); botão "Voltar ao início" no fim.
+- **Pendente:** mais agência da esquerda além de Lula (Haddad, PT, movimentos); a imprensa como ator; primeira trava real nas midterms (3/11/2026, `cap01/eleicao_eua`); retratos; backend.
 
 ## Ainda não existe
 Backend (Supabase), porcentagens da comunidade, página pública, antimanipulação, retratos de personagens reais.
