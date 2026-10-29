@@ -1001,13 +1001,6 @@ body:has(.capa) {
 }
 
 /* ---------- Como fazemos: ficha técnica, fria ---------- */
-.explica-metodo {
-  background-color: var(--c-fundo);
-  background-image: linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
-  background-size: 32px 32px;
-  background-attachment: fixed;
-}
 .explica-metodo .abre h1 {
   font-family: var(--c-sans);
   font-weight: 600;
