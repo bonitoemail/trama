@@ -7,6 +7,49 @@ description: Atualiza o Trama com a realidade. Use quando o usuário disser "atu
 
 O Trama começa sempre no acontecimento seguinte ao último fato real. Esta skill mantém isso verdadeiro sem quebrar o roteiro, o equilíbrio ou as imagens. Siga as etapas na ordem e mantenha o usuário no painel de tarefas (`update_plan`).
 
+A skill tem dois modos:
+- **Com o usuário** (padrão): ele está na conversa; siga as etapas e pergunte o que precisa de aprovação (Etapa 4).
+- **Autônomo**: a rodada foi disparada por uma tarefa agendada, ou o pedido diz "modo autônomo". Ninguém está olhando. **A skill atualiza o jogo de verdade** (texto, travas, nós novos, imagens, commit), com as salvaguardas da seção "Modo autônomo" abaixo. Ela vale por cima das etapas onde as duas divergem.
+
+---
+
+## Modo autônomo
+
+**Antes de começar**
+- Anote a data e a hora de agora (`date`). A janela de busca vai da última rodada em `RODADAS.md` até agora.
+- `git status` precisa estar limpo. Se houver mudança não commitada, **não mexa em nada**: o usuário está no meio de um trabalho. Faça só as etapas 0 a 3 e escreva o relatório (abaixo) explicando por quê.
+
+**O que aplicar sozinho**
+- Tudo o que é automático na Etapa 4: prólogo, trava com fato confirmado, correção factual, relógios, registro.
+- Mudança de rótulo e reescrita de cena quando um fato confirmado exigir.
+- **Galho novo e opção nova travada**, se a pergunta for real e levar semanas para se resolver, com cena própria nos dois lados e marca usada em alguma condição.
+- **Imagens**: gerar, escolher pelo checklist do guia e publicar (Etapa 6), sem esperar escolha do usuário.
+
+**O que nunca fazer sozinho** (vai para "Precisa de você" no relatório)
+- Remover ou renomear nó, ou subir a `versao` (apaga as partidas salvas dos jogadores).
+- Aplicar a regra de recuo (o capítulo 1 inteiro ficou para trás) ou mexer em cismas e finais.
+- Mexer no visual, na tela inicial ou no código do jogo (`src/`), salvo correção de um erro que impeça o build por causa do conteúdo.
+- Escrever fato que só tem uma fonte, ou boato fora da voz de um personagem.
+- Push, deploy, publicar em qualquer lugar fora do repositório.
+
+**Revisão de equilíbrio obrigatória**
+Depois de escrever e antes de commitar, rode **dois agentes em paralelo**, um lendo como eleitor de direita e outro como eleitor de esquerda, os dois moderados. Cada um recebe só os trechos novos ou alterados (com o arquivo e o id do nó) e as regras de DESIGN.md 8.1 e 8.2. Corrija o que os dois apontarem e o que for gravidade alta em qualquer um. O que for divergência de gosto vai para o relatório.
+
+**Verificação e commit**
+- Rode a Etapa 8 inteira. O navegador é opcional: se não estiver disponível, jogue os caminhos que passam pelos nós alterados com um script do motor (`novoJogo`, `escolher`, `continuar`) e confira os textos.
+- Tudo passou → **um commit só** em `master`, mensagem `Rodada AAAA-MM-DD: <resumo>`, com o corpo listando fatos, travas, nós novos e imagens, e a linha `Co-Authored-By` do projeto. Assim, desfazer a rodada é um `git revert`.
+- Algo falhou e você não conseguiu corrigir → `git stash` não serve (ninguém vai ver). Crie a branch `rodada/AAAA-MM-DD`, faça o commit nela, volte para `master` limpo e explique no relatório.
+
+**Relatório**
+Escreva `pesquisa/rodada-AAAA-MM-DD.md` (entra no mesmo commit) com estas seções, nesta ordem:
+1. **Resumo** em 3 a 5 linhas.
+2. **Fatos confirmados** (com links) e **boatos descartados**.
+3. **O que mudou no jogo**: travas, textos, nós novos, imagens (reaproveitadas, refeitas, novas), com arquivo e id.
+4. **Revisão de equilíbrio**: o que os dois leitores apontaram e o que foi corrigido.
+5. **Precisa de você**: o que ficou de fora pelas regras acima, com a proposta pronta para aplicar.
+6. **Verificação**: os comandos e o resultado.
+Termine a execução com o mesmo resumo das 3 a 5 linhas e o caminho do relatório.
+
 Arquivos que esta skill usa:
 - `pesquisa/relogios.yaml`: datas e eventos a vigiar, ligados aos nós que afetam.
 - `pesquisa/RODADAS.md`: histórico de rodadas e fatos novos (a data da última rodada está aqui).
@@ -72,6 +115,8 @@ Antes de editar, mostre:
 
 Se o usuário já disse "atualize o jogo" sem pedir revisão, aplique o automático e pergunte só o que precisa de aprovação, numa pergunta (`wrap_up` ou `AskUserQuestion`).
 
+**No modo autônomo** não há proposta: siga "Modo autônomo" (o que aplicar sozinho e o que deixar para o usuário).
+
 ## Etapa 5 — Aplicar texto e travas
 
 - Siga **DESIGN.md 8, 8.1 e 8.2** em cada trecho novo (linguagem simples: cartões curtos, sem jargão, técnico no `detalhe`): motivo e interesse para todos, nenhuma escolha sem custo, regra do par, narrador sem piada, boato só como boato, gancho e checagem, mesma regra de nome.
@@ -96,7 +141,7 @@ Para gerar (siga `estilo/GUIA.md`):
    ```
 3. Monte a folha e escolha pelo checklist do guia (assinatura falsa, rosto detalhado, ícone errado, bandeira, mais de um acento, cor de partido).
 4. Publique: `python estilo/publicar.py <cap> <no>=<arquivo>` e regenere a galeria (`python estilo/galeria.py`).
-5. Mostre ao usuário as escolhas e a galeria (`localhost:8765/galeria.html`, config "galeria").
+5. Mostre ao usuário as escolhas e a galeria (`localhost:8765/galeria.html`, config "galeria"). No modo autônomo, registre no relatório qual seed foi escolhida e por quê.
 
 ## Etapa 7 — Ajustar o futuro
 
@@ -118,4 +163,4 @@ npm run estado
 
 - `pesquisa/RODADAS.md`: nova entrada com data, fatos (com fonte), boatos descartados, o que mudou no jogo e o que ficou pendente.
 - Resumo ao usuário: o que travou, o que mudou no texto, imagens reaproveitadas, refeitas e descartadas, o que foi ajustado no futuro, e o que ficou para aprovação.
-- Ofereça o commit (o usuário costuma aprovar; não faça sem ele pedir).
+- Ofereça o commit (o usuário costuma aprovar; não faça sem ele pedir). No modo autônomo, o commit faz parte da rodada (ver "Modo autônomo").
