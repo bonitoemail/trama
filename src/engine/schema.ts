@@ -96,10 +96,17 @@ export const FatoSchema = z.strictObject({
   fonte: z.string().optional(),
 });
 
+/** Tela inicial: o que é o jogo e como funciona, em poucos passos. */
+export const ApresentacaoSchema = z.strictObject({
+  texto: z.string(),
+  passos: z.array(z.strictObject({ titulo: z.string(), texto: z.string() })).min(1),
+});
+
 export const JogoSchema = z.strictObject({
   versao: z.string(),
   titulo: z.string(),
   aviso: z.string(),
+  apresentacao: ApresentacaoSchema.optional(),
   prologo: z.array(FatoSchema).min(1),
   primeiro_capitulo: z.string(),
   capitulos: z.array(CapituloSchema).min(1),

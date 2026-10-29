@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import BotaoEscolha from './BotaoEscolha';
 import Cartoes from './Cartoes';
-import Fatos from './Fatos';
+import Inicio from './Inicio';
 import LinhaDoTempo from './LinhaDoTempo';
 import { linhaDoTempo } from '@/engine/historia';
 import {
@@ -26,7 +26,6 @@ export default function Jogo({ jogo, caminhos }: { jogo: JogoT; caminhos: Record
   const [tela, setTela] = useState<Tela>('carregando');
   const [estado, setEstado] = useState<Estado | null>(null);
   const [vistos, setVistos] = useState<Set<string>>(new Set());
-  const [confirmarNova, setConfirmarNova] = useState(false);
   const [decidindo, setDecidindo] = useState<string | null>(null);
 
   useEffect(() => {
@@ -66,7 +65,6 @@ export default function Jogo({ jogo, caminhos }: { jogo: JogoT; caminhos: Record
   function comecar() {
     apagarPartida(jogo.versao);
     setEstado(null);
-    setConfirmarNova(false);
     atualizar(novoJogo(jogo));
     setTela('partida');
   }
@@ -75,30 +73,7 @@ export default function Jogo({ jogo, caminhos }: { jogo: JogoT; caminhos: Record
 
   if (tela === 'abertura' || !estado) {
     return (
-      <main className="tela abertura">
-        <h1 className="marca">{jogo.titulo}</h1>
-        <p className="sub">O que pode acontecer com o Brasil até 2030. Você decide.</p>
-        <Fatos fatos={jogo.prologo} />
-        <div className="acoes">
-          {estado && !confirmarNova && (
-            <Acao primario onClick={() => setTela('partida')}>Continuar partida</Acao>
-          )}
-          {estado && !confirmarNova && <Acao onClick={() => setConfirmarNova(true)}>Nova partida</Acao>}
-          {estado && confirmarNova && (
-            <>
-              <p className="nota">A partida atual será perdida. As escolhas não voltam.</p>
-              <Acao primario onClick={comecar}>Começar do zero</Acao>
-              <Acao onClick={() => setConfirmarNova(false)}>Manter a atual</Acao>
-            </>
-          )}
-          {!estado && (
-            <Acao primario onClick={comecar}>
-              Começar
-            </Acao>
-          )}
-        </div>
-        <p className="aviso">{jogo.aviso}</p>
-      </main>
+      <Inicio jogo={jogo} temPartida={Boolean(estado)} onContinuar={() => setTela('partida')} onComecar={comecar} />
     );
   }
 

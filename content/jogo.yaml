@@ -5,6 +5,31 @@ aviso: >
   personagens em situações hipotéticas, inspiradas em suas posições públicas.
   Nenhuma cena descreve fatos reais além do prólogo.
 
+# Tela inicial: o que é o jogo e como funciona. Linguagem simples (DESIGN 8.2).
+apresentacao:
+  texto: >
+    Uma história interativa sobre o Brasil de agora até a próxima eleição.
+    Você não joga como um político: você é o rumo dos acontecimentos. Cada
+    partida é uma versão possível do país.
+  passos:
+    - titulo: Começa no último fato real
+      texto: >
+        A história parte do acontecimento mais recente confirmado. Em "O que
+        já aconteceu" estão os fatos reais, com data e fonte.
+    - titulo: Você escolhe o que vem depois
+      texto: >
+        Em cada cena, duas ou três saídas. Cada escolha fecha as outras e
+        deixa marcas que voltam mais adiante.
+    - titulo: Ficção, mas possível
+      texto: >
+        Os caminhos são inventados, mas partem de pesquisa e de análises de
+        todos os lados. Só entra o que tem chance real de acontecer. Nenhum
+        lado é o certo.
+    - titulo: A história anda com o tempo
+      texto: >
+        Quando a realidade decide, o jogo é atualizado. Previsões confirmadas
+        viram fato; caminhos que a realidade descartou ficam fechados.
+
 # Fatos reais, não jogáveis. A primeira decisão é o acontecimento seguinte ao último fato.
 prologo:
   - data: 4 de outubro de 2026
