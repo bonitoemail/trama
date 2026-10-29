@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 import { IBM_Plex_Sans, Source_Serif_4, Unbounded } from 'next/font/google';
 import './globals.css';
 import './capa.css';
@@ -23,7 +24,11 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" className={[titulo, capaSerif, capaSans].map((f) => f.variable).join(' ')}>
-      <body>{children}</body>
+      <body>
+        {children}
+        {/* Visitas por página, sem cookie (Vercel Web Analytics); as escolhas vão pelo registro próprio. */}
+        <Analytics />
+      </body>
     </html>
   );
 }

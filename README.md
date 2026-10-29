@@ -32,7 +32,7 @@ Os revisores e os leitores também são agentes de IA: servem para pegar o que e
 
 ## Privacidade
 
-As escolhas de quem joga são contadas de forma anônima: um id aleatório por partida, a origem do link (quando há) e as escolhas. Não guardamos nome, conta, e-mail nem endereço IP. Só o servidor do site grava, e ninguém de fora lê as tabelas. Detalhes em [`BACKEND.md`](BACKEND.md) e na migração em [`supabase/migrations/`](supabase/migrations/).
+As escolhas de quem joga são contadas de forma anônima: um id aleatório por partida, a origem do link (quando há) e as escolhas. Não guardamos nome, conta, e-mail nem endereço IP. Só o servidor do site grava, e ninguém de fora lê as tabelas. As visitas por página são contadas pelo Vercel Web Analytics, também sem cookie e sem guardar IP. Detalhes em [`BACKEND.md`](BACKEND.md) e na migração em [`supabase/migrations/`](supabase/migrations/).
 
 ## Rodar localmente
 

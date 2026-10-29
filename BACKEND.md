@@ -15,6 +15,7 @@ Etapas 1 a 6 feitas e testadas de ponta a ponta em 29/10/2026; no ar em https://
 - Cada partida ganha um id aleatório no navegador (já existe a partida salva no `localStorage`; o id vai junto).
 - "Começar outra partida" gera id novo. Não ligamos partidas da mesma pessoa.
 - Uma linha no `aviso`: "Contamos as escolhas de forma anônima, para mostrar o que a comunidade decidiu."
+- Visitas por página (quantas, de qual página, país e aparelho) vão pelo Vercel Web Analytics (`<Analytics />` em `src/app/layout.tsx`): sem cookie e sem IP guardado; não vê as escolhas.
 - Com isso não precisa de banner de consentimento.
 
 ## Supabase (projeto `trama`, `hsiwzuqikdcbrjquczwd`, São Paulo)
