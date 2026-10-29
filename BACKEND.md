@@ -1,6 +1,6 @@
 # Backend: contagem de partidas e caminhos
 
-Etapas 1 a 5 feitas e testadas de ponta a ponta em 29/10/2026. Falta publicar (etapa 6). No `npm run dev` nada é gravado, a não ser com `REGISTRO_EM_DEV=1` no `.env.local`.
+Etapas 1 a 6 feitas e testadas de ponta a ponta em 29/10/2026; no ar em https://trama-sigma-five.vercel.app. No `npm run dev` nada é gravado, a não ser com `REGISTRO_EM_DEV=1` no `.env.local`.
 
 ## O que queremos saber
 - Quantas pessoas começaram, quantas terminaram cada capítulo e quantas chegaram ao fim.
