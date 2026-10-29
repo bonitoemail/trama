@@ -1,0 +1,16 @@
+<!doctype html><html lang="pt-BR"><meta charset="utf-8"><title>Favicon, opções</title>
+<style>
+body{margin:0;padding:32px;background:#e9e6df;font:14px system-ui;color:#222}
+h2{font-weight:600;margin:28px 0 10px}
+.linha{display:flex;gap:28px;align-items:flex-end}
+.tam{display:flex;flex-direction:column;align-items:center;gap:6px;color:#666;font-size:12px}
+.abas{display:flex;gap:16px;margin-top:14px}
+.aba{display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:10px 10px 0 0;width:200px;font-size:13px}
+.claro{background:#fff;color:#222}.escuro{background:#2b2d30;color:#ddd}
+.aba img{width:16px;height:16px}
+</style>
+<body>
+<script>
+const ops=[['a-bandeira.svg','A · bandeira em ondas, sem fundo'],['b-bandeira-fundo.svg','B · bandeira em ondas, no quadrado escuro do site'],['c-fios.svg','C · três fios em onda (trama = tecido)']];
+for(const [f,t] of ops){document.write(`<h2>${t}</h2><div class="linha">`+[16,32,48,96,180].map(s=>`<div class="tam"><img src="${f}" width="${s}" height="${s}">${s}px</div>`).join('')+`</div><div class="abas"><div class="aba claro"><img src="${f}">Trama</div><div class="aba escuro"><img src="${f}">Trama</div></div>`)}
+</script>
