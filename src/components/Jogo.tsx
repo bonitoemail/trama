@@ -109,9 +109,12 @@ export default function Jogo({
             />
           </section>
         ))}
-        <Acao primario onClick={comecar}>
-          Jogar de novo
-        </Acao>
+        <div className="acoes">
+          <Acao primario onClick={comecar}>
+            Jogar de novo
+          </Acao>
+          <Acao onClick={() => setTela('abertura')}>Voltar ao início</Acao>
+        </div>
       </main>
     );
   }
