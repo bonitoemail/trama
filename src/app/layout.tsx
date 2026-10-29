@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from 'next';
+import { Unbounded } from 'next/font/google';
 import './globals.css';
+
+// Fonte só do título da marca, para separá-lo do texto do jogo.
+const titulo = Unbounded({ subsets: ['latin'], weight: ['500'], variable: '--titulo' });
 
 export const metadata: Metadata = {
   title: 'Trama',
@@ -14,7 +18,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" className={titulo.variable}>
       <body>{children}</body>
     </html>
   );

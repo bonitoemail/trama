@@ -9,6 +9,7 @@
   --real: #f29a2e;
   --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
   --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* --titulo vem do next/font (layout.tsx): fonte só da marca. */
 }
 
 * {
@@ -54,67 +55,44 @@ button {
   margin: 0 auto;
   padding: 0 20px 150px;
 }
+/* Cabeçalho sem imagem: o título sozinho, centralizado, na fonte própria da marca. */
 .inicio-cabeca {
-  position: relative;
-  margin: 0 -20px;
-  padding: 0 20px;
-}
-.inicio-capa {
-  display: block;
-  width: calc(100% + 40px);
-  margin: 0 -20px;
-  height: 46svh;
-  min-height: 260px;
-  object-fit: cover;
-  object-position: center 40%;
-  /* Escurece em cima (para o título) e some embaixo, no fundo da página. */
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, #000 38%, #000 62%, transparent);
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, #000 38%, #000 62%, transparent);
-  animation: capa-entra 1.6s ease both;
-}
-@keyframes capa-entra {
-  from { opacity: 0; }
-  to { opacity: 0.9; }
-}
-/* TRAMA no alto da tela, por cima da imagem. */
-.inicio-titulo {
-  position: absolute;
-  top: max(18px, env(safe-area-inset-top));
-  left: 20px;
-  right: 20px;
+  padding: max(56px, calc(env(safe-area-inset-top) + 40px)) 0 40px;
+  text-align: center;
+  border-bottom: 1px solid var(--linha);
+  margin-bottom: 28px;
 }
 .ficha {
   font-family: var(--sans);
   font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--destaque);
-  opacity: 0.85;
-  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7);
-  margin: 8px 0 0;
+  color: var(--texto-2);
+  margin: 14px 0 0;
 }
 .marca {
-  font-size: clamp(48px, 14vw, 72px);
-  font-weight: 400;
+  font-family: var(--titulo), var(--serif);
+  font-size: clamp(40px, 15vw, 68px);
+  font-weight: 500;
   line-height: 1;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  margin: 0 0 0 -0.03em;
+  margin: 0;
+  padding-left: 0.04em; /* compensa o espaço depois da última letra, para centralizar */
   color: var(--destaque);
-  filter: drop-shadow(0 1px 18px rgba(0, 0, 0, 0.5));
 }
-/* Uma faixa de luz atravessa o título sem parar, como o "pensando" de um assistente:
-   a história está sempre em andamento. */
+/* Uma faixa de luz verde e amarela atravessa o título sem parar, como o "pensando" de um
+   assistente: a história está sempre em andamento. */
 @supports (background-clip: text) or (-webkit-background-clip: text) {
-  .inicio-titulo .marca {
+  .inicio-cabeca .marca {
     background: linear-gradient(
       105deg,
       var(--destaque) 0%,
-      var(--destaque) 40%,
-      #fff4e2 47%,
-      #ffd29a 50%,
-      #fff4e2 53%,
-      var(--destaque) 60%,
+      var(--destaque) 36%,
+      #2fae5b 44%,
+      #f7d23e 50%,
+      #2fae5b 56%,
+      var(--destaque) 64%,
       var(--destaque) 100%
     );
     background-size: 300% 100%;
@@ -129,7 +107,7 @@ button {
   to { background-position: 0% 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .inicio-titulo .marca {
+  .inicio-cabeca .marca {
     animation: none;
     background-position: 100% 0;
   }
@@ -211,31 +189,13 @@ button {
     overflow-y: auto;
     scrollbar-width: none;
   }
-  /* Capa em faixa larga, de ponta a ponta da tela, sobre as duas colunas. */
   .inicio-cabeca {
     grid-column: 1 / -1;
-    position: relative;
-    margin: 0 calc(50% - 50vw);
-    padding: 0;
+    padding: 72px 0 48px;
+    margin-bottom: 40px;
   }
-  .inicio-capa {
-    width: 100%;
-    margin: 0;
-    height: min(52svh, 560px);
-    object-position: center 60%;
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, #000 34%, #000 60%, transparent);
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, #000 34%, #000 60%, transparent);
-  }
-  .inicio-titulo {
-    top: 40px;
-    left: 0;
-    right: 0;
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 0 48px;
-  }
-  .inicio-titulo .marca {
-    font-size: 88px;
+  .inicio-cabeca .marca {
+    font-size: 96px;
   }
   /* Presas no pé da coluna da esquerda: à vista mesmo quando a coluna precisa rolar. */
   .inicio-acoes {
@@ -259,7 +219,6 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .inicio-capa,
   .inicio-fatos .fatos-lista li {
     animation: none;
   }

@@ -16,7 +16,7 @@ interface Props {
  * Tela inicial como primeira página de jornal: título, linha fina e "Como funciona" já abertos;
  * os fatos reais em seguida, como cobertura datada. As ações ficam sempre à mão: presas embaixo
  * no celular; no PC, na coluna da esquerda, que fica parada enquanto os fatos rolam à direita.
- * No PC a capa é uma faixa larga sobre as duas colunas, com o título por cima.
+ * O título fica sozinho no alto, centralizado, sobre as duas colunas no PC.
  */
 export default function Inicio({ jogo, temPartida, onContinuar, onComecar }: Props) {
   const [confirmar, setConfirmar] = useState(false);
@@ -59,12 +59,8 @@ export default function Inicio({ jogo, temPartida, onContinuar, onComecar }: Pro
   return (
     <main className="inicio">
       <header className="inicio-cabeca">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="inicio-capa" src="/imagens/capa/inicio.webp" alt="" />
-        <div className="inicio-titulo">
-          <h1 className="marca">{jogo.titulo}</h1>
-          <p className="ficha">Ficção sobre o Brasil · out/2026 → 2030</p>
-        </div>
+        <h1 className="marca">{jogo.titulo}</h1>
+        <p className="ficha">Ficção sobre o Brasil · out/2026 → 2030</p>
       </header>
 
       <div className="inicio-coluna">

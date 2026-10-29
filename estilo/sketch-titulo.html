@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trama · fontes do título</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@1,500&family=DM+Serif+Display&family=Fraunces:opsz,wght@144,600&family=Playfair+Display+SC:wght@700&family=Syne:wght@700&family=Unbounded:wght@500&family=Cinzel:wght@500&family=Italiana&display=swap" rel="stylesheet">
+<style>
+  :root { --fundo:#0f0f11; --linha:#2c2c31; --destaque:#f4efe4; --texto-2:#a19d94; }
+  body { margin:0; background:var(--fundo); color:var(--destaque); font-family:system-ui, sans-serif; }
+  header { padding:24px 20px; border-bottom:1px solid var(--linha); }
+  header p { color:var(--texto-2); font-size:13px; margin:6px 0 0; }
+  .grade { display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); }
+  .amostra { padding:36px 20px 28px; border-bottom:1px solid var(--linha); border-right:1px solid var(--linha); text-align:center; }
+  .nome { font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--texto-2); margin-top:14px; }
+  body { overflow-x:hidden; }
+  .t { font-size:clamp(40px, 11vw, 64px); line-height:1; text-transform:uppercase; letter-spacing:.08em; padding-left:.08em;
+       background-size:300% 100%; -webkit-background-clip:text; background-clip:text; color:transparent;
+       animation:luz 4.5s cubic-bezier(.45,0,.55,1) infinite; }
+  .t.atual { background-image:linear-gradient(105deg, var(--destaque) 0 40%, #fff4e2 47%, #ffd29a 50%, #fff4e2 53%, var(--destaque) 60% 100%); }
+  .t.brasil { background-image:linear-gradient(105deg, var(--destaque) 0 36%, #2fae5b 44%, #f7d23e 50%, #2fae5b 56%, var(--destaque) 64% 100%); }
+  @keyframes luz { from { background-position:100% 0 } to { background-position:0 0 } }
+  .controles { display:flex; gap:8px; margin-top:12px; }
+  button { font:inherit; font-size:13px; padding:8px 12px; background:none; color:var(--destaque); border:1px solid var(--linha); border-radius:4px; cursor:pointer; }
+  button[aria-pressed="true"] { border-color:var(--destaque); }
+</style>
+</head>
+<body>
+<header>
+  <strong>Fontes do título</strong>
+  <p>Cada quadro é uma fonte. O botão troca a cor da luz que passa pelas letras.</p>
+  <div class="controles">
+    <button type="button" data-cor="brasil" aria-pressed="true">Luz verde e amarela</button>
+    <button type="button" data-cor="atual" aria-pressed="false">Luz atual (âmbar)</button>
+  </div>
+</header>
+<div class="grade" id="grade"></div>
+<script>
+  const fontes = [
+    ['1 · Bodoni Moda itálica (atual)', "'Bodoni Moda'", 'italic', 500],
+    ['2 · DM Serif Display', "'DM Serif Display'", 'normal', 400],
+    ['3 · Fraunces', "'Fraunces'", 'normal', 600],
+    ['4 · Playfair Display SC', "'Playfair Display SC'", 'normal', 700],
+    ['5 · Cinzel', "'Cinzel'", 'normal', 500],
+    ['6 · Italiana', "'Italiana'", 'normal', 400],
+    ['7 · Syne', "'Syne'", 'normal', 700],
+    ['8 · Unbounded', "'Unbounded'", 'normal', 500],
+  ];
+  const grade = document.getElementById('grade');
+  for (const [nome, familia, estilo, peso] of fontes) {
+    const d = document.createElement('div');
+    d.className = 'amostra';
+    d.innerHTML = `<div class="t brasil" style="font-family:${familia};font-style:${estilo};font-weight:${peso}">Trama</div><div class="nome">${nome}</div>`;
+    grade.append(d);
+  }
+  document.querySelectorAll('[data-cor]').forEach((b) => b.addEventListener('click', () => {
+    document.querySelectorAll('[data-cor]').forEach((x) => x.setAttribute('aria-pressed', x === b));
+    document.querySelectorAll('.t').forEach((t) => t.className = 't ' + b.dataset.cor);
+  }));
+</script>
+</body>
+</html>
