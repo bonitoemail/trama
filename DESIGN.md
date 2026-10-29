@@ -54,6 +54,14 @@ Caminhos diferentes convergem no capítulo seguinte, mas **carregam marcas**: me
 
 O jogador nunca vê as marcas. Ele só sente que o mundo lembra.
 
+### 4.2.1 Espinha e trilhos (29/10/2026)
+
+Dentro de um capítulo há uma **espinha**, as cenas que quase todo mundo vê, e **trilhos**: sequências próprias de 3 a 5 cenas que nascem de uma escolha e não voltam à espinha, ou só voltam no fim do capítulo, com outro final. Quem entra num trilho vive outro capítulo (no cap. 2: Flávio de volta ao Brasil, a campanha de Tereza Cristina pelo Senado, o indulto a Jair; no cap. 1: a prisão, a votação no Senado e a Interpol).
+
+- Cada decisão tem **de 2 a 4 escolhas**.
+- Uma revisão de cobertura (`roteiro/prompts/revisao/cobertura.md`) confere se falta em cada decisão o desfecho provável ou um ator de peso. A regra é **somar** o provável que falta e **nunca cortar** o improvável que o jogador quer ver, desde que nenhum fato o desminta.
+- As regras de como travar, somar escolhas, abrir trilhos e escrever o capítulo seguinte estão na skill `atualizar-jogo` (`.claude/skills/atualizar-jogo/SKILL.md`).
+
 ### 4.3 Os grandes cismas
 
 Em 3 momentos, a história **se separa de verdade**: os caminhos não se reencontram mais e o jogo vira histórias diferentes até o fim.
@@ -160,7 +168,7 @@ Quando a realidade andar:
 
 **Equilíbrio verificável:** para cada campo político, revisar se existem caminhos de vitória e de ruína. A página pública não pode virar um placar de um lado.
 
-**Aviso na abertura:** *"Trama é uma obra de ficção especulativa. Figuras públicas aparecem como personagens em situações hipotéticas, inspiradas em suas posições públicas. Nenhuma cena descreve fatos reais além do prólogo."*
+**Aviso na abertura:** *"Trama é uma simulação. Figuras públicas aparecem como personagens em situações hipotéticas, inspiradas em suas posições públicas. Nenhuma cena descreve fatos reais além dos listados em 'O que já aconteceu'."* O texto em uso fica em `content/jogo.yaml` (`aviso`).
 
 ### 8.1 Regras de equilíbrio (revisão de neutralidade, 28/10/2026)
 
@@ -208,8 +216,9 @@ O texto que quem escreve segue, com exemplos, está publicado em [`roteiro/promp
 
 ### 9.1 Anonimização (LGPD)
 - Sem conta e sem login. ID aleatório gerado no navegador por partida.
-- Guarda-se **apenas** a sequência de escolhas (`nó → opção`), a versão do conteúdo e o horário arredondado.
+- Guarda-se **apenas** a sequência de escolhas (`nó → opção`), a versão do conteúdo, o horário e a origem do link de divulgação (`?origem=`), quando há.
 - Sem IP, sem dados de dispositivo, sem localização.
+- Implementado em 29/10/2026: `src/lib/registro.ts` e `src/app/api/evento/route.ts` (detalhes em `BACKEND.md`).
 
 ### 9.2 Antimanipulação
 O jogo é político e o print da estatística vale como propaganda. Defesas mínimas:
@@ -217,6 +226,8 @@ O jogo é político e o print da estatística vale como propaganda. Defesas mín
 - escolha só conta se o nó ficou na tela por um tempo mínimo de leitura;
 - limite de partidas contadas por dispositivo por dia;
 - estatísticas só aparecem com amostra mínima (ex.: 50 partidas no nó).
+
+Hoje existe a primeira camada: cada evento é conferido contra o conteúdo (cena e escolha precisam existir), uma partida vota uma vez por cena, e uma partida com eventos demais é cortada. O resto fica para quando as porcentagens forem públicas.
 
 ### 9.3 Versionamento
 Cada mudança de conteúdo gera uma versão. Estatísticas são agregadas por nó estável (ID que não muda entre versões) e podem ser filtradas por versão.
@@ -230,50 +241,58 @@ Cada mudança de conteúdo gera uma versão. Estatísticas são agregadas por n�
 - aviso fixo: **"Isto não é pesquisa de opinião. Mostra como os jogadores do Trama escolheram, não o que o Brasil pensa."**
 
 ### 9.5 Tabelas (Supabase)
-- `runs`: id, versão do conteúdo, início, fim, final alcançado
-- `choices`: run_id, node_id, choice_id, ordem, tempo de leitura
-- `node_stats` (view/materializada): node_id, choice_id, contagem, % por versão
+Como ficou (migração em `supabase/migrations/`):
+- `partidas`: id, versão do conteúdo, origem, data de criação;
+- `eventos`: partida, tipo (escolha, fim de capítulo, fim do jogo), capítulo, nó, escolha, versão, data;
+- consultas no schema `painel`, fora da API pública: `resumo`, `capitulos`, `escolhas` (votos e %), `paradas`, `caminhos`, `origens`.
+Ninguém de fora lê nem grava: só o servidor do site, pela função `registrar()`.
 
 ## 10. Modelo de conteúdo
 
-Conteúdo em arquivos de dados (YAML), validados por schema. **Escrever cena = escrever dado.**
+Conteúdo em arquivos de dados (YAML), validados por schema (`src/engine/schema.ts`). **Escrever cena = escrever dado.** O texto segue o guia de escrita (`roteiro/prompts/escrita.md`).
 
 ```yaml
-# content/cap01-o-voo.yaml
+# content/capitulos/cap01-a-carta.yaml (trecho simplificado)
 id: cap01
-titulo: O voo
+numero: 1
+titulo: A carta
+periodo: fim de outubro a novembro de 2026
+inicio: abertura
 nos:
-  - id: cap01.miami
-    texto: |
-      Miami, 28 de outubro. Faz um dia que Flávio desembarcou...
+  - id: pedido
+    lugar: Brasília, Supremo Tribunal Federal
+    imagem: imagens/cap01/pedido.webp
+    texto:                                   # cada parágrafo é um cartão
+      - Deputados do PT pedem a prisão de Flávio.
+      - se: { tem: flavio_live }             # parágrafo que depende das marcas
+        texto: A live de Miami chama o pedido de perseguição.
+        senao: Flávio não comenta.
+    fatos:                                   # "Fatos e fontes": o que aconteceu, com fonte
+      - texto: Três deputados do PT pediram a prisão em 27 de outubro.
+        fontes:                              # documento oficial ou duas fontes de veículos diferentes
+          - https://www.poder360.com.br/...
+          - https://www.otempo.com.br/...
+    lados:                                   # a leitura de cada lado, em par, sem fonte
+      - Para a esquerda, prender mostra que a lei vale para todos. Para o PL, reforça a perseguição.
     escolhas:
-      - id: asilo
-        rotulo: Flávio formaliza o pedido de asilo
-        marca: [flavio_asilo]
-        vai_para: cap01.itamaraty
-      - id: volta
-        rotulo: Flávio anuncia que volta ao Brasil
-        marca: [flavio_volta]
-        vai_para: cap01.aeroporto
-
-  - id: cap01.itamaraty
-    texto:
-      padrao: O Itamaraty convoca o encarregado de negócios americano...
-      se: { tem: eduardo_rompeu }
-      entao: Sem Eduardo ao lado, Flávio chega isolado ao pedido...
-    ...
+      - id: preventiva
+        rotulo: Moraes manda prender Flávio
+        vai_para: a_votacao_da_prisao
+      - id: espera
+        rotulo: Moraes espera e não decide agora
+        marca: [flavio_sem_preventiva]
+        vai_para: o_prazo
+        # quando a realidade decide: real: { data: "DD/MM/AAAA", fontes: [...] }
 saidas:
   - para: cap02
-    quando: { tem: flavio_asilo }
-  - para: cap02
-    quando: { tem: flavio_volta }
 ```
 
-Conceitos:
-- **Nó**: um trecho de texto e uma decisão (ou só texto, para transição).
-- **Escolha**: rótulo, marcas que adiciona e próximo nó.
-- **Marca**: memória da história (string). Só "tem" ou "não tem", sem números.
-- **Condição**: `tem`, `nao_tem`, `qualquer`, `todas`. Usada em texto, opções, nós e saídas.
+Conceitos (detalhe em `CLAUDE.md`, "Conceitos do conteúdo"):
+- **Nó**: `texto` e `escolhas`, ou `segue` (só texto, leva ao próximo), ou nenhum dos dois (fim do capítulo).
+- **Escolha**: `rotulo`, `marca` (as marcas que adiciona), `vai_para`, `se` (só aparece com certas marcas) e `real` quando a realidade decidiu (as outras ficam visíveis e travadas).
+- **Marca**: memória da história (string). Só "tem" ou "não tem", e nunca sai. Toda marca precisa ser usada em alguma condição.
+- **Condição**: `tem`, `nao_tem`, `qualquer`, `todas`. Usada em texto, fatos, lados, escolhas e saídas.
+- **Fatos e fontes**: `fatos` (o que aconteceu, com `fontes`) e `lados` (posições de cada lado). O validador recusa fato sem fonte suficiente.
 - **Saída de capítulo**: para onde a história vai, conforme as marcas.
 
 ## 11. Produção do roteiro (híbrido)
@@ -295,11 +314,12 @@ Validação automática: todo caminho chega a um final, nenhum nó fica inalcan�
 
 ## 13. Primeiro protótipo jogável
 
-- Prólogo + **capítulos 1 e 2** completos, escritos à mão.
-- Motor lendo YAML, com marcas e condições.
-- Fluxograma de fim de capítulo (ainda sem porcentagens).
-- Validador de conteúdo.
-- **Depois**: backend + porcentagens + página pública.
+- Prólogo + **capítulos 1 e 2** completos (feito; com trilhos desde 29/10/2026).
+- Motor lendo YAML, com marcas e condições (feito).
+- Fluxograma de fim de capítulo, ainda sem porcentagens (feito).
+- Validador de conteúdo, com a regra das fontes e o formato dos cartões (feito).
+- Registro anônimo das partidas (feito, 29/10/2026).
+- **Depois**: porcentagens no jogo e página pública.
 
 ---
 
