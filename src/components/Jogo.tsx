@@ -20,7 +20,7 @@ import {
 } from '@/engine/engine';
 import type { Jogo as JogoT } from '@/engine/schema';
 import { useNavegacao } from '@/lib/navegacao';
-import { guardarOrigem, registrarInicio, registrarMudanca } from '@/lib/registro';
+import { guardarOrigem, registrarInicio, registrarMudanca, registrarNaTela } from '@/lib/registro';
 import { apagarPartida, lerPartida, lerVistos, salvarPartida, salvarVistos } from '@/lib/storage';
 import { tituloDaTela, type Tela } from '@/lib/telas';
 
@@ -253,6 +253,7 @@ export default function Jogo({
     <main className="tela cena" key={chave}>
       <Cabecalho numero={cap.numero} titulo={cap.titulo} periodo={cap.periodo} />
       <Cartoes textos={textos} imagem={atual.imagem} fatos={fatos} lados={lados} topo={lugar}>
+        <AoAparecer acao={() => registrarNaTela('decisao_vista', jogo.versao, estado.capitulo, estado.no)} />
         <p className="pergunta">O que acontece agora?</p>
         <div className="escolhas">
           {opcoes.map(({ escolha: e, status }, i) => (
@@ -264,6 +265,7 @@ export default function Jogo({
               dataReal={e.real?.data}
               decidido={decidindo === e.id}
               apagado={decidindo !== null && decidindo !== e.id}
+              onToqueCurto={() => registrarNaTela('toque_curto', jogo.versao, estado.capitulo, estado.no)}
               onDecidir={() => {
                 setDecidindo(e.id);
                 // Um instante para a decisão pesar antes de a cena mudar.
@@ -279,6 +281,13 @@ export default function Jogo({
       {sair}
     </main>
   );
+}
+
+/** Roda `acao` uma vez, quando aparece: as opções só montam no último cartão da cena. */
+function AoAparecer({ acao }: { acao: () => void }) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(acao, []);
+  return null;
 }
 
 type TipoCena = 'abertura' | 'decisao' | 'consequencia' | 'final';

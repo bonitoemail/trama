@@ -38,6 +38,11 @@ describe('registro', () => {
     const cap2 = jogo.capitulos.find((c) => c.id === 'cap02')!;
     expect(validarEvento(jogo, { partida, versao: jogo.versao, tipo: 'inicio_capitulo', capitulo: 'cap02', no: cap2.inicio })).toMatchObject({ capitulo: 'cap02' });
     expect(validarEvento(jogo, { partida, versao: jogo.versao, tipo: 'inicio_capitulo', capitulo: 'cap02', no: 'a_mesa' })).toBeNull();
+    // Viu as opções e tocou rápido: só em cena de decisão (a abertura do cap01 não tem escolhas).
+    for (const tipo of ['decisao_vista', 'toque_curto']) {
+      expect(validarEvento(jogo, { ...base, tipo, no: 'pedido' })).toMatchObject({ tipo, no: 'pedido' });
+      expect(validarEvento(jogo, { ...base, tipo, no: 'abertura' })).toBeNull();
+    }
     expect(validarEvento(jogo, { partida, versao: jogo.versao, tipo: 'inicio', origem: 'Instagram Bio' })).toMatchObject({
       origem: 'instagram-bio',
     });

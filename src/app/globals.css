@@ -290,6 +290,24 @@ button {
 .escolha.real .dica {
   color: var(--real);
 }
+/* Toque rápido: o botão não decide, mas avisa que é preciso segurar (BotaoEscolha.tsx). */
+.escolha.lembrete {
+  border-color: var(--real);
+}
+.escolha.lembrete .dica {
+  color: var(--real);
+  animation: lembrete 0.9s ease-in-out 2;
+}
+@keyframes lembrete {
+  50% {
+    opacity: 0.35;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .escolha.lembrete .dica {
+    animation: none;
+  }
+}
 .escolha:focus-visible {
   outline: 2px solid var(--destaque);
   outline-offset: 2px;

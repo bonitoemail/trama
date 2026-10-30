@@ -2,12 +2,22 @@ import type { Estado } from '@/engine/engine';
 import type { Jogo } from '@/engine/schema';
 
 /**
- * Registro anônimo das partidas: começou, escolheu, fechou capítulo, abriu o seguinte, chegou ao fim.
+ * Registro anônimo das partidas: começou, viu as opções, escolheu, fechou capítulo, abriu o seguinte, chegou ao fim.
  * Sem login, sem nome, sem IP: a partida é um id aleatório guardado no navegador.
  * Enviar nunca trava nem interrompe o jogo; se falhar, a partida segue.
  */
 
-export type TipoEvento = 'inicio' | 'escolha' | 'fim_capitulo' | 'inicio_capitulo' | 'fim_jogo';
+export type TipoEvento =
+  | 'inicio'
+  | 'decisao_vista'
+  | 'toque_curto'
+  | 'escolha'
+  | 'fim_capitulo'
+  | 'inicio_capitulo'
+  | 'fim_jogo';
+
+/** Eventos de uma cena de decisão que não mudam o estado: vêm da tela, não de eventosDaMudanca. */
+export type EventoDaTela = 'decisao_vista' | 'toque_curto';
 
 export interface Evento {
   partida: string;
@@ -69,6 +79,7 @@ export function validarEvento(jogo: Jogo, corpo: unknown): Evento | null {
   if (!cap || !cena) return null;
   if (tipo === 'fim_capitulo') return { ...base, capitulo: cap.id, no: cena.id };
   if (tipo === 'inicio_capitulo') return cena.id === cap.inicio ? { ...base, capitulo: cap.id, no: cena.id } : null;
+  if (tipo === 'decisao_vista' || tipo === 'toque_curto') return cena.escolhas?.length ? { ...base, capitulo: cap.id, no: cena.id } : null;
   if (tipo === 'escolha') {
     const escolha = cena.escolhas?.find((x) => x.id === e.escolha);
     return escolha ? { ...base, capitulo: cap.id, no: cena.id, escolha: escolha.id } : null;
@@ -129,6 +140,20 @@ function origemGuardada(): string | undefined {
 /** Partida nova: id novo e o evento de início. */
 export function registrarInicio(versao: string) {
   enviar({ partida: idDaPartida(true), tipo: 'inicio', versao, origem: origemGuardada() });
+}
+
+const enviadosDaTela = new Set<string>();
+
+/**
+ * Chegou às opções de uma decisão, ou tocou rápido sem segurar. Separa quem sai lendo os cartões
+ * de quem chega aos botões e não consegue decidir. Uma vez por cena; o banco também descarta repetidos.
+ */
+export function registrarNaTela(tipo: EventoDaTela, versao: string, capitulo: string, no: string) {
+  const partida = idDaPartida(false);
+  const chave = `${partida}:${tipo}:${capitulo}:${no}`;
+  if (enviadosDaTela.has(chave)) return;
+  enviadosDaTela.add(chave);
+  enviar({ partida, tipo, versao, origem: origemGuardada(), capitulo, no });
 }
 
 /** Cada passo da partida: manda o que mudou entre o estado antigo e o novo. */

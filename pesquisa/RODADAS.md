@@ -166,6 +166,12 @@ Pelos dados das 283 partidas depois das primeiras 72 (até 30/10, 8h39): 230 fiz
 - **Evento novo `inicio_capitulo`** (`registro.ts`, teste em `registro.test.ts`; migração `20261030120000_inicio_capitulo.sql`, já aplicada no Supabase): separa quem nem tocou em "seguir" de quem tocou e parou na abertura seguinte.
 - **A medir na próxima olhada:** a taxa fim do cap. 1 → início do cap. 2 (era 64%); depois, o trecho `pedido` → `eleicao_eua`, que perde 16% dentro do cap. 1.
 
+### Quem sai antes de decidir — 30/10/2026, 13h
+376 partidas. Depois do botão fixo, 7 de 12 passaram do cap. 1 ao 2 (era 64%; amostra pequena demais). A perda dentro do cap. 1 não é de uma cena: cada decisão perde de 6% a 9% até a seguinte (`pedido` 8%, `eleicao_eua` 6%, `a_rota` 6%, `o_exilio` 9%), igual para as três escolhas de `pedido`; os 16% eram passos somados. A alavanca é o número de passos (candidata: `o_prazo`, 3 cartões sem decisão). A maior perda é antes da 1ª escolha: 73 de 376 (19%) apertam "Começar" e não escolhem nada (não são recomeços duplicados: o padrão de horário é igual ao das outras).
+- **Suspeita:** a escolha só vale segurando 0,8 s, e o toque rápido era cancelado sem aviso. Agora o botão avisa ("segure até a barra encher", em laranja) quando a pessoa solta antes da hora.
+- **Eventos novos** (`registrarNaTela` em `registro.ts`; migração `20261030150000_decisao_vista.sql`, já aplicada): `decisao_vista` (as opções apareceram) e `toque_curto` (soltou antes da hora; uma vez por cena). Separam quem sai lendo de quem chega aos botões e trava.
+- **A medir:** das partidas sem escolha, quantas viram as opções e quantas tocaram rápido. Se saem lendo, juntar `abertura` a `pedido` (3 cartões até o botão em vez de 5). Também: "Lula dá os ministérios sem cobrar fidelidade" (`cap03/o_ministerio`) teve 0 de 42; não cortar, talvez dar a ela um motivo à vista.
+
 ## Ainda pendente (para a rodada 3)
 - Análises pós-eleição de Marcus André Melo, Lynch (conteúdo do vídeo), Limongi, Couto, Traumann, Moura, Andrea Freitas, Falcão, Pereira, Glezer, Da Ros, Barbosa, Laura Carvalho, Armínio, Marcos Mendes: ainda não publicadas ou não encontráveis em 28/10.
 - Contradições: passaporte usado na entrada (italiano ou diplomático); DI de fechamento de 28/10.
