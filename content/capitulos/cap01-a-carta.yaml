@@ -8,7 +8,7 @@ id: cap01
 numero: 1
 titulo: A carta
 periodo: fim de outubro a novembro de 2026
-rascunho: true
+rascunho: false
 inicio: abertura
 
 nos:
@@ -18,7 +18,7 @@ nos:
     texto:
       # Primeira escolha mais cedo (29/10): parole e Marinho saíram dos cartões; estão em `fatos` e em `pl`.
       - Flávio Bolsonaro perdeu para Lula por pouco. Dois dias depois, proibido pelo Supremo de sair do país, foi para Miami.
-      - De lá, publicou uma carta. Fala em fraude, sem provas, e se diz "líder do Brasil".
+      - De lá, publicou uma carta em que se dizia "o verdadeiro presidente eleito". Fala em fraude, sem provas. Depois, trocou por "líder do Brasil".
     # Parole: pesquisa 07. Prorrogação e votos após as 17h: pesquisa 03 e 06. Três versões da carta: pesquisa 10.
     # Outras fontes da pesquisa (04 e 05), não usadas nos fatos:
     #   https://www.gazetadopovo.com.br/republica/moraes-ordena-cancelamento-de-passaporte-de-flavio-bolsonaro-apos-eleicoes/
@@ -309,7 +309,7 @@ nos:
     lugar: Buenos Aires, início de novembro
     imagem: imagens/cap01/a_rota.webp
     texto:
-      - Na Argentina, a fuga virou escândalo. Flávio cruzou a fronteira por terra e pegou um jatinho do lado argentino. A Justiça de lá já investiga.
+      - Na Argentina, a saída de Flávio virou escândalo. Flávio cruzou a fronteira por terra e pegou um jatinho do lado argentino. A Justiça de lá já investiga.
       - A oposição argentina acusa o governo Milei de ter ajudado. O governo nega. Um assessor de Milei é citado pela imprensa argentina, e também nega.
       - se: { tem: crise_diplomatica }
         texto: O pedido de explicações do Brasil chega no meio da briga.
@@ -367,7 +367,7 @@ nos:
       # A preservação das imagens é fato (29/10, fontes em a_rota); o cruzamento com os papéis é simulação.
       - A juíza do caso cruza as imagens que mandou guardar com os papéis que a deputada Marcela Pagano pediu. Planos de voo, lista de passageiros e o contrato do jatinho.
       - Se alguém do governo argentino ajudou, vai aparecer nesses papéis. Se ninguém ajudou, também.
-      - A fuga deixa de ser um caso só do Brasil. Os aliados de Flávio dizem que a Argentina só carimbou um passaporte.
+      - O caso deixa de ser só do Brasil. Os aliados de Flávio dizem que a Argentina só carimbou um passaporte.
     segue: eleicao_eua
 
   - id: eleicao_eua

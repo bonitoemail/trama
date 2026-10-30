@@ -1,7 +1,7 @@
 # Revisão de cobertura das escolhas
 
 - Etapa: Revisão
-- Rodado em: ainda não rodou com este texto. É a versão fixa da auditoria só de leitura feita em 29/10/2026, que achou cenas com o desfecho provável faltando (a primeira foi "quem fala pela direita", sem Tarcísio).
+- Rodado em: 2026-10-29 (noite), no capítulo 3 (`<CAP>` = content/capitulos/cap03-a-posse.yaml; `<PESQUISA>` = pesquisa/11-cap03-posse-mesas.md e pesquisa/09-cap02-stf-senado.md). Resumo em `pesquisa/RODADAS.md`. Antes, era a versão fixa da auditoria só de leitura de 29/10/2026 (a primeira achou "quem fala pela direita" sem Tarcísio).
 - Modelo: subagente do Claude Code
 - Produziu: a resposta vai na conversa; o resumo entra em `pesquisa/RODADAS.md`
 

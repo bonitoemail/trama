@@ -128,25 +128,41 @@ relogios:
 
   - id: posse-2027
     data: 2027-01-05
-    evento: posse do 4º mandato de Lula
+    evento: posse do 4º mandato de Lula (EC 111/2021; primeira posse em 5/01)
     frente: planalto
-    afeta: [cap02]
+    afeta: [cap03/abertura]
     status: pendente
     conferir: Planalto
+
+  - id: ministerio-2027
+    data: 2026-11-30
+    evento: anúncio do ministério do 4º mandato (Fazenda, Casa Civil, SRI; espaço do Centrão), previsto pela CNN para o fim de novembro
+    frente: planalto
+    afeta: [cap03/a_fazenda, cap03/o_ministerio]
+    status: pendente
+    conferir: Planalto, CNN, Metrópoles (pesquisa 11, item 2)
+
+  - id: pl-bloco-motta
+    data: 2026-11-04
+    evento: reunião do PL (candidato no Senado e posição no bloco de Motta na Câmara)
+    frente: congresso
+    afeta: [cap02/a_mesa, cap03/a_camara]
+    status: pendente
+    conferir: CNN, Times Brasil, O Globo (pesquisa 11, itens 3 e 4)
 
   - id: fim-foro-flavio
     data: 2027-02-01
     evento: Flávio perde o mandato e o foro; inquéritos podem descer do STF
     frente: supremo
-    afeta: [cap02, cap03]
+    afeta: [cap03/o_foro]
     status: pendente
-    conferir: STF, Conjur, JOTA
+    conferir: STF, Conjur, JOTA (baliza eleitoral dos embargos de 22/05/2026, pesquisa 11)
 
   - id: mesas-2027
     data: 2027-02-01
     evento: eleição das mesas da Câmara e do Senado (Alcolumbre x Marinho; Motta)
     frente: congresso
-    afeta: [cap02/a_mesa, cap04]
+    afeta: [cap02/a_mesa, cap03/a_camara, cap03/o_senado]
     status: pendente
     conferir: Agência Senado, Agência Câmara
 

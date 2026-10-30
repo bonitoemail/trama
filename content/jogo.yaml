@@ -249,25 +249,25 @@ primeiro_capitulo: cap01
 
 epilogo:
   id: epilogo
-  titulo: O Brasil na virada de 2027
+  titulo: O Brasil em fevereiro de 2027
   texto:
     # Flávio
     - se: { tem: deportados }
       texto: Flávio e Eduardo voltaram ao Brasil num avião do governo americano. A família ganhou uma causa, Trump um acordo, e Lula uma acusação.
     - se: { todas: [{ tem: deportados }, { tem: flavio_preso_no_brasil }] }
-      texto: Os dois irmãos passam a virada do ano presos.
+      texto: Os dois irmãos começam 2027 presos.
     - se: { todas: [{ tem: deportados }, { nao_tem: flavio_preso_no_brasil }] }
-      texto: Eduardo passa a virada do ano preso. Flávio, fora da cadeia, a poucos quilômetros dele.
+      texto: Eduardo começa 2027 preso. Flávio, fora da cadeia, a poucos quilômetros dele.
     - se: { todas: [{ tem: flavio_voltou }, { nao_tem: deportados }] }
       texto: Flávio voltou por conta própria. Para os aliados, foi coragem; para os adversários, falta de saída. Eduardo ficou em Miami.
     - se: { todas: [{ tem: flavio_preso_no_brasil }, { nao_tem: deportados }] }
-      texto: Flávio passa a virada do ano preso em Brasília, a poucos quilômetros do pai.
+      texto: Flávio começa 2027 preso em Brasília, a poucos quilômetros do pai.
     - se: { tem: tornozeleira }
-      texto: Flávio passa a virada do ano em casa, de tornozeleira, sem poder falar.
+      texto: Flávio começa 2027 em casa, de tornozeleira, sem poder falar.
     - se: { tem: ato_anistia }
       texto: A anistia saiu de dezembro com rua e sem votos. Em 2027, os dois lados vão medir quanto vale uma coisa sem a outra.
     - se: { tem: pl_distancia_flavio }
-      texto: Com Flávio no Brasil, o PL passou dezembro sem dizer o nome dele. Em fevereiro, vai ter de dizer.
+      texto: Com Flávio no Brasil, o PL passou dezembro e janeiro sem dizer o nome dele. Sem mandato, ele virou o nome que o partido evita.
     - se: { tem: contra_ato }
       texto: Em dezembro, a anistia levou duas ruas a Brasília e a São Paulo. Em 2027, o Senado vai votar com as duas lá fora.
     - se: { tem: base_em_casa }
@@ -289,11 +289,11 @@ epilogo:
     - se: { tem: asilo_pedido }
       texto: Flávio pediu asilo político nos Estados Unidos. Enquanto o pedido anda, a permanência dele lá fica mais segura, e a volta, mais difícil de explicar.
     - se: { tem: chanceler_interpelado }
-      texto: Em Buenos Aires, o chanceler teve de explicar a fuga ao Congresso. Milei ficou calado, e a oposição argentina, não.
+      texto: Em Buenos Aires, o chanceler teve de explicar ao Congresso a passagem de Flávio. Milei ficou calado, e a oposição argentina, não.
     - se: { tem: caso_com_rubio }
       texto: O caso de Flávio passou de Mauro Vieira a Rubio, sem nota. Em Washington, ele virou mais um item da conversa sobre a taxa.
     - se: { tem: pedido_policial }
-      texto: O Brasil pediu os dados da fuga pela Polícia Federal, sem nota nem discurso. A resposta argentina ainda não chegou.
+      texto: O Brasil pediu os dados da saída de Flávio pela Polícia Federal, sem nota nem discurso. A resposta argentina ainda não chegou.
     - se: { tem: eua_senado_rep }
       texto: Nos Estados Unidos, a Câmara mudou de lado e o Senado, não. Trump perdeu uma casa e manteve a que aprova indicações e tratados.
     - se: { tem: interpol_recusa }
@@ -301,7 +301,7 @@ epilogo:
     - se: { tem: extradicao_pedida }
       texto: O pedido de extradição está na mesa de Washington. Trump ainda não respondeu, e não tem pressa.
     - se: { tem: extradicao_em_fevereiro }
-      texto: O governo guardou o pedido de extradição para fevereiro, quando Flávio deixa de ser senador. O relógio corre para os dois lados.
+      texto: O pedido de extradição, guardado para fevereiro, sai com Flávio já sem mandato. Agora a resposta é de Washington.
     - se: { tem: interpol_espera }
       texto: A Interpol ainda não decidiu se põe Flávio no alerta internacional. Enquanto isso, ele viaja pouco e com cuidado.
     - se: { tem: extradicao_guardada }
@@ -339,7 +339,7 @@ epilogo:
     - se: { tem: vaga_segurada }
       texto: A cadeira vaga do Supremo entra em 2027 como moeda de negociação entre o Planalto e o Senado.
     - se: { tem: votacao_adiada }
-      texto: O indicado de Lula passa o Natal esperando a sabatina. Em fevereiro, quem decide é um Senado mais à direita.
+      texto: O indicado de Lula esperou o Natal e janeiro. Agora quem decide é o Senado novo, mais à direita.
     - se: { tem: pgr_contra }
       texto: Entre a Procuradoria e o Supremo, abriu-se uma fresta. Os dois lados vão tentar alargá-la.
     # Direita
@@ -359,7 +359,7 @@ epilogo:
     - se: { tem: milei_silencio }
       texto: Em Buenos Aires, a investigação não achou participação do governo. Milei saiu calado, como entrou, e a oposição argentina guardou o assunto para a eleição de outubro.
     - se: { tem: eua_dem_camara }
-      texto: Em Washington, a nova maioria marcou para janeiro as primeiras perguntas sobre o Brasil. A tarifa de 25%, essa, não depende dela.
+      texto: Em Washington, a nova maioria fez em janeiro as primeiras perguntas sobre o Brasil. A tarifa de 25%, essa, não depende dela.
     - se: { tem: eua_rep_congresso }
       texto: Em Washington, as perguntas sobre o Brasil ficam para depois. A tarifa de 25% fica para agora.
     - se: { tem: lula_trump_miami }
@@ -372,7 +372,7 @@ epilogo:
     - se: { tem: acordo_fechado }
       texto: "O Acordo fechou sem papel: Alcolumbre com votos do PL, cargos na Mesa, a gaveta dos impeachments fechada. Ele vale até fevereiro de 2029, quando Alcolumbre não pode mais ser reeleito."
     - se: { tem: guerra_fevereiro }
-      texto: A primeira votação de 2027 é a eleição do Senado, e vale tudo. Quem perder em fevereiro vai passar dois anos pagando.
+      texto: Em fevereiro, a eleição do Senado valeu tudo. Quem perdeu vai passar dois anos pagando.
     - se: { tem: pl_rachado }
       texto: O PL entra em 2027 com a maior bancada e duas listas de votos. A maior força do Congresso é também a mais fácil de dividir.
     - se: { tem: pl_negocia }
@@ -380,15 +380,15 @@ epilogo:
     - se: { tem: pl_obstrui }
       texto: O PL escolheu a briga em novembro. O Centrão escolheu esperar para ver quem paga mais, e o governo, quanto vai pagar.
     - se: { tem: tereza_recusa }
-      texto: Tereza Cristina recusou o jantar de Alcolumbre e chega a fevereiro em campanha. Pela primeira vez em anos, ninguém sabe quem preside o Senado.
+      texto: Tereza Cristina recusou o jantar de Alcolumbre e levou a disputa até o voto secreto.
     - se: { tem: lula_por_alcolumbre }
-      texto: Lula pôs o governo na eleição do Senado. Em fevereiro, o resultado vai ser dele também.
+      texto: Lula pôs o governo na eleição do Senado. O resultado de fevereiro é dele também.
     - se: { tem: indulto_dado }
-      texto: Jair passa a virada do ano perdoado por Lula. O perdão vai ser contestado no Supremo, e cobrado nas duas bases.
+      texto: Jair começa 2027 perdoado por Lula. O perdão vai ser contestado no Supremo, e cobrado nas duas bases.
     - se: { tem: indulto_em_aberto }
       texto: O pedido de indulto a Jair entra em 2027 sem resposta. Cada lado conta o silêncio de Lula a seu favor.
     - se: { tem: indulto_recusado }
-      texto: Lula recusou o indulto. A anistia fica para o Senado novo, que começa em fevereiro com essa conta na mesa.
+      texto: Lula recusou o indulto. A anistia ficou para o Senado novo, que começa com essa conta na mesa.
     - se: { tem: senado_sem_a_direita }
       texto: Alcolumbre fechou o Senado com o governo e deixou o PL de fora. A maior bancada do Congresso começa 2027 sem cargo e sem motivo para votar com Lula.
     - se: { tem: familia_em_guerra }
@@ -404,11 +404,50 @@ epilogo:
     - se: { tem: lula_cobra }
       texto: Lula apoiou Alcolumbre e mandou a conta junto. Em 2027, o PT vai cobrar cada linha.
     - se: { tem: lula_neutro }
-      texto: Lula deixou o Senado decidir sozinho. Quem ganhar em fevereiro não vai dever nada ao Planalto.
+      texto: Lula deixou o Senado decidir sozinho. Quem ganhou em fevereiro não deve nada ao Planalto.
     - se: { tem: tereza_aceita }
       texto: A frente de novembro acabou num jantar de dezembro. Em 2027, quem quiser unir a direita no Senado vai ter de começar de novo.
     - se: { tem: oposicao_unida }
       texto: Em novembro, a direita aprendeu a juntar PL e PP num nome só. Alcolumbre e o governo anotaram como ela fez.
     - se: { tem: pl_espera }
       texto: Em novembro, o PL preferiu esperar. A espera deixou espaço para quem queria escolher por ele.
-    - Este é o fim do capítulo 2. A história continua conforme a realidade andar.
+    # A posse e as mesas (cap03)
+    - se: { tem: fazenda_fonteles }
+      texto: Fonteles está na Fazenda, e o PT já tem um nome para 2030. Se a conta doer, o nome paga primeiro.
+    - se: { tem: fazenda_alckmin }
+      texto: Alckmin cuida das contas como vice. O PT tem o governo e ainda não tem um candidato.
+    - se: { tem: fazenda_haddad }
+      texto: Haddad voltou à Fazenda. O PT tem de novo o nome de sempre, e a fila de sempre.
+    - se: { tem: fazenda_durigan }
+      texto: Lula não escolheu herdeiro. A Fazenda segue com um técnico, e a disputa de 2030 corre dentro do governo.
+    - se: { tem: centrao_cobrado }
+      texto: O Centrão entrou no governo com a condição de votar junto. Cada voto dele agora é contado.
+    - se: { tem: centrao_livre }
+      texto: O Centrão tem ministérios e voto livre. O governo tem uma base grande no papel.
+    - se: { tem: cargos_guardados }
+      texto: Parte dos cargos ainda está na gaveta de Lula, esperando quem merecer.
+    - se: { tem: centrao_fora }
+      texto: O Centrão ficou fora do núcleo do governo, e o governo, sem maioria certa.
+    - se: { tem: casos_no_supremo }
+      texto: Os casos de Flávio seguem no Supremo. A defesa fala em perseguição; a acusação, em regra.
+    - se: { tem: casos_divididos }
+      texto: Parte dos casos de Flávio foi para um juiz comum. A defesa ganhou tempo; a acusação, um processo mais lento.
+    - se: { tem: casos_em_espera }
+      texto: O Supremo ainda não decidiu onde ficam os casos de Flávio. Os dois lados contam o tempo a seu favor.
+    - se: { tem: camara_sem_pt }
+      texto: Na Câmara, o PL entrou no bloco de Motta e o PT saiu. O partido do presidente começa o mandato sem as comissões que queria.
+    - se: { tem: camara_sem_pl }
+      texto: Na Câmara, o PL ficou fora do bloco. A maior bancada preside as comissões que sobraram.
+    - se: { tem: camara_de_todos }
+      texto: Na Câmara, PT e PL dividem o bloco de Motta, como em 2023. As duas bases não perdoam.
+    - se: { tem: troca_pelo_senado }
+      texto: O PL deu a Câmara a Motta em troca de votos no Senado. Agora sabe quanto vale a palavra do Centrão.
+    - se: { tem: alcolumbre_folga }
+      texto: Alcolumbre tem mais dois anos de Senado, os últimos. Em 2029, a cadeira fica vaga.
+    - se: { tem: alcolumbre_apertado }
+      texto: Alcolumbre ganhou por poucos votos e ainda procura quem não votou.
+    - se: { tem: oposicao_retira }
+      texto: A oposição desistiu do Senado no último dia e ficou com cargos na Mesa. Em 2029, vai ter de explicar à própria base por quê.
+    - se: { tem: oposicao_no_senado }
+      texto: A oposição preside o Senado. Em 2027, cada votação do governo vai passar por ela.
+    - Este é o fim do capítulo 3 e do primeiro ato. A história vai até a eleição de 2030, e os próximos capítulos saem à medida que a realidade andar.

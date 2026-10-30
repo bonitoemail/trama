@@ -314,7 +314,7 @@ Validação automática: todo caminho chega a um final, nenhum nó fica inalcan�
 
 ## 13. Primeiro protótipo jogável
 
-- Prólogo + **capítulos 1 e 2** completos (feito; com trilhos desde 29/10/2026).
+- Prólogo + **capítulos 1 e 2** completos (feito; com trilhos desde 29/10/2026). **Capítulo 3, "A posse"** (5/01 a 1º/02/2027) fecha o Ato I (29/10/2026).
 - Motor lendo YAML, com marcas e condições (feito).
 - Fluxograma de fim de capítulo, ainda sem porcentagens (feito).
 - Validador de conteúdo, com a regra das fontes e o formato dos cartões (feito).

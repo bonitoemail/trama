@@ -1,0 +1,397 @@
+# Capítulo 3 — A posse
+# 5 de janeiro a 1º de fevereiro de 2027. Fecha o Ato I. Linguagem simples (DESIGN.md 8.2): cada parágrafo é um cartão.
+# Fatos: pesquisa/11-cap03-posse-mesas.md e 09. Equilíbrio e desenho: roteiro/cap03-a-posse.md.
+# Candidatas a trava (pesquisa/relogios.yaml): a_fazenda, o_ministerio, a_camara, o_senado, o_foro.
+id: cap03
+numero: 3
+titulo: A posse
+periodo: 5 de janeiro a 1º de fevereiro de 2027
+rascunho: false
+inicio: abertura
+
+nos:
+  - id: abertura
+    lugar: Brasília, 5 de janeiro
+    imagem: imagens/cap03/abertura.webp
+    texto:
+      - Terça, 5 de janeiro. Pela primeira vez, a posse do presidente não é no dia 1º. Lula sobe a rampa para o quarto mandato.
+      - Quem o recebe são Alcolumbre e Hugo Motta, os presidentes do Senado e da Câmara. Em quatro semanas, os dois disputam a própria reeleição.
+      - É o último mandato de Lula. A Constituição não deixa ele concorrer de novo em 2030. A pergunta sobre quem vem depois começa hoje.
+      - se: { todas: [{ tem: governo_exilio }, { nao_tem: flavio_voltou }] }
+        texto: Em Miami, o governo no exílio faz a própria posse, diante de uma câmera. Nenhum país manda representante.
+    # A posse em Miami é simulação (marca governo_exilio do cap01; painel, "posse simbólica").
+    fatos:
+      - texto: Pela Emenda Constitucional 111, de 2021, o mandato do presidente começa em 5 de janeiro e o dos governadores, em 6 de janeiro. A regra vale a partir dos eleitos em 2026.
+        fontes:
+          - https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm
+      - texto: É a primeira posse presidencial em 5 de janeiro. O rito se mantém, com o presidente recebido no Congresso pelos presidentes do Senado e da Câmara.
+        fontes:
+          - https://agenciabrasil.ebc.com.br/radioagencia-nacional/politica/audio/2026-10/pela-1a-vez-posse-do-presidente-da-republica-sera-no-dia-5-de-janeiro
+          - https://www.terra.com.br/noticias/eleicoes/por-que-a-posse-de-lula-sera-em-5-de-janeiro-e-nao-mais-no-dia-1-entenda,f00e1f866751d283f7f2b6b8793fc228ey7c90r7.html
+      - texto: A Constituição permite ao presidente uma única reeleição seguida. Eleito em 2022 e em 2026, Lula não pode concorrer em 2030.
+        fontes:
+          - https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
+    lados:
+      - Para o governo, um último mandato livra Lula da próxima campanha e deixa as escolhas de 2027 mais livres. Para a oposição, um presidente que não concorre mais perde força a cada ano.
+      - Para Alcolumbre e Motta, receber Lula na rampa é lembrar ao governo que contam com ele em fevereiro. Para o PL, é a foto que vai ser cobrada na votação.
+    segue: a_fazenda
+
+  - id: a_fazenda
+    lugar: Brasília, Palácio do Planalto
+    imagem: imagens/cap03/a_fazenda.webp
+    texto:
+      - Durigan comanda a Fazenda desde março, quando Haddad saiu para disputar o governo de São Paulo. Haddad perdeu.
+      - Na posse, os ministros assinam junto com Lula. A cadeira mais olhada é a da Fazenda. Dali pode sair um candidato, ou um queimado.
+      - Em outubro, os nomes citados eram Rafael Fonteles, governador do Piauí, Alckmin, o vice, e o próprio Haddad.
+      - se: { tem: ajuste_adiado }
+        texto: Em dezembro, o ajuste ficou para depois. Quem chegar à Fazenda começa pela conta que ninguém pagou.
+      - se: { tem: ajuste_menor }
+        texto: Em dezembro, o Congresso aprovou um ajuste menor, pago em emendas. Quem chegar à Fazenda herda a diferença.
+      - se: { tem: ajuste_corte }
+        texto: Em dezembro, o governo cortou gastos. Quem chegar à Fazenda herda o corte e a cobrança da base.
+      - se: { tem: ajuste_imposto }
+        texto: Em dezembro, o governo pediu mais imposto de quem ganha mais. Quem chegar à Fazenda vai negociar isso com o Congresso novo.
+    # Os cotados são de bastidor (pesquisa 11, item 2): nenhum nome foi anunciado até 29/10/2026. O anúncio é previsto para
+    # o fim de novembro (CNN); a cena mostra o resultado no dia da posse, quando os ministros assumem.
+    fatos:
+      - texto: Dario Durigan é ministro da Fazenda desde março de 2026, quando Fernando Haddad deixou o cargo para disputar o governo de São Paulo.
+        fontes:
+          - https://www.cartacapital.com.br/politica/com-haddad-candidato-lula-confirma-dario-durigan-como-novo-ministro-da-fazenda/
+          - https://tnsul.com/2026/03/19/dario-durigan-assume-fazenda-apos-saida-de-haddad-afirma-lula/
+      - texto: Haddad perdeu a eleição para o governo de São Paulo. Nenhum ex-ministro de Lula venceu uma disputa por governo estadual em 2026.
+        fontes:
+          - https://www.metropoles.com/brasil/eleicoes-9-ex-ministros-do-governo-lula-3-sao-eleitos-12-nao-conseguem
+          - https://www.gazetadopovo.com.br/eleicoes/2026/ex-ministros-lula-fracassam-disputas-governos-senado/
+      - texto: No fim de outubro, a imprensa citou Rafael Fonteles para a Fazenda e Camilo Santana para a Casa Civil. Nenhum nome foi anunciado.
+        fontes:
+          - https://www.metropoles.com/colunas/igor-gadelha/fonteles-ganha-forca-para-fazenda-no-lula-4-e-camilo-para-casa-civil
+          - https://www.gp1.com.br/df/distrito-federal/noticia/2026/10/26/rafael-fonteles-e-cotado-para-ministro-da-fazenda-e-camilo-santana-para-ministro-chefe-da-casa-civil-no-governo-lula-634855.html
+      - texto: O Orçamento de 2027 foi enviado ao Congresso em 31 de agosto de 2026, com salário mínimo de R$ 1.741. Até o fim de outubro, não tinha sido votado.
+        fontes:
+          - https://www12.senado.leg.br/noticias/materias/2026/08/31/executivo-envia-orcamento-de-2027-ao-congresso-com-minimo-de-r-1.741
+    lados:
+      - Para quem quer um herdeiro, a Fazenda é a vitrine, porque quem cuida das contas aparece todo dia. Para quem desconfia, ministro que faz ajuste raramente vira presidente.
+      - Para o mercado, importa quem segura os gastos. Para a base do PT, importa quem segura os programas que sustentaram a virada de 2026.
+    escolhas:
+      - id: fonteles
+        rotulo: Lula põe Fonteles na Fazenda
+        marca: [fazenda_fonteles]
+        vai_para: o_herdeiro
+      - id: alckmin
+        rotulo: Alckmin acumula a vice e a Fazenda
+        marca: [fazenda_alckmin]
+        vai_para: o_vice_no_cofre
+      - id: haddad
+        rotulo: Haddad volta à Fazenda
+        marca: [fazenda_haddad]
+        vai_para: a_volta_de_haddad
+      - id: durigan
+        rotulo: Durigan fica, e o herdeiro espera
+        marca: [fazenda_durigan]
+        vai_para: o_tecnico
+
+  # As quatro cenas da Fazenda são simulação. A leitura "fabrica ou queima o candidato" é do painel (P16).
+  - id: o_herdeiro
+    lugar: Teresina e Brasília, janeiro
+    imagem: imagens/cap03/o_herdeiro.webp
+    texto:
+      - Fonteles abre mão do novo mandato no Piauí, deixa o estado para o vice e se muda para Brasília. No PT, todo mundo lê o mesmo recado.
+      - É o nome de Lula para 2030, ou parece ser. Quem queria a vez passa a sorrir nas fotos e a contar apoios.
+      - O mercado espera para ver. Um petista que governou com as contas em dia, ou um candidato que vai gastar para crescer?
+      - O risco é o de sempre. Se o ajuste doer, quem assina é ele.
+    segue: o_ministerio
+
+  - id: o_vice_no_cofre
+    lugar: Brasília, Ministério da Fazenda
+    imagem: imagens/cap03/o_vice_no_cofre.webp
+    texto:
+      - Alckmin, o vice, passa a cuidar também das contas. O mercado gosta, porque conhece o nome e o jeito.
+      - No PT, a pergunta é outra. Se a economia fica com quem não é do partido, quem é o candidato do partido em 2030?
+      - Para Lula, é adiar a escolha sem parecer que adia. Para Alckmin, é chegar a 2030 com a economia na mão.
+      - Se a economia for mal, a conta cai no vice, e a chapa inteira paga.
+    segue: o_ministerio
+
+  - id: a_volta_de_haddad
+    lugar: Brasília, Ministério da Fazenda
+    imagem: imagens/cap03/a_volta_de_haddad.webp
+    texto:
+      - Haddad volta à cadeira que deixou em março. Perdeu São Paulo, mas o mercado já sabe como ele trabalha.
+      - Para parte do PT, é o nome natural de 2030. Para outra, é prêmio para quem perdeu, e mais uma vez o mesmo nome.
+      - Fonteles fica no Piauí. Quem esperava a vez entende que a fila não andou.
+    segue: o_ministerio
+
+  - id: o_tecnico
+    lugar: Brasília, Ministério da Fazenda
+    imagem: imagens/cap03/o_tecnico.webp
+    texto:
+      - Lula não escolhe herdeiro. Durigan, o técnico que já estava lá, fica.
+      - Camilo Santana, senador do PT pelo Ceará, vai para a Casa Civil. Se há um herdeiro, ele está lá, e não na Fazenda.
+      - O mercado gosta da continuidade. O PT gosta da porta aberta, porque ninguém do partido sai na frente.
+      - O custo aparece depois. Sem herdeiro, cada ministro com ambição faz da própria pasta uma campanha.
+    segue: o_ministerio
+
+  - id: o_ministerio
+    lugar: Brasília, Palácio do Planalto
+    imagem: imagens/cap03/o_ministerio.webp
+    texto:
+      - União, PP e Republicanos apoiaram Flávio no segundo turno. PSD e MDB ficaram neutros. Todos querem continuar no governo.
+      - A lista de ministros da posse mostra o preço da base. A pergunta é se o cargo vem com a obrigação de votar junto.
+      - se: { tem: senado_sem_a_direita }
+        texto: Em dezembro, Alcolumbre isolou o PL com a ajuda do governo. O Centrão chega para cobrar a parte dele.
+      - Para o Centrão, o custo vem de casa. O eleitor que votou em Flávio pergunta por que o partido volta ao governo de Lula.
+    # A frase "100% governo" atribuída a José Guimarães tem fonte única (DCM): fica fora. A cobrança é simulação.
+    fatos:
+      - texto: União Brasil, PP e Republicanos apoiaram Flávio no segundo turno e, depois da eleição, se reaproximaram do governo para manter cargos. PSD e MDB tinham liberado os diretórios.
+        fontes:
+          - https://www.cnnbrasil.com.br/blogs/taina-falcao/eleicoes/centrao-acena-a-lula-e-tentara-manter-cargos-em-novo-governo/
+          - https://www.metropoles.com/brasil/por-governabilidade-lula-inicia-conversas-com-partidos-que-apoiaram-flavio
+    lados:
+      - Para o governo, cobrar fidelidade dá uma base menor e mais firme. Para o Centrão, ministério com condição é ministério pela metade, e a base de direita dele já cobra a aproximação com Lula.
+      - Para o Republicanos, o partido de Motta e de Tarcísio, a articulação política do governo seria o maior prêmio. Para o governo, entregá-la é pôr a negociação com o Congresso nas mãos de um aliado de ocasião.
+      - Para o PT, dividir o governo com quem apoiou Flávio é engolir a campanha. Para o Centrão, é o que ele sempre fez, e o que garante votos ao governo que estiver lá.
+    escolhas:
+      - id: cobra
+        rotulo: Lula dá os ministérios e cobra voto por voto
+        marca: [centrao_cobrado]
+        vai_para: o_foro
+      - id: livre
+        rotulo: Lula dá os ministérios sem cobrar fidelidade
+        marca: [centrao_livre]
+        vai_para: o_foro
+      - id: guarda
+        rotulo: Lula guarda parte dos cargos para depois de fevereiro
+        marca: [cargos_guardados]
+        vai_para: o_foro
+      - id: fora
+        rotulo: Lula deixa o Centrão fora do núcleo do governo
+        marca: [centrao_fora]
+        vai_para: o_foro
+
+  # A ironia do foro (painel, "Achados"), atualizada pela baliza eleitoral dos embargos de 22/05/2026 (pesquisa 11, item 5).
+  # Qual caso desce é leitura, não decisão: fica em lados e nos cartões como possibilidade.
+  - id: o_foro
+    lugar: Brasília, Supremo Tribunal Federal, fim de janeiro
+    imagem: imagens/cap03/o_foro.webp
+    texto:
+      - se: { tem: mandato_cassado_faltas }
+        texto: Flávio perdeu o mandato em dezembro, por faltas. Agora, sem cargo, falta decidir onde ficam os casos dele.
+        senao: No último dia de janeiro, o mandato de Flávio acaba. Pela primeira vez em 24 anos, ele não tem cargo público.
+      - Os inquéritos dele estão no Supremo. Em 2026, o tribunal confirmou que crime ligado ao cargo continua lá, mesmo depois do mandato.
+      - Mas crime de campanha, em princípio, vai para um juiz comum. A calúnia contra Lula pode ser lida como fala de senador, ou de candidato.
+      - Aqui os lados se invertem. A defesa pode preferir um juiz comum, longe de Moraes, o ministro que cuida de dois dos casos. Quem acusa pode preferir o Supremo.
+    fatos:
+      - texto: O mandato de senador de Flávio vai até 31 de janeiro de 2027. Ele não disputou a reeleição para o Senado e fica sem mandato pela primeira vez em 24 anos.
+        fontes:
+          - https://www25.senado.leg.br/web/senadores/senador/-/perfil/5894
+          - https://www.poder360.com.br/poder-eleicoes-2026/flavio-ficara-sem-mandato-pela-1a-vez-em-24-anos/
+      - texto: Flávio é investigado em três inquéritos no Supremo, sem denúncia recebida em nenhum. Calúnia contra Lula e o caso Willer Tomaz, com Moraes como relator, e Dark Horse, com André Mendonça.
+        fontes:
+          - https://www.cnnbrasil.com.br/politica/inqueritos-contra-flavio-podem-continuar-no-stf-mesmo-com-perda-de-foro/
+          - https://www.metropoles.com/brasil/flavio-perde-eleicao-o-que-muda-nos-inqueritos-contra-ele
+      - texto: Em 22 de maio de 2026, por 6 votos a 4, o Supremo manteve o foro depois do fim do mandato para crimes cometidos no cargo e em razão dele. Segundo o relator, Gilmar Mendes, crimes cometidos a pretexto de um cargo ainda em disputa, em princípio, não têm foro.
+        fontes:
+          - https://conjur.com.br/2026-mai-25/stf-rejeita-embargos-e-mantem-foro-especial-mesmo-apos-saida-do-cargo-2/
+          - https://lawletter.com.br/articulista/revisao-ensino-juridico/foro-prerrogativa-funcao-stf-balizas
+    lados:
+      - Para a defesa, um juiz comum é mais lento e menos exposto. Para quem acusa, tirar os casos do Supremo agora seria premiar quem saiu do país.
+      - se: { todas: [{ tem: flavio_voltou }, { nao_tem: flavio_preso_no_brasil }] }
+        texto: Para Flávio, no Brasil e sem mandato, acaba também a proteção de senador, e uma nova ordem de prisão já não passa pelo Senado. Para quem acusa, é a lei valendo para ele como para qualquer um.
+      - se: { tem: extradicao_em_fevereiro }
+        texto: O governo guardou o pedido de extradição para este momento. Para o Itamaraty, sem mandato o pedido fica mais simples. Para a defesa, a pressa mostra que o caso é político.
+    escolhas:
+      - id: fica
+        rotulo: O Supremo decide que todos os casos ficam lá
+        marca: [casos_no_supremo]
+        vai_para: a_camara
+      - id: divide
+        rotulo: Parte dos casos desce para um juiz comum
+        marca: [casos_divididos]
+        vai_para: a_camara
+      - id: espera
+        rotulo: O Supremo só decide depois de fevereiro
+        marca: [casos_em_espera]
+        vai_para: a_camara
+
+  # O fato novo de 29/10 (CNN, Isabel Mega): o PL estuda entrar no bloco de Motta, e o PT ameaça sair. Desfechos: pesquisa 11, item 4.
+  - id: a_camara
+    lugar: Brasília, Câmara dos Deputados, 1º de fevereiro
+    imagem: imagens/cap03/a_camara.webp
+    texto:
+      - Segunda, 1º de fevereiro. O Congresso eleito toma posse. Na Câmara, o PL chega com 121 deputados, a maior bancada.
+      - Hugo Motta, o presidente da Câmara, tenta a reeleição com o apoio de partidos do PT ao Centrão. O PL estuda entrar no bloco dele.
+      - Quem fica fora do bloco fica com as piores comissões. O PT avisa que, se o PL entrar, ele sai.
+      - se: { tem: centrao_cobrado }
+        texto: O Centrão vota pela primeira vez sabendo que o governo vai contar cada voto.
+      - se: { tem: centrao_livre }
+        texto: Com os ministérios garantidos, o Centrão vota como quer. O governo vai descobrir hoje quanto isso vale.
+      - se: { tem: cargos_guardados }
+        texto: Os cargos que Lula guardou estão na mesa. Cada partido vota pensando neles.
+      - se: { tem: centrao_fora }
+        texto: Fora do núcleo do governo, o Centrão vota de olho em quem pode lhe dar mais.
+    fatos:
+      - texto: O PL elegeu 121 deputados em 2026, a maior bancada da Câmara.
+        fontes:
+          - https://www.camara.leg.br/noticias/1309192-pl-sai-na-frente-na-eleicao-da-camara-dos-deputados-com-121-eleitos
+      - texto: Em 29 de outubro, a CNN noticiou que o PL estuda entrar no bloco de Hugo Motta e que o PT ameaça sair se isso acontecer. Fora do bloco, o PL cairia para o fim da fila na escolha das comissões.
+        fontes:
+          - https://www.cnnbrasil.com.br/blogs/isabel-mega/politica/pl-acena-para-hugo-e-pt-ameaca-deixar-blocao-de-presidente-da-camara/
+          - https://www.bnews.com.br/noticias/politica/pl-avalia-aderir-a-bloco-de-hugo-motta-e-enfrenta-resistencia-do-pt-na-camara.html
+      - texto: A federação do PT e os principais partidos do Centrão declararam apoio à reeleição de Motta. Como a legislatura muda, ele pode concorrer.
+        fontes:
+          - https://revistaforum.com.br/politica/reeleicao-de-hugo-motta-pt/
+          - https://www.gazetadopovo.com.br/republica/centrao-reune-10-partidos-declara-apoio-reeleicao-hugo-motta-2027/
+      - texto: Em 2023, Arthur Lira foi reeleito presidente da Câmara com 464 votos, num bloco que reunia PT e PL.
+        fontes:
+          - https://www.poder360.com.br/congresso/lira-e-reeleito-com-464-votos-e-bate-recorde-historico/
+          - https://revistaoeste.com/politica/arthur-lira-e-reeleito-presidente-da-camara/
+    lados:
+      - Para o PL, ficar fora do bloco é ter a maior bancada e as piores comissões. Para a base do PL, entrar é aderir a quem recebeu Lula na rampa.
+      - Para o PT, dividir o bloco com o PL é engolir a campanha. Sair é perder espaço nas comissões que votam os projetos do governo.
+    escolhas:
+      - id: pt_sai
+        rotulo: O PL entra no bloco, e o PT sai
+        marca: [camara_sem_pt]
+        vai_para: o_senado
+      - id: pl_fora
+        rotulo: O PL fica fora e perde as comissões
+        marca: [camara_sem_pl]
+        vai_para: o_senado
+      - id: juntos
+        rotulo: PT e PL ficam no mesmo bloco, como em 2023
+        marca: [camara_de_todos]
+        vai_para: o_senado
+      - id: troca
+        rotulo: O PL apoia Motta em troca de votos no Senado
+        se: { qualquer: [{ tem: guerra_fevereiro }, { tem: tereza_recusa }, { tem: pl_rachado }] }
+        marca: [troca_pelo_senado]
+        vai_para: o_senado
+
+  - id: o_senado
+    lugar: Brasília, plenário do Senado, 1º de fevereiro
+    imagem: imagens/cap03/o_senado.webp
+    texto:
+      - se: { tem: camara_sem_pt }
+        texto: Na Câmara, Motta é reeleito com o PL no bloco. O PT ficou de fora, com as piores comissões.
+      - se: { tem: camara_sem_pl }
+        texto: Na Câmara, Motta é reeleito sem o PL. A maior bancada vai presidir as comissões que sobraram.
+      - se: { tem: camara_de_todos }
+        texto: Na Câmara, Motta é reeleito com PT e PL no mesmo bloco. As duas bases reclamam do mesmo jeito.
+      - se: { tem: troca_pelo_senado }
+        texto: Na Câmara, o PL vota em Motta. Agora cobra a parte dele no Senado.
+      - No Senado, Michelle e Carlos Bolsonaro tomam posse. No mesmo dia, em voto secreto, os senadores escolhem quem preside a Casa até 2029.
+      - se: { tem: acordo_fechado }
+        texto: Com o Acordo de dezembro, o PL vota em Alcolumbre. Marinho retira a candidatura no plenário.
+      - se: { tem: tereza_aceita }
+        texto: Sem a frente de Tereza Cristina, Marinho concorre sozinho pelo PL.
+      - se: { tem: senado_sem_a_direita }
+        texto: Isolado, o PL lança Marinho para marcar posição.
+      - se: { tem: guerra_fevereiro }
+        texto: A oposição vai até o fim contra Alcolumbre, voto por voto.
+      - se: { tem: tereza_recusa }
+        texto: Tereza Cristina enfrenta Alcolumbre sem o apoio oficial do próprio partido.
+      - se: { tem: pl_rachado }
+        texto: O PL chega dividido. Metade promete Alcolumbre; metade, Marinho.
+      - se: { qualquer: [{ tem: ato_anistia }, { tem: pl_usa_flavio }] }
+        texto: Com Flávio de volta ao Brasil, o PL passou janeiro falando dele, e não do Senado. Marinho concorre para marcar posição.
+      - Alcolumbre sabe que, em 2029, a cadeira não pode mais ser dele. Quem ganhar hoje decide também quem vem depois.
+    # Os dois grupos de condicionais são exclusivos entre si: a escolha da Câmara e o final do cap02.
+    # A retirada de Marinho e o lançamento "para marcar posição" são simulação.
+    fatos:
+      - texto: Michelle Bolsonaro, eleita pelo Distrito Federal, e Carlos Bolsonaro, eleito por Santa Catarina, tomam posse como senadores em 1º de fevereiro de 2027.
+        fontes:
+          - https://www12.senado.leg.br/radio/1/noticia/2026/10/04/michelle-bolsonaro-e-bia-kicis-sao-eleitas-para-o-senado-no-distrito-federal
+          - https://www.cnnbrasil.com.br/eleicoes/flavio-bolsonaro-ficou-aliviado-com-eleicao-de-carlos-como-senador-em-sc/
+      - texto: A Constituição dá dois anos de mandato à Mesa e proíbe a recondução para o mesmo cargo na eleição seguinte. Em 2020, o Supremo decidiu que a proibição vale dentro da mesma legislatura.
+        fontes:
+          - https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
+          - https://noticias.stf.jus.br/postsnoticias/stf-consolida-tese-sobre-eleicoes-para-mesas-das-assembleias-legislativas/
+      - se: { tem: tereza_recusa }
+        texto: Segundo O Globo e o NeoFeed, se Tereza Cristina concorrer contra Alcolumbre, vai sem o apoio oficial do PP, que fechou com ele.
+        fontes:
+          - https://www.brasil247.com/brasil/senado-aliados-tentam-unir-tereza-cristina-e-rogerio-marinho-contra-alcolumbre/
+          - https://neofeed.com.br/poder/carta-golpista-de-flavio-bolsonaro-desidrata-planos-da-oposicao-para-presidir-senado/
+    lados:
+      - Arthur Lira, eleito senador por Alagoas, não diz em quem vota. Para Alcolumbre, ele é um voto a conquistar. Para a oposição, é a prova de que o Centrão não vota em bloco.
+      - Para Alcolumbre, mais dois anos são a chance de deixar um sucessor. Para a oposição, cada voto que ela tira dele hoje é um voto para 2029.
+      - Para o governo, a eleição do Senado é a primeira votação do mandato, e a que vale por dois anos.
+    escolhas:
+      - id: folga
+        rotulo: Alcolumbre é reeleito com folga
+        marca: [alcolumbre_folga]
+        vai_para: o_ultimo_mandato
+      - id: apertado
+        rotulo: Alcolumbre vence por poucos votos
+        marca: [alcolumbre_apertado]
+        vai_para: a_vitoria_apertada
+      - id: tereza
+        rotulo: Tereza Cristina vence Alcolumbre
+        se: { tem: tereza_recusa }
+        marca: [oposicao_no_senado, tereza_presidente]
+        vai_para: o_senado_da_oposicao
+      - id: retira
+        rotulo: A oposição desiste em troca de cargos na Mesa
+        se: { qualquer: [{ tem: guerra_fevereiro }, { tem: tereza_recusa }, { tem: pl_rachado }] }
+        marca: [oposicao_retira]
+        vai_para: o_ultimo_mandato
+      - id: marinho
+        rotulo: Marinho vence Alcolumbre
+        se: { qualquer: [{ tem: tereza_aceita }, { todas: [{ qualquer: [{ tem: guerra_fevereiro }, { tem: pl_rachado }] }, { nao_tem: oposicao_unida }] }] }
+        marca: [oposicao_no_senado]
+        vai_para: o_senado_da_oposicao
+
+  # Final A — o último mandato de Alcolumbre. Planta o relógio de 2029 (agregado, 4.4).
+  - id: o_ultimo_mandato
+    lugar: Brasília, plenário do Senado
+    imagem: imagens/cap03/o_ultimo_mandato.webp
+    texto:
+      - Alcolumbre é reeleito com folga. Os partidos que prometeram votaram. Quase todos.
+      - se: { tem: acordo_fechado }
+        texto: O Acordo de dezembro passou no teste do voto secreto. Agora cada parte vai cobrar a sua linha.
+      - se: { tem: oposicao_retira }
+        texto: A oposição tirou o nome no último dia, em troca da vice-presidência e de uma comissão. A base chama de rendição; quem negociou, de realismo.
+      - se: { tem: senado_sem_a_direita }
+        texto: O PL perdeu, como sabia que ia perder. Fica fora da Mesa por dois anos, e com todos os motivos para obstruir.
+      - Para Lula, são dois anos de Senado previsível. Para a oposição, mais uma prova de que, no Senado, quem decide é o centro.
+      - O relógio já corre. Em fevereiro de 2029, a cadeira fica vaga, e a disputa pela sucessão começa amanhã.
+    lados:
+      - Para o governo, a folga compra calma no Senado. Para a oposição, compra tempo para se organizar até 2029.
+
+  # Final B — ganhar devendo. A conta da traição cai no Centrão, conforme o preço pago em o_ministerio.
+  - id: a_vitoria_apertada
+    lugar: Brasília, plenário do Senado
+    imagem: imagens/cap03/a_vitoria_apertada.webp
+    texto:
+      - Alcolumbre vence por poucos votos. No voto secreto, alguém que prometeu não votou.
+      - Ninguém sabe quem traiu, e todos desconfiam de alguém. Alcolumbre começa o mandato devendo a cada um que ficou.
+      - se: { tem: centrao_cobrado }
+        texto: No Planalto, a lista de suspeitos fica pronta antes do fim da sessão. A cobrança começa no dia seguinte.
+      - se: { tem: centrao_livre }
+        texto: No Planalto, a conta é feita ministério por ministério. Os votos que faltaram podem ter vindo de partidos com cargo no governo.
+      - se: { tem: cargos_guardados }
+        texto: Os cargos que Lula guardou viram prêmio para quem votou certo, e castigo para quem não votou.
+      - se: { tem: centrao_fora }
+        texto: Deixado de fora do governo, o Centrão mostrou que sabe somar e subtrair.
+      - Em 2029, a cadeira fica vaga. Quem negou o voto hoje já sabe quanto ele vale.
+    lados:
+      - Para o governo, uma vitória apertada é vitória, e um aviso. Para a oposição, é a prova de que o voto secreto está em disputa.
+
+  # Final C — o Senado da oposição: a primeira derrota do quarto mandato.
+  - id: o_senado_da_oposicao
+    lugar: Brasília, plenário do Senado
+    imagem: imagens/cap03/o_senado_da_oposicao.webp
+    texto:
+      - se: { tem: tereza_presidente }
+        texto: Tereza Cristina é eleita presidente do Senado, contra Alcolumbre e contra o próprio partido. O governo perde a primeira votação do mandato.
+        senao: Rogério Marinho é eleito presidente do Senado, contra Alcolumbre. O governo perde a primeira votação do mandato.
+      - Os pedidos de impeachment de ministros do Supremo continuam na gaveta. Mas a chave da gaveta agora é da oposição.
+      - No Planalto, o governo descobre que vai negociar cada votação. No Supremo, ministros releem a lei do impeachment.
+      - Na primeira semana, a base do PL cobra a anistia. Quem preside tem de dizer se pauta, e o Centrão que deu os votos quer outra coisa.
+    lados:
+      - Para a direita, é a prova de que dá para vencer. Para o governo, o Senado vira o adversário que a urna não deu.
+      - Para a oposição, a vitória mostra que o voto secreto não é só do Centrão. Para o governo, mostra que um acordo sem dono não segura ninguém.
+      - se: { tem: lula_neutro }
+        texto: Para o Planalto, ficar de fora em dezembro poupou Lula da derrota. Para a base do PT, deixou a cadeira para a oposição sem lutar.
+      - Para Alcolumbre, perder agora custa os dois anos e a escolha do sucessor. Para quem venceu, presidir um Senado dividido vai exigir negociar com o mesmo Centrão.
+
+saidas:
+  - para: FIM

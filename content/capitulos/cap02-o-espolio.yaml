@@ -7,7 +7,7 @@ id: cap02
 numero: 2
 titulo: O espólio
 periodo: meados de novembro a dezembro de 2026
-rascunho: true
+rascunho: false
 inicio: abertura
 
 nos:
@@ -983,7 +983,7 @@ nos:
     imagem: imagens/cap02/natal_do_acordo.webp
     texto:
       - Ninguém assina nada. Existe uma lista de cargos, uma gaveta que não vai ser aberta e uma conta que cada um guarda de cabeça.
-      - O PL ganha cargos e larga Marinho. Alcolumbre ganha a reeleição e fica devendo a todos. Lula ganha um Senado calmo e engaveta o pedido de que Flávio responda à Justiça.
+      - O PL ganha cargos e larga Marinho. Alcolumbre ganha a reeleição e fica devendo a todos. Lula ganha um Senado calmo, e passa a dever a Alcolumbre.
       - se: { tem: flavio_voltou }
         texto: A família chama de traição. No PT, a militância chama de outra coisa, com a mesma raiva. As duas bases perderam a mesma noite.
         senao: Em Miami, a família chama de traição. No PT, a militância chama de outra coisa, com a mesma raiva. As duas bases perderam a mesma noite.
@@ -1104,4 +1104,4 @@ nos:
       - "No governo, aliados de Lula temem outra coisa: sem um adversário claro, cada derrota de 2027 vai ser cobrada só do Planalto."
 
 saidas:
-  - para: FIM
+  - para: cap03

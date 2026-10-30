@@ -1,7 +1,7 @@
 # Leitor de direita
 
 - Etapa: Revisão
-- Rodado em: 2026-10-29 (noite); a primeira rodada foi em 2026-10-29 01:21 UTC
+- Rodado em: 2026-10-29 (noite, com o capítulo 3); a primeira rodada foi em 2026-10-29 01:21 UTC
 - Modelo: `claude-opus-5-5`, como subagente do Claude Code
 - Produziu: a resposta está no fim deste arquivo
 
@@ -14,13 +14,13 @@ O jogo: ficção interativa sobre o Brasil de out/2026 a 2030. Parte de fatos re
 
 Leia, no repositório a raiz do repositório:
 - content/jogo.yaml (apresentação, método, prólogo de fatos, epílogo com textos condicionais)
-- content/capitulos/cap01-a-carta.yaml e content/capitulos/cap02-o-espolio.yaml (cada nó tem `texto`, os cartões; `fatos` e `lados`, que o jogador vê em "Fatos e fontes"; e `escolhas` com `rotulo`; textos podem ter condições `se: {tem: marca}`)
+- content/capitulos/cap01-a-carta.yaml, content/capitulos/cap02-o-espolio.yaml e content/capitulos/cap03-a-posse.yaml (cada nó tem `texto`, os cartões; `fatos` e `lados`, que o jogador vê em "Fatos e fontes"; e `escolhas` com `rotulo`; textos podem ter condições `se: {tem: marca}`)
 - DESIGN.md seções 8, 8.1 e 8.2 (as regras de equilíbrio que o próprio projeto se impôs)
 Não leia roteiro/painel/01-neutralidade.md nem 00-agregado.md (é uma revisão anterior; quero uma leitura independente).
 
 Também considere a tela inicial: o título "TRAMA" em fonte Unbounded com uma faixa de luz verde e amarela passando pelas letras em loop, fundo escuro.
 
-Tarefa — leia como esse jogador leria, do começo ao fim, percorrendo vários caminhos (não só o primeiro). Inclua os caminhos raros, que são sequências próprias: a prisão de Flávio e a votação no Senado, Flávio de volta ao Brasil, a frente de Tereza Cristina e o indulto a Jair. Entregue:
+Tarefa — leia como esse jogador leria, do começo ao fim, percorrendo vários caminhos (não só o primeiro). Inclua os caminhos raros, que são sequências próprias: a prisão de Flávio e a votação no Senado, Flávio de volta ao Brasil, a frente de Tereza Cristina, o indulto a Jair e os três finais do capítulo 3 (a eleição do Senado). Entregue:
 1. Veredito em 2–3 frases: o jogo te pareceu justo, pendendo contra você, ou a seu favor?
 2. Lista dos momentos em que você se sentiu tratado de forma injusta ou estereotipado (ou em que o outro lado foi poupado): arquivo, id do nó (ou campo), trecho curto citado, por que incomoda, e gravidade (alta/média/baixa).
 3. Lista dos momentos em que o jogo te pareceu favorecer o seu lado (para calibrar).
@@ -31,50 +31,43 @@ Seja específico e honesto; não invente trechos — cite só o que está nos ar
 
 ## Resposta do agente
 
-Rodada de 29/10/2026, noite, com os trilhos novos (a anterior está no histórico do git). A resposta saiu na conversa; está aqui como veio. O que foi aplicado está em `pesquisa/RODADAS.md`.
-
-**Leitura de um eleitor de direita (PL/Tarcísio, crítico do STF e do governo, não extremista)**
+Rodada de 29/10/2026, noite, com o capítulo 3 (a anterior está no histórico do git). A resposta saiu na conversa; está aqui com a formatação apertada (tabelas e listas), sem mudar o conteúdo. O que foi aplicado está em `pesquisa/RODADAS.md`.
 
 ## 1. Veredito
-O jogo é mais justo do que eu esperava. Ele põe na mesa os fatos que a minha base usa: a nota da PF dizendo que Flávio não é foragido, a prorrogação pedida pela campanha de Lula, as recusas da Interpol, o arquivamento proposto por Dodge e o incômodo do próprio governo com Moraes. Ainda assim, pende um pouco contra mim. A direita aparece quase sempre como a família amarga em Miami ou como voto à venda. O narrador faz ironia com Flávio que não faz com ninguém do outro lado. E não existe nenhum caminho em que a Justiça dê razão a ele.
+É mais justo do que eu esperava: mostra os custos do governo, põe na tela o "lambe as botas" de Lula, cita o inquérito das fake news e deixa a direita vencer o Senado. Mas pende levemente contra mim, não pelos fatos e sim pelo enquadramento: o narrador repete "fuga", "a família" em Miami vira um coro de ressentimento em quase toda cena, e as saídas legítimas da direita (Justiça, revisão de penas) nunca viram escolha.
 
-## 2. Onde me senti tratado com injustiça
-- **cap02 `a_paz_de_natal`, lados:** "Para a oposição, o perdão é a prova de que havia o que perdoar." Põe na minha boca a leitura do adversário. Quem é de direita leria o indulto como correção de injustiça ou como favor humilhante, nunca como confissão. **Alta.**
-- **cap02 `a_moeda_de_troca`:** "Flávio, preso, não sabe quanto vale." / "Flávio acha que vale mais." É deboche na voz do narrador, o que a regra 5 proíbe. **Média.**
-- **Coro de Miami** (cap02 `a_frente_desfeita` "a família diz que avisou"; `a_estreia` "alguém repara no que ficou de fora"; epílogo `michelle_lider` "ela não é da família inteira"; `interpol_aceita` "Miami virou endereço e prisão ao mesmo tempo"): a família vira um refrão de ressentimento e frase de efeito. **Média.**
-- **cap01 `a_votacao_da_prisao`, cartão 2:** a tese da ordem ("crime que continua acontecendo") aparece com força, e a defesa fica com um genérico "perseguição". O argumento técnico (a PF disse que não há fuga nem base para prisão, e descumprir uma restrição não é flagrante de crime inafiançável) fica fora do cartão. **Média.**
-- **cap02 `a_anistia_na_rua`, cartão 4:** o ato é lido pelo PT ("democracia sob ameaça") e pelo Centrão ("preço"). Quem foi à rua só fala em `lados`. Nos cartões, a multidão de direita não tem voz própria. **Média.**
-- **Prólogo (`jogo.yaml`):** os sete fatos tratam todos do passo em falso de Flávio. Valdemar reconhecendo o resultado (26/10) e Nikolas pedindo que a base não fosse às ruas, que mostram uma direita institucional, só aparecem escondidos em "Fatos e fontes". **Média.**
-- **cap02 `a_mesa`, lados (`direita_sem_dono`):** "Cada senador tem um preço." Está na voz do narrador e só sobre o PL. **Baixa.**
-- **cap02 `a_herdeira`, fatos:** os 27 anos de Jair aparecem sem a crítica conhecida à pena e ao julgamento em Turma, nem como leitura de um lado. **Baixa.**
+## 2. Onde me senti tratado de forma injusta
+| Arquivo / nó | Trecho | Por que incomoda | Grav. |
+|---|---|---|---|
+| cap01 `a_rota`, `o_voo_fretado`; epílogo `chanceler_interpelado` | "Na Argentina, a fuga virou escândalo"; "A fuga deixa de ser um caso só do Brasil"; "teve de explicar a fuga" | O próprio prólogo diz "Ele não é foragido" (nota da PF). O narrador assume a palavra de um lado. | Alta |
+| cap01 `abertura` | "Fala em fraude, sem provas" | A checagem fica no cartão, mas o gancho real (prorrogação até as 19h a pedido da campanha de Lula; a cobrança de Valdemar sobre gastos) fica escondido em `fatos`. A regra 8.1 nº 10 pede o fato e a checagem juntos. | Média |
+| cap01 `foragido` | "A primeira versão da carta dizia que não havia ordem de prisão contra ele. A ordem saiu dias depois." | Frase-golpe na voz do narrador (8.1 nº 5). | Média |
+| cap01 `o_exilio` | "Ele não foi reconhecido por nenhum." | Mesmo tom de "pegadinha". | Baixa |
+| cap01 `pl` | "O PL abraça a carta e parte para o confronto" | A única saída combativa vem amarrada à carta; não existe oposição dura sem endossar a tese de fraude. | Média |
+| cap02 `o_racha`, `a_frente_desfeita`, `a_herdeira`, `a_mesa`, `heranca_em_disputa` | "a família chama os dissidentes de traidores"; "a família lembra que nunca quis a frente" | "Em Miami" vira refrão de ressentimento. A militância do PT também reclama, mas não com essa frequência. | Média |
+| cap02 `a_briga` | "Michelle responde com um versículo." | A fé vira efeito de cena. | Baixa/média |
+| cap02 `a_herdeira` (fatos) | "Jair Bolsonaro foi condenado pelo Supremo a 27 anos e 3 meses por tentativa de golpe" | Para Flávio há "Flávio nega irregularidades"; para Jair, nenhuma linha com a posição dele. | Média |
+| cap02 `a_anistia_na_rua` (lados) | "é perdoar crimes contra a democracia que o Supremo já julgou" | O lado contrário tem argumento jurídico; o meu, só "pacificação". Falta o argumento central: penas desproporcionais para quem não planejou nada. | Média/alta |
+| cap01 `a_votacao_da_prisao` | "Para o PL, é a primeira chance de mostrar que o Senado protege os seus." | Reduz a defesa do art. 53 a corporativismo. | Baixa |
 
-## 3. Onde o jogo favorece o meu lado (para calibrar)
-- Prólogo: "Ele não é foragido… sem denúncia". cap01 `abertura`: a prorrogação "a pedido da campanha de Lula".
-- `foragido`: as recusas da Interpol (Allan dos Santos, Eustáquio). `pedido`: o caso Dodge e o inquérito das fake news.
-- `itamaraty`: ministros de Lula culpando Moraes. `o_orcamento`: a conta da IFI e "parte dele cai sobre quem apoiou Lula".
-- Tarcísio e Nikolas aparecem como adultos na sala. A frente de Tereza Cristina é competitiva. Na `noite_democrata`, a Reuters vem com a ressalva de que "não conseguiu saber" se havia ordem da Casa Branca.
-- `o_senado_sem_a_direita`: "junta a direita como nenhum líder conseguiu". A luz verde e amarela do título me pareceu a bandeira, e um leitor de esquerda pode ler como cor nossa.
+## 3. Onde o jogo me favoreceu (para calibrar)
+- `itamaraty`: "lambe as botas" de Lula e ministros culpando Moraes em reserva.
+- `pedido`: o inquérito das fake news e o arquivamento pedido por Raquel Dodge.
+- `foragido`: as recusas anteriores da Interpol (Oswaldo Eustáquio) por caráter político.
+- `o_orcamento`: os R$ 36 bi da IFI e "parte dele cai sobre quem apoiou Lula".
+- Vitórias do meu lado: Tereza Cristina ou Marinho vencem Alcolumbre, sem custo real para a base vencedora; `o_senado_da_oposicao`, "a chave da gaveta agora é da oposição".
+- `a_paz_de_natal`: "a família queria revisão, não favor".
+- Capa: o verde e amarelo do título soa a "nossas cores" (a revisão anterior já notou).
 
 ## 4. O que falta
-**Custos e motivos do outro lado:**
-- O PT, a esquerda e a imprensa quase não decidem nada. Quem decide é Moraes, Lula ou o Itamaraty.
-- Moraes tem motivo ("autoridade"), mas não tem custo concreto em nenhum final: nenhum revés no plenário do STF, nenhuma derrota.
-- Não há desgaste do governo fora do orçamento: segurança pública, uma investigação ou CPI incômoda, aliados insatisfeitos.
-- O STF como ator interessado aparece só de passagem ("ministros preferem Pacheco").
+- **Custos do outro lado:** Moraes nunca erra nem paga; quando o Senado derruba a prisão, o custo cai nos senadores, não nele. Não existe "Moraes revoga a prisão" em `a_custodia` (só mantém ou troca por tornozeleira). Nenhum desgaste do governo fora do fiscal.
+- **Escolhas do meu lado:** caminho jurídico da oposição (os gastos do governo perto da votação, cobrados por Valdemar, nunca viram escolha, por exemplo levar ao TSE); redução das penas do 8 de janeiro votada no Congresso (a anistia é sempre empurrada para 2027); Flávio reconhecer o resultado e se moderar; governadores de direita além de Tarcísio; impeachment de ministro do STF como escolha concreta.
 
-**Atores e desfechos do meu lado:**
-- Não existe caminho em que a investigação contra Flávio seja arquivada ou em que a PGR peça o arquivamento. "Investigado não é culpado" nunca vira escolha.
-- Não há caminho jurídico da oposição: habeas corpus no plenário do STF ou um pedido formal ao TSE sobre a prorrogação, sem teoria de fraude.
-- O impeachment de ministro do STF só aparece em `lados`, nunca como escolha.
-- Marinho e Michelle quase não agem por conta própria. Governadores além de Tarcísio (Zema, Caiado, Ratinho) não existem.
+## 5. Propostas
+1. **Trocar "fuga" na voz do narrador.** `a_rota`: "Na Argentina, a saída de Flávio virou escândalo." `o_voo_fretado`: "O caso deixa de ser só do Brasil." Epílogo `chanceler_interpelado`: "teve de explicar a passagem de Flávio ao Congresso."
+2. **cap01 `abertura`, novo cartão com gancho e checagem:** "A carta cita a votação prorrogada até as 19h, a pedido da campanha de Lula. Depois das 17h votaram 34 mil pessoas. A diferença foi de 4,4 milhões."
+3. **Custo para Moraes.** Epílogo `prisao_derrubada`: "Para Moraes, foi a primeira vez que o Senado desfez uma ordem dele num caso político; para o PT, a prova de que o Senado protege os seus." Em `a_custodia`, nova escolha "Moraes revoga a prisão", com marca e eco no epílogo.
+4. **Caminho jurídico da direita.** Em `pl`, trocar `obstrui` por "O PL leva os gastos do governo ao TSE", com consequência dupla ("A ação quase não tem chance de mudar o resultado, mas mantém o tema vivo; para o governo, é a prova de que a direita não aceita a derrota"). Separar "abraça a carta" do confronto institucional.
+5. **Anistia em par.** `a_anistia_na_rua` (lados): "Para quem foi à rua, a anistia é pacificação, e muitas penas do 8 de janeiro foram maiores que o que cada um fez. Para quem se opõe, é perdoar crimes contra a democracia que o Supremo já julgou." Em `a_herdeira` (fatos): "Bolsonaro nega ter tentado um golpe", só com duas fontes conferidas.
 
-## 5. Propostas de correção
-1. **cap02 `a_paz_de_natal`, lados:** "Para o governo, a paz custa caro, mas dá dois anos de Senado. Para a oposição, o perdão de Lula solta Jair sem reconhecer injustiça nenhuma, e a família queria revisão, não favor."
-2. **cap02 `a_moeda_de_troca`, cartão 2:** se preso, "Flávio, preso, não participa da conversa."; senão, "Flávio diz que ninguém negocia em nome dele."
-3. **cap01 `a_votacao_da_prisao`, cartão 2:** "A ordem diz que a fuga é um crime que continua acontecendo. A defesa lembra que a Polícia Federal disse que ele não é foragido, e que isso não é flagrante." Fica um pouco acima das ~30 palavras do 8.2; se precisar, corte "lembra que".
-4. **Prólogo, novo item de 26/10 (antes do passaporte):** título "O PL reconhece o resultado", texto "Valdemar Costa Neto, presidente do PL, reconhece a vitória de Lula e cobra explicações sobre os gastos do governo perto da votação." Fontes: as mesmas da Agência Brasil e de O Antagonista já usadas em cap01 `abertura`.
-5. **cap02 `a_anistia_na_rua`, cartão 4:** "Para quem está no carro de som, anistia é pacificação. No PT, o ato prova que a democracia ainda está sob ameaça. No Centrão, que a anistia tem rua, e preço."
-
-Também sugiro um galho novo em `o_parecer` ou `a_custodia`: "A Procuradoria pede para arquivar um dos inquéritos". O custo seria para o PT, o ganho para a defesa, e entraria no epílogo.
-
-Não alterei nenhum arquivo e não abri `01-neutralidade.md` nem `00-agregado.md`.
+Não alterei nenhum arquivo.
