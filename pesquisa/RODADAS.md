@@ -208,6 +208,7 @@ A tela `/acertos` virou "O jogo e a realidade" (sketch em `estilo/sketches-acert
   - **Cenas sem decisão do cap. 1:** `o_prazo` passa de 3 para 2 cartões; `a_rota` junta o silêncio de Milei ao cartão da oposição argentina (de 4 para 3 vistos).
   - **`o_ministerio`:** o cartão da pergunta e um item novo em `lados` dão o motivo de não cobrar (paz rápida, pauta andando em fevereiro) e o custo (votos pagos adiantado).
   - **Origem:** `?origem=` funciona entrando por qualquer tela, inclusive `/escolhas` (conferido no navegador).
+  - **Toque como nos stories** (pedido do usuário): a metade esquerda da tela volta um cartão e a direita avança (antes, só o terço esquerdo voltava). No último cartão, onde ficam as opções, tocar à esquerda fora dos botões também volta. No desktop, a área de toque estava presa à coluna de 640 px (a animação de entrada da tela deixava um `transform` que vira referência do `position: fixed`), e clicar fora dela não fazia nada; a animação agora é `backwards`. Não volta para a cena anterior: depois de uma decisão, isso desfaria a escolha.
 - **A medir na próxima rodada (umas 100 partidas):** toque rápido em `pedido` e `a_cadeira` (eram 71% e 30%); quem sai antes da 1ª escolha (eram 13%); perda por decisão no cap. 1; "sem cobrar fidelidade" (1 de 68); a origem do próximo post.
 
 ## Ainda pendente (para a rodada 3)

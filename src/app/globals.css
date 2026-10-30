@@ -39,7 +39,8 @@ button {
   padding: 48px 20px 64px;
   display: flex;
   flex-direction: column;
-  animation: surgir 0.5s ease both;
+  /* backwards, não both: um transform que fica preso depois da animação prende a área de toque (position: fixed) à coluna no desktop. */
+  animation: surgir 0.5s ease backwards;
 }
 
 @keyframes surgir {

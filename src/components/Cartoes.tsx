@@ -38,6 +38,9 @@ export default function Cartoes({ textos, imagem, topo, abertura, fatos, lados, 
 
   const avancar = () => setI((x) => Math.min(total - 1, x + 1));
   const voltar = () => setI((x) => Math.max(0, x - 1));
+  /** Como nos stories: da metade da tela para a esquerda volta, para a direita avança. */
+  const naEsquerda = (e: { clientX: number }) => e.clientX < window.innerWidth / 2;
+  const voltaNoUltimo = ultimo && i > 0;
 
   useEffect(() => {
     const tecla = (e: KeyboardEvent) => {
@@ -56,6 +59,17 @@ export default function Cartoes({ textos, imagem, topo, abertura, fatos, lados, 
     window.scrollTo({ top: 0 });
   }, [i]);
 
+  // No último cartão as opções ficam fora da área de toque; tocar à esquerda, fora de botões e links, ainda volta.
+  useEffect(() => {
+    if (!voltaNoUltimo) return;
+    const clique = (e: MouseEvent) => {
+      if (e.target instanceof Element && e.target.closest('button, a, .fim-cartoes')) return;
+      if (naEsquerda(e)) voltar();
+    };
+    window.addEventListener('click', clique);
+    return () => window.removeEventListener('click', clique);
+  }, [voltaNoUltimo]);
+
   return (
     <div className="cartoes">
       <div className="progresso" aria-hidden>
@@ -65,16 +79,13 @@ export default function Cartoes({ textos, imagem, topo, abertura, fatos, lados, 
       </div>
 
       {/* Enquanto há cartões pela frente, a tela inteira é área de toque (como nos stories):
-          terço esquerdo volta, o resto avança. */}
+          a metade esquerda volta, a direita avança. */}
       {!ultimo && (
         <div
           className="toque-tela"
           role="button"
           aria-label="Toque para continuar"
-          onClick={(e) => {
-            if (e.clientX < window.innerWidth * 0.3) voltar();
-            else avancar();
-          }}
+          onClick={(e) => (naEsquerda(e) ? voltar() : avancar())}
         />
       )}
       <div className={`cartao ${ultimo ? 'ultimo' : ''}`} key={i}>
