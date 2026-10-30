@@ -298,13 +298,33 @@ button {
   color: var(--real);
   animation: lembrete 0.9s ease-in-out 2;
 }
+/* Primeira decisão de cada capítulo: a barra enche sozinha e volta, mostrando o gesto. */
+.escolha.demonstra .barra {
+  animation: demonstra 1.8s ease-in-out;
+}
+.escolha.demonstra .dica {
+  color: var(--real);
+}
+@keyframes demonstra {
+  0% {
+    transform: scaleX(0);
+  }
+  45%,
+  70% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+  }
+}
 @keyframes lembrete {
   50% {
     opacity: 0.35;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .escolha.lembrete .dica {
+  .escolha.lembrete .dica,
+  .escolha.demonstra .barra {
     animation: none;
   }
 }

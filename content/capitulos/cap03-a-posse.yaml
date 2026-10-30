@@ -139,7 +139,8 @@ nos:
     imagem: imagens/cap03/o_ministerio.webp
     texto:
       - União, PP e Republicanos apoiaram Flávio no segundo turno. PSD e MDB ficaram neutros. Todos querem continuar no governo.
-      - A lista de ministros da posse mostra o preço da base. A pergunta é se o cargo vem com a obrigação de votar junto.
+      # "Sem cobrar fidelidade" tinha 1 de 68 escolhas: a cena só mostrava o lado de cobrar (rodada de dados de 30/10, 18h).
+      - A lista de ministros da posse mostra o preço da base. A pergunta é se o cargo vem com a obrigação de votar junto, ou se a paz vale mais.
       - se: { tem: senado_sem_a_direita }
         texto: Em dezembro, Alcolumbre isolou o PL com a ajuda do governo. O Centrão chega para cobrar a parte dele.
       - Para o Centrão, o custo vem de casa. O eleitor que votou em Flávio pergunta por que o partido volta ao governo de Lula.
@@ -151,6 +152,7 @@ nos:
           - https://www.metropoles.com/brasil/por-governabilidade-lula-inicia-conversas-com-partidos-que-apoiaram-flavio
     lados:
       - Para o governo, cobrar fidelidade dá uma base menor e mais firme. Para o Centrão, ministério com condição é ministério pela metade, e a base de direita dele já cobra a aproximação com Lula.
+      - Para quem defende não cobrar, a paz vem rápido. O Centrão entra inteiro, sem humilhação, e a pauta do governo anda em fevereiro. Para quem é contra, é pagar adiantado por votos que podem não vir na hora difícil.
       - Para o Republicanos, o partido de Motta e de Tarcísio, a articulação política do governo seria o maior prêmio. Para o governo, entregá-la é pôr a negociação com o Congresso nas mãos de um aliado de ocasião.
       - Para o PT, dividir o governo com quem apoiou Flávio é engolir a campanha. Para o Centrão, é o que ele sempre fez, e o que garante votos ao governo que estiver lá.
     escolhas:

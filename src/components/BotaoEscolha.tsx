@@ -4,9 +4,14 @@ import { useEffect, useRef, useState } from 'react';
 import type { StatusEscolha } from '@/engine/engine';
 
 /** Tempo segurando para a escolha valer. A barra (CSS) anima no mesmo tempo. */
-export const SEGURAR_MS = 800;
+export const SEGURAR_MS = 500;
 /** Quanto tempo o lembrete fica depois de um toque curto. */
 const LEMBRETE_MS = 2200;
+/** A demonstração começa um instante depois de as opções aparecerem, para a pessoa ver o botão parado antes. */
+const DEMO_ATRASO_MS = 700;
+const DEMO_MS = 1800;
+/** Capítulo em que a barra já se mostrou nesta visita (recarregar a página conta como visita nova). */
+let demonstradoEm: string | null = null;
 
 interface Props {
   letra: string;
@@ -20,6 +25,12 @@ interface Props {
   onDecidir: () => void;
   /** Soltou antes da hora (toque rápido): o botão lembra de segurar, e o jogo registra. */
   onToqueCurto?: () => void;
+  /**
+   * Capítulo atual, no primeiro botão livre da cena: na primeira decisão de cada capítulo da visita,
+   * a barra enche sozinha uma vez e mostra o gesto. A maioria tocava rápido na primeira decisão, e
+   * de novo depois da pausa entre capítulos (rodada de 30/10, 18h).
+   */
+  demonstrarEm?: string;
 }
 
 /**
@@ -27,12 +38,28 @@ interface Props {
  * Teclado: segurar Enter ou espaço. Um temporizador decide; o CSS só desenha a barra,
  * então a decisão não depende da taxa de quadros do navegador.
  */
-export default function BotaoEscolha({ letra, rotulo, status, dataReal, apagado, decidido, onDecidir, onToqueCurto }: Props) {
+export default function BotaoEscolha({ letra, rotulo, status, dataReal, apagado, decidido, onDecidir, onToqueCurto, demonstrarEm }: Props) {
   const [segurando, setSegurando] = useState(false);
   const [lembrete, setLembrete] = useState(false);
+  const [demonstrando, setDemonstrando] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const timerLembrete = useRef<ReturnType<typeof setTimeout> | null>(null);
   const travada = status === 'travada';
+
+  useEffect(() => {
+    if (!demonstrarEm || demonstradoEm === demonstrarEm) return;
+    // A marca só é posta quando a demonstração começa: o efeito duplo do modo de desenvolvimento não a perde.
+    let fim: ReturnType<typeof setTimeout> | undefined;
+    const inicio = setTimeout(() => {
+      demonstradoEm = demonstrarEm;
+      setDemonstrando(true);
+      fim = setTimeout(() => setDemonstrando(false), DEMO_MS);
+    }, DEMO_ATRASO_MS);
+    return () => {
+      clearTimeout(inicio);
+      if (fim) clearTimeout(fim);
+    };
+  }, [demonstrarEm]);
 
   useEffect(() => () => {
     if (timer.current) clearTimeout(timer.current);
@@ -42,6 +69,7 @@ export default function BotaoEscolha({ letra, rotulo, status, dataReal, apagado,
   function comecar() {
     if (travada || decidido || apagado || timer.current) return;
     setLembrete(false);
+    setDemonstrando(false);
     setSegurando(true);
     timer.current = setTimeout(() => {
       timer.current = null;
@@ -72,6 +100,8 @@ export default function BotaoEscolha({ letra, rotulo, status, dataReal, apagado,
         ? 'segure…'
         : lembrete
           ? 'segure até a barra encher'
+        : demonstrando
+          ? 'segure assim para decidir'
         : status === 'real'
           ? `aconteceu em ${dataReal} · segure para seguir`
           : 'segure para decidir';
@@ -79,7 +109,7 @@ export default function BotaoEscolha({ letra, rotulo, status, dataReal, apagado,
   return (
     <button
       type="button"
-      className={`escolha ${status} ${decidido ? 'decidida' : ''} ${apagado ? 'apagada' : ''} ${segurando ? 'segurando' : ''} ${lembrete ? 'lembrete' : ''}`}
+      className={`escolha ${status} ${decidido ? 'decidida' : ''} ${apagado ? 'apagada' : ''} ${segurando ? 'segurando' : ''} ${lembrete ? 'lembrete' : ''} ${demonstrando ? 'demonstra' : ''}`}
       disabled={travada}
       aria-label={`${rotulo}. ${travada ? 'Não aconteceu.' : 'Segure para decidir.'}`}
       style={{ ['--segurar' as string]: `${SEGURAR_MS}ms` }}

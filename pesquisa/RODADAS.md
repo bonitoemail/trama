@@ -195,6 +195,21 @@ A tela `/acertos` virou "O jogo e a realidade" (sketch em `estilo/sketches-acert
 - **Dados:** `acertos.yaml` ganha `status` e `realidade` (antes `cumprido`); primeiro item que não se confirmou: a "promotoria federal de fronteira" de `o_voo_fretado` (a de Iguazú arquivou). "A confirmar" sai dos relógios pendentes com data (`aConfirmar` em `src/engine/relogios.ts`; `carregarRelogios` em `load.ts`, também usado por `/api/escolhas`).
 - **Skill:** a Etapa 9 registra o que não se confirmou na mesma rodada em que a cena é reescrita, e diz o que não entra (opção de escolha, texto que já era fato, fonte única).
 
+### Os jogadores novos — 30/10/2026, 18h
+115 partidas desde o deploy dos eventos de decisão (10h46), 87 delas depois das 13h; pico de 55 entre 16h e 18h. Todas com origem `direto`: o post não usou o link com `?origem=`.
+- **Do fim do cap. 1 ao cap. 2:** 44 de 50 (88%; era 64% antes do botão fixo). Do cap. 2 ao 3: 19 de 21.
+- **Quem sai sem escolher sai lendo.** 11 de 115 saem sem ver as opções de `pedido` (na abertura); dos 103 que viram, 100 escolheram. Antes, 19% saíam sem escolher; agora, 13%. A alavanca que sobra é a abertura: juntar `abertura` a `pedido` continua candidata.
+- **Segurar o botão confunde, e o aviso resolve.** 73 de 103 (71%) tocaram rápido na primeira decisão, e quase todos escolheram depois do aviso. Nas decisões seguintes, de 0 a 13%. Volta a subir na primeira decisão do cap. 2 (`a_cadeira`, 12 de 40), como se a pausa fizesse esquecer.
+- **Dentro do cap. 1:** quem escolheu "espera" em `pedido` terminou menos (10 de 18, contra 38 de 52 em "bloqueia sem prender"), mas as 8 saídas se espalham por `eleicao_eua`, `a_rota` e `pl`. Amostra pequena; nada a mudar.
+- **`o_ministerio`:** "sem cobrar fidelidade" saiu do zero (1 de 68). Continua a mais rara.
+- **O que mudou (mesmo dia):**
+  - **Botão:** continua sendo segurar (clique simples arrisca escolha sem querer, porque a tela inteira passa os cartões), mas por 0,5 s em vez de 0,8 s. Na primeira decisão de cada capítulo, em cada visita, a barra do primeiro botão livre enche sozinha uma vez, com "segure assim para decidir" (`demonstrarEm` em `BotaoEscolha.tsx`; sem animação com movimento reduzido). Conferido no celular: aparece em `pedido`, não se repete na decisão seguinte, e 0,5 s decide.
+  - **Até a primeira escolha:** `pedido` junta os dois primeiros cartões (2 em vez de 3).
+  - **Cenas sem decisão do cap. 1:** `o_prazo` passa de 3 para 2 cartões; `a_rota` junta o silêncio de Milei ao cartão da oposição argentina (de 4 para 3 vistos).
+  - **`o_ministerio`:** o cartão da pergunta e um item novo em `lados` dão o motivo de não cobrar (paz rápida, pauta andando em fevereiro) e o custo (votos pagos adiantado).
+  - **Origem:** `?origem=` funciona entrando por qualquer tela, inclusive `/escolhas` (conferido no navegador).
+- **A medir na próxima rodada (umas 100 partidas):** toque rápido em `pedido` e `a_cadeira` (eram 71% e 30%); quem sai antes da 1ª escolha (eram 13%); perda por decisão no cap. 1; "sem cobrar fidelidade" (1 de 68); a origem do próximo post.
+
 ## Ainda pendente (para a rodada 3)
 - Análises pós-eleição de Marcus André Melo, Lynch (conteúdo do vídeo), Limongi, Couto, Traumann, Moura, Andrea Freitas, Falcão, Pereira, Glezer, Da Ros, Barbosa, Laura Carvalho, Armínio, Marcos Mendes: ainda não publicadas ou não encontráveis em 28/10.
 - Contradições: passaporte usado na entrada (italiano ou diplomático); DI de fechamento de 28/10.

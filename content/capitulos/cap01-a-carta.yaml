@@ -64,8 +64,8 @@ nos:
     lugar: Brasília, Supremo Tribunal Federal
     imagem: imagens/cap01/pedido.webp
     texto:
-      - Deputados do PT pedem a prisão de Flávio. Os aliados dele falam em perseguição.
-      - Quem decide é Alexandre de Moraes, o ministro do Supremo que cuida do caso.
+      # Dois cartões em vez de três até a primeira escolha (rodada de dados de 30/10, 18h: 10% saíam antes dela).
+      - Deputados do PT pedem a prisão de Flávio, e os aliados dele falam em perseguição. Quem decide é Alexandre de Moraes, o ministro do Supremo que cuida do caso.
       - Prender pode transformar Flávio em mártir. Não prender pode passar a ideia de que a lei não vale para ele.
     fatos:
       - texto: Os deputados do PT Lindbergh Farias, Rogério Correia e Ana Elisa Santos pediram a Moraes a prisão preventiva de Flávio e o nome dele no alerta vermelho da Interpol, por ter descumprido a ordem sobre os passaportes.
@@ -235,8 +235,8 @@ nos:
       - se: { tem: prisao_derrubada }
         texto: O Senado derrubou a prisão. Agora, o relógio que importa é outro. Senador que falta demais pode perder o cargo.
         senao: Sem prisão, o relógio que importa é outro. Senador que falta demais pode perder o cargo.
-      - As faltas de Flávio chegam ao limite em dezembro. Quem comanda esse processo é Davi Alcolumbre, o presidente do Senado.
-      - Alcolumbre quer ser reeleito presidente do Senado em fevereiro. E a carta de Flávio apoiou o rival dele.
+      # Um cartão a menos nas cenas sem decisão (rodada de dados de 30/10, 18h).
+      - As faltas de Flávio chegam ao limite em dezembro, e quem conduz o caso é Davi Alcolumbre, presidente do Senado. Ele quer ser reeleito em fevereiro, e a carta apoiou o rival dele.
     # Data estimada (~17/12): Diario de Pernambuco (pesquisa 03). Rito, com a passagem pela CCJ (RISF, art. 32): pesquisa 09.
     fatos:
       - texto: Pela Constituição, perde o mandato quem faltar a um terço das sessões ordinárias do ano sem licença. A perda não é automática. A Mesa do Senado a declara, por conta própria ou a pedido de um senador ou partido, com direito a defesa.
@@ -323,14 +323,13 @@ nos:
     imagem: imagens/cap01/a_rota.webp
     texto:
       - Na Argentina, a saída de Flávio virou escândalo. Flávio cruzou a fronteira por terra e pegou um jatinho do lado argentino. A Justiça de lá já investiga.
-      - A oposição argentina acusa o governo Milei de ter ajudado. O governo nega. Um assessor de Milei é citado pela imprensa argentina, e também nega.
+      - A oposição argentina acusa o governo Milei de ter ajudado. O governo nega, e um assessor de Milei citado pela imprensa também. Sobre a carta que o agradece, Milei não diz uma palavra.
       - se: { tem: crise_diplomatica }
         texto: O pedido de explicações do Brasil chega no meio da briga.
       - se: { tem: pedido_policial }
         texto: O pedido da Polícia Federal chega à Justiça argentina, sem nota e sem discurso.
       - se: { tem: governo_silencio }
         texto: O Brasil não pediu nada. Quem faz as perguntas é a oposição argentina.
-      - Sobre a carta que o agradece, Milei não diz uma palavra.
     # Negativa do governo argentino ("de manera enfática"): Perfil, 28/10 (link abaixo, no fato do Caputo).
     fatos:
       - texto: A imigração argentina registrou a entrada de Flávio pela ponte de Foz do Iguaçu às 22h50 de 27 de outubro. Às 23h30, ele embarcou num jato fretado com destino declarado a Guayaquil, no Equador.

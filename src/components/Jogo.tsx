@@ -264,6 +264,7 @@ export default function Jogo({
         <div className="escolhas">
           {opcoes.map(({ escolha: e, status }, i) => (
             <BotaoEscolha
+              demonstrarEm={i === opcoes.findIndex((o) => o.status !== 'travada') ? estado.capitulo : undefined}
               key={e.id}
               letra={String.fromCharCode(65 + i)}
               rotulo={e.rotulo}
