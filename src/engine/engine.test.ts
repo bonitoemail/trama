@@ -31,6 +31,8 @@ function jogoMinimo(over: Partial<Jogo> = {}): Jogo {
         numero: 1,
         titulo: 'Um',
         periodo: 'p',
+        de: '2026-10-29',
+        ate: '2026-11-14',
         inicio: 'a',
         nos: [
           { id: 'a', texto: 'A', escolhas: [
@@ -50,6 +52,8 @@ function jogoMinimo(over: Partial<Jogo> = {}): Jogo {
         numero: 2,
         titulo: 'Dois',
         periodo: 'p',
+        de: '2026-10-29',
+        ate: '2026-11-14',
         inicio: 'z',
         nos: [{ id: 'z', texto: 'Z' }],
         saidas: [{ para: 'FIM' }],

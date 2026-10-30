@@ -3,7 +3,7 @@
 História ramificada sobre o futuro político do Brasil (out/2026 → 2030). O jogador é o "destino": lê e escolhe entre 2 e 4 opções, sem recursos nem indicadores. Começa sempre no acontecimento seguinte ao último fato real. Design completo em `DESIGN.md`.
 
 ## Atualizar o jogo com a realidade
-Quando o usuário disser **"atualize o jogo"** (ou mandar uma notícia nova), use a skill **`atualizar-jogo`** (`.claude/skills/atualizar-jogo/`). Ela define o fluxo: estado → busca → confirmação → impacto → proposta → texto e travas → imagens → futuro → verificação (com as revisões de cobertura e dos leitores) → registro, e as regras para travar o que aconteceu, somar escolhas que faltam, abrir trilhos e escrever o capítulo seguinte. Comece sempre por `npm run estado`.
+Quando o usuário disser **"atualize o jogo"** (ou mandar uma notícia nova), use a skill **`atualizar-jogo`** (`.claude/skills/atualizar-jogo/`). Ela define o fluxo: estado → busca → confirmação → impacto → proposta → texto e travas → imagens → futuro → verificação (com as revisões de cobertura e dos leitores) → registro → melhorar a própria skill, e as regras para travar o que aconteceu, somar escolhas que faltam, abrir trilhos e escrever o capítulo seguinte. Comece sempre por `npm run estado`: a seção "Horizonte" avisa quando escrever o próximo capítulo (30 dias antes de a realidade chegar ao último escrito; mapa em `roteiro/proximos.md`).
 
 ## Stack
 Next.js 16 (App Router) · React 19 · TypeScript 5 (estrito) · Zod 4 · YAML · Vitest 5. CSS puro: `src/app/globals.css` (jogo) e `src/app/capa.css` (capa e telas de explicação, tudo dentro de `.capa`). Imagens geradas no FLUX.1-schnell local (RTX 4080, carregador em `estilo/flux.py`) via o Python do `C:/Users/USER/openmontage/.venv`; como funciona e como repetir em `roteiro/prompts/imagens.md`.
@@ -18,7 +18,7 @@ Next.js 16 (App Router) · React 19 · TypeScript 5 (estrito) · Zod 4 · YAML �
 - Registro anônimo (plano em `BACKEND.md`): `src/lib/registro.ts` (eventos tirados da mudança de estado em `Jogo.tsx`, validação contra o conteúdo, origem do link), `src/app/api/evento/route.ts` (grava via `registrar()` no Supabase com `SUPABASE_URL` e `SUPABASE_SECRET_KEY` do `.env.local`; sem elas, ou no `npm run dev` sem `REGISTRO_EM_DEV=1`, não grava nada), `supabase/migrations/` (tabelas `partidas` e `eventos`, só o servidor escreve; consultas no schema `painel`: `resumo`, `capitulos`, `escolhas`, `paradas`, `caminhos`, `origens`). Projeto Supabase `trama` (`hsiwzuqikdcbrjquczwd`, São Paulo, org Trama, Free). Link de divulgação: `npm run link -- <canal>` (o padrão é o domínio oficial; `SITE_URL` troca).
 - Publicação: código público em github.com/bonitoemail/trama (auditável; push com a conta bonitoemail, já configurada neste repositório); Vercel (time Pro do usuário, projeto `trama`) publica sozinha a cada push em `main`, em https://tramabr.app. Variáveis do Supabase também na Vercel.
 - `pesquisa/`: rodadas de pesquisa (`00-sintese.md`, `01`…), `RODADAS.md` (histórico) e `relogios.yaml` (datas e eventos ligados aos nós).
-- `roteiro/`: esqueletos de capítulos futuros, `prompts/` (texto exato de cada agente, com data e o que produziu; `COMO-REPETIR.md`; `escrita.md`, o guia de escrita das cenas; rodadas novas só pela skill `painel`) e `painel/` (painel de previsão com 6 lentes, `00-agregado.md` com cismas e finais, `01-neutralidade.md`).
+- `roteiro/`: `proximos.md` (mapa dos próximos capítulos, numeração atual), esqueleto e planilha de cada capítulo, `prompts/` (texto exato de cada agente, com data e o que produziu; `COMO-REPETIR.md`; `escrita.md`, o guia de escrita das cenas; rodadas novas só pela skill `painel`) e `painel/` (painel de previsão com 6 lentes, `00-agregado.md` com cismas e finais, `01-neutralidade.md`).
 - `estilo/`: `GUIA.md` (estilo das ilustrações), `prompts.py`, `cenas_cap*.py`, `cenas_capa.py` (formato largo; capa hoje fora de uso), `sketch-titulo.html` (comparar fontes do título), `sketches-capa/` (rodadas de design da capa; a B3 "menos" é a atual, plano em `b3-plano.md`), `gerar_teste.py`, `publicar.py`, `galeria.py`, `escolhas.json` (qual geração está em cada nó), `referencias/`. Saídas de teste em `estilo/testes/` (fora do git).
 - `public/imagens/<cap>/<no>.webp`: imagens publicadas.
 
@@ -32,7 +32,8 @@ Next.js 16 (App Router) · React 19 · TypeScript 5 (estrito) · Zod 4 · YAML �
 ## Comandos
 ```bash
 npm run dev        # localhost:3000
-npm run estado     # relógios, travas, imagens e validador (início de toda atualização)
+npm run estado     # horizonte, relógios, travas, imagens e validador (início de toda atualização)
+npm run jogar -- 7 cap03   # joga um caminho pelo motor e imprime o que o jogador leria
 npm run validate   # valida o conteúdo
 npm test           # testes do motor + conteúdo real
 npm run build      # falha se o conteúdo tiver erro

@@ -90,6 +90,12 @@ export const CapituloSchema = z.strictObject({
   numero: z.number().int(),
   titulo: z.string(),
   periodo: z.string(),
+  /**
+   * Datas do período (AAAA-MM-DD), para a skill saber quando a realidade alcança o capítulo
+   * (`npm run estado`, "Horizonte"). O texto que o jogador vê continua sendo `periodo`.
+   */
+  de: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'data no formato AAAA-MM-DD'),
+  ate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'data no formato AAAA-MM-DD'),
   rascunho: z.boolean().optional(),
   inicio: z.string(),
   nos: z.array(NoSchema).min(1),

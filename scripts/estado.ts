@@ -46,6 +46,25 @@ const out = (s = '') => linhas.push(s);
 out(`# Estado do Trama — ${hoje}`);
 out(`Conteúdo ${jogo.versao} · ${jogo.capitulos.length} capítulo(s) · último fato do prólogo: "${jogo.prologo.at(-1)!.data}"`);
 
+// Horizonte: o jogo precisa estar sempre um capítulo à frente da realidade (skill, "O capítulo seguinte").
+const ANTECEDENCIA = 30;
+const porData = [...jogo.capitulos].sort((a, b) => a.de.localeCompare(b.de));
+const ultimo = porData.at(-1)!;
+const atual = porData.find((c) => c.de <= hoje && hoje <= c.ate);
+const passados = porData.filter((c) => c.ate < hoje);
+out('\n## Horizonte');
+out(`- Hoje a realidade está ${atual ? `no ${atual.id} (${atual.de} a ${atual.ate})` : 'entre capítulos'}.`);
+out(`- Último capítulo escrito: ${ultimo.id}, "${ultimo.titulo}" (${ultimo.de} a ${ultimo.ate}).`);
+const folga = dias(hoje, ultimo.de);
+if (folga <= ANTECEDENCIA) {
+  out(`- **ESCREVER O PRÓXIMO CAPÍTULO**: a realidade chega ao ${ultimo.id} em ${folga} dia(s) (limite: ${ANTECEDENCIA}). Mapa em roteiro/proximos.md.`);
+} else {
+  out(`- Folga: ${folga} dias até a realidade chegar ao ${ultimo.id}. O próximo capítulo se escreve quando faltarem ${ANTECEDENCIA}.`);
+}
+if (passados.length) {
+  out(`- A realidade já passou de: ${passados.map((c) => c.id).join(', ')}. Se todo o capítulo 1 ficou para trás, avalie a regra de recuo.`);
+}
+
 const pend = relogios.filter((r) => r.status === 'pendente');
 const vencidos = pend.filter((r) => r.data && r.data <= hoje);
 const proximos = pend.filter((r) => r.data && r.data > hoje && dias(hoje, r.data) <= 30);

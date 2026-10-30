@@ -105,6 +105,12 @@ Se um ícone não sair certo em 8 seeds, a alternativa é a **base vetorial pint
 4. **Base vetorial chapada não ganha textura** no img2img; com grão e borda de pincel, funciona a ~0,55. Acima de ~0,7 o modelo põe rosto em prédio.
 5. **Assinaturas falsas** aparecem em ~1 de cada 8 imagens. *Teste futuro:* trocar o nome do artista por uma descrição do estilo e ver se elas somem sem perder a estética.
 
+### Lições do capítulo 3 (29/10/2026)
+
+6. **"Dome" chama o Capitólio americano.** Num plenário com teto em cúpula, uma das 8 seeds desenhou a cúpula de Washington. Em cena do Senado brasileiro, prefira "low curved ceiling" e confira toda seed.
+7. **Exteriores largos vazam laranja para o chão.** Com sol como acento, o chão de areia tende a sair laranja forte em quase todas as seeds. Escolha a que vaza menos; se todas vazarem, troque o acento para um objeto pequeno.
+8. **Folha de contato.** Para escolher, monte as 8 seeds de uma cena numa folha só (4×2, com o número da seed) e confira o checklist em cada uma.
+
 ## Arquivos
 
 - `prompts.py`: blocos de prompt (fonte de verdade).

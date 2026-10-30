@@ -6,6 +6,8 @@ id: cap03
 numero: 3
 titulo: A posse
 periodo: 5 de janeiro a 1º de fevereiro de 2027
+de: "2027-01-05"
+ate: "2027-02-01"
 rascunho: false
 inicio: abertura
 

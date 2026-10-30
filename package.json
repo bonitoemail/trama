@@ -9,6 +9,7 @@
     "test": "vitest run",
     "validate": "tsx scripts/validate.ts",
     "estado": "tsx scripts/estado.ts",
+    "jogar": "tsx scripts/jogar.ts",
     "link": "tsx scripts/link.ts"
   },
   "dependencies": {

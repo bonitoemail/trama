@@ -36,7 +36,8 @@ A skill tem dois modos:
 - Travar a escolha que a realidade decidiu, e ajustar as cenas do caminho real que passaram a contradizer o fato.
 - Somar a escolha provável que falta num nó, quando um fato mostrar que ela falta.
 - Abrir um trilho novo, se o fato abrir uma história que leva semanas e couber nas regras.
-- Escrever o capítulo seguinte como `rascunho: true`, quando a realidade passar do último capítulo escrito.
+- Escrever o capítulo seguinte como `rascunho: true`, quando `npm run estado` disser "ESCREVER O PRÓXIMO CAPÍTULO" (seção "O capítulo seguinte").
+- Melhorar esta skill com o que a rodada ensinou (Etapa 10), sem tirar nenhuma salvaguarda.
 
 **O que nunca fazer sozinho, além disso**
 - Fazer capítulos diferentes conforme o final (um cisma): precisa do usuário.
@@ -46,7 +47,7 @@ A skill tem dois modos:
 Depois de escrever e antes de commitar, rode as revisões da Etapa 8 ("Revisões no fim"): a de cobertura e os dois leitores, com os prompts publicados, pela skill `painel`. Corrija o que os dois leitores apontarem e o que for gravidade alta em qualquer um, e o que a cobertura apontar como alta. O que for divergência de gosto vai para o relatório.
 
 **Verificação e commit**
-- Rode a Etapa 8 inteira. O navegador é opcional: se não estiver disponível, jogue os caminhos que passam pelos nós alterados com um script do motor (`novoJogo`, `escolher`, `continuar`) e confira os textos.
+- Rode a Etapa 8 inteira. O navegador é opcional: se não estiver disponível, jogue os caminhos que passam pelos nós alterados com `npm run jogar -- <semente> <cap>` e confira os textos.
 - Tudo passou → **um commit só** em `main`, mensagem `Rodada AAAA-MM-DD: <resumo>`, com o corpo listando fatos, travas, nós novos e imagens, e a linha `Co-Authored-By` do projeto. Assim, desfazer a rodada é um `git revert`.
 - Algo falhou e você não conseguiu corrigir → `git stash` não serve (ninguém vai ver). Crie a branch `rodada/AAAA-MM-DD`, faça o commit nela, volte para `main` limpo e explique no relatório.
 
@@ -64,7 +65,7 @@ Arquivos que esta skill usa:
 - `pesquisa/relogios.yaml`: datas e eventos a vigiar, ligados aos nós que afetam.
 - `pesquisa/RODADAS.md`: histórico de rodadas e fatos novos (a data da última rodada está aqui).
 - `content/jogo.yaml` (prólogo, epílogo, versão) e `content/capitulos/*.yaml`.
-- `roteiro/` (esqueletos dos capítulos futuros) e `roteiro/painel/00-agregado.md` (estrutura 2027–2030, ecos, finais).
+- `roteiro/proximos.md` (mapa dos próximos capítulos, com a numeração atual), `roteiro/cap*` (esqueleto e planilha de cada capítulo) e `roteiro/painel/00-agregado.md` (estrutura 2027–2030, ecos, finais).
 - `DESIGN.md` 6.1 (travar o caminho real) e 8 / 8.1 (regras de conteúdo e de equilíbrio).
 - `estilo/GUIA.md`, `estilo/prompts.py`, `estilo/cenas_cap*.py`, `estilo/escolhas.json`.
 
@@ -82,6 +83,7 @@ A fonte é o que sustenta a neutralidade do jogo: é a primeira coisa que um cr�
 
 - **Capítulo** = uma **espinha** (as cenas que quase todo mundo vê) e **trilhos** (sequências próprias, de 3 a 5 cenas, que nascem de uma escolha e não voltam à espinha, ou só voltam no fim do capítulo, com outro final). Exemplos no cap. 2: "A volta" (Flávio no Brasil), "A campanha" (a frente de Tereza Cristina), "O indulto". No cap. 1: "A caçada" (a prisão, a votação no Senado, a Interpol).
 - **Escolhas**: de 2 a 4 por nó. Escolhas com `se` aparecem só para quem tem as marcas; uma escolha pode ter versões com `se` opostos que levam a lugares diferentes (ex.: `o_orcamento` leva a Miami ou ao voo de volta, conforme `flavio_voltou`).
+- **Capítulo** tem `periodo` (o texto que o jogador vê) e `de`/`ate` (as datas que o `npm run estado` usa para o horizonte).
 - **Marcas** só se somam, nunca saem. Por isso a marca que decide um caminho nasce na escolha que decide, não antes (ex.: `flavio_preventiva` nasce na votação do Senado, não na ordem de Moraes). O validador explora só as marcas que mudam o caminho (`marcasDeFluxo`): marca usada só em texto não multiplica estados.
 - **O validador avisa** quando um nó de decisão sobra com uma escolha só em algum caminho (sem contar travas reais), e quando um cartão, uma cena ou um rótulo sai do formato (`src/engine/formato.ts`). Aviso não quebra o build, mas toda rodada termina sem avisos novos.
 - **Critério das escolhas** (vale em todo nó novo ou mexido): **somar** o desfecho provável que falta (quase sempre o meio-termo ou o adiamento) e **nunca cortar** o improvável que o jogador quer ver, desde que nenhum fato o desminta e o texto não venda simulação como fato. Um nó sem o desfecho provável é o erro mais comum (foi o da `a_herdeira`, sem Tarcísio).
@@ -93,7 +95,7 @@ A fonte é o que sustenta a neutralidade do jogo: é a primeira coisa que um cr�
 ```bash
 npm run estado
 ```
-Leia o relatório: relógios vencidos, próximos 30 dias, itens sem data, travas, imagens, validador. Leia o fim de `pesquisa/RODADAS.md` para saber a data e o conteúdo da última rodada. A janela de busca vai **da última rodada até agora**.
+Leia o relatório: **horizonte** (em que capítulo a realidade está e se é hora de escrever o próximo), relógios vencidos, próximos 30 dias, itens sem data, travas, imagens, validador. Leia o fim de `pesquisa/RODADAS.md` para saber a data e o conteúdo da última rodada. A janela de busca vai **da última rodada até agora**.
 
 Se o usuário trouxe uma notícia específica, ela é o primeiro item a confirmar, mas a rodada continua completa.
 
@@ -104,7 +106,7 @@ Rode **três agentes em paralelo** (`Agent`, `general-purpose`, em segundo plano
 2. **Mundo** (EUA, Argentina, China, região);
 3. **Relógios e economia** (cada relógio vencido ou dos próximos 30 dias, mercado, números a conferir).
 
-Cada agente escreve `pesquisa/NN-<tema>.md` (próximo número livre) e devolve um resumo. Para uma notícia isolada e pequena, basta a busca direta (`WebSearch` em modo `extended`), sem agentes.
+Cada agente escreve `pesquisa/NN-<tema>.md` (próximo número livre) e devolve um resumo. Se o horizonte pedir o capítulo seguinte, rode também o briefing 4 (capítulo seguinte), no mesmo lote. Para uma notícia isolada e pequena, basta a busca direta (`WebSearch` em modo `extended`), sem agentes.
 
 ## Etapa 2 — Confirmação
 
@@ -180,11 +182,23 @@ Se o usuário já disse "atualize o jogo" sem pedir revisão, aplique o automát
 
 ## O capítulo seguinte
 
-Quando o último fato real passar do período do último capítulo (o campo `periodo`), ou quando todos os nós de decisão dele estiverem travados:
-1. Leia o esqueleto em `roteiro/cap0N-*.md` e o que `roteiro/painel/00-agregado.md` diz do período. Pesquise o período (Etapa 1) antes de escrever: o esqueleto foi feito antes dos fatos, e fixar opções antes da pesquisa é o erro que esta skill existe para evitar.
-2. Escreva `content/capitulos/cap0N-*.yaml` com `rascunho: true`, uma espinha curta, os trilhos que a pesquisa justificar e os finais. Siga o guia de escrita e o critério das escolhas.
-3. Ligue o capítulo anterior a ele em `saidas` (todos os finais levam ao novo capítulo). Capítulos diferentes conforme o final (cisma) só com o usuário.
-4. Rode as revisões no fim, as imagens e a verificação. O capítulo sai do rascunho (`rascunho: false`) só com o usuário.
+O jogo precisa estar sempre **um capítulo à frente da realidade**: quem joga hoje tem de chegar a um fim que ainda é futuro. Cada capítulo tem `de` e `ate` (AAAA-MM-DD), e `npm run estado` mostra o horizonte. Quando faltarem 30 dias ou menos para a realidade chegar ao `de` do último capítulo escrito, ele avisa **"ESCREVER O PRÓXIMO CAPÍTULO"**. Esse aviso é a ordem: a rodada escreve o capítulo, nos dois modos.
+
+1. **Mapa.** Leia a linha seguinte de `roteiro/proximos.md` (numeração atual, título provisório, pergunta, marcas que ele herda) e o que `roteiro/painel/00-agregado.md` diz do período. Se a linha for um cisma (capítulos diferentes conforme o final), pare: isso é do usuário.
+2. **Pesquisa antes do texto.** Rode o briefing 4 de `references/briefings.md`. O mapa foi escrito antes dos fatos; fixar opções antes da pesquisa é o erro que esta skill existe para evitar. Dois capítulos do esboço podem virar um (foi o que aconteceu com "A posse" e "As mesas").
+3. **Esqueleto e planilha** em `roteiro/capNN-<titulo>.md`: a pergunta, a espinha, os finais, a planilha de equilíbrio (DESIGN 8.1, regra 16), o que ficou para depois e os candidatos a trava.
+4. **O YAML** em `content/capitulos/capNN-<titulo>.yaml`, com `rascunho: true`, `periodo`, `de` e `ate`. Uma espinha curta (de 4 a 6 decisões por caminho, cada uma com custo para alguém), os trilhos que a pesquisa justificar e de 2 a 4 finais. Siga o guia de escrita e o critério das escolhas. Checagens que as revisões já pegaram:
+   - **Cada cena acontece na data dela.** O que é decidido ou anunciado antes do período aparece como resultado ("na posse, os ministros assinam"), não como pergunta em aberto.
+   - **Todo caminho que chega.** Liste todos os finais do capítulo anterior, inclusive os de trilhos que pulam a espinha (no cap. 2, `a_moeda_de_troca` e `o_domingo_seguinte` não passam por `a_mesa`). Todo grupo de cartões condicionais que lê "como o capítulo anterior terminou" precisa de texto para cada um deles, e nenhum texto pode contradizer o que um final prometeu (`lula_neutro`: "se perder, ninguém culpa o Planalto").
+   - **Nenhuma vitória de graça.** A base de quem vence paga alguma coisa no próprio final (a revisão dos dois leitores cobrou isso no Senado da oposição).
+   - **Grupos condicionais exclusivos.** Cada grupo de `se` de uma cena lê marcas que se excluem (as saídas de um mesmo nó); no máximo dois grupos por cena.
+5. **Ligações.**
+   - `saidas` do capítulo anterior apontam para o novo (todos os finais; cisma só com o usuário). O novo sai para `FIM`.
+   - **Epílogo** (`content/jogo.yaml`): o título passa a ser a data do fim do novo capítulo ("O Brasil em fevereiro de 2027"); frases no futuro que o novo capítulo resolveu passam para o passado ou saem; cada marca nova ganha um eco; a última linha diz qual capítulo e ato terminaram e que **a história vai até a eleição de 2030 e os próximos capítulos saem à medida que a realidade andar**.
+   - `pesquisa/relogios.yaml`: os relógios do período passam a apontar para os nós novos (`afeta`); datas novas viram relógios. `calendario` do `jogo.yaml` ganha só datas fixas e públicas.
+   - `roteiro/proximos.md`: a linha sai de "Pela frente" e vai para "Escritos", com as datas reais; a próxima linha ganha a data "escrever a partir de".
+6. **Revisões, imagens e verificação** (Etapas 6 e 8). Os leitores leem todos os arquivos de `content/capitulos/` sozinhos; a cobertura recebe o capítulo novo em `<CAP>` e a pesquisa nova em `<PESQUISA>`, e roda de novo depois das correções.
+7. **Rascunho.** O capítulo sai do rascunho (`rascunho: false`) só com o usuário. No modo autônomo, fica em rascunho e entra em "Precisa de você" no relatório.
 
 ## Etapa 6 — Imagens: reaproveitar, descartar ou refazer
 
@@ -219,7 +233,8 @@ npm run validate && npm test && npx tsc --noEmit && npm run build
 npm run estado
 ```
 - O validador não pode ter erro; marca nova precisa ser usada (regra 2 de 8.1).
-- Jogue no navegador (`localhost:3000`, pode usar a partida do usuário) **o caminho que passa pelos nós alterados**, conferindo texto, imagem, eco e trava.
+- Jogue pelo motor vários caminhos que passam pelos nós alterados: `npm run jogar -- <semente> <cap>` imprime o que o jogador leria (cartões, escolha sorteada, fim do epílogo). Troque a semente até cobrir os finais do capítulo anterior que chegam ao nó. Leia procurando contradição com escolhas anteriores e texto que não cabe na data da cena.
+- No navegador (`localhost:3000`, pode usar a partida do usuário), confira imagem, cartões e "Fatos e fontes" de pelo menos uma cena nova. Para cair direto num capítulo, `npm run jogar -- <semente> <cap> estado.json` salva o estado no início dele; grave-o em `localStorage` na chave `trama:partida:<versao>` e abra `/partida`. Depois apague a chave.
 - Faça o **teste da troca de sinais** nos trechos novos (8.1, regra 4).
 
 **Revisões no fim** (sempre que a rodada mexeu em escolhas, cenas ou trilhos; pela skill `painel`, com os prompts publicados, sem escrever prompt na hora):
@@ -234,3 +249,12 @@ npm run estado
 - `pesquisa/RODADAS.md`: nova entrada com data, fatos (com as fontes), boatos descartados, o que mudou no jogo e o que ficou pendente.
 - Resumo ao usuário: o que travou, o que mudou no texto, imagens reaproveitadas, refeitas e descartadas, o que foi ajustado no futuro, e o que ficou para aprovação.
 - Não ofereça o commit: o usuário pede quando quiser juntar as mudanças. No modo autônomo, o commit faz parte da rodada (ver "Modo autônomo"); push nunca.
+
+## Etapa 10 — Melhorar esta skill
+
+A skill precisa ficar melhor a cada rodada, sem esperar alguém pedir. No fim de toda rodada, pergunte: **alguma revisão, teste ou o usuário pegou um erro que uma regra desta skill teria evitado?** Se sim:
+- escreva a regra no lugar certo (aqui, em `references/briefings.md`, no guia de escrita `roteiro/prompts/escrita.md` ou no guia de imagens `estilo/GUIA.md`), curta e com o exemplo que a originou;
+- se a regra pode virar código (um aviso do validador, uma linha do `npm run estado`), proponha ou faça, com teste;
+- registre em `pesquisa/RODADAS.md` o que mudou na skill e por quê.
+
+Limites: nunca tire nem afrouxe uma salvaguarda ("O que nunca fazer sozinho", a regra das fontes, as regras de equilíbrio). No modo autônomo, toda mudança na skill entra em "Precisa de você" no relatório, para o usuário ler.

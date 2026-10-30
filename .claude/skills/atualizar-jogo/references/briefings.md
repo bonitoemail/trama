@@ -77,3 +77,21 @@ Relógios a checar (vencidos ou dos próximos 30 dias):
 3. Datas a confirmar para relógios futuros (eleição argentina de 2027, municipais de 2028, fim do mandato do presidente do BC, prazo de desincompatibilização de 2030, 1º turno de 2030).
 Escreva C:\Users\USER\trama\pesquisa\<NN>-relogios-economia.md.
 ```
+
+## 4. Capítulo seguinte
+
+Só quando `npm run estado` disser "ESCREVER O PRÓXIMO CAPÍTULO". Um agente, antes de escrever qualquer cena. Troque `<CAP>` (número e título provisório), `<PERIODO>`, `<PERGUNTA>` (a linha de `roteiro/proximos.md`) e `<ANTERIORES>` (as pesquisas que ele deve ler para não repetir; da última vez: 09, 10 e 01).
+
+```
+SEU TEMA: os fatos e as datas do período do capítulo <CAP> (<PERIODO>), para escrever as cenas.
+A pergunta central, pelo esboço, é: <PERGUNTA>. Ela é ponto de partida: se a pesquisa mostrar que a pergunta
+de verdade é outra, diga.
+Leia antes, para não repetir: <ANTERIORES> e a parte do período em roteiro/painel/00-agregado.md.
+1. Datas fixas e públicas do período (posse, votações, prazos legais, recessos, julgamentos marcados), com fonte oficial.
+2. O que já foi noticiado sobre as decisões do período: quem é cotado, quem negocia, o que cada lado quer.
+   Cotado não é escolhido; pedido não é decisão. Diga QUANDO cada decisão deve sair (para a cena acontecer na data certa).
+3. Regras (Constituição, regimentos, decisões do STF) que mudam o que é possível no período.
+4. Para cada pergunta: os desfechos plausíveis, inclusive o meio-termo e o adiamento, e o custo de cada um para cada lado.
+Escreva C:\Users\USER\trama\pesquisa\<NN>-cap<CAP>-<tema>.md, no estilo das pesquisas 09, 10 e 11 (por pergunta: fatos
+com links, depois "O que isso abre para o jogo" e "O que conferir"). Não edite nenhum outro arquivo.
+```

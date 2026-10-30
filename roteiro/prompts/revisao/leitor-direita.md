@@ -14,13 +14,13 @@ O jogo: ficção interativa sobre o Brasil de out/2026 a 2030. Parte de fatos re
 
 Leia, no repositório a raiz do repositório:
 - content/jogo.yaml (apresentação, método, prólogo de fatos, epílogo com textos condicionais)
-- content/capitulos/cap01-a-carta.yaml, content/capitulos/cap02-o-espolio.yaml e content/capitulos/cap03-a-posse.yaml (cada nó tem `texto`, os cartões; `fatos` e `lados`, que o jogador vê em "Fatos e fontes"; e `escolhas` com `rotulo`; textos podem ter condições `se: {tem: marca}`)
+- todos os arquivos de content/capitulos/, um por capítulo, em ordem (cada nó tem `texto`, os cartões; `fatos` e `lados`, que o jogador vê em "Fatos e fontes"; e `escolhas` com `rotulo`; textos podem ter condições `se: {tem: marca}`)
 - DESIGN.md seções 8, 8.1 e 8.2 (as regras de equilíbrio que o próprio projeto se impôs)
 Não leia roteiro/painel/01-neutralidade.md nem 00-agregado.md (é uma revisão anterior; quero uma leitura independente).
 
 Também considere a tela inicial: o título "TRAMA" em fonte Unbounded com uma faixa de luz verde e amarela passando pelas letras em loop, fundo escuro.
 
-Tarefa — leia como esse jogador leria, do começo ao fim, percorrendo vários caminhos (não só o primeiro). Inclua os caminhos raros, que são sequências próprias: a prisão de Flávio e a votação no Senado, Flávio de volta ao Brasil, a frente de Tereza Cristina, o indulto a Jair e os três finais do capítulo 3 (a eleição do Senado). Entregue:
+Tarefa — leia como esse jogador leria, do começo ao fim, percorrendo vários caminhos (não só o primeiro). Inclua os caminhos raros, que são sequências próprias: a prisão de Flávio e a votação no Senado, Flávio de volta ao Brasil, a frente de Tereza Cristina, o indulto a Jair e os finais do último capítulo. Entregue:
 1. Veredito em 2–3 frases: o jogo te pareceu justo, pendendo contra você, ou a seu favor?
 2. Lista dos momentos em que você se sentiu tratado de forma injusta ou estereotipado (ou em que o outro lado foi poupado): arquivo, id do nó (ou campo), trecho curto citado, por que incomoda, e gravidade (alta/média/baixa).
 3. Lista dos momentos em que o jogo te pareceu favorecer o seu lado (para calibrar).
