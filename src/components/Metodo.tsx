@@ -19,6 +19,8 @@ interface Props {
   /** Título da outra tela de explicação, para o link do fim. */
   outra?: string;
   onOutra: () => void;
+  /** Link discreto para o registro de acertos (só na tela do método). */
+  acertos?: { titulo: string; onClick: () => void };
   onVoltar: () => void;
   principal: { rotulo: string; curto: string; onClick: () => void };
   capitulo: string;
@@ -29,7 +31,41 @@ interface Props {
  * a partida sempre à mão), linguagens diferentes: o propósito em serifa corrida, o método em sans
  * numerada. Esc volta, como o gesto de voltar do celular.
  */
-export default function Metodo({ tipo, explicacao: e, passos, partidas, contar, titulo, outra, onOutra, onVoltar, principal, capitulo }: Props) {
+export default function Metodo({ tipo, explicacao: e, passos, partidas, contar, titulo, outra, onOutra, acertos, onVoltar, principal, capitulo }: Props) {
+  return (
+    <Moldura
+      classe={tipo}
+      titulo={titulo}
+      onVoltar={onVoltar}
+      principal={principal}
+      capitulo={capitulo}
+      depois={
+        outra && (
+          <button type="button" className="outra" onClick={onOutra}>
+            {outra}
+          </button>
+        )
+      }
+    >
+      {tipo === 'objetivo' ? <Proposito e={e} passos={passos} partidas={partidas} contar={contar} /> : <Ficha e={e} acertos={acertos} />}
+    </Moldura>
+  );
+}
+
+interface MolduraProps {
+  /** Classe da linguagem do texto ("objetivo", "metodo", "acertos"). */
+  classe: string;
+  titulo: string;
+  onVoltar: () => void;
+  principal: Props['principal'];
+  capitulo: string;
+  /** Depois do botão da partida (o link para a outra tela de explicação). */
+  depois?: React.ReactNode;
+  children: React.ReactNode;
+}
+
+/** Topo com Voltar e a partida sempre à mão, o texto e, no fim, o botão da partida. Esc volta. */
+export function Moldura({ classe, titulo, onVoltar, principal, capitulo, depois, children }: MolduraProps) {
   useEffect(() => {
     const tecla = (ev: KeyboardEvent) => {
       if (ev.key === 'Escape' && !document.querySelector('.ajuda.aberta')) onVoltar();
@@ -52,8 +88,8 @@ export default function Metodo({ tipo, explicacao: e, passos, partidas, contar, 
         </button>
       </header>
 
-      <main className={`texto ${tipo}`}>
-        {tipo === 'objetivo' ? <Proposito e={e} passos={passos} partidas={partidas} contar={contar} /> : <Ficha e={e} />}
+      <main className={`texto ${classe}`}>
+        {children}
 
         <div className="fim">
           <button type="button" className="botao-claro" onClick={principal.onClick}>
@@ -61,11 +97,7 @@ export default function Metodo({ tipo, explicacao: e, passos, partidas, contar, 
           </button>
           <p className="legenda">{capitulo}</p>
         </div>
-        {outra && (
-          <button type="button" className="outra" onClick={onOutra}>
-            {outra}
-          </button>
-        )}
+        {depois}
       </main>
     </div>
   );
@@ -125,7 +157,7 @@ function Proposito({ e, passos, partidas, contar }: { e: Explicacao; passos?: Pa
   );
 }
 
-function Ficha({ e }: { e: Explicacao }) {
+function Ficha({ e, acertos }: { e: Explicacao; acertos?: Props['acertos'] }) {
   return (
     <>
       <h1>{e.titulo}</h1>
@@ -179,6 +211,12 @@ function Ficha({ e }: { e: Explicacao }) {
             ))}
           </ul>
         </>
+      )}
+
+      {acertos && (
+        <button type="button" className="discreto" onClick={acertos.onClick}>
+          {acertos.titulo}
+        </button>
       )}
     </>
   );

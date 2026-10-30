@@ -122,6 +122,21 @@ Os dois leitores (direita e esquerda) rodaram de novo com os trilhos, pela skill
 ### Publicação — 29/10/2026, noite
 Commit `726f577` (trilhos, cobertura, skill). O primeiro deploy travou na geração das páginas: `contarCaminhos` percorria caminho por caminho e não terminava com os trilhos. Corrigido em `01ef817` (conta cada estado uma vez, como `contarPartidas`); o deploy travado foi cancelado. Lição: rodar `npm run build` antes de todo push (já está na Etapa 8 da skill), mesmo com o servidor de desenvolvimento aberto.
 
+### Rodada manual — 29/10/2026, noite (Argentina)
+Primeira rodada feita à mão depois que o usuário desligou a tarefa diária das 18h ("vamos fazendo nós mesmos até afinar"). Busca direta, sem agentes (notícia isolada).
+- **Capa com destaque fixo:** o prólogo ganhou `fixado: true` (`agoraDaCapa` em `src/engine/calendario.ts`; o validador aceita no máximo um). A carta de 28/10 fica no Agora; fatos de menos peso entram só na lista. Pedido do usuário: a notícia argentina não vale mais que a carta.
+- **Fato novo (prólogo, sem destaque):** em 29/10, a pedido da promotora Paloma Ochoa, a juíza María Eugenia Capuchetti mandou preservar as imagens da ponte Tancredo Neves, da imigração e do aeroporto de Puerto Iguazú e pediu informações à imigração e à chancelaria; recusou parte das medidas. Fontes: BAE Negocios, 0221, DataClave (os três abertos e conferidos).
+- **cap01:** `a_rota` ganha esse fato em "Fatos e fontes"; `o_voo_fretado` passa a cruzar "as imagens que mandou guardar" com os papéis de Pagano (o cruzamento segue simulação). Nenhuma escolha travada: pedir informações não é a investigação "chegar ao governo".
+- **Ficou de fora:** a declaração do chefe de Gabinete Diego Santilli ("documentação válida") só apareceu em título de link relacionado, sem texto aberto; a reportagem de Clarín e Perfil de que Caputo coordenou a saída em pessoa continua versão de imprensa (o jogo já diz que "um assessor de Milei é citado pela imprensa argentina, e também nega").
+- **Revisões:** não rodaram (nenhuma escolha, cena nova ou trilho mudou; só um fato e uma frase). Imagens reaproveitadas.
+
+### Capítulo 1 mais curto — 29/10/2026, noite
+Pelos dados das primeiras 72 partidas (14 saíram antes da primeira escolha; 8 pararam nas três últimas decisões), com aprovação do usuário. Nenhuma escolha saiu.
+- **Abertura:** de 8 para 5 cartões até a primeira escolha (`abertura` 4→2, `pedido` 4→3). Parole e PF ficam em "Fatos e fontes"; Marinho passa a ser apresentado em `pl`.
+- **Reta final:** `eleicao_eua`, `noite_democrata`, `noite_republicana`, `o_exilio` e `pl` com um ou dois cartões a menos; desfechos de 4 para 3 cartões (`a_convocacao` junta o ato e a condição da prisão num cartão só). O caminho jogado na rodada dos prints caiu de 37 para 28 telas.
+- **Registro de acertos:** nova tela `/acertos` (link discreto no fim de "Como fazemos"), dados em `content/acertos.yaml`. Primeiro acerto: o commit `86692d7` (28/10, 18h12) escreveu em `o_voo_fretado` que "uma promotoria federal" pediria as câmeras do aeroporto; em 29/10, a pedido da promotora Paloma Ochoa, a juíza Capuchetti mandou preservar as imagens. Registrado com o que não bateu (não foi a promotoria de fronteira; plano de voo, passageiros e contrato ficaram de fora).
+- **Saiu dos cartões:** "Trump, grande defensor da liberdade" (citação da carta), "a cadeira dele fica vazia", "ninguém sabe quem vai trair quem" e "no Centrão, alguém faz as contas" (o Centrão segue em `lados`).
+
 ## Ainda pendente (para a rodada 3)
 - Análises pós-eleição de Marcus André Melo, Lynch (conteúdo do vídeo), Limongi, Couto, Traumann, Moura, Andrea Freitas, Falcão, Pereira, Glezer, Da Ros, Barbosa, Laura Carvalho, Armínio, Marcos Mendes: ainda não publicadas ou não encontráveis em 28/10.
 - Contradições: passaporte usado na entrada (italiano ou diplomático); DI de fechamento de 28/10.

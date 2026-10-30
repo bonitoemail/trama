@@ -49,10 +49,24 @@ function estrutura(jogo: Jogo, erros: string[], avisos: string[]) {
     });
   }
 
+  // O Agora da capa é um fato só: dois fixados deixariam a escolha para a ordem do arquivo.
+  if (jogo.prologo.filter((f) => f.fixado).length > 1) erros.push('prólogo: mais de um fato com "fixado"');
+
   // Fontes: documento oficial ou duas fontes independentes (fontes.ts).
   const conferir = (onde: string, fontes: string[]) =>
     problemasDasFontes(fontes).forEach((p) => erros.push(`${onde}: ${p}`));
   jogo.prologo.forEach((f, i) => conferir(`prólogo ${i + 1} (${f.titulo ?? f.data})`, f.fontes));
+
+  // Acertos: a previsão aponta para um nó que existe e vem antes do fato; o fato segue a regra das fontes.
+  jogo.acertos?.itens.forEach((a) => {
+    const onde = `acerto "${a.titulo}"`;
+    const [cap, no] = a.previsto.onde.split('/');
+    if (!jogo.capitulos.find((c) => c.id === cap)?.nos.some((n) => n.id === no)) {
+      erros.push(`${onde}: o nó "${a.previsto.onde}" não existe`);
+    }
+    if (a.previsto.data.slice(0, 10) > a.cumprido.data) erros.push(`${onde}: a previsão é posterior ao fato`);
+    conferir(onde, a.cumprido.fontes);
+  });
 
   const criadas = new Set<string>();
   const usadas = new Set<string>();

@@ -120,7 +120,7 @@ Monte uma **tabela de impacto**: fato confirmado → o que muda no jogo. Cada fa
 
 | Tipo | Quando | O que fazer |
 |---|---|---|
-| **Prólogo** | o fato acontece **antes** do início do capítulo 1 | nova entrada em `prologo` com data, `titulo` (manchete curta, uma linha) e `fontes` (oficial ou duas) |
+| **Prólogo** | o fato acontece **antes** do início do capítulo 1 | nova entrada em `prologo` com data, `titulo` (manchete curta, uma linha) e `fontes` (oficial ou duas). O Agora da capa é o fato com `fixado: true`, não o mais novo: um fato de menos peso entra só na lista. Passar o `fixado` para o fato novo (só um no prólogo) é decisão do usuário: proponha na Etapa 4, com o porquê |
 | **Trava** | o fato decide uma escolha existente | `real: { data, fontes }` na escolha (só uma por nó); relógio vira `aconteceu` |
 | **Opção nova travada** | a realidade foi por um caminho que nenhuma opção previa | nova escolha já com `real`, e os nós que vêm depois dela |
 | **Texto** | o fato muda o que uma cena afirma | reescrever só o trecho; manter os ids |
@@ -228,6 +228,8 @@ npm run estado
 3. Rode a cobertura de novo depois de aplicar: as correções também criam contradições.
 
 ## Etapa 9 — Registrar e entregar
+
+- **Acertos** (`content/acertos.yaml`, tela `/acertos`): para cada fato confirmado, pergunte se alguma cena já tinha escrito aquilo **antes** (inclusive em caminhos que não são o real). Ache o commit com `git log --format="%h %ad" --date=format:"%Y-%m-%d %H:%M" -S "<trecho>" -- content/capitulos/` e cite o texto como estava nele (`git show <hash>:<arquivo>`). Todo acerto diz o que não bateu (`diferenca`). Exagerar um acerto custa mais que perder um: na dúvida, não entra. Escolha travada não precisa entrar (já aparece no jogo).
 
 - `pesquisa/RODADAS.md`: nova entrada com data, fatos (com as fontes), boatos descartados, o que mudou no jogo e o que ficou pendente.
 - Resumo ao usuário: o que travou, o que mudou no texto, imagens reaproveitadas, refeitas e descartadas, o que foi ajustado no futuro, e o que ficou para aprovação.

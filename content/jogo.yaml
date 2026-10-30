@@ -213,11 +213,25 @@ prologo:
     texto: >
       Depois da repercussão, Flávio publica uma nova versão da carta. "Presidente eleito"
       vira "líder do Brasil". As acusações de fraude e as críticas ao STF continuam no texto.
+    # Fica no Agora da capa até um fato de mais peso; os menores entram só na lista.
+    fixado: true
     fontes:
       - https://www.metropoles.com/mundo/flavio-recua-e-retira-trecho-da-carta-onde-se-declarou-presidente-do-brasil
       - https://www.gazetadopovo.com.br/republica/nos-eua-flavio-bolsonaro-se-declara-presidente-eleito/
       - https://www.band.com.br/politica/carta-divulgada-por-flavio-bolsonaro-teve-tres-versoes-veja-as-mudancas
       - https://www.congressoemfoco.com.br/noticia/129622/flavio-muda-carta-e-troca-presidente-eleito-por-lider-do-brasil
+  # Fato de menos peso que a carta: entra na lista, sem tirar o Agora da capa (decisão do usuário, 29/10).
+  - data: 29 de outubro de 2026
+    titulo: "Juíza argentina manda guardar as imagens da fronteira"
+    texto: >
+      A pedido de uma promotora, a juíza María Eugenia Capuchetti manda preservar as
+      imagens das câmeras da ponte e do aeroporto de Puerto Iguazú, por onde Flávio saiu,
+      e pede informações à imigração e à chancelaria argentinas. É uma medida preliminar:
+      ninguém foi acusado.
+    fontes:
+      - https://www.baenegocios.com/politica/la-justicia-ordeno-preservar-las-camaras-de-seguridad-por-el-paso-de-flavio-bolsonaro-por-la-argentina/
+      - https://www.0221.com.ar/nacional/la-justicia-investiga-la-salida-flavio-bolsonaro-argentina-y-pidio-informes-al-gobierno-javier-milei-n136602
+      - https://www.dataclave.com.ar/poder/flavio-bolsonaro-complica-al-gobierno--investigan-que-paso-durante-su-salida-por-argentina_a6ae38d8516fea97ab620874c
 
 # Régua da capa ("Pela frente"): só datas fixas e públicas do calendário, nunca previsão.
 # As que ficam antes do último fato do prólogo somem sozinhas; a última é o fim da régua.

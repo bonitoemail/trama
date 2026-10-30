@@ -1,0 +1,40 @@
+# Registro de acertos (tela /acertos, link discreto em "Como fazemos").
+# Entra aqui o que o jogo escreveu ANTES e a realidade confirmou DEPOIS, com o commit da previsão
+# (data e hora de Brasília, como no `git log`) e as fontes do fato (mesma regra do prólogo).
+# Todo item diz o que não bateu. Escolha travada não precisa entrar: já aparece no jogo.
+titulo: Registro de acertos
+texto: >
+  O que o jogo escreveu antes e a realidade confirmou depois. Cada previsão aponta para o momento
+  em que entrou no jogo, no histórico público, com data e hora. Assim dá para conferir que ela veio
+  antes do fato.
+nota: >
+  Aqui só aparece o que se confirmou. O que a realidade desmentiu também fica público: a cena é
+  reescrita, e o histórico das rodadas mostra o que mudou e quando. Um acerto numa cena não decide
+  a escolha do jogador. A escolha só fica travada quando a realidade escolhe entre as opções.
+historico: https://github.com/bonitoemail/trama/blob/main/pesquisa/RODADAS.md
+commits: https://github.com/bonitoemail/trama/commit/
+
+itens:
+  - titulo: A promotoria pede as câmeras da fronteira
+    previsto:
+      data: "2026-10-28 18:12"
+      commit: 86692d7
+      onde: cap01/o_voo_fretado
+      caminho: Na cena que aparece quando a investigação argentina chega perto do governo Milei
+      texto: >
+        "O pedido sai de uma promotoria federal de fronteira: câmeras do aeroporto, plano de voo,
+        lista de passageiros e o contrato do fretamento."
+    cumprido:
+      data: "2026-10-29"
+      texto: >
+        A pedido da promotora federal Paloma Ochoa, a juíza María Eugenia Capuchetti mandou
+        preservar as imagens das câmeras da ponte, da imigração e do aeroporto de Puerto Iguazú, e
+        pediu informações à imigração e à chancelaria argentinas.
+      fontes:
+        - https://www.baenegocios.com/politica/la-justicia-ordeno-preservar-las-camaras-de-seguridad-por-el-paso-de-flavio-bolsonaro-por-la-argentina/
+        - https://www.0221.com.ar/nacional/la-justicia-investiga-la-salida-flavio-bolsonaro-argentina-y-pidio-informes-al-gobierno-javier-milei-n136602
+        - https://www.dataclave.com.ar/poder/flavio-bolsonaro-complica-al-gobierno--investigan-que-paso-durante-su-salida-por-argentina_a6ae38d8516fea97ab620874c
+    diferenca: >
+      O pedido veio da promotora que atua com a juíza Capuchetti, não de uma promotoria de
+      fronteira. Plano de voo, lista de passageiros e contrato ficaram de fora: a juíza recusou
+      parte das medidas. A escolha da cena, se a investigação chega ao governo, continua aberta.

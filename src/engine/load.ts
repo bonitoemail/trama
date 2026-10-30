@@ -4,7 +4,7 @@ import YAML from 'yaml';
 import { JogoSchema, type Jogo } from './schema';
 
 /**
- * Lê content/jogo.yaml + content/capitulos/*.yaml e valida o formato.
+ * Lê content/jogo.yaml + content/capitulos/*.yaml (+ content/acertos.yaml, se houver) e valida o formato.
  * Só roda no servidor / scripts (usa fs).
  */
 export function carregarJogo(dir = path.join(process.cwd(), 'content')): Jogo {
@@ -22,7 +22,10 @@ export function carregarJogo(dir = path.join(process.cwd(), 'content')): Jogo {
       }
     });
 
-  const r = JogoSchema.safeParse({ ...base, capitulos });
+  const arqAcertos = path.join(dir, 'acertos.yaml');
+  const acertos = fs.existsSync(arqAcertos) ? YAML.parse(fs.readFileSync(arqAcertos, 'utf8')) : undefined;
+
+  const r = JogoSchema.safeParse({ ...base, capitulos, acertos });
   if (!r.success) {
     const msgs = r.error.issues.map((i) => `  ${i.path.join('.')}: ${i.message}`).join('\n');
     throw new Error(`Conteúdo fora do formato:\n${msgs}`);

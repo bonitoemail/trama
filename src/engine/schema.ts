@@ -109,6 +109,8 @@ export const FatoSchema = z.strictObject({
   titulo: z.string().optional(),
   texto: z.string(),
   fontes: FontesSchema,
+  /** Fica no Agora da capa mesmo com fatos mais novos (que entram só na lista). No máximo um. */
+  fixado: z.boolean().optional(),
 });
 
 /** Tela inicial: o que é o jogo e como funciona, em poucos passos. */
@@ -145,6 +147,43 @@ export const ExplicacaoSchema = z.strictObject({
     .optional(),
 });
 
+/**
+ * Registro de acertos (content/acertos.yaml, tela /acertos): o que o jogo escreveu antes e a
+ * realidade confirmou depois. A previsão aponta para o commit público em que entrou no jogo.
+ */
+export const AcertoSchema = z.strictObject({
+  titulo: z.string(),
+  previsto: z.strictObject({
+    /** Data e hora do commit, no horário de Brasília. */
+    data: z.string().regex(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/, 'data no formato AAAA-MM-DD HH:MM'),
+    commit: z.string().regex(/^[0-9a-f]{7,40}$/, 'hash do commit'),
+    /** Nó em que a previsão estava ("cap01/o_voo_fretado"). */
+    onde: z.string(),
+    /** Em que caminho a cena aparece, quando não é a espinha. */
+    caminho: z.string().optional(),
+    /** O texto como estava naquele commit. */
+    texto: z.string(),
+  }),
+  cumprido: z.strictObject({
+    data: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'data no formato AAAA-MM-DD'),
+    texto: z.string(),
+    fontes: FontesSchema,
+  }),
+  /** O que não bateu. Todo acerto diz onde a previsão e a realidade se separam. */
+  diferenca: z.string(),
+});
+
+export const AcertosSchema = z.strictObject({
+  titulo: z.string(),
+  texto: z.string(),
+  nota: z.string(),
+  /** Onde ver o que o jogo errou (as cenas reescritas). */
+  historico: z.url(),
+  /** Base dos links de commit ("https://github.com/<dono>/<repo>/commit/"). */
+  commits: z.url(),
+  itens: z.array(AcertoSchema),
+});
+
 /** Data fixa e pública do calendário (eleição, posse), sem previsão: as paradas da régua da capa. */
 export const MarcoSchema = z.strictObject({
   data: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'data no formato AAAA-MM-DD'),
@@ -166,6 +205,7 @@ export const JogoSchema = z.strictObject({
   capitulos: z.array(CapituloSchema).min(1),
   /** Texto do fim de jogo; cada parágrafo pode depender das marcas. */
   epilogo: FinalSchema,
+  acertos: AcertosSchema.optional(),
 });
 
 export type Texto = z.infer<typeof TextoSchema>;

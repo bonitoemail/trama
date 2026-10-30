@@ -3,7 +3,7 @@ import Jogo from '@/components/Jogo';
 import { contarCaminhos, contarPartidas } from '@/engine/historia';
 import { carregarJogo } from '@/engine/load';
 import { validar } from '@/engine/validate';
-import { CAMINHOS, telaDoCaminho, type Tela } from '@/lib/telas';
+import { CAMINHOS, telaDoCaminho, tituloDaTela, type Tela } from '@/lib/telas';
 
 export const dynamic = 'force-static';
 export const dynamicParams = false;
@@ -23,7 +23,7 @@ async function telaDe(params: Params): Promise<Tela> {
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const jogo = carregarJogo();
   const tela = await telaDe(params);
-  const titulo = tela === 'objetivo' ? jogo.objetivo?.titulo : tela === 'metodo' ? jogo.metodo?.titulo : undefined;
+  const titulo = tituloDaTela(jogo, tela);
   return titulo ? { title: `${titulo} · ${jogo.titulo}` } : {};
 }
 

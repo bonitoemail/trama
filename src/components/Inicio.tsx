@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Acertos from './Acertos';
 import Dica from './Dica';
 import Fatos, { Fontes } from './Fatos';
 import Metodo from './Metodo';
-import { diaEMes, falta, isoPorExtenso, regua } from '@/engine/calendario';
+import { agoraDaCapa, diaEMes, falta, isoPorExtenso, regua } from '@/engine/calendario';
 import type { Jogo } from '@/engine/schema';
 import { CAMINHOS, type Tela } from '@/lib/telas';
 
@@ -36,8 +37,13 @@ export default function Inicio({ jogo, tela, partidas, capituloAtual, capituloIn
   const numero = emMil(partidas);
   const contar = (t: string) => t.replaceAll('{partidas} ', `${numero}${partidas >= 1_000_000 ? ' de' : ''} `).replaceAll('{partidas}', numero);
   const principal = capituloAtual ? onContinuar : onComecar;
+  const botao = { rotulo: capituloAtual ? 'Continuar partida' : 'Começar', curto: capituloAtual ? 'Continuar' : 'Começar', onClick: principal };
 
-  if (tela !== 'capa') {
+  if (tela === 'acertos' && jogo.acertos) {
+    return <Acertos acertos={jogo.acertos} titulo={jogo.titulo} onVoltar={onVoltar} principal={botao} capitulo={capituloAtual ?? capituloInicial} />;
+  }
+
+  if (tela === 'objetivo' || tela === 'metodo') {
     const explicacao = tela === 'metodo' ? jogo.metodo : jogo.objetivo;
     const outra = tela === 'metodo' ? jogo.objetivo : jogo.metodo;
     if (explicacao) {
@@ -51,16 +57,16 @@ export default function Inicio({ jogo, tela, partidas, capituloAtual, capituloIn
           titulo={jogo.titulo}
           outra={outra?.titulo}
           onOutra={() => onIr(tela === 'metodo' ? 'objetivo' : 'metodo', { trocar: true })}
+          acertos={tela === 'metodo' && jogo.acertos ? { titulo: jogo.acertos.titulo, onClick: () => onIr('acertos') } : undefined}
           onVoltar={onVoltar}
-          principal={{ rotulo: capituloAtual ? 'Continuar partida' : 'Começar', curto: capituloAtual ? 'Continuar' : 'Começar', onClick: principal }}
+          principal={botao}
           capitulo={capituloAtual ?? capituloInicial}
         />
       );
     }
   }
 
-  const agora = jogo.prologo[jogo.prologo.length - 1];
-  const antes = jogo.prologo.slice(0, -1);
+  const { agora, antes } = agoraDaCapa(jogo.prologo);
   const pelaFrente = regua(jogo);
 
   return (

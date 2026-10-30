@@ -9,7 +9,7 @@ import {
   paragrafos,
   vale,
 } from './engine';
-import { dataCurta, falta, isoDoFato, regua } from './calendario';
+import { agoraDaCapa, dataCurta, falta, isoDoFato, regua } from './calendario';
 import { avisosDeFormato } from './formato';
 import { problemasDasFontes, veiculo } from './fontes';
 import { contarCaminhos, contarPartidas, linhaDoTempo } from './historia';
@@ -192,6 +192,21 @@ describe('validador', () => {
     expect(erros.some((e) => e.includes('fantasma'))).toBe(true);
   });
 
+  it('cobra que o acerto aponte para um nó real, venha antes do fato e tenha fontes', () => {
+    const j = jogoMinimo();
+    const item = {
+      titulo: 'T',
+      previsto: { data: '2026-10-30 10:00', commit: 'abc1234', onde: 'c1/sumiu', texto: 'x' },
+      cumprido: { data: '2026-10-29', texto: 'y', fontes: ['https://www.poder360.com.br/a'] },
+      diferenca: 'z',
+    };
+    j.acertos = { titulo: 'A', texto: 't', nota: 'n', historico: 'https://github.com/', commits: 'https://github.com/', itens: [item] };
+    const { erros } = validar(j);
+    expect(erros.some((e) => e.includes('"c1/sumiu" não existe'))).toBe(true);
+    expect(erros.some((e) => e.includes('posterior ao fato'))).toBe(true);
+    expect(erros.some((e) => e.startsWith('acerto "T"') && !e.includes('não existe') && !e.includes('posterior'))).toBe(true);
+  });
+
   it('acha beco sem saída e capítulo sem saída', () => {
     const j = jogoMinimo();
     j.capitulos[0].nos[2].escolhas = [
@@ -237,6 +252,14 @@ describe('régua da capa', () => {
     const adiante = { ...j, prologo: [...j.prologo, { data: '10 de novembro de 2026', texto: 'x', fontes: ['https://www.tse.jus.br/'] }] };
     expect(regua(adiante)!.marcos.some((m) => m.nome === 'Eleição nos EUA')).toBe(false);
   });
+
+  it('o Agora da capa é o fato fixado; sem fixado, o mais recente', () => {
+    const f = (texto: string, fixado?: boolean) => ({ data: 'd', texto, fontes: ['https://www.tse.jus.br/'], fixado });
+    expect(agoraDaCapa([f('a'), f('b')]).agora.texto).toBe('b');
+    const { agora, antes } = agoraDaCapa([f('a'), f('b', true), f('c')]);
+    expect(agora.texto).toBe('b');
+    expect(antes.map((x) => x.texto)).toEqual(['a', 'c']);
+  });
 });
 
 describe('endereços das telas', () => {
@@ -246,6 +269,7 @@ describe('endereços das telas', () => {
     expect(telaDoCaminho('/o-que-e')).toBe('objetivo');
     expect(telaDoCaminho('/para-que-serve')).toBe('objetivo');
     expect(telaDoCaminho('/como-fazemos/')).toBe('metodo');
+    expect(telaDoCaminho('/acertos')).toBe('acertos');
     expect(telaDoCaminho('/partida')).toBe('partida');
     expect(telaDoCaminho('/qualquer')).toBe('capa');
   });

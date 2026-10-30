@@ -681,3 +681,69 @@ body:has(.capa) {
 .metodo .codigo .sinal {
   color: var(--c-texto-2);
 }
+
+/* Link discreto de "Como fazemos" para o registro de acertos. */
+.metodo .discreto {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--c-texto-2) !important;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--c-linha);
+}
+.metodo .discreto:hover {
+  color: var(--c-texto) !important;
+}
+
+/* Registro de acertos: um item por previsão, separados por linha, sem cartões. */
+.acertos .registro {
+  list-style: none;
+  margin: 40px 0 0;
+  padding: 0;
+}
+.acertos .registro > li {
+  padding: 28px 0;
+  border-top: 1px solid var(--c-linha);
+}
+.acertos .registro h2 {
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 0 0 18px;
+}
+.acertos .registro p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+}
+.acertos .registro .marco {
+  margin-top: 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-texto-2);
+}
+.acertos .registro blockquote {
+  margin: 6px 0 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--c-linha);
+  font-family: var(--c-serif);
+  font-size: 17px;
+  line-height: 1.55;
+}
+.acertos .registro .detalhe {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--c-texto-2);
+}
+.acertos .registro .detalhe a {
+  color: var(--c-texto-2);
+  text-underline-offset: 3px;
+}
+.acertos .registro .fontes {
+  margin-top: 6px;
+}

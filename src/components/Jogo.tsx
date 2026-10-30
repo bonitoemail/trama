@@ -22,7 +22,7 @@ import type { Jogo as JogoT } from '@/engine/schema';
 import { useNavegacao } from '@/lib/navegacao';
 import { guardarOrigem, registrarInicio, registrarMudanca } from '@/lib/registro';
 import { apagarPartida, lerPartida, lerVistos, salvarPartida, salvarVistos } from '@/lib/storage';
-import type { Tela } from '@/lib/telas';
+import { tituloDaTela, type Tela } from '@/lib/telas';
 
 export default function Jogo({
   jogo,
@@ -34,7 +34,7 @@ export default function Jogo({
   caminhos: Record<string, number>;
   /** Histórias completas possíveis (contarPartidas), mostradas na tela inicial. */
   partidas: number;
-  /** Tela do endereço em que a pessoa chegou (/, /o-que-e, /como-fazemos, /partida). */
+  /** Tela do endereço em que a pessoa chegou (/, /o-que-e, /como-fazemos, /acertos, /partida). */
   inicial: Tela;
 }) {
   const { tela, ir, voltar, corrigir } = useNavegacao(inicial);
@@ -68,7 +68,7 @@ export default function Jogo({
 
   // O título da aba acompanha a tela (o do servidor só vale para a primeira).
   useEffect(() => {
-    const t = tela === 'objetivo' ? jogo.objetivo?.titulo : tela === 'metodo' ? jogo.metodo?.titulo : undefined;
+    const t = tituloDaTela(jogo, tela);
     document.title = t ? `${t} · ${jogo.titulo}` : jogo.titulo;
   }, [tela, jogo]);
 

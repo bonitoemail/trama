@@ -16,10 +16,9 @@ nos:
     lugar: Miami e Brasília, 29 de outubro
     imagem: imagens/cap01/abertura.webp
     texto:
-      - Flávio Bolsonaro perdeu a eleição para Lula por pouco. Dois dias depois, mesmo proibido pelo Supremo de sair do país, foi para Miami com a família.
-      - Ele entrou nos Estados Unidos com uma autorização de um ano para ficar. Não é asilo político.
-      - Na mesma noite, publicou uma carta dizendo que era o verdadeiro presidente. Horas depois, trocou a palavra por "líder do Brasil".
-      - A carta fala em fraude, sem provas. E aponta Rogério Marinho como seu candidato para comandar o Senado.
+      # Primeira escolha mais cedo (29/10): parole e Marinho saíram dos cartões; estão em `fatos` e em `pl`.
+      - Flávio Bolsonaro perdeu para Lula por pouco. Dois dias depois, proibido pelo Supremo de sair do país, foi para Miami.
+      - De lá, publicou uma carta. Fala em fraude, sem provas, e se diz "líder do Brasil".
     # Parole: pesquisa 07. Prorrogação e votos após as 17h: pesquisa 03 e 06. Três versões da carta: pesquisa 10.
     # Outras fontes da pesquisa (04 e 05), não usadas nos fatos:
     #   https://www.gazetadopovo.com.br/republica/moraes-ordena-cancelamento-de-passaporte-de-flavio-bolsonaro-apos-eleicoes/
@@ -62,8 +61,7 @@ nos:
     lugar: Brasília, Supremo Tribunal Federal
     imagem: imagens/cap01/pedido.webp
     texto:
-      - Deputados do PT pedem a prisão de Flávio. Dizem que ele fugiu para não responder à Justiça.
-      - Os aliados dele dizem que é perseguição política. Para a Polícia Federal, sair do país contra a ordem não faz dele um foragido.
+      - Deputados do PT pedem a prisão de Flávio. Os aliados dele falam em perseguição.
       - Quem decide é Alexandre de Moraes, o ministro do Supremo que cuida do caso.
       - Prender pode transformar Flávio em mártir. Não prender pode passar a ideia de que a lei não vale para ele.
     fatos:
@@ -339,6 +337,11 @@ nos:
         fontes:
           - https://www.ambito.com/politica/fuga-flavio-bolsonaro-la-justicia-argentina-ya-investiga-y-ordena-medidas-n6338971
           - https://www.tiempoar.com.ar/ta_article/la-jueza-capuchetti-investigara-la-denuncia-contra-el-gobierno-por-ayudar-en-la-fuga-de-bolsonaro
+      - texto: Em 29 de outubro, a pedido da promotora Paloma Ochoa, a juíza mandou preservar as imagens da ponte, da imigração e do aeroporto de Puerto Iguazú e pediu informações à imigração e à chancelaria. Recusou parte das medidas pedidas. Por ora, nada prova a participação de funcionários.
+        fontes:
+          - https://www.baenegocios.com/politica/la-justicia-ordeno-preservar-las-camaras-de-seguridad-por-el-paso-de-flavio-bolsonaro-por-la-argentina/
+          - https://www.0221.com.ar/nacional/la-justicia-investiga-la-salida-flavio-bolsonaro-argentina-y-pidio-informes-al-gobierno-javier-milei-n136602
+          - https://www.dataclave.com.ar/poder/flavio-bolsonaro-complica-al-gobierno--investigan-que-paso-durante-su-salida-por-argentina_a6ae38d8516fea97ab620874c
       - texto: A senadora Patricia Bullrich, do partido de Milei, defendeu que a vontade das urnas no Brasil seja respeitada.
         fontes:
           - https://www.perfil.com/politica/tension-en-el-gobierno-tras-el-escape-de-bolsonaro-a-ee.uu.-bullrich-se-desmarco-de-milei-y-siguen-las-dudas-sobre-el-rol-de-santiago-caputo-abCex7S7Kv4m
@@ -361,7 +364,8 @@ nos:
     lugar: Puerto Iguazú, novembro
     imagem: imagens/cap01/o_voo_fretado.webp
     texto:
-      - A juíza do caso cruza os papéis que a deputada Marcela Pagano pediu. Câmeras do aeroporto, planos de voo, lista de passageiros e o contrato do jatinho.
+      # A preservação das imagens é fato (29/10, fontes em a_rota); o cruzamento com os papéis é simulação.
+      - A juíza do caso cruza as imagens que mandou guardar com os papéis que a deputada Marcela Pagano pediu. Planos de voo, lista de passageiros e o contrato do jatinho.
       - Se alguém do governo argentino ajudou, vai aparecer nesses papéis. Se ninguém ajudou, também.
       - A fuga deixa de ser um caso só do Brasil. Os aliados de Flávio dizem que a Argentina só carimbou um passaporte.
     segue: eleicao_eua
@@ -370,12 +374,10 @@ nos:
     lugar: Miami, 3 de novembro
     imagem: imagens/cap01/eleicao_eua.webp
     texto:
-      - Os Estados Unidos votam para escolher o novo Congresso.
-      - Em Miami, Flávio e o irmão Eduardo acompanham pela TV. Na carta, Flávio chamou Trump de grande defensor da liberdade.
+      - Os Estados Unidos escolhem o novo Congresso. Em Miami, Flávio e o irmão Eduardo acompanham pela TV.
       - se: { tem: flavio_preventiva }
         texto: Para um foragido, a eleição decide quem manda no Congresso que pode pressionar Trump, a favor dele ou contra.
         senao: Se os adversários de Trump ganharem, a pressão contra Flávio nos Estados Unidos cresce.
-    # "grande defensor da liberdade de expressão": íntegra da carta.
     fatos:
       - texto: Às vésperas da eleição, as pesquisas dão vantagem aos democratas na disputa pela Câmara. A aprovação de Trump está perto das mais baixas do mandato.
         fontes:
@@ -402,8 +404,7 @@ nos:
     lugar: Washington, 4 de novembro
     imagem: imagens/cap01/noite_democrata.webp
     texto:
-      - Os democratas ganham a Câmara. E já têm uma lista de assuntos. O Brasil está nela.
-      - Uma reportagem disse que funcionários do governo Trump fizeram campanha para a família Bolsonaro voltar ao poder. Os democratas querem que eles deponham em janeiro.
+      - Os democratas ganham a Câmara. Querem ouvir em janeiro os funcionários de Trump que, segundo uma reportagem, fizeram campanha pela volta da família Bolsonaro.
       - se: { tem: eua_senado_rep }
         texto: Mas o Senado fica com os republicanos, e a taxa de 25% sobre a maior parte dos produtos brasileiros continua. Quem decide a taxa é o governo Trump.
         senao: Mas a taxa de 25% sobre a maior parte dos produtos brasileiros continua. Quem decide isso é o governo Trump, não o Congresso.
@@ -428,9 +429,8 @@ nos:
     lugar: Palm Beach, 4 de novembro
     imagem: imagens/cap01/noite_republicana.webp
     texto:
-      - Os republicanos mantêm a Câmara. Trump comemora numa festa à beira-mar.
-      - Em Miami, alívio. A reportagem sobre funcionários de Trump ajudando a família não deve virar investigação tão cedo.
-      - Para o governo Lula, a conta é outra. A taxa de 25% fica, e as punições contra autoridades brasileiras, que Eduardo Bolsonaro pediu em Washington, podem voltar.
+      - Os republicanos mantêm a Câmara. Em Miami, alívio. A reportagem sobre funcionários de Trump ajudando a família não deve virar investigação tão cedo.
+      - Para o governo Lula, a taxa de 25% fica, e as punições contra autoridades brasileiras, que Eduardo Bolsonaro pediu em Washington, podem voltar.
     # Eduardo e as sanções (2025) e o pedido de retomada (2026): InfoMoney e Gazeta do Povo.
     #   https://www.infomoney.com.br/politica/eduardo-bolsonaro-agradece-tarifa-de-trump-e-pede-apoio-de-sancoes-contra-moraes/
     #   https://www.gazetadopovo.com.br/republica/eduardo-diz-ter-pedido-a-trump-volta-de-moraes-a-magnitsky-e-cita-zelle-como-pix-dos-eua/
@@ -446,9 +446,7 @@ nos:
     lugar: Miami, novembro
     imagem: imagens/cap01/o_exilio.webp
     texto:
-      - Flávio prometeu falar sempre aos brasileiros. Primeiro se disse presidente, depois líder do Brasil. Agora precisa decidir o que vai dizer.
-      - Ele mesmo citou Guaidó, que se declarou presidente da Venezuela e foi reconhecido por dezenas de países.
-      - Flávio não foi reconhecido por nenhum governo. Quase todos parabenizaram Lula, inclusive governos de direita. Milei e Trump não.
+      - Na carta, Flávio se comparou a Guaidó, reconhecido por dezenas de países. Ele não foi reconhecido por nenhum. Quase todos parabenizaram Lula, inclusive governos de direita. Milei e Trump não.
       - se: { tem: flavio_preventiva }
         texto: Com a ordem de prisão, voltar agora quer dizer ser preso na chegada.
         senao: E, enquanto ele fica fora, as faltas no Senado se acumulam.
@@ -484,15 +482,14 @@ nos:
     lugar: Brasília, sede do PL
     imagem: imagens/cap01/pl.webp
     texto:
-      - O PL, partido de Flávio, se reúne. A cadeira dele fica vazia.
-      - Valdemar Costa Neto, o presidente do partido, já tinha aceitado a derrota. A carta disse o contrário.
+      - O PL, partido de Flávio, se reúne. O presidente, Valdemar Costa Neto, já tinha aceitado a derrota. A carta disse o contrário.
       - se: { tem: governo_exilio }
         texto: E agora existe um governo no exílio. O partido não foi consultado sobre os nomes.
       - se: { tem: flavio_live }
         texto: E toda noite a live de Miami diz o que o partido deveria fazer. Nem sempre é o que o partido quer.
       - se: { tem: flavio_discreto }
         texto: E Flávio quase não fala. Sem a voz dele, o partido decide sozinho, e a base pergunta por quê.
-      - Em fevereiro, o Senado escolhe seu presidente. União e PP já fecharam com Alcolumbre. Mas Tereza Cristina, do PP, conversa com Marinho sobre um nome só contra ele.
+      - Em fevereiro, o Senado escolhe seu presidente. A carta apontou Rogério Marinho, do PL. União e PP já fecharam com Alcolumbre, mas Tereza Cristina, do PP, conversa com Marinho sobre um nome só.
     # Marinho e Tereza Cristina negociando candidatura única, com o apoio de Tarcísio: RODADAS, 29/10 (InfoMoney, CNN).
     fatos:
       - texto: Os senadores Rogério Marinho, do PL, e Tereza Cristina, do PP, negociam uma candidatura única da oposição contra a reeleição de Alcolumbre. Tarcísio defende a candidatura única.
@@ -544,8 +541,7 @@ nos:
     imagem: imagens/cap01/a_ligacao.webp
     texto:
       - Valdemar liga para Alcolumbre tarde da noite. A ligação não está na agenda de ninguém.
-      - Falam de fevereiro. E de Rodrigo Pacheco, que Alcolumbre quer ver no Supremo ainda este ano.
-      - Lula também quer Pacheco no Supremo. Ministros do Supremo também. A conversa tem mais de dois lados, e todos sabem.
+      - Falam de fevereiro e de Rodrigo Pacheco, que Alcolumbre quer no Supremo ainda este ano. Lula e ministros do Supremo também querem.
       - É assim que começa um acordo. Com conversas que todo mundo confirma e ninguém conta.
     fatos:
       - texto: No dia seguinte à eleição, Alcolumbre e Hugo Motta, presidente da Câmara, visitaram Lula. Depois da visita, ganhou força a ideia de indicar Pacheco ao Supremo.
@@ -572,8 +568,7 @@ nos:
     texto:
       - Marinho e Tereza Cristina almoçam juntos. Sai um nome só, o dela, que conversa com o PL e com o centro.
       - Tarcísio liga para os dois no mesmo dia. Valdemar aceita, desde que Marinho ganhe um lugar na Mesa.
-      - Pela primeira vez, Alcolumbre conta votos com cuidado. No voto secreto, ninguém sabe quem vai trair quem.
-      - Em Miami, a carta perde o candidato que tinha. No Planalto, a dúvida é se vale entrar nessa briga.
+      - Pela primeira vez, Alcolumbre conta votos com cuidado. Em Miami, a carta perde o candidato que tinha. No Planalto, a dúvida é se vale entrar nessa briga.
     lados:
       - Para quem apoia a frente, um nome que fala com o centro é o único que pode vencer Alcolumbre. Para os aliados de Flávio, a direita trocou o candidato da carta pelo de Tarcísio.
       - Para Alcolumbre, perder o PP muda a conta. Para o governo, apoiá-lo agora tem preço maior.
@@ -585,9 +580,8 @@ nos:
     imagem: imagens/cap01/o_racha.webp
     texto:
       - A reunião acaba sem acordo. O PL fica com Marinho, não assina a carta e deixa a decisão para fevereiro.
-      - Enquanto isso, os senadores do PL mais próximos de Alcolumbre avisam que não vão votar contra ele.
+      - Os senadores do PL mais próximos de Alcolumbre avisam que não vão votar contra ele. O maior partido do Senado chega a fevereiro dividido.
       - Em Miami, a família chama os dissidentes de traidores. Os dissidentes respondem que o partido precisa de espaço no Senado para atender os estados.
-      - Para Alcolumbre, é o melhor cenário. O maior partido do Senado chega a fevereiro dividido.
     lados:
       - Para Valdemar, esperar evita escolher entre a carta e os cargos. Para a base, o silêncio é cobrado como medo, e para Alcolumbre, como chance de dividir o partido.
 
@@ -596,12 +590,11 @@ nos:
     lugar: Brasília, Esplanada dos Ministérios
     imagem: imagens/cap01/a_convocacao.webp
     texto:
-      - O PL marca um ato em Brasília para 15 de novembro. Marinho vai discursar como candidato a presidente do Senado.
       - se: { tem: flavio_preventiva }
-        texto: O tema é a perseguição. A ordem de prisão vai estar nas faixas.
-        senao: No telão, Flávio vai falar de Miami.
+        texto: O PL marca um ato em Brasília para 15 de novembro, com Marinho no palanque. O tema é a perseguição. A ordem de prisão vai estar nas faixas.
+        senao: O PL marca um ato em Brasília para 15 de novembro, com Marinho no palanque. No telão, Flávio vai falar de Miami.
       - Tarcísio, governador de São Paulo, avisa que não vai. Para ele, a eleição acabou, e a briga é no Senado.
-      - No governo, alívio discreto. Com a oposição na rua, o Planalto ganha um adversário para apontar. No Centrão, alguém faz as contas.
+      - No governo, alívio discreto. Com a oposição na rua, o Planalto ganha um adversário para apontar.
     lados:
       - Para o Centrão, com a oposição dividida entre a carta e o Senado, o apoio ao governo fica mais caro, e mais fácil de vender. Para o PL, a rua mostra que a base continua de pé, mesmo sem Flávio no país.
 

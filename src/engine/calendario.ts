@@ -12,6 +12,16 @@ export function isoDoFato(data: string): string | null {
   return `${m[3]}-${String(mes + 1).padStart(2, '0')}-${m[1].padStart(2, '0')}`;
 }
 
+/**
+ * O fato do Agora na capa e os demais, na ordem do prólogo. O Agora é o fato `fixado`, se houver;
+ * senão, o mais recente. Assim um fato novo de menos peso entra na lista sem tirar o principal da capa.
+ */
+export function agoraDaCapa(prologo: Jogo['prologo']) {
+  const i = prologo.findLastIndex((f) => f.fixado);
+  const indice = i >= 0 ? i : prologo.length - 1;
+  return { agora: prologo[indice], antes: prologo.filter((_, j) => j !== indice) };
+}
+
 /** "28 de outubro de 2026, mais tarde" vira "28 out · mais tarde". */
 export function dataCurta(data: string): string {
   const iso = isoDoFato(data);
