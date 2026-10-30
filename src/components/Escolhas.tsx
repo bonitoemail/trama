@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { Moldura } from './Metodo';
 import { isoPorExtenso } from '@/engine/calendario';
 import type { Jogo } from '@/engine/schema';
-import type { Decisao, Opcao, Painel } from '@/lib/escolhas';
+import type { Decisao, Opcao } from '@/lib/escolhas';
+import { usePainel } from '@/lib/painel';
 
 interface Props {
   textos: NonNullable<Jogo['escolhas']>;
@@ -16,28 +16,14 @@ interface Props {
   capitulo: string;
 }
 
-type Carga = { fase: 'carregando' } | { fase: 'vazio' } | { fase: 'pronto'; painel: Painel };
-
 /**
  * O que os jogadores escolheram, somado (sem link na capa). Mesma moldura e linguagem de
  * "Como fazemos": sans, quieta, sem cartões. As barras são cinza; a mais escolhida só fica mais clara,
  * sem cor de lado. Os números vêm de /api/escolhas, refeitos a cada hora.
  */
 export default function Escolhas({ textos: t, titulo, acertos, onVoltar, principal, capitulo }: Props) {
-  const [carga, setCarga] = useState<Carga>({ fase: 'carregando' });
-
-  useEffect(() => {
-    let vivo = true;
-    fetch('/api/escolhas')
-      .then((r) => (r.status === 200 ? r.json() : null))
-      .catch(() => null)
-      .then((painel: Painel | null) => vivo && setCarga(painel ? { fase: 'pronto', painel } : { fase: 'vazio' }));
-    return () => {
-      vivo = false;
-    };
-  }, []);
-
-  const p = carga.fase === 'pronto' ? carga.painel : null;
+  const carga = usePainel();
+  const p = carga && carga !== 'vazio' ? carga : null;
 
   return (
     <Moldura classe="metodo pagina-escolhas" titulo={titulo} onVoltar={onVoltar} principal={principal} capitulo={capitulo}>
@@ -45,8 +31,8 @@ export default function Escolhas({ textos: t, titulo, acertos, onVoltar, princip
       <p className="lead">{t.texto}</p>
       <p className="aviso">{t.aviso}</p>
       {p && <p className="conta">{`${p.partidas.toLocaleString('pt-BR')} histórias começadas, atualizado em ${quando(p.atualizado)}`}</p>}
-      {carga.fase === 'carregando' && <p className="conta">Somando as escolhas…</p>}
-      {carga.fase === 'vazio' && <p className="conta">Os números não estão disponíveis agora. Tente de novo mais tarde.</p>}
+      {carga === null && <p className="conta">Somando as escolhas…</p>}
+      {carga === 'vazio' && <p className="conta">Os números não estão disponíveis agora. Tente de novo mais tarde.</p>}
 
       {p && (
         <>

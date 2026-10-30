@@ -69,4 +69,14 @@ describe('tela /escolhas', () => {
     expect(montarPainel(jogo, [], { ...base, cruzadas }).cruzados[0].linhas.map((l) => l.pct)).toEqual([66, 70]);
     expect(montarPainel(jogo, [], { ...base, cruzadas: [cruzadas[0].slice(0, 3)] }).cruzados).toEqual([]);
   });
+
+  it('dá a porcentagem de cada escolha para o fim de capítulo, com a data do relógio', () => {
+    const linhas = [esc('pedido', 'preventiva', 36), esc('pedido', 'espera', 24), esc('eleicao_eua', 'democratas', 68), esc('eleicao_eua', 'dividido', 32), esc('o_exilio', 'asilo', 10)];
+    const relogios = [{ data: '2026-11-03', afeta: ['cap01/eleicao_eua'], status: 'pendente' }];
+    const { porDecisao } = montarPainel(jogo, linhas, { ...base, relogios });
+    expect(porDecisao['cap01/pedido'].pct['Moraes manda prender Flávio']).toBe(60);
+    expect(porDecisao['cap01/eleicao_eua']).toMatchObject({ total: 100, decide: '2026-11-03' });
+    // Abaixo do mínimo, nada: o fim de capítulo não mostra número.
+    expect(porDecisao['cap01/o_exilio']).toBeUndefined();
+  });
 });

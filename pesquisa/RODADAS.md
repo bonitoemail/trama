@@ -205,3 +205,9 @@ A tela `/acertos` virou "O jogo e a realidade" (sketch em `estilo/sketches-acert
 - **Relação Brasil–China em 2026**: quase nada encontrado.
 - **Números a conferir**: bancada do PL no Senado (28 ou 29), datas e alíquotas das tarifas americanas (25% + 12,5%?), fechamento do mercado em 28/10, partido de Tebet e Caiado.
 - **Datas que passam logo e podem travar nós do cap. 1**: midterms (3/11), Copom (4/11), decisão sobre o pedido de prisão preventiva de Flávio, indicação ao STF (novembro).
+
+## As escolhas na capa e no fim do capítulo — 30/10/2026, tarde
+- Sketches em `estilo/sketches-escolhas/` (a capa e o fim de capítulo); o usuário escolheu os dois.
+- Capa: "O que os jogadores escolheram" entra como linha simples entre "Como fazemos" e os fatos, com o número de histórias à direita. Sem porcentagem na capa: solta, viraria manchete de pesquisa.
+- Fim de capítulo: em cada decisão da linha do tempo, quantos escolheram o mesmo ("33% dos jogadores escolheram o mesmo que você", depois "61% escolheram o mesmo"); "apostaram nisso" e a data quando um relógio vai decidir; "antes da notícia" quando a realidade já decidiu; a mais rara do capítulo (até 6%) ganha uma frase. Abaixo de 50 escolhas, sem número. Link para `/escolhas` no fim. Nunca durante a decisão.
+- `/api/escolhas` ganhou `porDecisao`; a busca é uma só por visita (`src/lib/painel.ts`).

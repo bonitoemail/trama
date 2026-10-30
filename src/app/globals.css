@@ -861,3 +861,40 @@ body:has(.cena-final) {
   opacity: 1;
   transform: none;
 }
+
+/* Quantos escolheram o mesmo (LinhaDoTempo.tsx): só no fim do capítulo. */
+.linha .juntos {
+  margin-top: 8px !important;
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--texto-2);
+}
+.linha .juntos b {
+  font-weight: 500;
+  color: var(--texto);
+  font-variant-numeric: tabular-nums;
+}
+.linha .juntos .rara {
+  color: var(--destaque);
+}
+.linha .juntos .espera {
+  color: var(--texto-3);
+}
+.ver-escolhas {
+  display: inline-block;
+  margin: 8px 0 0;
+  padding: 10px 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--texto-2);
+  text-decoration: underline;
+  text-decoration-color: var(--linha);
+  text-underline-offset: 4px;
+}
+.ver-escolhas:hover {
+  color: var(--texto);
+}

@@ -10,7 +10,7 @@ import type { Jogo, No } from '@/engine/schema';
 /** Uma decisão só aparece com pelo menos tantas escolhas (DESIGN 9.2). */
 export const MINIMO = 50;
 /** Até quanto uma escolha é "rara". */
-const RARA_ATE = 6;
+export const RARA_ATE = 6;
 
 export interface Contagem {
   tipo: 'escolha' | 'fim_capitulo' | 'partidas';
@@ -86,9 +86,22 @@ export interface Cruzado {
   linhas: { quem: string; total: number; pct: number }[];
 }
 
+/** Fim de capítulo: quantos escolheram cada opção de uma decisão (só com o mínimo de escolhas). */
+export interface PorDecisao {
+  total: number;
+  /** Porcentagem por rótulo de escolha. */
+  pct: Record<string, number>;
+  /** A realidade decidiu nesta data; contam só as escolhas de antes. */
+  real?: string;
+  /** Um relógio pendente vai decidir nesta data. */
+  decide?: string;
+}
+
 export interface Painel {
   atualizado: string;
   partidas: number;
+  /** Chave "cap/no". */
+  porDecisao: Record<string, PorDecisao>;
   antes: Decisao[];
   placar: Decisao[];
   divididas: Decisao[];
@@ -229,7 +242,18 @@ export function montarPainel(
 
   const cruzados = CRUZAMENTOS.flatMap((c, i) => cruzar(jogo, c, opcoes.cruzadas?.[i] ?? []));
 
-  return { atualizado: opcoes.agora, partidas, antes, placar, divididas: divididas.map(semCondicional), maioria: maioria.map(semCondicional), raras, finais, cruzados };
+  const porDecisao = Object.fromEntries(
+    contam.map((d) => [
+      chave(d),
+      {
+        total: d.total,
+        pct: Object.fromEntries(d.opcoes.map((o) => [o.rotulo, o.pct])),
+        ...(d.data ? { real: d.data } : quando.has(chave(d)) ? { decide: quando.get(chave(d)) } : {}),
+      },
+    ]),
+  );
+
+  return { atualizado: opcoes.agora, partidas, porDecisao, antes, placar, divididas: divididas.map(semCondicional), maioria: maioria.map(semCondicional), raras, finais, cruzados };
 }
 
 function juntar(itens: Opcao[]): Opcao {

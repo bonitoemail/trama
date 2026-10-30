@@ -9,6 +9,7 @@ import Metodo from './Metodo';
 import { agoraDaCapa, diaEMes, falta, isoPorExtenso, regua } from '@/engine/calendario';
 import type { AConfirmar } from '@/engine/relogios';
 import type { Jogo } from '@/engine/schema';
+import { usePainel } from '@/lib/painel';
 import { CAMINHOS, type Tela } from '@/lib/telas';
 
 interface Props {
@@ -36,6 +37,8 @@ interface Props {
  */
 export default function Inicio({ jogo, tela, partidas, aConfirmar, capituloAtual, capituloInicial, partidaSalva, onIr, onVoltar, onContinuar, onComecar }: Props) {
   const [confirmar, setConfirmar] = useState(false);
+  // Na capa, só o número de histórias ao lado do link (porcentagem solta aqui viraria manchete de pesquisa).
+  const painel = usePainel(tela === 'capa' && Boolean(jogo.escolhas));
   // "mais de 234 milhões de histórias": com milhões, o número pede "de" antes da palavra que vem depois.
   const numero = emMil(partidas);
   const contar = (t: string) => t.replaceAll('{partidas} ', `${numero}${partidas >= 1_000_000 ? ' de' : ''} `).replaceAll('{partidas}', numero);
@@ -162,6 +165,17 @@ export default function Inicio({ jogo, tela, partidas, aConfirmar, capituloAtual
               </Linha>
             </li>
           )}
+          {jogo.escolhas && (
+            <li>
+              <Linha
+                tela="escolhas"
+                onIr={onIr}
+                extra={painel && painel !== 'vazio' && painel.partidas > 0 ? `${painel.partidas.toLocaleString('pt-BR')} histórias` : undefined}
+              >
+                {jogo.escolhas.titulo}
+              </Linha>
+            </li>
+          )}
           {antes.length > 0 && (
             <li>
               <FatosAbertosNoPc total={antes.length}>
@@ -221,7 +235,7 @@ function FatosAbertosNoPc({ total, children }: { total: number; children: React.
 }
 
 /** Link para uma tela interna: endereço de verdade (abre em nova aba, dá para enviar), sem recarregar. */
-function Linha({ tela, onIr, children }: { tela: Tela; onIr: Props['onIr']; children: React.ReactNode }) {
+function Linha({ tela, onIr, extra, children }: { tela: Tela; onIr: Props['onIr']; extra?: string; children: React.ReactNode }) {
   return (
     <a
       className="linha-mais"
@@ -233,8 +247,11 @@ function Linha({ tela, onIr, children }: { tela: Tela; onIr: Props['onIr']; chil
       }}
     >
       {children}
-      <span className="sinal" aria-hidden>
-        ›
+      <span>
+        {extra && <span className="extra">{extra} </span>}
+        <span className="sinal" aria-hidden>
+          ›
+        </span>
       </span>
     </a>
   );

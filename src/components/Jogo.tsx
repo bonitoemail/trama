@@ -173,6 +173,7 @@ export default function Jogo({
         <LinhaDoTempo
           momentos={linhaDoTempo(jogo, estado.historico).filter((m) => m.capitulo === cap.id)}
           caminhosPossiveis={caminhos[cap.id] ?? 0}
+          escolhas={jogo.escolhas ? { titulo: jogo.escolhas.titulo, onClick: () => ir('escolhas') } : undefined}
         />
         {/* Fixo no rodapé: no celular, a linha do tempo empurrava o botão para 2 telas abaixo, e 36% paravam aqui. */}
         <div className="seguir">

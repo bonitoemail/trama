@@ -291,6 +291,7 @@ body:has(.capa) {
   display: none;
 }
 .linha-mais > span {
+  white-space: nowrap;
   font-family: var(--c-sans);
   font-size: 14px;
   color: var(--c-texto-2);

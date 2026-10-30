@@ -1,0 +1,160 @@
+<!doctype html>
+<!--
+  Escolhas · sketch B · fim de capítulo
+  A linha do tempo de hoje (LinhaDoTempo.tsx, mesmas cores e medidas do jogo), com quantos
+  jogadores escolheram o mesmo em cada decisão. Só no fim do capítulo, nunca durante a decisão
+  (influenciaria a escolha e estragaria o dado). Números reais de /api/escolhas, 30/10, 14h.
+  Regras: abaixo de 50 escolhas, não mostra número; decisão que a realidade ainda vai decidir diz
+  quando; a escolha mais rara do capítulo ganha uma frase; no fim, o link para /escolhas.
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trama · Escolhas no fim do capítulo</title>
+<style>
+:root {
+  --fundo: #0f0f11; --superficie: #18181b; --linha: #2c2c31;
+  --texto: #e9e5dc; --texto-2: #a19d94; --texto-3: #6b6862; --destaque: #f4efe4; --real: #f29a2e;
+  --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--fundo); color: var(--texto); font-family: var(--serif); -webkit-font-smoothing: antialiased; }
+.tela { max-width: 640px; margin: 0 auto; padding: 48px 20px 0; }
+.rotulo { font-family: var(--sans); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-3); margin: 0; }
+h2 { font-size: 36px; font-weight: 400; margin: 4px 0 24px; line-height: 1.15; }
+
+.linha ol { list-style: none; margin: 0; padding: 0; position: relative; }
+.linha ol::before { content: ''; position: absolute; left: 5px; top: 14px; bottom: 14px; width: 1px; background: var(--linha); }
+.linha li { position: relative; display: grid; grid-template-columns: 96px 1fr; gap: 14px; align-items: start; padding: 14px 0 14px 26px; }
+.linha .marco { position: absolute; left: 0; top: 22px; width: 11px; height: 11px; border-radius: 50%; background: var(--fundo); border: 1px solid var(--texto-3); }
+.linha li.decisao .marco { background: var(--real); border-color: var(--real); }
+.linha .mini { display: block; width: 96px; aspect-ratio: 16/9; object-fit: cover; border-radius: 4px; }
+.linha li.acontecimento .mini { opacity: .75; }
+.linha p { margin: 0; }
+.linha .quando { font-family: var(--sans); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-3); margin-bottom: 4px; }
+.linha .feita { font-size: 17px; line-height: 1.4; }
+.linha .resumo { font-size: 15px; line-height: 1.45; font-style: italic; color: var(--texto-2); }
+.linha .outras { margin-top: 6px; font-family: var(--sans); font-size: 12px; color: var(--texto-3); }
+.linha .outras::before { content: '⟡ '; }
+
+/* O novo: quantos escolheram igual. */
+.juntos { margin-top: 8px; font-family: var(--sans); font-size: 13px; line-height: 1.45; color: var(--texto-2); }
+.juntos b { font-weight: 500; color: var(--texto); font-variant-numeric: tabular-nums; }
+.juntos .rara { color: var(--destaque); }
+.juntos .espera { color: var(--texto-3); }
+.barra { display: none; height: 3px; margin-top: 8px; border-radius: 2px; background: var(--linha); overflow: hidden; max-width: 220px; }
+.barra i { display: block; height: 100%; background: var(--texto-2); }
+body[data-v="barra"] .barra { display: block; }
+
+.dimensao { margin: 24px 0 8px; padding: 18px 20px; border: 1px solid var(--linha); border-radius: 4px; font-size: 18px; line-height: 1.45; color: var(--texto-2); }
+.dimensao strong { color: var(--real); font-weight: 400; font-size: 22px; }
+.ver { display: inline-block; margin: 8px 0 0; padding: 10px 0; font-family: var(--sans); font-size: 14px; color: var(--texto-2); text-decoration: underline; text-decoration-color: var(--linha); text-underline-offset: 4px; }
+.ver:hover { color: var(--texto); }
+
+.seguir { position: sticky; bottom: 0; margin-top: 24px; padding: 32px 0 16px; background: linear-gradient(to bottom, transparent, var(--fundo) 32px); }
+.botao { display: block; width: 100%; min-height: 56px; border: 1px solid var(--destaque); border-radius: 4px; background: var(--destaque); color: var(--fundo); font-family: var(--sans); font-size: 15px; font-weight: 600; letter-spacing: .02em; cursor: pointer; }
+
+[data-poucas] { display: none; }
+body.poucas [data-poucas] { display: block; }
+body.poucas [data-muitas] { display: none; }
+
+.sketch { position: fixed; right: 12px; top: 12px; z-index: 9; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; max-width: calc(100vw - 24px); padding: 8px 10px; border-radius: 12px; background: #1c1f21; border: 1px solid var(--linha); font-family: var(--sans); font-size: 12px; color: var(--texto-2); }
+.sketch button { background: none; border: 1px solid var(--linha); border-radius: 99px; padding: 4px 10px; cursor: pointer; font-size: 12px; color: var(--texto-2); }
+.sketch button[aria-pressed="true"] { color: var(--texto); border-color: var(--texto-2); }
+@media (max-width: 600px) { .sketch { top: auto; bottom: 96px; } }
+</style>
+</head>
+<body data-v="frase">
+<main class="tela fim-cap">
+  <p class="rotulo">Fim do capítulo 1 · A carta</p>
+  <h2>A linha do tempo que você escolheu</h2>
+
+  <section class="linha">
+    <ol>
+      <li class="acontecimento">
+        <span class="marco"></span>
+        <img class="mini" src="../../public/imagens/cap01/abertura.webp" alt="">
+        <div><p class="quando">Miami, 28 de outubro</p><p class="resumo">Flávio chega a Miami com uma carta.</p></div>
+      </li>
+      <li class="decisao">
+        <span class="marco"></span>
+        <img class="mini" src="../../public/imagens/cap01/pedido.webp" alt="">
+        <div>
+          <p class="quando">Brasília</p>
+          <p class="feita">Moraes não prende, mas bloqueia parte dos bens</p>
+          <p class="juntos"><b>36%</b> dos jogadores escolheram o mesmo que você</p>
+          <div class="barra"><i style="width:36%"></i></div>
+          <p class="outras">em outras linhas do tempo: 3 caminhos</p>
+        </div>
+      </li>
+      <li class="decisao">
+        <span class="marco"></span>
+        <img class="mini" src="../../public/imagens/cap01/itamaraty.webp" alt="">
+        <div>
+          <p class="quando">Itamaraty</p>
+          <p class="feita">Mauro Vieira leva o caso a Rubio, sem nota</p>
+          <p class="juntos"><b>6%</b> escolheram o mesmo. <span class="rara">A escolha mais rara do seu capítulo.</span></p>
+          <div class="barra"><i style="width:6%"></i></div>
+          <p class="outras">em outras linhas do tempo: 3 caminhos</p>
+        </div>
+      </li>
+      <li class="decisao">
+        <span class="marco"></span>
+        <img class="mini" src="../../public/imagens/cap01/a_rota.webp" alt="">
+        <div>
+          <p class="quando">Buenos Aires</p>
+          <p class="feita">A investigação chega perto do governo Milei</p>
+          <p class="juntos"><b>44%</b> escolheram o mesmo</p>
+          <div class="barra"><i style="width:44%"></i></div>
+          <p class="outras">em outras linhas do tempo: 2 caminhos</p>
+        </div>
+      </li>
+      <li class="decisao">
+        <span class="marco"></span>
+        <img class="mini" src="../../public/imagens/cap01/o_exilio.webp" alt="">
+        <div>
+          <p class="quando">Miami</p>
+          <p class="feita">Flávio pede asilo político nos Estados Unidos</p>
+          <p class="juntos" data-muitas><b>58%</b> escolheram o mesmo</p>
+          <p class="juntos" data-poucas>Poucas partidas passaram por aqui ainda. O número aparece a partir de 50.</p>
+          <div class="barra" data-muitas><i style="width:58%"></i></div>
+          <p class="outras">em outras linhas do tempo: 3 caminhos</p>
+        </div>
+      </li>
+      <li class="decisao">
+        <span class="marco"></span>
+        <img class="mini" src="../../public/imagens/cap01/eleicao_eua.webp" alt="">
+        <div>
+          <p class="quando">Estados Unidos, 3 de novembro</p>
+          <p class="feita">Os democratas ganham a Câmara e o Senado</p>
+          <p class="juntos"><b>68%</b> apostaram nisso. <span class="espera">A realidade decide em 3 de novembro.</span></p>
+          <div class="barra"><i style="width:68%"></i></div>
+          <p class="outras">em outras linhas do tempo: 2 caminhos</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <p class="dimensao">Este capítulo tem <strong>1.204</strong> caminhos possíveis. Você viveu um.</p>
+  <a class="ver" href="#">O que os jogadores escolheram</a>
+
+  <div class="seguir"><button class="botao" type="button">Próximo capítulo</button></div>
+</main>
+
+<div class="sketch">
+  Forma:
+  <button data-set="frase">só a frase</button>
+  <button data-set="barra">frase e barra</button>
+  <button data-poucas-btn>decisão com poucas escolhas</button>
+</div>
+<script>
+  var b = document.body, pb = document.querySelector('[data-poucas-btn]');
+  function sync() { document.querySelectorAll('[data-set]').forEach(function (x) { x.setAttribute('aria-pressed', x.dataset.set === b.dataset.v); }); pb.setAttribute('aria-pressed', b.classList.contains('poucas')); }
+  document.querySelectorAll('[data-set]').forEach(function (x) { x.onclick = function () { b.dataset.v = x.dataset.set; sync(); }; });
+  pb.onclick = function () { b.classList.toggle('poucas'); sync(); };
+  sync();
+</script>
+</body>
+</html>
