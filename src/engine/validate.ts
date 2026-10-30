@@ -59,13 +59,13 @@ function estrutura(jogo: Jogo, erros: string[], avisos: string[]) {
 
   // Acertos: a previsão aponta para um nó que existe e vem antes do fato; o fato segue a regra das fontes.
   jogo.acertos?.itens.forEach((a) => {
-    const onde = `acerto "${a.titulo}"`;
+    const onde = `registro "${a.titulo}"`;
     const [cap, no] = a.previsto.onde.split('/');
     if (!jogo.capitulos.find((c) => c.id === cap)?.nos.some((n) => n.id === no)) {
       erros.push(`${onde}: o nó "${a.previsto.onde}" não existe`);
     }
-    if (a.previsto.data.slice(0, 10) > a.cumprido.data) erros.push(`${onde}: a previsão é posterior ao fato`);
-    conferir(onde, a.cumprido.fontes);
+    if (a.previsto.data.slice(0, 10) > a.realidade.data) erros.push(`${onde}: a previsão é posterior ao fato`);
+    conferir(onde, a.realidade.fontes);
   });
 
   const criadas = new Set<string>();

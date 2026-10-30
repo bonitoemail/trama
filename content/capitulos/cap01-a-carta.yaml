@@ -60,6 +60,7 @@ nos:
     segue: pedido
 
   - id: pedido
+    titulo: O pedido de prisão de Flávio
     lugar: Brasília, Supremo Tribunal Federal
     imagem: imagens/cap01/pedido.webp
     texto:
@@ -116,6 +117,7 @@ nos:
   # A prisão de senador passa pelo Senado (Constituição, art. 53). É o que faltava entre a ordem e a Interpol.
   # Precedente real: Delcídio do Amaral, 2015. A fundamentação da ordem e a votação são simulação.
   - id: a_votacao_da_prisao
+    titulo: O Senado vota a prisão
     lugar: Brasília, plenário do Senado
     imagem: imagens/cap01/a_votacao_da_prisao.webp
     texto:
@@ -143,6 +145,7 @@ nos:
         vai_para: o_prazo
 
   - id: foragido
+    titulo: O alerta da Interpol
     lugar: Miami, dias depois
     imagem: imagens/cap01/foragido.webp
     texto:
@@ -183,6 +186,7 @@ nos:
         vai_para: o_cerco
 
   - id: o_cerco
+    titulo: O pedido de extradição
     lugar: Brasília, Palácio do Planalto
     imagem: imagens/cap01/o_cerco.webp
     texto:
@@ -245,6 +249,7 @@ nos:
     segue: itamaraty
 
   - id: o_parecer
+    titulo: O parecer da Procuradoria
     lugar: Brasília, Procuradoria-Geral da República
     imagem: imagens/cap01/o_parecer.webp
     texto:
@@ -264,6 +269,7 @@ nos:
         vai_para: itamaraty
 
   - id: itamaraty
+    titulo: A resposta à carta
     lugar: Brasília, Palácio do Itamaraty
     imagem: imagens/cap01/itamaraty.webp
     texto:
@@ -286,6 +292,10 @@ nos:
         fontes:
           - https://www.metropoles.com/colunas/milena-teixeira/ministros-de-lula-culpam-moraes-por-possivel-fuga-de-flavio-bolsonaro
           - https://timesbrasil.com.br/brasil/decisao-de-moraes-sobre-passaportes-de-flavio-causa-incomodo-no-governo-e-discurso-de-perseguicao-preocupa-lula/
+      - texto: Em 29 de outubro, Trump disse que Lula lhe pediu para não tomar partido na eleição e que vai conversar com ele. Criticou a eleição, mas não disse quem é o vencedor legítimo.
+        fontes:
+          - https://jovempan.com.br/mundo/trump-diz-que-nao-tomou-partido-na-eleicao-do-brasil-porque-lula-pediu/
+          - https://www.brasildefato.com.br/2026/10/29/trump-revela-que-lula-pediu-que-ele-nao-tomasse-partido-na-eleicao-e-diz-que-vai-conversar-com-presidente/
     lados:
       - Para o governo, ficar calado tira o palco de Flávio e evita ter de defender em público uma decisão de Moraes que nem todos no Planalto apoiam. Para a oposição, o silêncio é sinal de que o governo prefere não ser cobrado pela decisão.
       - Para o Itamaraty do chanceler Mauro Vieira, a conversa sobre a taxa com Washington pesa mais que a carta. Com a Argentina, a relação já estava rebaixada desde agosto. Pedir dados pela polícia, e não pela diplomacia, evita uma crise nova.
@@ -308,6 +318,7 @@ nos:
         vai_para: a_rota
 
   - id: a_rota
+    titulo: A investigação na Argentina
     lugar: Buenos Aires, início de novembro
     imagem: imagens/cap01/a_rota.webp
     texto:
@@ -348,6 +359,14 @@ nos:
         fontes:
           - https://www.perfil.com/politica/tension-en-el-gobierno-tras-el-escape-de-bolsonaro-a-ee.uu.-bullrich-se-desmarco-de-milei-y-siguen-las-dudas-sobre-el-rol-de-santiago-caputo-abCex7S7Kv4m
           - https://www.infobae.com/politica/2026/10/28/patricia-bullrich-reconocio-el-triunfo-de-lula-en-brasil-y-cuestiono-la-utilizacion-de-la-justicia-para-perseguir-a-flavio-bolsonaro/
+      - texto: Em 29 de outubro, o promotor de Puerto Iguazú arquivou a denúncia sobre a passagem de Flávio por "inexistência de delito". A investigação sobre quem ajudou na viagem continua na Justiça federal em Buenos Aires.
+        fontes:
+          - https://www.ambito.com/politica/fuga-flavio-bolsonaro-archivaron-la-denuncia-iguazu-pero-sigue-la-causa-comodoro-py-n6339515
+          - https://perfil.com/politica/sin-causa-en-misiones-la-fuga-de-flavio-bolsonaro-desde-la-argentina-queda-concentrada-en-comodoro-py-a8Z0F6Z7IU67
+      - texto: Segundo o New York Times e o Wall Street Journal, Jason Miller, assessor da Casa Branca, ajudou Eduardo a fretar o jato que levou Flávio a Miami.
+        fontes:
+          - https://www.cnnbrasil.com.br/internacional/assessor-de-trump-providenciou-jato-para-flavio-ir-aos-eua-diz-nyt/
+          - https://www.gazetadopovo.com.br/mundo/jornal-detalha-operacao-levar-flavio-eua/
     escolhas:
       - id: chega_ao_governo
         rotulo: A investigação chega perto do governo Milei
@@ -373,6 +392,7 @@ nos:
     segue: eleicao_eua
 
   - id: eleicao_eua
+    titulo: A eleição nos Estados Unidos
     lugar: Miami, 3 de novembro
     imagem: imagens/cap01/eleicao_eua.webp
     texto:
@@ -445,6 +465,7 @@ nos:
     segue: o_exilio
 
   - id: o_exilio
+    titulo: Flávio em Miami
     lugar: Miami, novembro
     imagem: imagens/cap01/o_exilio.webp
     texto:
@@ -481,6 +502,7 @@ nos:
         vai_para: pl
 
   - id: pl
+    titulo: O PL depois da carta
     lugar: Brasília, sede do PL
     imagem: imagens/cap01/pl.webp
     texto:
@@ -506,6 +528,10 @@ nos:
         fontes:
           - https://www.gazetadopovo.com.br/republica/uniao-pp-contrariam-alianca-flavio-apoio-reeleicao-alcolumbre/
           - https://www.diariodepernambuco.com.br/politica/2026/10/11727799-uniao-pp-declara-apoio-a-reeleicao-de-alcolumbre-para-presidente-do-senado.html
+      - texto: Em 29 de outubro, Valdemar disse que não gostou da carta e que ninguém no PL a aprovou.
+        fontes:
+          - https://www.cnnbrasil.com.br/politica/nao-gostei-diz-valdemar-sobre-carta-de-teor-golpista-de-flavio/
+          - https://revistaoeste.com/politica/valdemar-critica-carta-de-flavio-nao-gostei/
     lados:
       - A carta reafirmou o nome de Marinho justamente quando o partido pesava se a candidatura ainda valia a pena. Para quem quer negociar, insistir custa cargos. Para quem quer confronto, recuar custa a base.
       - Para quem quer um nome só, juntar PL e PP é a única chance de vencer Alcolumbre no voto secreto. Para os aliados de Flávio, trocar Marinho é ceder a quem aceitou a derrota.
@@ -539,6 +565,7 @@ nos:
   # PEC da Segurança na conta do acordo: só O Antagonista (bastidor); ficou como motivo em `lados`.
   #   https://oantagonista.com.br/brasil/lula-e-alcolumbre-fecham-acordo-para-indicacao-de-pacheco-ao-stf/
   - id: a_ligacao
+    titulo: Valdemar liga para Alcolumbre
     lugar: Brasília, uma noite de novembro
     imagem: imagens/cap01/a_ligacao.webp
     texto:
@@ -565,6 +592,7 @@ nos:
   # Final C — a frente: um nome só contra Alcolumbre.
   # Real: a negociação Marinho–Tereza Cristina e o apoio de Tarcísio (fatos em `pl`). Simulação: o almoço, a escolha de Tereza, a condição de Valdemar.
   - id: o_nome_unico
+    titulo: A oposição fecha em Tereza Cristina
     lugar: Brasília, Senado Federal
     imagem: imagens/cap01/o_nome_unico.webp
     texto:
@@ -578,6 +606,7 @@ nos:
   # Final D — a espera: o PL fica com Marinho sem abraçar a carta e empurra a decisão. É o estado real em 28/10 (pesquisa 06, item d).
   # Real: aliados de Alcolumbre dentro do PL (pesquisa 09, "Estratégia de Alcolumbre"). Simulação: a reunião e o anúncio.
   - id: o_racha
+    titulo: O PL chega dividido a fevereiro
     lugar: Brasília, sede do PL
     imagem: imagens/cap01/o_racha.webp
     texto:
@@ -589,6 +618,7 @@ nos:
 
   # Final B — a briga
   - id: a_convocacao
+    titulo: O PL convoca um ato
     lugar: Brasília, Esplanada dos Ministérios
     imagem: imagens/cap01/a_convocacao.webp
     texto:

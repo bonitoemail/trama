@@ -49,6 +49,8 @@ export function avisosDeFormato(jogo: Jogo): string[] {
         if (w > PALAVRAS_POR_CARTAO) avisos.push(`${onde}: cartão com ${w} palavras: "${c.slice(0, 50)}…"`);
         for (const j of jargao(c)) avisos.push(`${onde}: jargão no cartão ("${j}")`);
       }
+      // Decisões e finais aparecem na tela /escolhas pelo nome curto.
+      if ((n.escolhas?.length || !n.segue) && !n.titulo) avisos.push(`${onde}: sem titulo (nome curto da decisão ou do final)`);
       for (const e of n.escolhas ?? []) {
         const w = palavras(e.rotulo);
         if (w > PALAVRAS_POR_ROTULO) avisos.push(`${onde}: rótulo "${e.id}" com ${w} palavras: "${e.rotulo}"`);

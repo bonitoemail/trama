@@ -199,16 +199,17 @@ describe('validador', () => {
   it('cobra que o acerto aponte para um nó real, venha antes do fato e tenha fontes', () => {
     const j = jogoMinimo();
     const item = {
+      status: 'confirmou' as const,
       titulo: 'T',
       previsto: { data: '2026-10-30 10:00', commit: 'abc1234', onde: 'c1/sumiu', texto: 'x' },
-      cumprido: { data: '2026-10-29', texto: 'y', fontes: ['https://www.poder360.com.br/a'] },
+      realidade: { data: '2026-10-29', texto: 'y', fontes: ['https://www.poder360.com.br/a'] },
       diferenca: 'z',
     };
     j.acertos = { titulo: 'A', texto: 't', nota: 'n', historico: 'https://github.com/', commits: 'https://github.com/', itens: [item] };
     const { erros } = validar(j);
     expect(erros.some((e) => e.includes('"c1/sumiu" não existe'))).toBe(true);
     expect(erros.some((e) => e.includes('posterior ao fato'))).toBe(true);
-    expect(erros.some((e) => e.startsWith('acerto "T"') && !e.includes('não existe') && !e.includes('posterior'))).toBe(true);
+    expect(erros.some((e) => e.startsWith('registro "T"') && !e.includes('não existe') && !e.includes('posterior'))).toBe(true);
   });
 
   it('acha beco sem saída e capítulo sem saída', () => {
@@ -311,6 +312,18 @@ describe('formato dos cartões', () => {
     const j = jogoMinimo();
     j.capitulos[0].nos[1].texto = ['Um.', 'Dois.', 'Três.', { se: { tem: 'mx' }, texto: 'A.' }, { se: { tem: 'my' }, texto: 'B.' }];
     j.capitulos[0].nos[2].texto = ['O inquérito segue no Distrito Federal.'];
-    expect(avisosDeFormato(j)).toEqual([]);
+    expect(avisosDeFormato(j).filter((a) => !a.includes('sem titulo'))).toEqual([]);
+  });
+
+  it('pede nome curto para decisões e finais, não para cenas que seguem', () => {
+    const j = jogoMinimo();
+    const semTitulo = () => avisosDeFormato(j).filter((a) => a.includes('sem titulo'));
+    expect(semTitulo()).toEqual([
+      'c1/a: sem titulo (nome curto da decisão ou do final)',
+      'c1/c: sem titulo (nome curto da decisão ou do final)',
+      'c2/z: sem titulo (nome curto da decisão ou do final)',
+    ]);
+    j.capitulos.forEach((c) => c.nos.forEach((n) => (n.titulo = n.id)));
+    expect(semTitulo()).toEqual([]);
   });
 });

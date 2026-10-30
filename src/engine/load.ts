@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import YAML from 'yaml';
+import type { Relogio } from './relogios';
 import { JogoSchema, type Jogo } from './schema';
 
 /**
@@ -31,4 +32,13 @@ export function carregarJogo(dir = path.join(process.cwd(), 'content')): Jogo {
     throw new Error(`Conteúdo fora do formato:\n${msgs}`);
   }
   return r.data;
+}
+
+/** Relógios de pesquisa/relogios.yaml (datas que a realidade vai decidir). Sem o arquivo, lista vazia. */
+export function carregarRelogios(raiz = process.cwd()): Relogio[] {
+  try {
+    return YAML.parse(fs.readFileSync(path.join(raiz, 'pesquisa', 'relogios.yaml'), 'utf8')).relogios ?? [];
+  } catch {
+    return [];
+  }
 }

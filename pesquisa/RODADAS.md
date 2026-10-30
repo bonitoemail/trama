@@ -172,6 +172,29 @@ Pelos dados das 283 partidas depois das primeiras 72 (até 30/10, 8h39): 230 fiz
 - **Eventos novos** (`registrarNaTela` em `registro.ts`; migração `20261030150000_decisao_vista.sql`, já aplicada): `decisao_vista` (as opções apareceram) e `toque_curto` (soltou antes da hora; uma vez por cena). Separam quem sai lendo de quem chega aos botões e trava.
 - **A medir:** das partidas sem escolha, quantas viram as opções e quantas tocaram rápido. Se saem lendo, juntar `abertura` a `pedido` (3 cartões até o botão em vez de 5). Também: "Lula dá os ministérios sem cobrar fidelidade" (`cap03/o_ministerio`) teve 0 de 42; não cortar, talvez dar a ela um motivo à vista.
 
+### A tela "O que os jogadores escolheram" — 30/10/2026
+`/escolhas`, pública e sem link na capa (chega-se por `/acertos`, que ganhou o link de volta). Nasceu como `/jogadores`; o usuário achou que parecia lista de nomes, e virou `/escolhas` antes de ir ao ar. Sketch aprovado em `estilo/sketches-insights/a-jogadores.html`.
+- **Blocos, pela mesma regra para todas as decisões** (`src/lib/escolhas.ts`, testes em `escolhas.test.ts`): antes da notícia (relógios pendentes com data; depois da data, enquanto ninguém trava a escolha, continua ali só com os votos até a notícia, porque quem joga depois já sabe o resultado) e placar (só escolhas feitas antes da trava), divididas, maioria, raras (a menos escolhida de cada decisão, até 6%, sem escolha condicional), finais por capítulo (abaixo de 3% viram "outros") e um cruzamento escolhido à mão (`CRUZAMENTOS`: prender Flávio contra a aposta nos EUA). Mínimo de 50 escolhas; porcentagens somam 100.
+- **Dados:** funções `escolhas_contagem` e `escolhas_cruzamento` (migrações `20261030180000_jogadores.sql` e `20261030190000_escolhas.sql`, aplicadas; só a chave secreta executa). `/api/escolhas` é ISR de uma hora.
+- **Conteúdo:** `titulo` em toda decisão e final dos três capítulos; o validador avisa quando falta. Textos da tela em `escolhas` no `jogo.yaml`.
+
+### Rodada manual — 30/10/2026, manhã
+Janela: noite de 29/10 até 30/10, 11h30. Três agentes (`pesquisa/12-brasil.md`, `13-mundo.md`, `14-relogios-economia.md`). Pedido do usuário: caçar o que o jogo escreveu antes e a realidade confirmou ou não.
+- **Nenhuma escolha decidida.** Sem decisão de Moraes, parecer da PGR, Interpol ou despacho de Alcolumbre; a reunião do PL é em 4/11 e as midterms em 3/11. `itamaraty` pende para "Lula ignora a carta" (o Itamaraty orienta isso), `a_moeda` para "cobra silêncio" (coletiva de 29/10 cancelada; Reuters: Washington não apoia a pretensão de Flávio), `pl` para "Marinho, longe da carta": nada travado.
+- **Prólogo (29/10, sem destaque):** Valdemar, "Ninguém aprovou a carta" (CNN, Revista Oeste, Jornal de Brasília/Folhapress); NYT e WSJ, Jason Miller arranjou o jato (CNN Brasil, Gazeta do Povo, Metrópoles; Miller não confirmou à CNN); Trump vai conversar com Lula (Jovem Pan, Brasil de Fato, InfoMoney); promotor de Iguazú arquiva e o caso segue em Buenos Aires (Ámbito, Perfil, Noticias Argentinas). Três links conferidos de novo à mão.
+- **Fatos nas cenas:** `a_rota` (arquivamento; Miller), `pl` (Valdemar), `itamaraty` (Trump).
+- **Relógios:** `eleicao-argentina-2027` ganha data (24/10/2027, eleição geral com presidente); `desincompatibilizacao-2030` vai de 4/04 para 6/04/2030.
+- **Acertos:** nenhum novo com rigor. Quase: a opção "Trump mantém Flávio, mas cobra silêncio" (29/10, 18h12) bate com a coletiva cancelada, mas é escolha de dezembro, não texto de cena; a pergunta de `a_moeda` ("por que os EUA abrigam…") já era real quando foi escrita (Axios, 26/10). **Não se confirmou:** o texto antigo de `o_voo_fretado` (28/10) dizia que "uma promotoria federal de fronteira" pediria plano de voo, passageiros e contrato; a de fronteira arquivou, e a juíza deixou plano de voo e passageiros para depois.
+- **Ficou de fora:** Caputo na van da Yacyretá (só La Nación); green card acelerado (NYT por um funcionário); pedido de cassação no Conselho de Ética (fontes fracas); faltas de Flávio (só Poder360).
+- **Galhos que a realidade abriu (para decidir):** `o_exilio` sem a via do green card (o nó tem 4 escolhas); audiências da Câmara americana sobre Miller e Rubio em 2027, se os democratas ganharem; cassação por decoro em `a_conta`; o Planalto segurando o aval ao embaixador de Trump.
+- **Revisões:** não rodaram (só fatos, nenhuma escolha ou cena nova).
+
+### "O jogo e a realidade" — 30/10/2026
+A tela `/acertos` virou "O jogo e a realidade" (sketch em `estilo/sketches-acertos/a-direto.html`). O usuário achou a página longa demais para um item e pediu algo mais direto, que mostrasse também o que não se concretizou; "erro" foi trocado por "não se confirmou" ("acertos e erros" puxava para placar de prova).
+- **Topo:** três números que filtram: se confirmou, não se confirmou, a confirmar. **Lista:** uma linha por item (sinal por forma, título, datas e antecedência), que abre o detalhe: o que o jogo escreveu (commit), o que aconteceu (fontes), o que não bateu ou o que mudou no jogo.
+- **Dados:** `acertos.yaml` ganha `status` e `realidade` (antes `cumprido`); primeiro item que não se confirmou: a "promotoria federal de fronteira" de `o_voo_fretado` (a de Iguazú arquivou). "A confirmar" sai dos relógios pendentes com data (`aConfirmar` em `src/engine/relogios.ts`; `carregarRelogios` em `load.ts`, também usado por `/api/escolhas`).
+- **Skill:** a Etapa 9 registra o que não se confirmou na mesma rodada em que a cena é reescrita, e diz o que não entra (opção de escolha, texto que já era fato, fonte única).
+
 ## Ainda pendente (para a rodada 3)
 - Análises pós-eleição de Marcus André Melo, Lynch (conteúdo do vídeo), Limongi, Couto, Traumann, Moura, Andrea Freitas, Falcão, Pereira, Glezer, Da Ros, Barbosa, Laura Carvalho, Armínio, Marcos Mendes: ainda não publicadas ou não encontráveis em 28/10.
 - Contradições: passaporte usado na entrada (italiano ou diplomático); DI de fechamento de 28/10.

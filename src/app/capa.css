@@ -700,50 +700,433 @@ body:has(.capa) {
   color: var(--c-texto) !important;
 }
 
-/* Registro de acertos: um item por previsão, separados por linha, sem cartões. */
-.acertos .registro {
+/* O jogo e a realidade (/acertos, Acertos.tsx): três números que filtram e uma linha por item que
+   abre o detalhe. Sinais por forma, não por cor: cheio se confirmou, riscado não se confirmou,
+   tracejado a confirmar. */
+.acertos .placar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--c-linha);
+  border-bottom: 1px solid var(--c-linha);
+}
+.acertos .placar button {
+  display: grid;
+  gap: 4px;
+  justify-items: start;
+  margin-bottom: -1px;
+  padding: 16px 12px 14px 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--c-texto-2);
+  transition: color 0.15s, border-color 0.15s;
+}
+.acertos .placar button + button {
+  padding-left: 12px;
+  border-left: 1px solid var(--c-linha);
+}
+.acertos .placar .n {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-texto);
+}
+.acertos .placar .r {
+  font-size: 14px;
+  line-height: 1.3;
+}
+.acertos .placar button[aria-pressed='false'] .n {
+  color: var(--c-texto-2);
+}
+.acertos .placar button[aria-pressed='true'] {
+  color: var(--c-texto);
+}
+.acertos .filtro {
+  min-height: 20px;
+  margin: 12px 0 0;
+  font-size: 14px;
+  color: var(--c-texto-2);
+}
+.acertos .filtro button,
+.acertos .miudo button {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-size: inherit;
+  color: var(--c-texto);
+  text-decoration: underline;
+  text-decoration-color: var(--c-texto-2);
+  text-underline-offset: 4px;
+}
+.acertos .sinal {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.acertos .sinal.confirmou {
+  background: var(--c-texto);
+}
+.acertos .sinal.nao_confirmou {
+  border: 1.5px solid var(--c-texto-2);
+}
+.acertos .sinal.nao_confirmou::after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  top: 50%;
+  height: 1.5px;
+  background: var(--c-texto-2);
+  transform: rotate(-45deg);
+}
+.acertos .sinal.a_confirmar {
+  border: 1.5px dashed var(--c-texto-2);
+}
+.acertos .lista {
   list-style: none;
-  margin: 40px 0 0;
+  margin: 8px 0 0;
   padding: 0;
 }
-.acertos .registro > li {
-  padding: 28px 0;
-  border-top: 1px solid var(--c-linha);
+.acertos .item {
+  border-bottom: 1px solid var(--c-linha);
 }
-.acertos .registro h2 {
+.acertos .linha {
+  display: grid;
+  grid-template-columns: 12px 1fr 20px;
+  gap: 14px;
+  align-items: start;
+  width: 100%;
+  padding: 18px 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+}
+.acertos .linha .sinal {
+  margin-top: 6px;
+}
+.acertos .linha .titulo {
+  display: block;
+  font-family: var(--c-serif);
   font-size: 19px;
-  font-weight: 600;
   line-height: 1.35;
-  margin: 0 0 18px;
 }
-.acertos .registro p {
-  font-size: 16px;
-  line-height: 1.6;
-  margin: 0;
+.acertos .item.nao_confirmou .titulo {
+  color: var(--c-texto-2);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
 }
-.acertos .registro .marco {
-  margin-top: 18px;
+.acertos .linha .meta {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--c-texto-2);
+  font-variant-numeric: tabular-nums;
+}
+.acertos .linha .meta b {
+  font-weight: 500;
+  color: var(--c-texto);
+}
+.acertos .seta {
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  color: var(--c-texto-2);
+  transition: transform 0.25s var(--c-ease);
+}
+.acertos .item.aberto .seta {
+  transform: rotate(180deg);
+}
+.acertos .so-leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+/* O detalhe abre com a altura animada (grid de 0fr para 1fr). */
+.acertos .detalhe {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s var(--c-ease);
+}
+.acertos .item.aberto .detalhe {
+  grid-template-rows: 1fr;
+}
+.acertos .detalhe > div {
+  overflow: hidden;
+}
+.acertos .corpo {
+  display: grid;
+  gap: 20px;
+  padding: 0 0 24px 26px;
+}
+.acertos .par {
+  display: grid;
+  gap: 20px;
+}
+.acertos .bloco h3 {
+  margin: 0 0 6px;
   font-size: 13px;
   font-weight: 600;
   color: var(--c-texto-2);
 }
-.acertos .registro blockquote {
-  margin: 6px 0 0;
+.acertos .bloco blockquote {
+  margin: 0;
   padding-left: 14px;
   border-left: 2px solid var(--c-linha);
   font-family: var(--c-serif);
   font-size: 17px;
   line-height: 1.55;
 }
-.acertos .registro .detalhe {
-  margin-top: 6px;
-  font-size: 14px;
+.acertos .bloco p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+.acertos .bloco .miudo {
+  margin-top: 8px;
+  font-size: 13px;
   color: var(--c-texto-2);
 }
-.acertos .registro .detalhe a {
+.acertos .bloco .miudo a {
   color: var(--c-texto-2);
   text-underline-offset: 3px;
 }
-.acertos .registro .fontes {
-  margin-top: 6px;
+.acertos .bloco .fontes {
+  margin-top: 8px;
+}
+.acertos .opcoes-abertas {
+  margin: 0;
+  padding-left: 18px;
+  font-family: var(--c-serif);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.acertos .diferenca {
+  padding: 12px 14px;
+  border: 1px dashed var(--c-linha);
+  border-radius: 8px;
+}
+.acertos .vazio {
+  padding: 24px 0;
+  font-size: 15px;
+  color: var(--c-texto-2);
+}
+.acertos .nota {
+  margin-top: 48px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--c-texto-2);
+}
+.acertos .nota a {
+  color: var(--c-texto-2);
+  text-underline-offset: 3px;
+}
+@media (min-width: 720px) {
+  .acertos .par {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .acertos .detalhe,
+  .acertos .seta {
+    transition: none;
+  }
+}
+
+/* O que os jogadores escolheram (/jogadores, Jogadores.tsx): a linguagem de "Como fazemos", com
+   barras finas e cinza. A mais escolhida só fica mais clara; nenhuma cor de lado. */
+.pagina-escolhas .aviso {
+  font-family: var(--c-serif);
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.5;
+  margin: -20px 0 12px;
+  padding-left: 14px;
+  border-left: 2px solid var(--c-linha);
+}
+.pagina-escolhas .conta {
+  font-size: 14px;
+  color: var(--c-texto-2);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+.pagina-escolhas section {
+  margin-top: 64px;
+}
+.pagina-escolhas h2 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 6px;
+}
+.pagina-escolhas .sub {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--c-texto-2);
+  margin: 0 0 8px;
+}
+.pagina-escolhas .decisao {
+  padding: 22px 0;
+  border-top: 1px solid var(--c-linha);
+}
+.pagina-escolhas .sub + .decisao {
+  margin-top: 16px;
+}
+.pagina-escolhas .cena {
+  font-size: 13px;
+  color: var(--c-texto-2);
+  margin: 0 0 12px;
+}
+.pagina-escolhas .cena b {
+  font-weight: 500;
+  color: var(--c-texto);
+}
+.pagina-escolhas .opcoes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.pagina-escolhas .opcao {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 16px;
+  align-items: baseline;
+}
+.pagina-escolhas .opcao .nome {
+  font-family: var(--c-serif);
+  font-size: 17px;
+  line-height: 1.35;
+  color: var(--c-texto-2);
+}
+.pagina-escolhas .opcao .nome small {
+  margin-left: 8px;
+  font-family: var(--c-sans);
+  font-size: 13px;
+}
+.pagina-escolhas .opcao .pct {
+  font-size: 15px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-texto-2);
+}
+.pagina-escolhas .opcao .trilho {
+  grid-column: 1 / -1;
+  height: 4px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--c-linha);
+}
+.pagina-escolhas .opcao .trilho span {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: #3a3d3f;
+}
+.pagina-escolhas .opcao.mais .nome,
+.pagina-escolhas .opcao.mais .pct,
+.pagina-escolhas .opcao.real .nome {
+  color: var(--c-texto);
+}
+.pagina-escolhas .opcao.mais .trilho span {
+  background: var(--c-texto);
+}
+.pagina-escolhas .votos,
+.pagina-escolhas .nota-bloco {
+  font-size: 13px;
+  color: var(--c-texto-2);
+  margin: 12px 0 0;
+  font-variant-numeric: tabular-nums;
+}
+.pagina-escolhas .espera {
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  border: 1px dashed var(--c-linha);
+  border-radius: 8px;
+  color: var(--c-texto-2);
+}
+.pagina-escolhas .espera b {
+  font-weight: 500;
+  color: var(--c-texto);
+}
+/* Ponte para /acertos: os jogadores apostam aqui; o que o jogo escreveu e aconteceu fica lá. */
+.pagina-escolhas .ponte {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--c-texto-2);
+  margin: 20px 0 0;
+}
+.pagina-escolhas .ponte button {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-size: inherit;
+  color: var(--c-texto);
+  text-decoration: underline;
+  text-decoration-color: var(--c-texto-2);
+  text-underline-offset: 4px;
+}
+.pagina-escolhas .raras {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+}
+.pagina-escolhas .raras li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: baseline;
+  padding: 14px 0;
+  border-top: 1px solid var(--c-linha);
+}
+.pagina-escolhas .raras .nome {
+  font-family: var(--c-serif);
+  font-size: 17px;
+  line-height: 1.4;
+}
+.pagina-escolhas .raras small {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--c-sans);
+  font-size: 13px;
+  color: var(--c-texto-2);
+}
+.pagina-escolhas .raras .pct {
+  font-size: 15px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.pagina-escolhas .como-contamos {
+  margin-top: 72px;
+  padding-top: 8px;
+  border-top: 1px solid var(--c-linha);
+}
+.pagina-escolhas .como-contamos h3 {
+  font-size: 16px;
+  margin: 16px 0 10px;
+}
+.pagina-escolhas .como-contamos p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--c-texto-2);
+  margin: 0 0 10px;
 }

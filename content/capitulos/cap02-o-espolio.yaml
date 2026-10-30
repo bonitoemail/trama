@@ -49,6 +49,7 @@ nos:
     segue: a_cadeira
 
   - id: a_cadeira
+    titulo: A vaga no Supremo
     lugar: Brasília, Palácio do Planalto
     imagem: imagens/cap02/a_cadeira.webp
     texto:
@@ -119,6 +120,7 @@ nos:
     segue: a_herdeira
 
   - id: a_sabatina
+    titulo: A sabatina no Senado
     lugar: Brasília, Senado Federal
     imagem: imagens/cap02/a_sabatina.webp
     texto:
@@ -208,6 +210,7 @@ nos:
     segue: a_herdeira
 
   - id: a_herdeira
+    titulo: Quem lidera a oposição
     lugar: Brasília, dezembro
     imagem: imagens/cap02/a_herdeira.webp
     texto:
@@ -323,6 +326,7 @@ nos:
     segue: a_conta
 
   - id: a_conta
+    titulo: O mandato de Flávio
     lugar: Brasília, dezembro
     imagem: imagens/cap02/a_conta.webp
     texto:
@@ -428,6 +432,7 @@ nos:
   # (Juruá 24h, Goiás 246). Fonte única: saiu de fatos e virou posição em lados.
   # A escolha não decide o efeito na economia (painel 00-agregado, Ajustes, Cisma I): cada galho tem ganho e custo.
   - id: o_orcamento
+    titulo: O Orçamento de 2027
     lugar: Brasília, Ministério da Fazenda, dezembro
     imagem: imagens/cap02/o_orcamento.webp
     texto:
@@ -510,6 +515,7 @@ nos:
         vai_para: o_voo_de_volta
 
   - id: miami
+    titulo: A cúpula em Miami
     lugar: Miami, 14 de dezembro
     imagem: imagens/cap02/miami.webp
     texto:
@@ -591,6 +597,7 @@ nos:
   # americano. A divisão na direita americana é real: críticos de "abrigar criminoso" contra influenciadores MAGA
   # que apoiam Flávio (Axios, 26/10/2026; MS NOW).
   - id: a_moeda
+    titulo: Trump e a autorização de Flávio
     lugar: Washington, dezembro
     imagem: imagens/cap02/a_moeda.webp
     texto:
@@ -671,6 +678,7 @@ nos:
     segue: a_custodia
 
   - id: a_custodia
+    titulo: Flávio preso no Brasil
     lugar: Brasília, Supremo Tribunal Federal
     imagem: imagens/cap02/a_custodia.webp
     texto:
@@ -718,6 +726,7 @@ nos:
         vai_para: a_rua
 
   - id: a_rua
+    titulo: O PL e a rua
     lugar: Brasília, sede do PL
     imagem: imagens/cap02/a_rua.webp
     texto:
@@ -753,6 +762,7 @@ nos:
 
   # Final D — a anistia vai para a rua.
   - id: a_anistia_na_rua
+    titulo: A resposta ao ato pela anistia
     lugar: Brasília, Esplanada dos Ministérios, fim de dezembro
     imagem: imagens/cap02/a_anistia_na_rua.webp
     texto:
@@ -777,6 +787,7 @@ nos:
 
   # Final D2 — a resposta da esquerda à rua. Simulação.
   - id: o_domingo_seguinte
+    titulo: A rua no domingo seguinte
     lugar: Brasília e São Paulo, último domingo do ano
     imagem: imagens/cap02/o_domingo_seguinte.webp
     texto:
@@ -792,6 +803,7 @@ nos:
 
   # Final E — Flávio vira moeda de troca.
   - id: a_moeda_de_troca
+    titulo: Os votos do PL pela anistia
     lugar: Brasília, Senado Federal, fim de dezembro
     imagem: imagens/cap02/a_moeda_de_troca.webp
     texto:
@@ -806,6 +818,7 @@ nos:
       - Para Alcolumbre, pautar a anistia rende votos em fevereiro e briga com o Supremo depois.
 
   - id: a_mesa
+    titulo: A disputa pelo Senado
     lugar: Brasília, última semana do ano
     imagem: imagens/cap02/a_mesa.webp
     texto:
@@ -902,6 +915,7 @@ nos:
     segue: a_oferta
 
   - id: a_oferta
+    titulo: A oferta a Tereza Cristina
     lugar: Brasília, residência oficial do Senado
     imagem: imagens/cap02/a_oferta.webp
     texto:
@@ -921,6 +935,7 @@ nos:
         vai_para: a_frente_desfeita
 
   - id: o_lado_de_lula
+    titulo: Lula na eleição do Senado
     lugar: Brasília, Palácio do Planalto
     imagem: imagens/cap02/o_lado_de_lula.webp
     texto:
@@ -954,6 +969,7 @@ nos:
 
   # Final F — a eleição mais disputada em anos.
   - id: fevereiro_em_aberto
+    titulo: O ano acaba sem favorito
     lugar: Brasília, fim de dezembro
     imagem: imagens/cap02/fevereiro_em_aberto.webp
     texto:
@@ -970,6 +986,7 @@ nos:
 
   # Final G — a frente desfeita.
   - id: a_frente_desfeita
+    titulo: A frente de Tereza Cristina acaba
     lugar: Brasília, véspera de Natal
     imagem: imagens/cap02/a_frente_desfeita.webp
     texto:
@@ -981,6 +998,7 @@ nos:
 
   # Final A — o Acordo fecha, com todas as partes pagando e recebendo.
   - id: natal_do_acordo
+    titulo: O pedido de indulto
     lugar: Brasília, véspera de Natal
     imagem: imagens/cap02/natal_do_acordo.webp
     texto:
@@ -1034,6 +1052,7 @@ nos:
 
   # Final H — a paz de Natal: todos pagam.
   - id: a_paz_de_natal
+    titulo: O indulto de Natal
     lugar: Brasília, Natal
     imagem: imagens/cap02/a_paz_de_natal.webp
     texto:
@@ -1048,6 +1067,7 @@ nos:
   # Final J — o preço em aberto: o desfecho mais provável pelo painel (P5). A revisão criminal é a via que a
   # lente institucional aponta (painel, P5 e "Achados"); aqui é só simulação: advogados estudam.
   - id: o_preco_em_aberto
+    titulo: O indulto fica sem resposta
     lugar: Brasília, véspera de Natal
     imagem: imagens/cap02/o_preco_em_aberto.webp
     texto:
@@ -1059,6 +1079,7 @@ nos:
 
   # Final I — o Acordo sem o perdão.
   - id: a_anistia_no_congresso
+    titulo: Lula recusa o indulto
     lugar: Brasília, véspera de Natal
     imagem: imagens/cap02/a_anistia_no_congresso.webp
     texto:
@@ -1070,6 +1091,7 @@ nos:
 
   # Final K — o Senado sem a direita (pesquisa 00, Congresso: média; painel P2, "sem a direita" 30%).
   - id: o_senado_sem_a_direita
+    titulo: Alcolumbre isola o PL
     lugar: Brasília, última semana do ano
     imagem: imagens/cap02/o_senado_sem_a_direita.webp
     texto:
@@ -1081,6 +1103,7 @@ nos:
 
   # Final B — a briga vai para fevereiro.
   - id: guerra_de_fevereiro
+    titulo: A briga vai a fevereiro
     lugar: Brasília, fim de dezembro
     imagem: imagens/cap02/guerra_de_fevereiro.webp
     texto:
@@ -1095,6 +1118,7 @@ nos:
 
   # Final C — a herança em disputa.
   - id: heranca_em_disputa
+    titulo: O PL racha entre dois nomes
     lugar: Brasília e Miami, fim de dezembro
     imagem: imagens/cap02/heranca_em_disputa.webp
     texto:

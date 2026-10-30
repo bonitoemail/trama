@@ -57,6 +57,10 @@ Duas tabelas:
 - Formato: `https://<site>/?origem=<canal>`, por exemplo `instagram-bio`, `whatsapp-grupos`, `imprensa`.
 - `npm run link -- instagram-bio` imprime o link pronto, para não errar a grafia.
 
+## Leitura pública (tela /escolhas)
+- Funções `escolhas_contagem()` (escolhas e fins de capítulo por dia, mais o total de partidas) e `escolhas_cruzamento(a_capitulo, a_no, b_capitulo, b_no)`, migrações `20261030180000_jogadores.sql` e `20261030190000_escolhas.sql` (o nome antigo das funções era `jogadores_*`). Só somas; só a chave secreta executa.
+- `/api/escolhas` chama as duas, monta os blocos (`src/lib/escolhas.ts`) e fica guardada por uma hora (ISR). Sem Supabase, responde 204 e a tela avisa.
+
 ## Painel
 - Primeiro: as views no SQL Editor do Supabase (zero código).
 - Depois: uma página `/painel` com senha, se quiser ver no celular.

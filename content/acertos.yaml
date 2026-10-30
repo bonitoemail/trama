@@ -1,21 +1,24 @@
-# Registro de acertos (tela /acertos, link discreto em "Como fazemos").
-# Entra aqui o que o jogo escreveu ANTES e a realidade confirmou DEPOIS, com o commit da previsão
-# (data e hora de Brasília, como no `git log`) e as fontes do fato (mesma regra do prólogo).
-# Todo item diz o que não bateu. Escolha travada não precisa entrar: já aparece no jogo.
-titulo: Registro de acertos
+# "O jogo e a realidade" (tela /acertos, link discreto em "Como fazemos" e em /escolhas).
+# Entra aqui o que uma cena escreveu ANTES e a realidade confirmou, ou não, DEPOIS, com o commit da
+# cena (data e hora de Brasília, como no `git log`) e as fontes do fato (mesma regra do prólogo).
+# status: confirmou (se confirmou) | nao_confirmou (a realidade foi por outro caminho e a cena foi reescrita).
+# diferenca: no que se confirmou, o que não bateu; no que não se confirmou, o que mudou no jogo.
+# Escolha travada não precisa entrar: já aparece no jogo. O que está "a confirmar" sai sozinho dos relógios.
+titulo: O jogo e a realidade
 texto: >
-  O que o jogo escreveu antes e a realidade confirmou depois. Cada previsão aponta para o momento
-  em que entrou no jogo, no histórico público, com data e hora. Assim dá para conferir que ela veio
+  O que as cenas escreveram antes e o que a realidade fez depois. Cada trecho aponta para o
+  momento em que entrou no jogo, no histórico público, com data e hora, para conferir que veio
   antes do fato.
 nota: >
-  Aqui só aparece o que se confirmou. O que a realidade desmentiu também fica público: a cena é
-  reescrita, e o histórico das rodadas mostra o que mudou e quando. Um acerto numa cena não decide
-  a escolha do jogador. A escolha só fica travada quando a realidade escolhe entre as opções.
+  Uma cena que se confirma não decide a escolha do jogador: a escolha só fica travada quando a
+  realidade escolhe entre as opções. O que não se confirma vira cena reescrita, e o histórico
+  das rodadas mostra o que mudou e quando.
 historico: https://github.com/bonitoemail/trama/blob/main/pesquisa/RODADAS.md
 commits: https://github.com/bonitoemail/trama/commit/
 
 itens:
-  - titulo: A promotoria pede as câmeras da fronteira
+  - status: confirmou
+    titulo: A Justiça argentina manda guardar as câmeras da fronteira
     previsto:
       data: "2026-10-28 18:12"
       commit: 86692d7
@@ -24,7 +27,7 @@ itens:
       texto: >
         "O pedido sai de uma promotoria federal de fronteira: câmeras do aeroporto, plano de voo,
         lista de passageiros e o contrato do fretamento."
-    cumprido:
+    realidade:
       data: "2026-10-29"
       texto: >
         A pedido da promotora federal Paloma Ochoa, a juíza María Eugenia Capuchetti mandou
@@ -38,3 +41,28 @@ itens:
       O pedido veio da promotora que atua com a juíza Capuchetti, não de uma promotoria de
       fronteira. Plano de voo, lista de passageiros e contrato ficaram de fora: a juíza recusou
       parte das medidas. A escolha da cena, se a investigação chega ao governo, continua aberta.
+
+  - status: nao_confirmou
+    titulo: Uma promotoria de fronteira pede o plano de voo e a lista de passageiros
+    previsto:
+      data: "2026-10-28 18:12"
+      commit: 86692d7
+      onde: cap01/o_voo_fretado
+      caminho: Na cena que aparece quando a investigação argentina chega perto do governo Milei
+      texto: >
+        "O pedido sai de uma promotoria federal de fronteira: câmeras do aeroporto, plano de voo,
+        lista de passageiros e o contrato do fretamento."
+    realidade:
+      data: "2026-10-29"
+      texto: >
+        O promotor federal de Puerto Iguazú, na fronteira, arquivou a denúncia sobre a passagem de
+        Flávio por "inexistência de delito". Em Buenos Aires, a juíza Capuchetti aceitou só parte dos
+        pedidos da promotora Paloma Ochoa e deixou o plano de voo e a lista de passageiros para depois.
+      fontes:
+        - https://www.ambito.com/politica/fuga-flavio-bolsonaro-archivaron-la-denuncia-iguazu-pero-sigue-la-causa-comodoro-py-n6339515
+        - https://perfil.com/politica/sin-causa-en-misiones-la-fuga-de-flavio-bolsonaro-desde-la-argentina-queda-concentrada-en-comodoro-py-a8Z0F6Z7IU67
+        - https://www.baenegocios.com/politica/la-justicia-ordeno-preservar-las-camaras-de-seguridad-por-el-paso-de-flavio-bolsonaro-por-la-argentina/
+    diferenca: >
+      A cena foi reescrita na rodada de 29/10 (commit 8f514fa): agora a juíza do caso cruza as
+      imagens que mandou guardar com os papéis que a deputada Marcela Pagano pediu. O cruzamento
+      continua simulação. A parte das câmeras se confirmou e está no item acima.

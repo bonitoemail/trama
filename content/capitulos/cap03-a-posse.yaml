@@ -39,6 +39,7 @@ nos:
     segue: a_fazenda
 
   - id: a_fazenda
+    titulo: O ministro da Fazenda
     lugar: Brasília, Palácio do Planalto
     imagem: imagens/cap03/a_fazenda.webp
     texto:
@@ -133,6 +134,7 @@ nos:
     segue: o_ministerio
 
   - id: o_ministerio
+    titulo: O Centrão no ministério
     lugar: Brasília, Palácio do Planalto
     imagem: imagens/cap03/o_ministerio.webp
     texto:
@@ -172,6 +174,7 @@ nos:
   # A ironia do foro (painel, "Achados"), atualizada pela baliza eleitoral dos embargos de 22/05/2026 (pesquisa 11, item 5).
   # Qual caso desce é leitura, não decisão: fica em lados e nos cartões como possibilidade.
   - id: o_foro
+    titulo: O foro de Flávio
     lugar: Brasília, Supremo Tribunal Federal, fim de janeiro
     imagem: imagens/cap03/o_foro.webp
     texto:
@@ -216,6 +219,7 @@ nos:
 
   # O fato novo de 29/10 (CNN, Isabel Mega): o PL estuda entrar no bloco de Motta, e o PT ameaça sair. Desfechos: pesquisa 11, item 4.
   - id: a_camara
+    titulo: O bloco na Câmara
     lugar: Brasília, Câmara dos Deputados, 1º de fevereiro
     imagem: imagens/cap03/a_camara.webp
     texto:
@@ -269,6 +273,7 @@ nos:
         vai_para: o_senado
 
   - id: o_senado
+    titulo: A eleição no Senado
     lugar: Brasília, plenário do Senado, 1º de fevereiro
     imagem: imagens/cap03/o_senado.webp
     texto:
@@ -343,6 +348,7 @@ nos:
 
   # Final A — o último mandato de Alcolumbre. Planta o relógio de 2029 (agregado, 4.4).
   - id: o_ultimo_mandato
+    titulo: Alcolumbre reeleito com folga
     lugar: Brasília, plenário do Senado
     imagem: imagens/cap03/o_ultimo_mandato.webp
     texto:
@@ -360,6 +366,7 @@ nos:
 
   # Final B — ganhar devendo. A conta da traição cai no Centrão, conforme o preço pago em o_ministerio.
   - id: a_vitoria_apertada
+    titulo: Alcolumbre vence por poucos votos
     lugar: Brasília, plenário do Senado
     imagem: imagens/cap03/a_vitoria_apertada.webp
     texto:
@@ -379,6 +386,7 @@ nos:
 
   # Final C — o Senado da oposição: a primeira derrota do quarto mandato.
   - id: o_senado_da_oposicao
+    titulo: A oposição vence no Senado
     lugar: Brasília, plenário do Senado
     imagem: imagens/cap03/o_senado_da_oposicao.webp
     texto:

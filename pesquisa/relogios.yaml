@@ -175,7 +175,8 @@ relogios:
     conferir: Metrópoles, Folha (registros de alfândega) — confirmar a data
 
   - id: eleicao-argentina-2027
-    evento: eleições legislativas na Argentina (out/2027, conferir data)
+    data: 2027-10-24
+    evento: eleição geral na Argentina, com presidente (quarto domingo de outubro; PASO em 8/08 se não forem extintas). La Nación e El Destape, pesquisa 14
     frente: mundo
     afeta: [cap07]
     status: pendente
@@ -214,8 +215,8 @@ relogios:
     conferir: STF (ADI 6524, 2020), Agência Senado
 
   - id: desincompatibilizacao-2030
-    data: 2030-04-04
-    evento: prazo de desincompatibilização para 2030 (governadores e ministros candidatos; conferir data)
+    data: 2030-04-06
+    evento: prazo de desincompatibilização para 2030 (seis meses antes de 6/10/2030; LC 64/90, art. 1º, §1º; Constituição, art. 14, §6º)
     frente: direita
     afeta: [cap15]
     status: pendente

@@ -18,6 +18,7 @@ import {
   paragrafos,
   vale,
 } from '@/engine/engine';
+import type { AConfirmar } from '@/engine/relogios';
 import type { Jogo as JogoT } from '@/engine/schema';
 import { useNavegacao } from '@/lib/navegacao';
 import { guardarOrigem, registrarInicio, registrarMudanca, registrarNaTela } from '@/lib/registro';
@@ -28,12 +29,15 @@ export default function Jogo({
   jogo,
   caminhos,
   partidas,
+  aConfirmar,
   inicial,
 }: {
   jogo: JogoT;
   caminhos: Record<string, number>;
   /** Histórias completas possíveis (contarPartidas), mostradas na tela inicial. */
   partidas: number;
+  /** Decisões que a realidade ainda vai decidir (relógios), para a tela /acertos. */
+  aConfirmar: AConfirmar[];
   /** Tela do endereço em que a pessoa chegou (/, /o-que-e, /como-fazemos, /acertos, /partida). */
   inicial: Tela;
 }) {
@@ -105,6 +109,7 @@ export default function Jogo({
         jogo={jogo}
         tela={tela === 'partida' ? 'capa' : tela}
         partidas={partidas}
+        aConfirmar={aConfirmar}
         capituloAtual={estado ? nomeDoCapitulo(capitulo(jogo, estado.capitulo)) : undefined}
         capituloInicial={nomeDoCapitulo(capitulo(jogo, jogo.primeiro_capitulo))}
         partidaSalva={saiu && Boolean(estado)}

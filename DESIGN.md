@@ -233,6 +233,7 @@ Hoje existe a primeira camada: cada evento é conferido contra o conteúdo (cena
 Cada mudança de conteúdo gera uma versão. Estatísticas são agregadas por nó estável (ID que não muda entre versões) e podem ser filtradas por versão.
 
 ### 9.4 Página pública
+Feita em 30/10/2026 como `/escolhas` (sem link na capa): placar e "antes da notícia", decisões divididas, maioria, escolhas raras, finais por capítulo e um cruzamento; regra em `src/lib/escolhas.ts`. O plano original:
 - **placar de previsões**: para cada escolha travada como real, quantos jogadores a escolheram antes da notícia;
 - caminhos mais percorridos (visual tipo Sankey sobre o fluxograma);
 - finais mais comuns;

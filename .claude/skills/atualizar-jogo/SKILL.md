@@ -192,6 +192,7 @@ O jogo precisa estar sempre **um capítulo à frente da realidade**: quem joga h
    - **Todo caminho que chega.** Liste todos os finais do capítulo anterior, inclusive os de trilhos que pulam a espinha (no cap. 2, `a_moeda_de_troca` e `o_domingo_seguinte` não passam por `a_mesa`). Todo grupo de cartões condicionais que lê "como o capítulo anterior terminou" precisa de texto para cada um deles, e nenhum texto pode contradizer o que um final prometeu (`lula_neutro`: "se perder, ninguém culpa o Planalto").
    - **Nenhuma vitória de graça.** A base de quem vence paga alguma coisa no próprio final (a revisão dos dois leitores cobrou isso no Senado da oposição).
    - **Grupos condicionais exclusivos.** Cada grupo de `se` de uma cena lê marcas que se excluem (as saídas de um mesmo nó); no máximo dois grupos por cena.
+   - **Nome curto em toda decisão e todo final** (`titulo`: "O pedido de prisão de Flávio", "Alcolumbre vence por poucos votos"). É como a cena aparece na tela `/escolhas`; o validador avisa quando falta. Neutro como o rótulo: diz o que está em jogo, não quem tem razão.
 5. **Ligações.**
    - `saidas` do capítulo anterior apontam para o novo (todos os finais; cisma só com o usuário). O novo sai para `FIM`.
    - **Epílogo** (`content/jogo.yaml`): o título passa a ser a data do fim do novo capítulo ("O Brasil em fevereiro de 2027"); frases no futuro que o novo capítulo resolveu passam para o passado ou saem; cada marca nova ganha um eco; a última linha diz qual capítulo e ato terminaram e que **a história vai até a eleição de 2030 e os próximos capítulos saem à medida que a realidade andar**.
@@ -244,7 +245,12 @@ npm run estado
 
 ## Etapa 9 — Registrar e entregar
 
-- **Acertos** (`content/acertos.yaml`, tela `/acertos`): para cada fato confirmado, pergunte se alguma cena já tinha escrito aquilo **antes** (inclusive em caminhos que não são o real). Ache o commit com `git log --format="%h %ad" --date=format:"%Y-%m-%d %H:%M" -S "<trecho>" -- content/capitulos/` e cite o texto como estava nele (`git show <hash>:<arquivo>`). Todo acerto diz o que não bateu (`diferenca`). Exagerar um acerto custa mais que perder um: na dúvida, não entra. Escolha travada não precisa entrar (já aparece no jogo).
+- **Placar da tela `/escolhas`**: anda sozinho com o conteúdo. A escolha travada (`real`) leva a decisão para o placar, contando só os votos de antes da data; o relógio que vira `aconteceu` tira a decisão de "Antes da notícia". Por isso, ao travar, atualize também o `status` do relógio. Relógio com data passada e ainda `pendente` deixa a decisão esperando, com os votos congelados na data: não deixe um relógio vencido sem conferir.
+- **O jogo e a realidade** (`content/acertos.yaml`, tela `/acertos`): para cada fato confirmado, pergunte se alguma cena já tinha escrito sobre aquilo **antes** (inclusive em caminhos que não são o real). Ache o commit com `git log --format="%h %ad" --date=format:"%Y-%m-%d %H:%M" -S "<trecho>" -- content/capitulos/` e cite o texto como estava nele (`git show <hash>:<arquivo>`).
+  - **Se confirmou** (`status: confirmou`): a cena escreveu e a realidade fez. `diferenca` diz o que não bateu.
+  - **Não se confirmou** (`status: nao_confirmou`): a cena escreveu e a realidade foi por outro caminho. Registre **na mesma rodada em que reescrever a cena**, com o commit antigo; `diferenca` diz o que mudou no jogo (e o commit da reescrita). Um mesmo trecho pode render os dois, quando metade bateu e metade não (foi o caso de `o_voo_fretado`, 30/10).
+  - **Não entra**: opção de escolha (o jogo oferece várias; "a opção que bateu" não é acerto), texto que já era fato quando foi escrito, e o que só uma fonte diz. Exagerar um acerto custa mais que perder um: na dúvida, não entra.
+  - **A confirmar** sai sozinho dos relógios pendentes com data (`aConfirmar`, `src/engine/relogios.ts`): mantenha `afeta` e `status` dos relógios em dia.
 
 - `pesquisa/RODADAS.md`: nova entrada com data, fatos (com as fontes), boatos descartados, o que mudou no jogo e o que ficou pendente.
 - Resumo ao usuário: o que travou, o que mudou no texto, imagens reaproveitadas, refeitas e descartadas, o que foi ajustado no futuro, e o que ficou para aprovação.

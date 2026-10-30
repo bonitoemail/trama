@@ -64,6 +64,11 @@ export const EscolhaSchema = z.strictObject({
 
 export const NoSchema = z.strictObject({
   id: z.string(),
+  /**
+   * Nome curto da cena, para listas fora da partida (tela /escolhas): a decisão ("O pedido de prisão")
+   * ou o final ("Valdemar liga para Alcolumbre"). Sem ele, a lista usa o `lugar`.
+   */
+  titulo: z.string().optional(),
   /** Quem está em cena, ou onde (ex.: "Miami, 28 de outubro"). */
   lugar: z.string().optional(),
   /** Caminho em public/ (ex.: "imagens/cap01/abertura.webp"). */
@@ -154,10 +159,12 @@ export const ExplicacaoSchema = z.strictObject({
 });
 
 /**
- * Registro de acertos (content/acertos.yaml, tela /acertos): o que o jogo escreveu antes e a
- * realidade confirmou depois. A previsão aponta para o commit público em que entrou no jogo.
+ * "O jogo e a realidade" (content/acertos.yaml, tela /acertos): o que uma cena escreveu antes e a
+ * realidade confirmou, ou não, depois. A previsão aponta para o commit público em que entrou no jogo.
  */
 export const AcertoSchema = z.strictObject({
+  /** Se a realidade confirmou o que a cena escreveu, ou foi por outro caminho (a cena foi reescrita). */
+  status: z.enum(['confirmou', 'nao_confirmou']),
   titulo: z.string(),
   previsto: z.strictObject({
     /** Data e hora do commit, no horário de Brasília. */
@@ -170,12 +177,16 @@ export const AcertoSchema = z.strictObject({
     /** O texto como estava naquele commit. */
     texto: z.string(),
   }),
-  cumprido: z.strictObject({
+  /** O que a realidade fez, com as fontes. */
+  realidade: z.strictObject({
     data: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'data no formato AAAA-MM-DD'),
     texto: z.string(),
     fontes: FontesSchema,
   }),
-  /** O que não bateu. Todo acerto diz onde a previsão e a realidade se separam. */
+  /**
+   * Se confirmou: o que não bateu (todo item diz onde a cena e a realidade se separam).
+   * Não se confirmou: o que mudou no jogo.
+   */
   diferenca: z.string(),
 });
 
@@ -188,6 +199,19 @@ export const AcertosSchema = z.strictObject({
   /** Base dos links de commit ("https://github.com/<dono>/<repo>/commit/"). */
   commits: z.url(),
   itens: z.array(AcertoSchema),
+});
+
+/**
+ * Tela /escolhas (sem link na capa): o que os jogadores escolheram, somado. Os números vêm do
+ * registro anônimo (src/lib/escolhas.ts); aqui ficam só os textos.
+ */
+export const PaginaEscolhasSchema = z.strictObject({
+  titulo: z.string(),
+  texto: z.string(),
+  /** Fixo no topo: não é pesquisa de opinião. */
+  aviso: z.string(),
+  /** "Como contamos": um parágrafo por item. */
+  metodo: z.array(z.string()).min(1),
 });
 
 /** Data fixa e pública do calendário (eleição, posse), sem previsão: as paradas da régua da capa. */
@@ -212,6 +236,7 @@ export const JogoSchema = z.strictObject({
   /** Texto do fim de jogo; cada parágrafo pode depender das marcas. */
   epilogo: FinalSchema,
   acertos: AcertosSchema.optional(),
+  escolhas: PaginaEscolhasSchema.optional(),
 });
 
 export type Texto = z.infer<typeof TextoSchema>;

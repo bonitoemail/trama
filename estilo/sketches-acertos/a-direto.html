@@ -1,0 +1,273 @@
+<!doctype html>
+<!--
+  Sketch A · "Acertos e erros" (/acertos), mais direto.
+  Topo: três números que também são filtros (acertou, não aconteceu, em aberto).
+  Lista: uma linha por previsão, com o sinal, o título, as datas e a antecedência. Um toque abre
+  o detalhe: o que o jogo escreveu (com o commit), o que aconteceu (com as fontes) e o que não bateu.
+  Mesma família da B3 "menos": sans, quieto, sem cor de lado. Os sinais são formas, não cores.
+  Dados: o acerto é real; os "em aberto" vêm dos relógios reais; o erro é um EXEMPLO de layout.
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trama · sketch · O jogo e a realidade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --fundo: #111314;
+  --texto: #ece8df;
+  --texto-2: #9d9a93;
+  --linha: #26292b;
+  --serif: 'Source Serif 4', Georgia, serif;
+  --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--fundo); color: var(--texto); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+body { overflow-x: clip; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+
+.topo { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; }
+.topo .marca { font-family: 'Unbounded', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; font-size: 15px; text-decoration: none; }
+.topo .voltar { font-size: 14px; color: var(--texto-2); text-decoration: none; }
+
+.coluna { max-width: 640px; margin: 0 auto; padding: 32px 20px 80px; }
+h1 { font-weight: 600; font-size: clamp(32px, 9vw, 46px); line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 14px; }
+.lead { font-size: 17px; line-height: 1.55; color: var(--texto-2); margin: 0 0 32px; }
+
+/* Os três números: placar e filtro ao mesmo tempo. */
+.placar { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); }
+.placar button {
+  display: grid; gap: 4px; justify-items: start; padding: 16px 12px 14px 0; border: 0; background: none; cursor: pointer; text-align: left;
+  color: var(--texto-2); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.15s, border-color 0.15s;
+}
+.placar button + button { padding-left: 12px; border-left: 1px solid var(--linha); }
+.placar .n { display: flex; align-items: center; gap: 10px; font-size: 34px; font-weight: 500; line-height: 1; font-variant-numeric: tabular-nums; color: var(--texto); }
+.placar .r { font-size: 14px; line-height: 1.3; }
+.placar button[aria-pressed="true"] { color: var(--texto); border-bottom-color: var(--texto); }
+.placar button[aria-pressed="false"] .n { color: var(--texto-2); }
+.mostrar-todos { margin: 12px 0 0; font-size: 14px; color: var(--texto-2); min-height: 20px; }
+.mostrar-todos button { border: 0; background: none; padding: 0; cursor: pointer; color: var(--texto); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--texto-2); }
+
+/* Sinais por forma: cheio = aconteceu; riscado = não aconteceu; vazio = em aberto. */
+.sinal { width: 12px; height: 12px; border-radius: 50%; flex: none; display: inline-block; position: relative; }
+.sinal.acertou { background: var(--texto); }
+.sinal.errou { border: 1.5px solid var(--texto-2); }
+.sinal.errou::after { content: ''; position: absolute; left: -2px; right: -2px; top: 50%; height: 1.5px; background: var(--texto-2); transform: rotate(-45deg); }
+.sinal.aberto { border: 1.5px dashed var(--texto-2); }
+
+/* A lista. */
+.lista { list-style: none; margin: 8px 0 0; padding: 0; }
+.item { border-bottom: 1px solid var(--linha); }
+.item[hidden] { display: none; }
+.linha {
+  width: 100%; display: grid; grid-template-columns: 12px 1fr 20px; gap: 14px; align-items: start;
+  padding: 18px 0; border: 0; background: none; cursor: pointer; text-align: left;
+}
+.linha .sinal { margin-top: 6px; }
+.linha .titulo { font-family: var(--serif); font-size: 19px; line-height: 1.35; display: block; }
+.item.errou .titulo { color: var(--texto-2); text-decoration: line-through; text-decoration-thickness: 1px; text-decoration-color: var(--texto-2); }
+.linha .meta { display: block; margin-top: 6px; font-size: 13px; color: var(--texto-2); font-variant-numeric: tabular-nums; }
+.linha .meta b { font-weight: 500; color: var(--texto); }
+.linha .seta { margin-top: 4px; width: 20px; height: 20px; color: var(--texto-2); transition: transform 0.25s var(--ease); }
+.item.aberto-detalhe .seta { transform: rotate(180deg); }
+.exemplo-tag { display: inline-block; margin-left: 8px; font-family: var(--sans); font-size: 11px; color: var(--texto-2); border: 1px dashed var(--linha); border-radius: 4px; padding: 1px 6px; vertical-align: 3px; }
+
+/* O detalhe abre com altura animada (grid 0fr → 1fr). */
+.detalhe { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s var(--ease); }
+.item.aberto-detalhe .detalhe { grid-template-rows: 1fr; }
+.detalhe > div { overflow: hidden; }
+.corpo { padding: 0 0 24px 26px; display: grid; gap: 20px; }
+.par { display: grid; gap: 20px; }
+.bloco h3 { margin: 0 0 6px; font-size: 13px; font-weight: 600; color: var(--texto-2); }
+.bloco blockquote { margin: 0; padding-left: 14px; border-left: 2px solid var(--linha); font-family: var(--serif); font-size: 17px; line-height: 1.55; }
+.bloco p { margin: 0; font-size: 16px; line-height: 1.6; }
+.bloco .miudo { margin-top: 8px; font-size: 13px; color: var(--texto-2); }
+.bloco .miudo a { color: var(--texto-2); text-underline-offset: 3px; }
+.fontes { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 8px; font-size: 13px; }
+.fontes a { color: var(--texto-2); text-underline-offset: 3px; }
+.opcoes { margin: 0; padding-left: 18px; font-family: var(--serif); font-size: 16px; line-height: 1.6; }
+.diferenca { padding: 12px 14px; border: 1px dashed var(--linha); border-radius: 8px; }
+
+.vazio { padding: 24px 0; font-size: 15px; color: var(--texto-2); border-bottom: 1px solid var(--linha); }
+.vazio[hidden] { display: none; }
+
+.nota { margin-top: 48px; font-size: 14px; line-height: 1.6; color: var(--texto-2); }
+.nota a { color: var(--texto-2); text-underline-offset: 3px; }
+
+@media (min-width: 720px) {
+  .par { grid-template-columns: 1fr 1fr; gap: 28px; }
+}
+@media (min-width: 960px) {
+  .topo { padding: 14px 32px; }
+  .coluna { padding-top: 72px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .detalhe, .linha .seta { transition: none; }
+}
+.nota-sketch { position: fixed; right: 12px; bottom: 12px; font-size: 12px; color: var(--texto-2); background: #1a1c1d; border: 1px solid var(--linha); border-radius: 6px; padding: 6px 10px; }
+</style>
+</head>
+<body>
+<header class="topo">
+  <a class="voltar" href="#">‹ Voltar</a>
+  <a class="marca" href="#">Trama</a>
+  <span></span>
+</header>
+
+<main class="coluna">
+  <h1>O jogo e a realidade</h1>
+  <p class="lead">O que o jogo escreveu antes e o que a realidade fez depois. Cada previsão tem data e hora no histórico público, para conferir que veio antes do fato.</p>
+
+  <div class="placar" role="group" aria-label="Filtrar">
+    <button type="button" data-filtro="acertou" aria-pressed="false"><span class="n">1 <span class="sinal acertou"></span></span><span class="r">se confirmou</span></button>
+    <button type="button" data-filtro="errou" aria-pressed="false"><span class="n">1 <span class="sinal errou"></span></span><span class="r">não se confirmou</span></button>
+    <button type="button" data-filtro="aberto" aria-pressed="false"><span class="n">3 <span class="sinal aberto"></span></span><span class="r">a confirmar</span></button>
+  </div>
+  <p class="mostrar-todos" id="filtro-msg"></p>
+
+  <ul class="lista">
+    <!-- Acerto real (content/acertos.yaml) -->
+    <li class="item acertou" data-tipo="acertou">
+      <button type="button" class="linha" aria-expanded="false">
+        <span class="sinal acertou" aria-label="Se confirmou"></span>
+        <span>
+          <span class="titulo">A Justiça argentina manda guardar as câmeras da fronteira</span>
+          <span class="meta">Escrito em 28 de outubro, confirmado em 29 de outubro. <b>1 dia antes.</b></span>
+        </span>
+        <svg class="seta" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+      <div class="detalhe"><div><div class="corpo">
+        <div class="par">
+          <div class="bloco">
+            <h3>O que o jogo escreveu</h3>
+            <blockquote>"O pedido sai de uma promotoria federal de fronteira: câmeras do aeroporto, plano de voo, lista de passageiros e o contrato do fretamento."</blockquote>
+            <p class="miudo">Na cena em que a investigação chega perto do governo Milei. <a href="#">28 de outubro, 18h12, no histórico (86692d7)</a></p>
+          </div>
+          <div class="bloco">
+            <h3>O que aconteceu</h3>
+            <p>A pedido da promotora federal Paloma Ochoa, a juíza María Eugenia Capuchetti mandou preservar as imagens das câmeras da ponte, da imigração e do aeroporto de Puerto Iguazú.</p>
+            <p class="fontes"><a href="#">baenegocios.com</a><a href="#">0221.com.ar</a><a href="#">dataclave.com.ar</a></p>
+          </div>
+        </div>
+        <div class="bloco diferenca">
+          <h3>O que não bateu</h3>
+          <p>O pedido veio da promotora que atua com a juíza, não de uma promotoria de fronteira. Plano de voo, lista de passageiros e contrato ficaram de fora.</p>
+        </div>
+      </div></div></div>
+    </li>
+
+    <!-- Exemplo de layout: ainda não há erro registrado -->
+    <li class="item errou" data-tipo="errou">
+      <button type="button" class="linha" aria-expanded="false">
+        <span class="sinal errou" aria-label="Não se confirmou"></span>
+        <span>
+          <span class="titulo">O PL lança Marinho na reunião de 4 de novembro<span class="exemplo-tag">exemplo</span></span>
+          <span class="meta">Escrito em 29 de outubro, não se confirmou em 4 de novembro. A cena foi reescrita.</span>
+        </span>
+        <svg class="seta" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+      <div class="detalhe"><div><div class="corpo">
+        <div class="par">
+          <div class="bloco">
+            <h3>O que o jogo escreveu</h3>
+            <blockquote>"Na reunião de terça, o PL confirma Marinho como candidato e fecha a porta para Alcolumbre."</blockquote>
+            <p class="miudo"><a href="#">29 de outubro, no histórico</a></p>
+          </div>
+          <div class="bloco">
+            <h3>O que aconteceu</h3>
+            <p>Exemplo de como fica um erro: o fato real, com as fontes, e o link para a versão nova da cena.</p>
+          </div>
+        </div>
+        <div class="bloco diferenca">
+          <h3>O que mudou no jogo</h3>
+          <p>A cena passou a mostrar o que aconteceu. A versão antiga continua no histórico público.</p>
+        </div>
+      </div></div></div>
+    </li>
+
+    <!-- Em aberto: relógios reais com data -->
+    <li class="item aberto" data-tipo="aberto">
+      <button type="button" class="linha" aria-expanded="false">
+        <span class="sinal aberto" aria-label="A confirmar"></span>
+        <span>
+          <span class="titulo">A eleição nos Estados Unidos</span>
+          <span class="meta">A realidade decide em <b>3 de novembro</b>, daqui a 4 dias.</span>
+        </span>
+        <svg class="seta" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+      <div class="detalhe"><div><div class="corpo">
+        <div class="bloco">
+          <h3>O que o jogo deixa em aberto</h3>
+          <ul class="opcoes">
+            <li>Os democratas ganham a Câmara e o Senado</li>
+            <li>Democratas ganham a Câmara, e republicanos seguram o Senado</li>
+            <li>Os republicanos, partido de Trump, mantêm a Câmara</li>
+          </ul>
+          <p class="miudo">Quando a realidade decidir, a escolha fica travada no jogo e o resultado entra aqui. <a href="#">Ver o que os jogadores escolheram</a></p>
+        </div>
+      </div></div></div>
+    </li>
+    <li class="item aberto" data-tipo="aberto">
+      <button type="button" class="linha" aria-expanded="false">
+        <span class="sinal aberto" aria-label="A confirmar"></span>
+        <span>
+          <span class="titulo">A disputa pelo Senado</span>
+          <span class="meta">A reunião do PL é em <b>4 de novembro</b>, daqui a 5 dias.</span>
+        </span>
+        <svg class="seta" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+      <div class="detalhe"><div><div class="corpo"><div class="bloco"><h3>O que o jogo deixa em aberto</h3><ul class="opcoes"><li>O PL fecha com Alcolumbre em troca de cargos</li><li>A oposição leva a briga a fevereiro</li><li>O PL racha, metade com cada um</li><li>Alcolumbre fecha com o governo e isola o PL</li></ul></div></div></div></div>
+    </li>
+    <li class="item aberto" data-tipo="aberto">
+      <button type="button" class="linha" aria-expanded="false">
+        <span class="sinal aberto" aria-label="A confirmar"></span>
+        <span>
+          <span class="titulo">O ministro da Fazenda</span>
+          <span class="meta">O ministério deve ser anunciado no fim de novembro, por volta de <b>30 de novembro</b>.</span>
+        </span>
+        <svg class="seta" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
+      <div class="detalhe"><div><div class="corpo"><div class="bloco"><h3>O que o jogo deixa em aberto</h3><ul class="opcoes"><li>Lula põe Fonteles na Fazenda</li><li>Alckmin acumula a vice e a Fazenda</li><li>Haddad volta à Fazenda</li><li>Durigan fica, e o herdeiro espera</li></ul></div></div></div></div>
+    </li>
+  </ul>
+  <p class="vazio" id="vazio" hidden>Nada aqui por enquanto.</p>
+
+  <p class="nota">Um acerto numa cena não decide a escolha do jogador: a escolha só fica travada quando a realidade escolhe entre as opções. O que não se confirma vira cena reescrita, e o <a href="#">histórico das rodadas</a> mostra o que mudou e quando.</p>
+</main>
+
+<div class="nota-sketch">Sketch A · o item que não se confirmou é exemplo</div>
+
+<script>
+// Abrir e fechar cada linha.
+document.querySelectorAll('.linha').forEach((b) => b.addEventListener('click', () => {
+  const item = b.closest('.item');
+  const aberto = item.classList.toggle('aberto-detalhe');
+  b.setAttribute('aria-expanded', String(aberto));
+}));
+
+// Os números do topo filtram a lista; tocar de novo mostra tudo.
+const botoes = [...document.querySelectorAll('.placar button')];
+const msg = document.getElementById('filtro-msg');
+let filtro = null;
+function aplicar() {
+  botoes.forEach((b) => b.setAttribute('aria-pressed', String(filtro === null || b.dataset.filtro === filtro)));
+  let visiveis = 0;
+  document.querySelectorAll('.item').forEach((i) => {
+    const mostra = !filtro || i.dataset.tipo === filtro;
+    i.hidden = !mostra;
+    if (mostra) visiveis++;
+  });
+  document.getElementById('vazio').hidden = visiveis > 0;
+  msg.innerHTML = filtro ? 'Mostrando só uma parte. <button type="button">Ver tudo</button>' : '';
+  msg.querySelector('button')?.addEventListener('click', () => { filtro = null; aplicar(); });
+}
+botoes.forEach((b) => b.addEventListener('click', () => { filtro = filtro === b.dataset.filtro ? null : b.dataset.filtro; aplicar(); }));
+aplicar();
+</script>
+</body>
+</html>

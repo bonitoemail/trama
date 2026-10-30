@@ -1,0 +1,251 @@
+<!doctype html>
+<!--
+  Sketch A · "O que os jogadores escolheram" (página pública, sem link na capa)
+  Mesma família da B3 "menos": sans para a interface e os números, serifa para os rótulos das
+  escolhas (são frases do jogo). Sem cartões, sem caixa-alta, sem cor de lado: as barras são
+  cinza, e a mais escolhida só fica mais clara. Números reais de 30/10/2026, 13h (376 partidas).
+  Regra: só aparece decisão com pelo menos 50 votos.
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trama · sketch · O que os jogadores escolheram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --fundo: #111314;
+  --texto: #ece8df;
+  --texto-2: #9d9a93;
+  --linha: #26292b;
+  --barra: #3a3d3f;
+  --serif: 'Source Serif 4', Georgia, serif;
+  --sans: 'IBM Plex Sans', system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--fundo); color: var(--texto); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+body { overflow-x: clip; }
+a { color: inherit; }
+
+.topo { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; }
+.topo .marca { font-family: 'Unbounded', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; font-size: 15px; text-decoration: none; }
+.topo .voltar { font-size: 14px; color: var(--texto-2); text-decoration: underline; text-decoration-color: var(--linha); text-underline-offset: 4px; }
+
+.coluna { max-width: 600px; margin: 0 auto; padding: 32px 20px 80px; }
+
+h1 { font-weight: 600; font-size: clamp(32px, 9vw, 46px); line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 16px; text-wrap: balance; }
+.lead { font-size: 18px; line-height: 1.55; color: var(--texto-2); margin: 0 0 20px; }
+.aviso { font-family: var(--serif); font-style: italic; font-size: 17px; line-height: 1.5; margin: 0 0 12px; padding-left: 14px; border-left: 2px solid var(--linha); }
+.conta { font-size: 14px; color: var(--texto-2); margin: 0; font-variant-numeric: tabular-nums; }
+
+section { margin-top: 64px; }
+h2 { font-size: 22px; font-weight: 600; margin: 0 0 6px; letter-spacing: -0.01em; }
+.sub { font-size: 16px; line-height: 1.55; color: var(--texto-2); margin: 0 0 8px; }
+
+/* Uma decisão: a pergunta (cena) e as opções como barras finas. */
+.decisao { padding: 22px 0; border-top: 1px solid var(--linha); }
+.decisao:first-of-type { margin-top: 16px; }
+.cena { font-size: 13px; color: var(--texto-2); margin: 0 0 12px; }
+.cena b { font-weight: 500; color: var(--texto); }
+.opcoes { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.opcao { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: baseline; }
+.opcao .rotulo { font-family: var(--serif); font-size: 17px; line-height: 1.35; color: var(--texto-2); }
+.opcao .pct { font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--texto-2); }
+.opcao .trilho { grid-column: 1 / -1; height: 4px; background: var(--linha); border-radius: 2px; overflow: hidden; }
+.opcao .trilho span { display: block; height: 100%; background: var(--barra); border-radius: 2px; }
+.opcao.mais .rotulo, .opcao.mais .pct { color: var(--texto); }
+.opcao.mais .trilho span { background: var(--texto); }
+.votos { font-size: 13px; color: var(--texto-2); margin: 12px 0 0; font-variant-numeric: tabular-nums; }
+
+/* Placar: a aposta antes, e o espaço para a realidade depois. */
+.placar .espera { font-size: 15px; line-height: 1.5; margin: 14px 0 0; padding: 12px 14px; border: 1px dashed var(--linha); border-radius: 8px; color: var(--texto-2); }
+.placar .espera b { color: var(--texto); font-weight: 500; }
+
+/* Ponte para /acertos: os jogadores apostam aqui; o que o jogo escreveu e aconteceu fica lá. */
+.ponte { font-size: 15px; line-height: 1.6; color: var(--texto-2); margin: 20px 0 0; }
+.ponte a { color: var(--texto); text-decoration: underline; text-decoration-color: var(--texto-2); text-underline-offset: 4px; }
+.ponte a:hover { text-decoration-color: var(--texto); }
+
+/* Raras: frase e número, sem barra. */
+.raras { list-style: none; margin: 16px 0 0; padding: 0; }
+.raras li { display: grid; grid-template-columns: 1fr auto; gap: 16px; padding: 14px 0; border-top: 1px solid var(--linha); align-items: baseline; }
+.raras .rotulo { font-family: var(--serif); font-size: 17px; line-height: 1.4; }
+.raras .rotulo small { display: block; font-family: var(--sans); font-size: 13px; color: var(--texto-2); margin-top: 4px; }
+.raras .pct { font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; }
+
+/* Cruzamento: duas linhas comparáveis, um achado em uma frase. */
+.cruza { margin-top: 16px; display: grid; gap: 14px; padding: 22px 0; border-top: 1px solid var(--linha); }
+.cruza .achado { font-family: var(--serif); font-size: 19px; line-height: 1.4; margin: 0 0 6px; }
+
+.metodo { margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--linha); }
+.metodo h2 { font-size: 16px; }
+.metodo p { font-size: 14px; line-height: 1.6; color: var(--texto-2); margin: 0 0 10px; }
+
+@media (min-width: 960px) {
+  .topo { padding: 14px 32px; }
+  .coluna { padding-top: 72px; }
+}
+
+/* Marcador do sketch (some na versão real). */
+.nota-sketch { position: fixed; right: 12px; bottom: 12px; font-size: 12px; color: var(--texto-2); background: #1a1c1d; border: 1px solid var(--linha); border-radius: 6px; padding: 6px 10px; }
+</style>
+</head>
+<body>
+<header class="topo">
+  <a class="marca" href="#">Trama</a>
+  <a class="voltar" href="#">Voltar</a>
+</header>
+
+<main class="coluna">
+  <h1>O que os jogadores escolheram</h1>
+  <p class="lead">Cada partida do Trama é anônima. Somamos as escolhas para ver onde os jogadores concordam, onde se dividem e o que apostam antes de a realidade decidir.</p>
+  <p class="aviso">Isto não é pesquisa de opinião. Mostra como os jogadores do Trama escolheram, não o que o Brasil pensa.</p>
+  <p class="conta">376 histórias começadas, atualizado em 30 de outubro, às 13h</p>
+
+  <!-- 1. Placar de previsões -->
+  <section class="placar">
+    <h2>Antes da notícia</h2>
+    <p class="sub">Escolhas que a realidade ainda vai decidir. Quando decidir, mostramos quantos jogadores acertaram.</p>
+
+    <div class="decisao">
+      <p class="cena"><b>A eleição nos Estados Unidos</b>, 3 de novembro</p>
+      <ul class="opcoes">
+        <li class="opcao mais"><span class="rotulo">Os democratas ganham a Câmara e o Senado</span><span class="pct">69%</span><span class="trilho"><span style="width:69%"></span></span></li>
+        <li class="opcao"><span class="rotulo">Democratas ganham a Câmara, e republicanos seguram o Senado</span><span class="pct">20%</span><span class="trilho"><span style="width:20%"></span></span></li>
+        <li class="opcao"><span class="rotulo">Os republicanos, partido de Trump, mantêm a Câmara</span><span class="pct">11%</span><span class="trilho"><span style="width:11%"></span></span></li>
+      </ul>
+      <p class="votos">250 escolhas</p>
+      <p class="espera">A realidade decide em <b>3 de novembro</b>. Depois disso, esta decisão passa para o placar, com a data e as fontes.</p>
+    </div>
+    <p class="ponte">Isto é o que os jogadores apostaram. O que o próprio Trama escreveu antes e a realidade confirmou fica no <a href="#">registro de acertos</a>.</p>
+  </section>
+
+  <!-- 2. As mais divididas -->
+  <section>
+    <h2>Onde os jogadores se dividem</h2>
+    <p class="sub">As decisões em que as duas escolhas mais comuns ficaram mais perto uma da outra.</p>
+
+    <div class="decisao">
+      <p class="cena"><b>A carta agradece a Milei e a Trump</b>, cap. 1</p>
+      <ul class="opcoes">
+        <li class="opcao mais"><span class="rotulo">Lula cobra explicações de Trump e de Milei</span><span class="pct">33%</span><span class="trilho"><span style="width:33%"></span></span></li>
+        <li class="opcao mais"><span class="rotulo">O governo pede dados à Argentina pela Polícia Federal</span><span class="pct">33%</span><span class="trilho"><span style="width:33%"></span></span></li>
+        <li class="opcao"><span class="rotulo">Lula ignora a carta</span><span class="pct">28%</span><span class="trilho"><span style="width:28%"></span></span></li>
+        <li class="opcao"><span class="rotulo">Mauro Vieira leva o caso a Rubio, sem nota</span><span class="pct">6%</span><span class="trilho"><span style="width:6%"></span></span></li>
+      </ul>
+      <p class="votos">212 escolhas</p>
+    </div>
+
+    <div class="decisao">
+      <p class="cena"><b>O pedido de prisão de Flávio</b>, cap. 1</p>
+      <ul class="opcoes">
+        <li class="opcao mais"><span class="rotulo">Moraes não prende, mas bloqueia parte dos bens</span><span class="pct">36%</span><span class="trilho"><span style="width:36%"></span></span></li>
+        <li class="opcao"><span class="rotulo">Moraes manda prender Flávio</span><span class="pct">33%</span><span class="trilho"><span style="width:33%"></span></span></li>
+        <li class="opcao"><span class="rotulo">Moraes espera e não decide agora</span><span class="pct">25%</span><span class="trilho"><span style="width:25%"></span></span></li>
+        <li class="opcao"><span class="rotulo">A Procuradoria se manifesta contra, e Moraes não prende</span><span class="pct">6%</span><span class="trilho"><span style="width:6%"></span></span></li>
+      </ul>
+      <p class="votos">303 escolhas</p>
+    </div>
+
+    <div class="decisao">
+      <p class="cena"><b>O alerta da Interpol</b>, cap. 1</p>
+      <ul class="opcoes">
+        <li class="opcao mais"><span class="rotulo">A Interpol aceita o alerta contra Flávio</span><span class="pct">45%</span><span class="trilho"><span style="width:45%"></span></span></li>
+        <li class="opcao"><span class="rotulo">A Interpol pede mais informações e não decide</span><span class="pct">43%</span><span class="trilho"><span style="width:43%"></span></span></li>
+        <li class="opcao"><span class="rotulo">A Interpol recusa, por ver o caso como político</span><span class="pct">12%</span><span class="trilho"><span style="width:12%"></span></span></li>
+      </ul>
+      <p class="votos">58 escolhas</p>
+    </div>
+  </section>
+
+  <!-- 3. Quase consenso -->
+  <section>
+    <h2>Onde a maioria concorda</h2>
+    <p class="sub">As decisões em que uma escolha passou da metade.</p>
+
+    <div class="decisao">
+      <p class="cena"><b>O Senado vota a prisão de Flávio</b>, cap. 1</p>
+      <ul class="opcoes">
+        <li class="opcao mais"><span class="rotulo">O Senado mantém a prisão de Flávio</span><span class="pct">62%</span><span class="trilho"><span style="width:62%"></span></span></li>
+        <li class="opcao"><span class="rotulo">O Senado derruba a prisão</span><span class="pct">38%</span><span class="trilho"><span style="width:38%"></span></span></li>
+      </ul>
+      <p class="votos">93 escolhas</p>
+    </div>
+
+    <div class="decisao">
+      <p class="cena"><b>O Orçamento de 2027</b>, cap. 2</p>
+      <ul class="opcoes">
+        <li class="opcao mais"><span class="rotulo">O governo propõe cobrar mais imposto de quem ganha mais</span><span class="pct">60%</span><span class="trilho"><span style="width:60%"></span></span></li>
+        <li class="opcao"><span class="rotulo">O Congresso aprova um ajuste menor, pago em emendas</span><span class="pct">15%</span><span class="trilho"><span style="width:15%"></span></span></li>
+        <li class="opcao"><span class="rotulo">Durigan corta gastos e mira o centro da meta</span><span class="pct">14%</span><span class="trilho"><span style="width:14%"></span></span></li>
+        <li class="opcao"><span class="rotulo">Lula segura os programas e adia o ajuste</span><span class="pct">11%</span><span class="trilho"><span style="width:11%"></span></span></li>
+      </ul>
+      <p class="votos">104 escolhas</p>
+    </div>
+
+    <div class="decisao">
+      <p class="cena"><b>Flávio em Miami</b>, cap. 1</p>
+      <ul class="opcoes">
+        <li class="opcao mais"><span class="rotulo">Flávio pede asilo político nos Estados Unidos</span><span class="pct">56%</span><span class="trilho"><span style="width:56%"></span></span></li>
+        <li class="opcao"><span class="rotulo">Flávio vira líder da oposição, com lives toda noite</span><span class="pct">18%</span><span class="trilho"><span style="width:18%"></span></span></li>
+        <li class="opcao"><span class="rotulo">Flávio se diz presidente e monta um governo no exílio</span><span class="pct">15%</span><span class="trilho"><span style="width:15%"></span></span></li>
+        <li class="opcao"><span class="rotulo">Flávio para de falar e deixa o caso aos advogados</span><span class="pct">10%</span><span class="trilho"><span style="width:10%"></span></span></li>
+      </ul>
+      <p class="votos">234 escolhas</p>
+    </div>
+  </section>
+
+  <!-- 4. Raras -->
+  <section>
+    <h2>O que quase ninguém escolhe</h2>
+    <p class="sub">Caminhos que existem no jogo e poucos jogadores tomam.</p>
+    <ul class="raras">
+      <li><span class="rotulo">Lula retira o nome antes do voto<small>A sabatina do Supremo, cap. 2, 103 escolhas</small></span><span class="pct">1%</span></li>
+      <li><span class="rotulo">Lula não vai e manda o ministro das Relações Exteriores<small>A cúpula em Miami, cap. 2, 96 escolhas</small></span><span class="pct">5%</span></li>
+      <li><span class="rotulo">A Procuradoria se manifesta contra, e Moraes não prende<small>O pedido de prisão, cap. 1, 303 escolhas</small></span><span class="pct">6%</span></li>
+      <li><span class="rotulo">Mauro Vieira leva o caso a Rubio, sem nota<small>A carta agradece a Milei e a Trump, cap. 1, 212 escolhas</small></span><span class="pct">6%</span></li>
+    </ul>
+  </section>
+
+  <!-- 5. Como terminam -->
+  <section>
+    <h2>Como termina o capítulo 1</h2>
+    <p class="sub">Para onde as escolhas levaram quem chegou ao fim de "A carta".</p>
+    <div class="decisao">
+      <ul class="opcoes">
+        <li class="opcao mais"><span class="rotulo">Valdemar liga para Alcolumbre tarde da noite</span><span class="pct">38%</span><span class="trilho"><span style="width:38%"></span></span></li>
+        <li class="opcao"><span class="rotulo">Marinho e Tereza Cristina fecham um nome só</span><span class="pct">25%</span><span class="trilho"><span style="width:25%"></span></span></li>
+        <li class="opcao"><span class="rotulo">O PL marca um ato em Brasília</span><span class="pct">23%</span><span class="trilho"><span style="width:23%"></span></span></li>
+        <li class="opcao"><span class="rotulo">A reunião do PL acaba sem acordo</span><span class="pct">14%</span><span class="trilho"><span style="width:14%"></span></span></li>
+      </ul>
+      <p class="votos">204 histórias chegaram ao fim do capítulo</p>
+    </div>
+  </section>
+
+  <!-- 6. Cruzamento -->
+  <section>
+    <h2>Uma escolha muda a outra?</h2>
+    <p class="sub">Comparamos o que jogadores diferentes fizeram depois de uma mesma decisão.</p>
+    <div class="cruza">
+      <p class="achado">Mandar prender Flávio quase não muda a aposta na eleição americana.</p>
+      <ul class="opcoes">
+        <li class="opcao"><span class="rotulo">Quem fez Moraes prender: democratas ganham tudo</span><span class="pct">65%</span><span class="trilho"><span style="width:65%"></span></span></li>
+        <li class="opcao"><span class="rotulo">Quem fez Moraes não prender: democratas ganham tudo</span><span class="pct">71%</span><span class="trilho"><span style="width:71%"></span></span></li>
+      </ul>
+      <p class="votos">83 e 170 histórias</p>
+    </div>
+  </section>
+
+  <section class="metodo">
+    <h2>Como contamos</h2>
+    <p>Cada partida é um número aleatório guardado no navegador, sem nome, login ou IP. Uma partida conta uma vez em cada decisão.</p>
+    <p>Só mostramos uma decisão quando ela tem pelo menos 50 escolhas. Os capítulos mais novos aparecem quando chegarem lá.</p>
+    <p>Os números somam todas as versões do jogo. Uma cena que mudou de texto continua a mesma decisão.</p>
+  </section>
+</main>
+
+<div class="nota-sketch">Sketch A · números reais de 30/10, 13h</div>
+</body>
+</html>

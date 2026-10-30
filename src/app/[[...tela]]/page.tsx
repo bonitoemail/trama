@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Jogo from '@/components/Jogo';
 import { contarCaminhos, contarPartidas } from '@/engine/historia';
-import { carregarJogo } from '@/engine/load';
+import { carregarJogo, carregarRelogios } from '@/engine/load';
+import { aConfirmar } from '@/engine/relogios';
 import { validar } from '@/engine/validate';
 import { CAMINHOS, telaDoCaminho, tituloDaTela, type Tela } from '@/lib/telas';
 
@@ -42,5 +43,13 @@ export default async function Page({ params }: { params: Params }) {
     );
   }
 
-  return <Jogo jogo={jogo} caminhos={contarCaminhos(jogo)} partidas={contarPartidas(jogo)} inicial={await telaDe(params)} />;
+  return (
+    <Jogo
+      jogo={jogo}
+      caminhos={contarCaminhos(jogo)}
+      partidas={contarPartidas(jogo)}
+      aConfirmar={aConfirmar(jogo, carregarRelogios())}
+      inicial={await telaDe(params)}
+    />
+  );
 }

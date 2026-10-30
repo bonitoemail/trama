@@ -4,8 +4,10 @@ import { useEffect, useRef, useState } from 'react';
 import Acertos from './Acertos';
 import Dica from './Dica';
 import Fatos, { Fontes } from './Fatos';
+import Escolhas from './Escolhas';
 import Metodo from './Metodo';
 import { agoraDaCapa, diaEMes, falta, isoPorExtenso, regua } from '@/engine/calendario';
+import type { AConfirmar } from '@/engine/relogios';
 import type { Jogo } from '@/engine/schema';
 import { CAMINHOS, type Tela } from '@/lib/telas';
 
@@ -13,6 +15,7 @@ interface Props {
   jogo: Jogo;
   tela: Exclude<Tela, 'partida'>;
   partidas: number;
+  aConfirmar: AConfirmar[];
   /** "Capítulo 1, A carta" da partida salva; sem partida, não vem. */
   capituloAtual?: string;
   /** "Capítulo 1, A carta" de onde começa uma partida nova. */
@@ -31,7 +34,7 @@ interface Props {
  * No PC, duas colunas: o agora parado à esquerda, o aprofundamento rolando à direita, com os
  * fatos já abertos.
  */
-export default function Inicio({ jogo, tela, partidas, capituloAtual, capituloInicial, partidaSalva, onIr, onVoltar, onContinuar, onComecar }: Props) {
+export default function Inicio({ jogo, tela, partidas, aConfirmar, capituloAtual, capituloInicial, partidaSalva, onIr, onVoltar, onContinuar, onComecar }: Props) {
   const [confirmar, setConfirmar] = useState(false);
   // "mais de 234 milhões de histórias": com milhões, o número pede "de" antes da palavra que vem depois.
   const numero = emMil(partidas);
@@ -40,7 +43,30 @@ export default function Inicio({ jogo, tela, partidas, capituloAtual, capituloIn
   const botao = { rotulo: capituloAtual ? 'Continuar partida' : 'Começar', curto: capituloAtual ? 'Continuar' : 'Começar', onClick: principal };
 
   if (tela === 'acertos' && jogo.acertos) {
-    return <Acertos acertos={jogo.acertos} titulo={jogo.titulo} onVoltar={onVoltar} principal={botao} capitulo={capituloAtual ?? capituloInicial} />;
+    return (
+      <Acertos
+        acertos={jogo.acertos}
+        aConfirmar={aConfirmar}
+        titulo={jogo.titulo}
+        escolhas={jogo.escolhas ? { titulo: jogo.escolhas.titulo, onClick: () => onIr('escolhas') } : undefined}
+        onVoltar={onVoltar}
+        principal={botao}
+        capitulo={capituloAtual ?? capituloInicial}
+      />
+    );
+  }
+
+  if (tela === 'escolhas' && jogo.escolhas) {
+    return (
+      <Escolhas
+        textos={jogo.escolhas}
+        titulo={jogo.titulo}
+        acertos={jogo.acertos ? { titulo: jogo.acertos.titulo, onClick: () => onIr('acertos') } : undefined}
+        onVoltar={onVoltar}
+        principal={botao}
+        capitulo={capituloAtual ?? capituloInicial}
+      />
+    );
   }
 
   if (tela === 'objetivo' || tela === 'metodo') {
