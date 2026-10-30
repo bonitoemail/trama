@@ -35,7 +35,7 @@ Duas tabelas:
 |---|---|---|
 | id | bigint | |
 | partida | uuid | → partidas |
-| tipo | text | `escolha`, `fim_capitulo`, `fim_jogo` |
+| tipo | text | `escolha`, `fim_capitulo`, `inicio_capitulo` (tocou em "Próximo capítulo"; desde 30/10/2026), `fim_jogo` |
 | capitulo | text | |
 | no | text | |
 | escolha | text | vazio fora de `escolha` |

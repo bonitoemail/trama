@@ -149,6 +149,23 @@ Pedido do usuário depois de um jogador perguntar "não era para ir até 2030?".
   - Cobertura, segunda passada: `a_fazenda` e `o_ministerio` passam a mostrar o resultado no dia da posse (o anúncio é do fim de novembro); o cartão do "100% governo" deixa de soar como fato (boato de fonte única); PSD e MDB entram em `o_ministerio`; `o_senado` ganha o meio-termo "A oposição desiste em troca de cargos na Mesa" (`oposicao_retira`, final `o_ultimo_mandato`, eco no epílogo); rótulo "O Supremo decide que todos os casos ficam lá". Ficaram de fora Galípolo, Altineu, Lira candidato, a derrota de Motta e a fonte da ADI 6.524.
   - **Ficou de fora:** custo para Moraes (e "Moraes revoga a prisão" em `a_custodia`); caminho jurídico da oposição (TSE) em `pl`; a anistia em par com o argumento das penas; "Bolsonaro nega" em `a_herdeira` (precisa de duas fontes); a tarifa e os exportadores em `miami`; o PT rompendo com o Centrão como escolha (`o_ministerio` já tem quatro); nome do procurador-geral nos rótulos; Galípolo na Fazenda; trilho do fim da imunidade de Flávio.
 
+### A skill aprende com o capítulo 3 — 29/10/2026, noite
+Revisão da skill `atualizar-jogo` contra o que se fez no cap. 3, para o jogo andar sozinho.
+- **Horizonte:** cada capítulo ganhou `de` e `ate` (AAAA-MM-DD, no schema). `npm run estado` mostra em que capítulo a realidade está e avisa "ESCREVER O PRÓXIMO CAPÍTULO" quando faltam 30 dias para ela chegar ao último escrito (hoje: 67 dias de folga até o cap. 3; o aviso aparece por volta de 6/12). Antes, a regra era escrever "quando a realidade passar do último capítulo", tarde demais: o jogador chegaria ao fim antes do próximo.
+- **Mapa:** `roteiro/proximos.md` passa a ser a fonte da numeração (o cap. 3 juntou os caps. 3 e 4 do esboço do painel); próximo: cap. 4, "A conta" (fev–jun/2027).
+- **"O capítulo seguinte" reescrito:** mapa → pesquisa (novo briefing 4) → esqueleto e planilha → YAML com as checagens que as revisões pegaram (a cena acontece na data dela; todo final do capítulo anterior, inclusive de trilho, tem texto; nenhuma vitória de graça; grupos condicionais exclusivos) → ligações (saídas, epílogo com título, tempos verbais, ecos e a frase de que a história vai até 2030, relógios, mapa) → revisões, imagens e verificação → rascunho só sai com o usuário.
+- **`npm run jogar`:** joga um caminho pelo motor e imprime o que o jogador leria; salva o estado no início de um capítulo para abrir no navegador.
+- **Leitores:** os prompts passam a ler todos os arquivos de `content/capitulos/` sozinhos (não precisam mais ser editados a cada capítulo).
+- **Etapa 10, melhorar a skill:** no fim de toda rodada, o erro que uma regra teria evitado vira regra (skill, briefings, guias) ou código, com registro aqui. Nunca tira salvaguarda; no modo autônomo, vai para "Precisa de você".
+- **Imagens:** três lições no `estilo/GUIA.md` ("dome" chama o Capitólio; exteriores vazam laranja; folha de contato).
+- **Tarefa das 18h:** o prompt foi alinhado (etapas 0 a 10, horizonte, Câmara, ministério e foro nos temas). Continua desligada, por decisão do usuário.
+
+### O fim do capítulo 1 segura o jogador — 30/10/2026
+Pelos dados das 283 partidas depois das primeiras 72 (até 30/10, 8h39): 230 fizeram a 1ª escolha, 156 terminaram o cap. 1, só **100 começaram o cap. 2** (36% pararam na tela de fim), 80 terminaram o cap. 2 e, das 48 que terminaram o 2 depois do deploy, 42 entraram no cap. 3 (37 chegaram à última decisão). No celular (375×812), o botão "Próximo capítulo" ficava 2,2 telas abaixo do topo, depois da linha do tempo: a primeira tela parecia um fim sem ação.
+- **Tela de fim de capítulo:** o botão de seguir fica fixo no rodapé (`.fim-cap .seguir`, sticky), e a linha do tempo rola por baixo dele. Conferido no celular e no fim da página (o X de sair continua à vista).
+- **Evento novo `inicio_capitulo`** (`registro.ts`, teste em `registro.test.ts`; migração `20261030120000_inicio_capitulo.sql`, já aplicada no Supabase): separa quem nem tocou em "seguir" de quem tocou e parou na abertura seguinte.
+- **A medir na próxima olhada:** a taxa fim do cap. 1 → início do cap. 2 (era 64%); depois, o trecho `pedido` → `eleicao_eua`, que perde 16% dentro do cap. 1.
+
 ## Ainda pendente (para a rodada 3)
 - Análises pós-eleição de Marcus André Melo, Lynch (conteúdo do vídeo), Limongi, Couto, Traumann, Moura, Andrea Freitas, Falcão, Pereira, Glezer, Da Ros, Barbosa, Laura Carvalho, Armínio, Marcos Mendes: ainda não publicadas ou não encontráveis em 28/10.
 - Contradições: passaporte usado na entrada (italiano ou diplomático); DI de fechamento de 28/10.

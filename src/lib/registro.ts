@@ -2,12 +2,12 @@ import type { Estado } from '@/engine/engine';
 import type { Jogo } from '@/engine/schema';
 
 /**
- * Registro anônimo das partidas: começou, escolheu, fechou capítulo, chegou ao fim.
+ * Registro anônimo das partidas: começou, escolheu, fechou capítulo, abriu o seguinte, chegou ao fim.
  * Sem login, sem nome, sem IP: a partida é um id aleatório guardado no navegador.
  * Enviar nunca trava nem interrompe o jogo; se falhar, a partida segue.
  */
 
-export type TipoEvento = 'inicio' | 'escolha' | 'fim_capitulo' | 'fim_jogo';
+export type TipoEvento = 'inicio' | 'escolha' | 'fim_capitulo' | 'inicio_capitulo' | 'fim_jogo';
 
 export interface Evento {
   partida: string;
@@ -30,6 +30,10 @@ export function eventosDaMudanca(antes: Estado | null, depois: Estado): Mudanca[
   }
   if (depois.fase === 'fim_capitulo' && antes?.fase !== 'fim_capitulo') {
     out.push({ tipo: 'fim_capitulo', capitulo: depois.capitulo, no: depois.no });
+  }
+  // Tocou em "Próximo capítulo": separa quem parou na tela de fim de quem parou na abertura seguinte.
+  if (depois.fase === 'jogando' && antes?.fase === 'fim_capitulo') {
+    out.push({ tipo: 'inicio_capitulo', capitulo: depois.capitulo, no: depois.no });
   }
   if (depois.fase === 'fim_jogo' && antes?.fase !== 'fim_jogo') out.push({ tipo: 'fim_jogo' });
   return out;
@@ -64,6 +68,7 @@ export function validarEvento(jogo: Jogo, corpo: unknown): Evento | null {
   const cena = cap?.nos.find((n) => n.id === e.no);
   if (!cap || !cena) return null;
   if (tipo === 'fim_capitulo') return { ...base, capitulo: cap.id, no: cena.id };
+  if (tipo === 'inicio_capitulo') return cena.id === cap.inicio ? { ...base, capitulo: cap.id, no: cena.id } : null;
   if (tipo === 'escolha') {
     const escolha = cena.escolhas?.find((x) => x.id === e.escolha);
     return escolha ? { ...base, capitulo: cap.id, no: cena.id, escolha: escolha.id } : null;

@@ -169,9 +169,12 @@ export default function Jogo({
           momentos={linhaDoTempo(jogo, estado.historico).filter((m) => m.capitulo === cap.id)}
           caminhosPossiveis={caminhos[cap.id] ?? 0}
         />
-        <Acao primario onClick={() => atualizar(continuar(jogo, estado))}>
-          {estado.proximo === 'FIM' ? 'Ver o desfecho' : 'Próximo capítulo'}
-        </Acao>
+        {/* Fixo no rodapé: no celular, a linha do tempo empurrava o botão para 2 telas abaixo, e 36% paravam aqui. */}
+        <div className="seguir">
+          <Acao primario onClick={() => atualizar(continuar(jogo, estado))}>
+            {estado.proximo === 'FIM' ? 'Ver o desfecho' : 'Próximo capítulo'}
+          </Acao>
+        </div>
         {sair}
       </main>
     );
