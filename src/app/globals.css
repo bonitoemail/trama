@@ -380,6 +380,14 @@ button {
   padding: 32px 0 calc(16px + env(safe-area-inset-bottom));
   background: linear-gradient(to bottom, transparent, var(--fundo) 32px);
 }
+/* "Compartilhar meu Brasil" (Compartilhar.tsx), acima do botão de seguir. */
+.fim-cap .seguir .compartilhar {
+  margin-bottom: 10px;
+}
+.botao.compartilhar:disabled {
+  opacity: 0.55;
+  cursor: progress;
+}
 
 /* Linha do tempo (LinhaDoTempo.tsx): a partida como crônica, um fio vertical com marcos. */
 .titulo-linha {

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import BotaoEscolha from './BotaoEscolha';
 import Cartoes from './Cartoes';
+import Compartilhar from './Compartilhar';
 import Inicio from './Inicio';
 import LinhaDoTempo from './LinhaDoTempo';
 import { linhaDoTempo } from '@/engine/historia';
@@ -177,6 +178,15 @@ export default function Jogo({
         />
         {/* Fixo no rodapé: no celular, a linha do tempo empurrava o botão para 2 telas abaixo, e 36% paravam aqui. */}
         <div className="seguir">
+          {/* O cartão de stories do capítulo (estilo/sketches-compartilhar): cada jogador pode trazer o próximo. */}
+          <Compartilhar
+            capitulo={cap.id}
+            rotuloCapitulo={`Capítulo ${cap.numero}, ${cap.titulo}`}
+            final={no(jogo, cap.id, estado.no).titulo ?? cap.titulo}
+            imagem={no(jogo, cap.id, estado.no).imagem ?? null}
+            caminho={estado.historico.filter((p) => p.capitulo === cap.id && p.escolha).map((p) => ({ no: p.no, escolha: p.escolha! }))}
+            onCompartilhado={() => registrarNaTela('compartilhar', jogo.versao, cap.id, estado.no)}
+          />
           <Acao primario onClick={() => atualizar(continuar(jogo, estado))}>
             {estado.proximo === 'FIM' ? 'Ver o desfecho' : 'Próximo capítulo'}
           </Acao>

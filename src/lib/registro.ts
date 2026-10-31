@@ -14,10 +14,14 @@ export type TipoEvento =
   | 'escolha'
   | 'fim_capitulo'
   | 'inicio_capitulo'
-  | 'fim_jogo';
+  | 'fim_jogo'
+  | 'compartilhar';
 
-/** Eventos de uma cena de decisão que não mudam o estado: vêm da tela, não de eventosDaMudanca. */
-export type EventoDaTela = 'decisao_vista' | 'toque_curto';
+/**
+ * Eventos que não mudam o estado: vêm da tela, não de eventosDaMudanca. Os dois primeiros são de uma
+ * cena de decisão; `compartilhar` é o cartão do fim de capítulo, com a cena final.
+ */
+export type EventoDaTela = 'decisao_vista' | 'toque_curto' | 'compartilhar';
 
 export interface Evento {
   partida: string;
@@ -80,6 +84,7 @@ export function validarEvento(jogo: Jogo, corpo: unknown): Evento | null {
   if (tipo === 'fim_capitulo') return { ...base, capitulo: cap.id, no: cena.id };
   if (tipo === 'inicio_capitulo') return cena.id === cap.inicio ? { ...base, capitulo: cap.id, no: cena.id } : null;
   if (tipo === 'decisao_vista' || tipo === 'toque_curto') return cena.escolhas?.length ? { ...base, capitulo: cap.id, no: cena.id } : null;
+  if (tipo === 'compartilhar') return !cena.escolhas?.length && !cena.segue ? { ...base, capitulo: cap.id, no: cena.id } : null;
   if (tipo === 'escolha') {
     const escolha = cena.escolhas?.find((x) => x.id === e.escolha);
     return escolha ? { ...base, capitulo: cap.id, no: cena.id, escolha: escolha.id } : null;

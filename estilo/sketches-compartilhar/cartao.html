@@ -1,0 +1,163 @@
+<!doctype html>
+<!--
+  Compartilhar · sketch do cartão de fim de capítulo (stories, 1080×1920, mostrado em 1/3)
+  Pedido de 30/10: algo que faça cada jogador trazer o próximo. O cartão sai do fim de capítulo
+  ("Compartilhar meu Brasil"), vai pelo menu de compartilhar do celular (Web Share com a imagem;
+  no computador, baixa o arquivo) e leva o link com a origem marcada.
+  O dado do cartão é a raridade do caminho inteiro (quantos fizeram exatamente as mesmas escolhas
+  no capítulo), não a do final: os finais do cap. 1 vão de 14% a 38%, e o caminho quase sempre é raro.
+  Números de /api/escolhas em 30/10, 19h; o "3 de 282" é exemplo (a soma do caminho ainda não existe).
+  Caminho do exemplo: bloqueia (40%), Lula ignora (29%), não acha participação (14%), democratas (68%),
+  Flávio para de falar (10%), Marinho e espera (14%) → "O PL chega dividido a fevereiro" (14%).
+  Linguagem da capa B3: Unbounded só no título, Source Serif 4 para ler, IBM Plex Sans para o resto,
+  sem caixa-alta fora do título, sem cartões dentro do cartão. Laranja do jogo só na escolha rara.
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trama · Cartão para compartilhar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --fundo: #111314; --texto: #ece8df; --texto-2: #9d9a93; --texto-3: #6b6862; --linha: #26292b; --real: #f29a2e;
+  --serif: 'Source Serif 4', Georgia, serif; --sans: 'IBM Plex Sans', system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #0a0b0b; color: var(--texto); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+main { padding: 32px 16px 120px; display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; }
+figure { margin: 0; }
+figcaption { margin-top: 14px; max-width: 360px; font-size: 13px; line-height: 1.5; color: var(--texto-2); }
+figcaption b { color: var(--texto); font-weight: 500; }
+
+/* O cartão é desenhado em 1080×1920 e reduzido: o que se vê aqui é o que sai na imagem. */
+.moldura { width: 360px; height: 640px; overflow: hidden; border-radius: 14px; box-shadow: 0 0 0 1px var(--linha); }
+.cartao { width: 1080px; height: 1920px; transform: scale(.3333); transform-origin: 0 0; background: var(--fundo); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+
+.marca { font-family: 'Unbounded', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: .04em; line-height: .95; margin: 0;
+  background: linear-gradient(105deg, var(--texto) 0%, var(--texto) 30%, #2fae5b 42%, #f7d23e 50%, #2fae5b 58%, var(--texto) 70%, var(--texto) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+.rodape { margin-top: auto; padding: 0 96px 104px; display: flex; align-items: flex-end; justify-content: space-between; }
+.rodape .marca { font-size: 64px; }
+.rodape .link { font-size: 36px; color: var(--texto-2); }
+.pergunta { font-family: var(--serif); font-size: 44px; color: var(--texto); margin: 0 0 22px; }
+
+/* A · o número */
+.a img { width: 100%; height: 760px; object-fit: cover; display: block; }
+.a .corpo { padding: 88px 96px 0; }
+.a .cap { font-size: 34px; color: var(--texto-2); margin: 0 0 40px; }
+.a .numero { font-family: var(--serif); font-weight: 500; font-size: 220px; line-height: .9; margin: 0; letter-spacing: -.02em; }
+.a .numero small { font-size: 96px; color: var(--texto-2); font-weight: 400; }
+.a .frase { font-family: var(--serif); font-size: 52px; line-height: 1.3; margin: 28px 0 0; color: var(--texto); }
+.a .final { margin: 56px 0 0; padding-top: 40px; border-top: 2px solid var(--linha); font-size: 34px; color: var(--texto-2); line-height: 1.45; }
+.a .final b { display: block; font-family: var(--serif); font-weight: 500; font-size: 48px; color: var(--texto); margin-top: 6px; }
+
+/* B · a linha */
+.b .topo { padding: 120px 96px 0; }
+.b .topo .marca { font-size: 88px; }
+.b .cap { font-family: var(--serif); font-size: 56px; margin: 56px 0 0; line-height: 1.2; }
+.b .cap span { display: block; font-family: var(--sans); font-size: 34px; color: var(--texto-2); margin-top: 12px; }
+.b ol { list-style: none; margin: 80px 96px 0; padding: 0 0 0 52px; position: relative; }
+.b ol::before { content: ''; position: absolute; left: 11px; top: 30px; bottom: 30px; width: 3px; background: var(--linha); }
+.b li { position: relative; display: flex; justify-content: space-between; gap: 40px; align-items: baseline; padding: 26px 0; }
+.b li::before { content: ''; position: absolute; left: -52px; top: 40px; width: 25px; height: 25px; border-radius: 50%; background: var(--fundo); border: 3px solid var(--texto-3); }
+.b li span { font-family: var(--serif); font-size: 44px; line-height: 1.25; }
+.b li em { font-style: normal; font-size: 40px; color: var(--texto-2); font-variant-numeric: tabular-nums; }
+.b li.rara::before { background: var(--real); border-color: var(--real); }
+.b li.rara em { color: var(--real); }
+.b li.final { margin-top: 24px; padding-top: 48px; border-top: 2px solid var(--linha); }
+.b li.final::before { top: 62px; background: var(--texto); border-color: var(--texto); }
+.b li.final span { font-weight: 500; }
+.b .nota { margin: 48px 96px 0; font-size: 36px; color: var(--texto-2); line-height: 1.45; }
+.b .nota b { color: var(--texto); font-weight: 500; }
+
+/* C · a manchete */
+.c img { position: absolute; top: 0; left: 0; width: 100%; height: 1240px; object-fit: cover; }
+.c .veu { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(17,19,20,.55) 0%, rgba(17,19,20,0) 16%, rgba(17,19,20,0) 38%, rgba(17,19,20,.9) 58%, var(--fundo) 66%); }
+.c > :not(img):not(.veu) { position: relative; }
+.c .topo { padding: 112px 96px 0; }
+.c .topo .marca { font-size: 72px; }
+.c .corpo { margin-top: auto; padding: 0 96px; }
+.c .cap { font-size: 34px; color: var(--texto-2); margin: 0 0 28px; }
+.c h2 { font-family: var(--serif); font-weight: 500; font-size: 104px; line-height: 1.05; margin: 0; letter-spacing: -.01em; }
+.c .frase { font-family: var(--serif); font-size: 50px; line-height: 1.32; margin: 48px 0 0; color: var(--texto); }
+.c .frase b { color: var(--real); font-weight: 500; }
+.c .rodape { margin-top: 96px; }
+
+.sketch { position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 9; max-width: 760px; margin: 0 auto; padding: 12px 14px; border-radius: 12px; background: #1c1f21; border: 1px solid var(--linha); font-size: 13px; line-height: 1.5; color: var(--texto-2); }
+.sketch b { color: var(--texto); font-weight: 500; }
+</style>
+</head>
+<body>
+<main>
+  <figure>
+    <div class="moldura"><div class="cartao a">
+      <img src="https://tramabr.app/imagens/cap01/o_racha.webp" alt="">
+      <div class="corpo">
+        <p class="cap">Capítulo 1, A carta</p>
+        <p class="numero">87%</p>
+        <p class="frase">dos jogadores fizeram escolhas mais comuns que as minhas.</p>
+        <p class="final">Meu Brasil terminou assim:<b>O PL chega dividido a fevereiro</b></p>
+      </div>
+      <div class="rodape"><div><p class="pergunta">E o seu?</p><span class="link">tramabr.app</span></div><p class="marca">Trama</p></div>
+    </div></div>
+    <figcaption><b>A · O número, caminho raro.</b> Não é mais "quantos fizeram igual" (57% dos caminhos do cap. 1 são únicos: daria "1 de 287" quase sempre). Cada escolha pesa pelo quanto é rara; o caminho soma os pesos, e o número é em que ponto da fila de todos os jogadores ele cai. Nos 287 que terminaram o cap. 1, o número se espalha por igual de 0 a 100.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="moldura"><div class="cartao a">
+      <img src="https://tramabr.app/imagens/cap01/a_ligacao.webp" alt="">
+      <div class="corpo">
+        <p class="cap">Capítulo 1, A carta</p>
+        <p class="numero">72%</p>
+        <p class="frase">dos jogadores fizeram escolhas mais raras que as minhas. Meu Brasil é o da maioria.</p>
+        <p class="final">Meu Brasil terminou assim:<b>Valdemar liga para Alcolumbre</b></p>
+      </div>
+      <div class="rodape"><div><p class="pergunta">E o seu?</p><span class="link">tramabr.app</span></div><p class="marca">Trama</p></div>
+    </div></div>
+    <figcaption><b>A · O número, caminho comum.</b> Quem fica na metade de baixo não recebe um número fraco ("mais raro que 28%"): a frase vira, e o cartão diz que esse é o Brasil da maioria. As duas são identidade que dá para postar, e as duas são verdade.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="moldura"><div class="cartao b">
+      <div class="topo">
+        <p class="marca">Trama</p>
+        <p class="cap">Meu Brasil, novembro de 2026<span>Capítulo 1, A carta</span></p>
+      </div>
+      <ol>
+        <li><span>Moraes não prende, mas bloqueia os bens</span><em>40%</em></li>
+        <li><span>Lula ignora a carta</span><em>29%</em></li>
+        <li><span>Não se acha participação de Milei</span><em>14%</em></li>
+        <li><span>Democratas ganham a Câmara e o Senado</span><em>68%</em></li>
+        <li class="rara"><span>Flávio para de falar</span><em>10%</em></li>
+        <li><span>O PL mantém Marinho e espera</span><em>14%</em></li>
+        <li class="final"><span>O PL chega dividido a fevereiro</span><em>14%</em></li>
+      </ol>
+      <p class="nota"><b>3 de 282</b> jogadores fizeram o mesmo caminho.</p>
+      <div class="rodape"><div><p class="pergunta">E o seu?</p><span class="link">tramabr.app</span></div></div>
+    </div></div>
+    <figcaption><b>B · A linha.</b> A linha do tempo inteira, com quantos escolheram o mesmo em cada passo, e a mais rara em laranja, como no fim do capítulo. É a que mais dá conversa ("você deixou Flávio calar?"), mas é a mais densa para quem só passa o dedo.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="moldura"><div class="cartao c">
+      <img src="https://tramabr.app/imagens/cap01/o_racha.webp" alt="">
+      <div class="veu"></div>
+      <div class="topo"><p class="marca">Trama</p></div>
+      <div class="corpo">
+        <p class="cap">Meu Brasil, capítulo 1</p>
+        <h2>O PL chega dividido a fevereiro</h2>
+        <p class="frase">Neste Brasil, Flávio parou de falar. <b>Só 10% dos jogadores escolheram isso.</b></p>
+      </div>
+      <div class="rodape"><div><p class="pergunta">E o seu?</p><span class="link">tramabr.app</span></div></div>
+    </div></div>
+    <figcaption><b>C · A manchete.</b> A imagem ocupa o cartão, e o final vira manchete, com a escolha mais rara numa frase. É a mais bonita no feed de stories e a que mais parece notícia. Por isso pode ser lida fora de contexto como fato: a palavra "Meu Brasil" segura isso.</figcaption>
+  </figure>
+</main>
+<div class="sketch">
+  <b>Como funciona em qualquer versão:</b> botão "Compartilhar meu Brasil" no fim do capítulo, acima de "Próximo capítulo". No celular abre o menu de compartilhar com a imagem pronta (Instagram, WhatsApp); no computador, baixa a imagem. O link leva <b>?origem=cartao</b>, para medir quantos chegam por ele. A imagem nunca mostra porcentagem durante uma decisão, só do capítulo já fechado.
+</div>
+</body>
+</html>

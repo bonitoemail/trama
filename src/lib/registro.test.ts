@@ -43,6 +43,10 @@ describe('registro', () => {
       expect(validarEvento(jogo, { ...base, tipo, no: 'pedido' })).toMatchObject({ tipo, no: 'pedido' });
       expect(validarEvento(jogo, { ...base, tipo, no: 'abertura' })).toBeNull();
     }
+    // Compartilhou o cartão: só com a cena final do capítulo.
+    expect(validarEvento(jogo, { ...base, tipo: 'compartilhar', no: 'a_ligacao' })).toMatchObject({ tipo: 'compartilhar', no: 'a_ligacao' });
+    expect(validarEvento(jogo, { ...base, tipo: 'compartilhar', no: 'pedido' })).toBeNull();
+    expect(validarEvento(jogo, { ...base, tipo: 'compartilhar', no: 'abertura' })).toBeNull();
     expect(validarEvento(jogo, { partida, versao: jogo.versao, tipo: 'inicio', origem: 'Instagram Bio' })).toMatchObject({
       origem: 'instagram-bio',
     });
