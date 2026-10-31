@@ -219,6 +219,26 @@ O registro esfriou depois do pico do post (33 partidas das 16h às 17h, 19 entre
 - **Evento novo `compartilhar`** (com a cena final do capítulo), para medir quantos compartilham e, pela origem `cartao`, quantos chegam por eles.
 - **A medir:** quantos que fecham capítulo compartilham; partidas com origem `cartao`.
 
+### Depois do botão, dos stories e do cartão — 31/10/2026, 9h30
+559 partidas no total (eram 513 às 19h10 de 30/10), 4.427 escolhas. 57 partidas desde o botão novo (30/10, 18h25), 30 desde o cartão (21h10); o ritmo caiu de 10 a 12 por hora no começo da noite para 1 a 4 por hora. Todas com origem `direto`.
+- **Botão:** o toque rápido na primeira decisão caiu de 71% para 57% (27 de 47), e na primeira do cap. 2 de 30% para 14% (3 de 21). Quase todos ainda escolhem (44 de 47 em `pedido`). A mediana entre ver as opções de `pedido` e escolher é de 21 segundos: leem antes de decidir.
+- **Antes da primeira escolha:** 10 de 57 (18%) saem sem ver as opções de `pedido` (eram 10%). Amostra pequena e de madrugada; a olhar de novo.
+- **Dentro do cap. 1:** de `pedido` a `pl`, 73% seguem (44 → 32), igual aos 71% de antes dos cortes de cartões. Os cortes não mudaram a perda.
+- **Entre capítulos:** do cap. 1 ao 2, 25 de 32 (78%; era 88% em 30/10, 18h, antes do botão de compartilhar ficar acima do de seguir). Do 2 ao 3, 19 de 19.
+- **Cartão:** 2 compartilhamentos (cap. 1, finais `a_ligacao` e `a_convocacao`) entre 19 partidas que fecharam capítulo depois do deploy. Nenhuma partida com origem `cartao` ainda.
+- **A medir:** se o botão de compartilhar acima de "Próximo capítulo" está tirando gente do cap. 2; chegadas pelo cartão.
+
+### Preparando 3/11 — 31/10/2026
+- **Erro que ia quebrar o primeiro placar:** a skill e o DESIGN mandavam escrever a trava como `data: "DD/MM/AAAA"`, mas `/escolhas` compara essa data com o dia dos votos em AAAA-MM-DD. Na primeira trava, "03/11/2026" ficaria menor que qualquer dia de 2026 e todos os votos seriam descartados. Agora `real.data` é AAAA-MM-DD (o validador recusa outro formato), e a tela escreve "3 de novembro" (`BotaoEscolha`, `LinhaDoTempo`). Skill, DESIGN e testes acompanham.
+- **Trava simulada (desfeita):** com `democratas` travado em 2026-11-03, `/escolhas` mostrou o placar com 378 votos de antes de 3/11 (70% democratas nas duas casas, 20% divididas, 10% republicanos). Funciona, mas o placar fica sob "Antes da notícia", só com a etiqueta "aconteceu".
+- **Sketch** em `estilo/sketches-3-11/placar.html`: o post de stories do placar (duas versões, maioria acerta ou erra), a linha na capa para quem apostou e volta, e um bloco "A realidade decidiu" no topo de `/escolhas`.
+- **Feito (as três, aprovadas):**
+  - `/escolhas`: bloco "A realidade decidiu" no topo, com "X% dos jogadores acertaram, em N escolhas", a barra do que aconteceu em laranja (`--c-real`) e "Compartilhar o placar". "Antes da notícia" fica só com o que falta decidir.
+  - **Post do placar** (`desenharPlacar` em `src/lib/cartao.ts`, botão em `CompartilharPlacar.tsx`): stories 1080×1920; se a maioria acertou, "X% dos jogadores acertaram o que aconteceu"; se errou, "X% acertaram. Y% apostaram em outra coisa". Link com `?origem=placar`. Serve para o post do Trama e para qualquer jogador.
+  - **Capa:** "Você apostou em “…”. Aconteceu." (ou "Não aconteceu. Aconteceu “…”."), com quantos apostaram o mesmo e "Ver o placar", por 7 dias depois da notícia (`src/lib/apostas.ts`). As apostas ficam em `trama:apostas` no navegador, com o dia, gravadas ao decidir uma cena ainda aberta; as escolhas de partidas salvas antes disso entram como aposta ao abrir o site (a cena ainda não foi decidida, então foram antes da notícia). Escolha feita no dia da notícia ou depois não conta.
+  - Conferido numa trava simulada (desfeita) da opção minoritária: capa, placar com 21% e o post.
+- **Em 4/11, de manhã:** "atualize o jogo". A trava é `real: { data: "2026-11-03", fontes: [...] }` na opção que aconteceu; o placar, a capa e o post saem sozinhos.
+
 ## Ainda pendente (para a rodada 3)
 - Análises pós-eleição de Marcus André Melo, Lynch (conteúdo do vídeo), Limongi, Couto, Traumann, Moura, Andrea Freitas, Falcão, Pereira, Glezer, Da Ros, Barbosa, Laura Carvalho, Armínio, Marcos Mendes: ainda não publicadas ou não encontráveis em 28/10.
 - Contradições: passaporte usado na entrada (italiano ou diplomático); DI de fechamento de 28/10.

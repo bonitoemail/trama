@@ -100,7 +100,7 @@ No fim de cada capítulo (e acessível depois pelo menu):
 ### 6.1 Travar o caminho real
 
 Quando uma notícia resolve uma decisão do jogo, a escolha correspondente é marcada como **real** (data + fonte), à mão:
-- a escolha real fica selecionada automaticamente, com o selo "aconteceu em DD/MM/AAAA";
+- a escolha real fica selecionada automaticamente, com o selo "aconteceu em 3 de novembro" (a data vai no conteúdo como AAAA-MM-DD);
 - as outras opções continuam visíveis, mas travadas ("isso não aconteceu");
 - no fluxograma, o caminho real ganha cor própria: um fio que atravessa a árvore;
 - a árvore não muda: os IDs e as estatísticas continuam valendo.
@@ -283,7 +283,7 @@ nos:
         rotulo: Moraes espera e não decide agora
         marca: [flavio_sem_preventiva]
         vai_para: o_prazo
-        # quando a realidade decide: real: { data: "DD/MM/AAAA", fontes: [...] }
+        # quando a realidade decide: real: { data: "AAAA-MM-DD", fontes: [...] }
 saidas:
   - para: cap02
 ```

@@ -119,7 +119,7 @@ describe('motor', () => {
 describe('trava de escolha real', () => {
   function jogoTravado() {
     const j = jogoMinimo();
-    j.capitulos[0].nos[0].escolhas![1].real = { data: '03/11/2026', fontes: ['https://www.tse.jus.br/'] };
+    j.capitulos[0].nos[0].escolhas![1].real = { data: '2026-11-03', fontes: ['https://www.tse.jus.br/'] };
     return j;
   }
 
@@ -144,7 +144,7 @@ describe('trava de escolha real', () => {
 
   it('recusa duas escolhas reais no mesmo nó', () => {
     const j = jogoTravado();
-    j.capitulos[0].nos[0].escolhas![0].real = { data: '04/11/2026', fontes: ['https://www.tse.jus.br/'] };
+    j.capitulos[0].nos[0].escolhas![0].real = { data: '2026-11-04', fontes: ['https://www.tse.jus.br/'] };
     expect(validar(j).erros.some((e) => e.includes('mais de uma'))).toBe(true);
   });
 });

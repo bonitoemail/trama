@@ -5,6 +5,7 @@ import { isoPorExtenso } from '@/engine/calendario';
 import type { Jogo } from '@/engine/schema';
 import type { Decisao, Opcao } from '@/lib/escolhas';
 import { usePainel } from '@/lib/painel';
+import CompartilharPlacar from './CompartilharPlacar';
 
 interface Props {
   textos: NonNullable<Jogo['escolhas']>;
@@ -36,17 +37,33 @@ export default function Escolhas({ textos: t, titulo, acertos, onVoltar, princip
 
       {p && (
         <>
-          {(p.antes.length > 0 || p.placar.length > 0) && (
+          {/* A aposta que a realidade decidiu ganha o topo (sketch em estilo/sketches-3-11): quantos acertaram, numa frase. */}
+          {p.placar.length > 0 && (
+            <section className="placar">
+              <h2>A realidade decidiu</h2>
+              <p className="sub">Contam só as escolhas feitas antes da notícia.</p>
+              {p.placar.map((d) => {
+                const real = d.opcoes.find((o) => o.real);
+                return (
+                  <div key={d.no} className="decisao">
+                    <p className="manchete">
+                      <b>{real?.pct ?? 0}%</b> dos jogadores acertaram, em {d.total.toLocaleString('pt-BR')} escolhas.
+                    </p>
+                    <p className="cena">
+                      <b>{d.titulo}</b>, cap. {d.numero}, em {isoPorExtenso(d.data!)}
+                    </p>
+                    <Barras opcoes={d.opcoes} semDestaque />
+                    <CompartilharPlacar d={d} />
+                  </div>
+                );
+              })}
+            </section>
+          )}
+
+          {p.antes.length > 0 && (
             <section>
               <h2>Antes da notícia</h2>
               <p className="sub">Escolhas que a realidade vai decidir. Quando decidir, mostramos quantos jogadores tinham acertado.</p>
-              {p.placar.map((d) => (
-                <Bloco key={d.no} d={d}>
-                  <p className="nota-bloco">
-                    A realidade decidiu em {isoPorExtenso(d.data!)}. Contam só as escolhas feitas antes disso.
-                  </p>
-                </Bloco>
-              ))}
               {p.antes.map((d) => (
                 <Bloco key={d.no} d={d}>
                   <p className="espera">
@@ -62,16 +79,16 @@ export default function Escolhas({ textos: t, titulo, acertos, onVoltar, princip
                   </p>
                 </Bloco>
               ))}
-              {acertos && (
-                <p className="ponte">
-                  Isto é o que os jogadores apostaram. O que as cenas do Trama escreveram antes, e se a realidade confirmou, fica em{' '}
-                  <button type="button" onClick={acertos.onClick}>
-                    {acertos.titulo}
-                  </button>
-                  .
-                </p>
-              )}
             </section>
+          )}
+          {acertos && (p.antes.length > 0 || p.placar.length > 0) && (
+            <p className="ponte">
+              Isto é o que os jogadores apostaram. O que as cenas do Trama escreveram antes, e se a realidade confirmou, fica em{' '}
+              <button type="button" onClick={acertos.onClick}>
+                {acertos.titulo}
+              </button>
+              .
+            </p>
           )}
 
           {p.divididas.length > 0 && (

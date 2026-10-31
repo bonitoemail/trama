@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { isoPorExtenso } from '@/engine/calendario';
 import type { StatusEscolha } from '@/engine/engine';
 
 /** Tempo segurando para a escolha valer. A barra (CSS) anima no mesmo tempo. */
@@ -103,7 +104,7 @@ export default function BotaoEscolha({ letra, rotulo, status, dataReal, apagado,
         : demonstrando
           ? 'segure assim para decidir'
         : status === 'real'
-          ? `aconteceu em ${dataReal} · segure para seguir`
+          ? `aconteceu em ${dataReal ? isoPorExtenso(dataReal) : ''} · segure para seguir`
           : 'segure para decidir';
 
   return (

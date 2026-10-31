@@ -23,7 +23,7 @@ import type { AConfirmar } from '@/engine/relogios';
 import type { Jogo as JogoT } from '@/engine/schema';
 import { useNavegacao } from '@/lib/navegacao';
 import { guardarOrigem, registrarInicio, registrarMudanca, registrarNaTela } from '@/lib/registro';
-import { apagarPartida, lerPartida, lerVistos, salvarPartida, salvarVistos } from '@/lib/storage';
+import { apagarPartida, lerApostas, lerPartida, lerVistos, salvarAposta, salvarPartida, salvarVistos } from '@/lib/storage';
 import { tituloDaTela, type Tela } from '@/lib/telas';
 
 export default function Jogo({
@@ -64,6 +64,13 @@ export default function Jogo({
       valida = null;
       apagarPartida(jogo.versao);
     }
+    // Escolhas de partidas salvas antes de as apostas existirem: se a cena ainda não foi decidida
+    // pela realidade, a escolha foi feita antes da notícia e conta como aposta de hoje.
+    const apostas = lerApostas();
+    valida?.historico.forEach((p) => {
+      const chave = `${p.capitulo}/${p.no}`;
+      if (p.escolha && !apostas[chave] && !no(jogo, p.capitulo, p.no).escolhas?.some((e) => e.real)) salvarAposta(chave, p.escolha);
+    });
     setEstado(valida);
     setVistos(lerVistos());
     setCarregado(true);
@@ -284,6 +291,8 @@ export default function Jogo({
               apagado={decidindo !== null && decidindo !== e.id}
               onToqueCurto={() => registrarNaTela('toque_curto', jogo.versao, estado.capitulo, estado.no)}
               onDecidir={() => {
+                // Escolha em decisão ainda aberta é aposta: a capa conta quando a realidade decidir.
+                if (status === 'livre') salvarAposta(chave, e.id);
                 setDecidindo(e.id);
                 // Um instante para a decisão pesar antes de a cena mudar.
                 setTimeout(() => {

@@ -9,7 +9,9 @@ import Metodo from './Metodo';
 import { agoraDaCapa, diaEMes, falta, isoPorExtenso, regua } from '@/engine/calendario';
 import type { AConfirmar } from '@/engine/relogios';
 import type { Jogo } from '@/engine/schema';
-import { usePainel } from '@/lib/painel';
+import { apostaDecidida, type ApostaDecidida } from '@/lib/apostas';
+import { usePainel, type Carga } from '@/lib/painel';
+import { lerApostas } from '@/lib/storage';
 import { CAMINHOS, type Tela } from '@/lib/telas';
 
 interface Props {
@@ -145,6 +147,8 @@ export default function Inicio({ jogo, tela, partidas, aConfirmar, capituloAtual
           )}
         </div>
 
+        <ApostaNaCapa jogo={jogo} painel={painel} onPlacar={jogo.escolhas ? () => onIr('escolhas') : undefined} />
+
         {pelaFrente && <PelaFrente agora={pelaFrente.agora} marcos={pelaFrente.marcos} />}
       </div>
 
@@ -269,4 +273,34 @@ function emMil(n: number): string {
   if (n >= 2_000_000) return `${Math.floor(n / 1_000_000).toLocaleString('pt-BR')} milhões`;
   if (n >= 1_000_000) return '1 milhão';
   return n >= 1000 ? `${Math.floor(n / 1000).toLocaleString('pt-BR')} mil` : String(n);
+}
+
+/**
+ * Quem apostou numa decisão que a realidade acabou de decidir vê, na capa, se aconteceu
+ * (sketch em estilo/sketches-3-11/placar.html). As apostas ficam no navegador: lidas depois de montar.
+ */
+function ApostaNaCapa({ jogo, painel, onPlacar }: { jogo: Jogo; painel: Carga; onPlacar?: () => void }) {
+  const [aposta, setAposta] = useState<ApostaDecidida | null>(null);
+  useEffect(() => {
+    const hoje = new Date().toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' });
+    setAposta(apostaDecidida(jogo, lerApostas(), hoje));
+  }, [jogo]);
+  if (!aposta) return null;
+
+  const pct = painel && painel !== 'vazio' ? painel.porDecisao[aposta.chave]?.pct[aposta.minha] : undefined;
+  return (
+    <p className="aposta">
+      Você apostou em <b>“{aposta.minha}”</b>.{' '}
+      {aposta.acertou ? <span className="sim">Aconteceu.</span> : <>Não aconteceu. Aconteceu “{aposta.aconteceu}”.</>}
+      {pct !== undefined && <> {pct}% dos jogadores apostaram o mesmo.</>}
+      {onPlacar && (
+        <>
+          <br />
+          <button type="button" className="link-sub" onClick={onPlacar}>
+            Ver o placar
+          </button>
+        </>
+      )}
+    </p>
+  );
 }

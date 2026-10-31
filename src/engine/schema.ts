@@ -40,7 +40,8 @@ export const FontesSchema = z.array(z.url()).min(1);
 
 /** A realidade decidiu este nó: a escolha fica travada como o que aconteceu (DESIGN 6.1). */
 export const RealSchema = z.strictObject({
-  data: z.string(),
+  // ISO, como os relógios: /escolhas corta os votos por esta data (src/lib/escolhas.ts), e a tela escreve "3 de novembro".
+  data: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'data no formato AAAA-MM-DD'),
   fontes: FontesSchema,
 });
 

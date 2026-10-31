@@ -155,7 +155,7 @@ Se o usuário já disse "atualize o jogo" sem pedir revisão, aplique o automát
 
 - Siga **DESIGN.md 8, 8.1 e 8.2** e o guia de escrita publicado, [`roteiro/prompts/escrita.md`](../../../roteiro/prompts/escrita.md), em cada trecho novo; `npm run validate` avisa o que sair do formato (linguagem simples: cartões curtos, sem jargão; o técnico vai em "Fatos e fontes": `fatos` com fontes e `lados`): motivo e interesse para todos, nenhuma escolha sem custo, regra do par, narrador sem piada, boato só como boato, gancho e checagem, mesma regra de nome.
 - Toda paráfrase de pessoa ou instituição real ganha comentário YAML com o link; se for fato citado na cena, vai também para `fatos:` com as fontes.
-- Trava: `real: { data: "DD/MM/AAAA", fontes: ["<url>", "<url>"] }` (oficial ou duas). A interface mostra "aconteceu em…" e o fio laranja na linha do tempo.
+- Trava: `real: { data: "AAAA-MM-DD", fontes: ["<url>", "<url>"] }` (oficial ou duas; a data é a do dia da notícia, no horário de Brasília, e o validador recusa outro formato: `/escolhas` corta os votos por ela). A interface mostra "aconteceu em…" e o fio laranja na linha do tempo.
 - **Versão** (`content/jogo.yaml`): suba quando um nó for **removido ou renomeado** ou um capítulo mudar de início (partidas salvas antigas são descartadas). Só texto, trava ou nó novo: não precisa subir.
 - Atualize `pesquisa/relogios.yaml`: `status: aconteceu` + `resultado` com fonte; crie relógios novos.
 

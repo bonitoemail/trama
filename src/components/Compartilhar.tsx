@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { desenharCartao, type DadosDoCartao, type Raridade } from '@/lib/cartao';
+import { compartilharArquivo, desenharCartao, type DadosDoCartao, type Raridade } from '@/lib/cartao';
 
 interface Props {
   capitulo: string;
@@ -46,20 +46,7 @@ export default function Compartilhar({ capitulo, rotuloCapitulo, final, imagem, 
 
   function compartilhar() {
     if (!arquivo) return;
-    const pedido = { files: [arquivo], text: `Meu Brasil no Trama. E o seu? ${LINK}` };
-    if (navigator.canShare?.(pedido)) {
-      navigator.share(pedido).then(
-        () => onCompartilhado?.(),
-        () => {}, // Fechou o menu sem escolher: nada a fazer.
-      );
-      return;
-    }
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(arquivo);
-    a.download = arquivo.name;
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(a.href), 10_000);
-    onCompartilhado?.();
+    compartilharArquivo(arquivo, `Meu Brasil no Trama. E o seu? ${LINK}`).then((saiu) => saiu && onCompartilhado?.());
   }
 
   return (

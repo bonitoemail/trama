@@ -7,6 +7,8 @@
   --c-texto: #ece8df;
   --c-texto-2: #9d9a93;
   --c-linha: #26292b;
+  /* O laranja do jogo para o que aconteceu de verdade (placar de /escolhas). */
+  --c-real: #f29a2e;
   --c-serif: var(--capa-serif), Georgia, serif;
   --c-sans: var(--capa-sans), system-ui, sans-serif;
   --c-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -120,6 +122,27 @@ body:has(.capa) {
 }
 .link-sub:hover {
   color: var(--c-texto) !important;
+}
+/* A aposta que a realidade decidiu (Inicio.tsx, ApostaNaCapa): serifa, sem caixa, entre a partida e "Pela frente". */
+.capa .aposta {
+  margin: 32px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--c-linha);
+  font-family: var(--c-serif);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--c-texto-2);
+}
+.capa .aposta b {
+  font-weight: 500;
+  color: var(--c-texto);
+}
+.capa .aposta .sim {
+  color: var(--c-real);
+}
+.capa .aposta .link-sub {
+  padding: 8px 0 0;
+  font-family: var(--c-sans);
 }
 .capa .nota {
   margin: 0 0 14px;
@@ -1067,6 +1090,44 @@ body:has(.capa) {
 .pagina-escolhas .espera b {
   font-weight: 500;
   color: var(--c-texto);
+}
+/* A realidade decidiu: quantos acertaram, numa frase; a barra do que aconteceu em laranja. */
+.pagina-escolhas .placar .manchete {
+  font-family: var(--c-serif);
+  font-size: 22px;
+  line-height: 1.35;
+  margin: 0 0 12px;
+}
+.pagina-escolhas .placar .manchete b {
+  font-weight: 500;
+  color: var(--c-real);
+  font-variant-numeric: tabular-nums;
+}
+.pagina-escolhas .opcao.real .nome small {
+  color: var(--c-real);
+}
+.pagina-escolhas .opcao.real .pct {
+  color: var(--c-texto);
+}
+.pagina-escolhas .opcao.real .trilho span {
+  background: var(--c-real);
+}
+.pagina-escolhas .compartilhar-placar {
+  margin: 18px 0 0;
+  padding: 10px 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: var(--c-sans);
+  font-size: 14px;
+  color: var(--c-texto);
+  text-decoration: underline;
+  text-decoration-color: var(--c-texto-2);
+  text-underline-offset: 4px;
+}
+.pagina-escolhas .compartilhar-placar:disabled {
+  color: var(--c-texto-2);
+  cursor: progress;
 }
 /* Ponte para /acertos: os jogadores apostam aqui; o que o jogo escreveu e aconteceu fica lá. */
 .pagina-escolhas .ponte {

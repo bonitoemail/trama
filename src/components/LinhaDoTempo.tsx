@@ -54,7 +54,7 @@ export default function LinhaDoTempo({ momentos, caminhosPossiveis, escolhas }: 
                       />
                     )}
                     {m.real ? (
-                      <p className="outras real">aconteceu de verdade em {m.real}</p>
+                      <p className="outras real">aconteceu de verdade em {isoPorExtenso(m.real)}</p>
                     ) : m.alternativas > 0 ? (
                       <p className="outras">
                         em outras linhas do tempo: {m.alternativas} {m.alternativas === 1 ? 'caminho' : 'caminhos'}

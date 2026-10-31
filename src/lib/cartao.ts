@@ -9,7 +9,7 @@
 export const LARGURA = 1080;
 export const ALTURA = 1920;
 
-const COR = { fundo: '#111314', texto: '#ece8df', texto2: '#9d9a93', linha: '#26292b' };
+const COR = { fundo: '#111314', texto: '#ece8df', texto2: '#9d9a93', linha: '#26292b', real: '#f29a2e' };
 const MARGEM = 96;
 
 /** Resposta de /api/raridade: porcentagens dos caminhos que fecharam o capítulo. */
@@ -145,13 +145,20 @@ export async function desenharCartao(d: DadosDoCartao): Promise<Blob | null> {
   ctx.font = `400 36px ${sans}`;
   ctx.fillText('tramabr.app', MARGEM, base);
 
-  ctx.font = `500 64px ${titulo}`;
-  const marca = 'TRAMA';
+  marca(ctx, titulo, 64, 'direita', base);
+
+  return paraPng(canvas);
+}
+
+/** O título TRAMA com a luz verde e amarela parada no meio, alinhado à margem esquerda ou direita. */
+function marca(ctx: CanvasRenderingContext2D, titulo: string, tamanho: number, lado: 'esquerda' | 'direita', base: number) {
+  ctx.font = `500 ${tamanho}px ${titulo}`;
+  const letras = [...'TRAMA'];
   // O título da capa tem .04em entre as letras; o canvas não espaça, então cada letra vai no lugar.
-  const espaco = 64 * 0.04;
-  const larguras = [...marca].map((c) => ctx.measureText(c).width);
-  const total = larguras.reduce((a, b) => a + b, 0) + espaco * (marca.length - 1);
-  const x0 = LARGURA - MARGEM - total;
+  const espaco = tamanho * 0.04;
+  const larguras = letras.map((c) => ctx.measureText(c).width);
+  const total = larguras.reduce((a, b) => a + b, 0) + espaco * (letras.length - 1);
+  const x0 = lado === 'direita' ? LARGURA - MARGEM - total : MARGEM;
   const luz = ctx.createLinearGradient(x0, 0, x0 + total, 0);
   luz.addColorStop(0, COR.texto);
   luz.addColorStop(0.3, COR.texto);
@@ -162,10 +169,127 @@ export async function desenharCartao(d: DadosDoCartao): Promise<Blob | null> {
   luz.addColorStop(1, COR.texto);
   ctx.fillStyle = luz;
   let x = x0;
-  [...marca].forEach((c, i) => {
+  letras.forEach((c, i) => {
     ctx.fillText(c, x, base);
     x += larguras[i] + espaco;
   });
+}
 
+function paraPng(canvas: HTMLCanvasElement): Promise<Blob | null> {
   return new Promise((ok) => canvas.toBlob((b) => ok(b), 'image/png'));
+}
+
+/** Uma decisão que a realidade decidiu, somada em /escolhas (só votos de antes da notícia). */
+export interface DadosDoPlacar {
+  titulo: string;
+  total: number;
+  opcoes: { rotulo: string; pct: number; real?: boolean }[];
+}
+
+/**
+ * A frase do placar. Se a maioria acertou, o número é de quem acertou; se errou, a surpresa é o
+ * assunto: quem acertou é minoria, e a frase diz quanto a maioria apostou em outra coisa.
+ */
+export function fraseDoPlacar(d: DadosDoPlacar): { numero: string; frase: string } {
+  const pct = d.opcoes.find((o) => o.real)?.pct ?? 0;
+  const topo = Math.max(...d.opcoes.map((o) => o.pct));
+  if (pct >= topo) return { numero: `${pct}%`, frase: 'dos jogadores acertaram o que aconteceu.' };
+  if (pct === 0) return { numero: '0%', frase: `dos jogadores apostaram no que aconteceu. ${topo}% apostaram em outra coisa.` };
+  return { numero: `${pct}%`, frase: `dos jogadores acertaram. ${topo}% apostaram em outra coisa.` };
+}
+
+/** O post de stories do placar (sketch em estilo/sketches-3-11/placar.html). */
+export async function desenharPlacar(d: DadosDoPlacar): Promise<Blob | null> {
+  const serif = fonte('--capa-serif', 'Georgia, serif');
+  const sans = fonte('--capa-sans', 'system-ui, sans-serif');
+  const titulo = fonte('--titulo', 'sans-serif');
+  await Promise.all([
+    document.fonts.load(`400 50px ${serif}`),
+    document.fonts.load(`500 260px ${serif}`),
+    document.fonts.load(`400 36px ${sans}`),
+    document.fonts.load(`500 72px ${titulo}`, 'TRAMA'),
+  ]).catch(() => {});
+
+  const canvas = document.createElement('canvas');
+  canvas.width = LARGURA;
+  canvas.height = ALTURA;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  ctx.fillStyle = COR.fundo;
+  ctx.fillRect(0, 0, LARGURA, ALTURA);
+
+  marca(ctx, titulo, 72, 'esquerda', 188);
+
+  let y = 288;
+  ctx.fillStyle = COR.texto2;
+  ctx.font = `400 50px ${serif}`;
+  y = paragrafo(ctx, `${d.titulo}: antes da notícia, ${d.total.toLocaleString('pt-BR')} jogadores do Trama apostaram.`, y, 50, 66) + 48;
+
+  const { numero, frase } = fraseDoPlacar(d);
+  ctx.fillStyle = COR.texto;
+  ctx.font = `500 260px ${serif}`;
+  ctx.fillText(numero, MARGEM - 10, y + 210);
+  y += 264;
+  ctx.font = `400 56px ${serif}`;
+  y = paragrafo(ctx, frase, y, 56, 72) + 72;
+
+  // As apostas, com a que aconteceu em laranja.
+  const larguraLinha = LARGURA - 2 * MARGEM;
+  for (const o of d.opcoes) {
+    ctx.fillStyle = COR.linha;
+    ctx.fillRect(MARGEM, y, larguraLinha, 2);
+    y += 28;
+    ctx.font = `400 40px ${serif}`;
+    ctx.fillStyle = o.real ? COR.texto : COR.texto2;
+    const ls = linhas(ctx, o.rotulo, larguraLinha - 140);
+    ls.forEach((l, i) => ctx.fillText(l, MARGEM, y + 40 + i * 52));
+    ctx.font = `500 40px ${sans}`;
+    ctx.textAlign = 'right';
+    ctx.fillText(`${o.pct}%`, LARGURA - MARGEM, y + 40);
+    ctx.textAlign = 'left';
+    y += ls.length * 52;
+    if (o.real) {
+      ctx.fillStyle = COR.real;
+      ctx.font = `400 30px ${sans}`;
+      ctx.fillText('aconteceu', MARGEM, y + 34);
+      y += 44;
+    }
+    y += 16;
+    ctx.fillStyle = COR.linha;
+    ctx.fillRect(MARGEM, y, larguraLinha, 8);
+    ctx.fillStyle = o.real ? COR.real : '#3a3d3f';
+    ctx.fillRect(MARGEM, y, (larguraLinha * o.pct) / 100, 8);
+    y += 38;
+  }
+
+  const base = ALTURA - 104;
+  ctx.fillStyle = COR.texto;
+  ctx.font = `400 46px ${serif}`;
+  ctx.fillText('O que vem depois, você decide.', MARGEM, base - 60);
+  ctx.fillStyle = COR.texto2;
+  ctx.font = `400 36px ${sans}`;
+  ctx.fillText('tramabr.app', MARGEM, base);
+
+  return paraPng(canvas);
+}
+
+/**
+ * Abre o menu de compartilhar do celular com a imagem; sem ele (computador), baixa o arquivo.
+ * Chame dentro do toque: o menu não abre depois de esperar rede ou desenho.
+ * Resolve true quando a imagem saiu (compartilhada ou baixada).
+ */
+export function compartilharArquivo(arquivo: File, texto: string): Promise<boolean> {
+  const pedido = { files: [arquivo], text: texto };
+  if (navigator.canShare?.(pedido)) {
+    return navigator.share(pedido).then(
+      () => true,
+      () => false, // Fechou o menu sem escolher.
+    );
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(arquivo);
+  a.download = arquivo.name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 10_000);
+  return Promise.resolve(true);
 }
