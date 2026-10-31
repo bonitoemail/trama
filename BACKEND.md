@@ -44,7 +44,7 @@ Duas tabelas:
 
 - Única por `(partida, capitulo, no, tipo)`: a mesma partida não vota duas vezes na mesma cena.
 - RLS ligado e sem política nenhuma: a chave pública não lê nem grava nada. Só o servidor do site grava, com a chave secreta.
-- Consultas prontas (views, fora da API pública): `resumo` (começaram, terminaram cada capítulo, chegaram ao fim), `escolhas_por_no` (contagem e %), `paradas` (última cena das partidas que não terminaram), `caminhos` (sequência de escolhas por capítulo, mais comuns primeiro), `por_origem`.
+- Consultas prontas (views, fora da API pública): `resumo` (começaram, terminaram cada capítulo, chegaram ao fim), `escolhas` (contagem e %), `paradas` (última cena das partidas que não terminaram), `caminhos` (sequência de escolhas por capítulo, mais comuns primeiro), `origens`.
 
 ## No site
 - `src/lib/registro.ts`: `registrar(evento)` manda para `/api/evento` com `fetch(..., { keepalive: true })`. Não espera resposta, não mostra erro e nunca trava o jogo. Em `npm run dev` só manda se houver a variável de ambiente.
@@ -67,7 +67,8 @@ Duas tabelas:
 
 ## Antimanipulação (primeira camada)
 - Validação contra o conteúdo, uma escolha por cena por partida, limite de eventos por partida (não passa do número de cenas).
-- Regra de limite de requisições por IP no firewall da Vercel (sem guardar o IP).
+- Regra de limite de requisições por IP no firewall da Vercel (sem guardar o IP). **Ainda não existe** (conferido em 31/10: o projeto não tem configuração de firewall); criar no painel da Vercel para `/api/evento` e `/api/raridade`.
+- Voto em opção que a realidade travou é recusado na validação (31/10), e o limite de eventos por partida é 120 (a mais longa tinha 60).
 - O resto (robôs criando partidas em massa) fica para quando as porcentagens forem públicas.
 
 ## Publicação

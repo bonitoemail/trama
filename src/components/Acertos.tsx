@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Fontes } from './Fatos';
 import { Moldura } from './Metodo';
 import { isoPorExtenso } from '@/engine/calendario';
@@ -46,7 +46,9 @@ export default function Acertos({ acertos: a, aConfirmar, titulo, escolhas, onVo
       else n.add(k);
       return n;
     });
-  const hoje = new Date().toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' });
+  // O dia só no navegador: a página sai pronta do servidor no dia do build, e "daqui a 4 dias" mudaria.
+  const [hoje, setHoje] = useState<string | null>(null);
+  useEffect(() => setHoje(new Date().toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' })), []);
 
   return (
     <Moldura classe="metodo acertos" titulo={titulo} onVoltar={onVoltar} principal={principal} capitulo={capitulo}>
@@ -92,7 +94,7 @@ export default function Acertos({ acertos: a, aConfirmar, titulo, escolhas, onVo
         {mostra('a_confirmar') &&
           aConfirmar.map((d) => {
             const k = `${d.capitulo}/${d.no}`;
-            const passou = d.data <= hoje;
+            const passou = hoje !== null && d.data <= hoje;
             return (
               <Linha
                 key={k}
@@ -103,7 +105,7 @@ export default function Acertos({ acertos: a, aConfirmar, titulo, escolhas, onVo
                     <>A notícia é de {isoPorExtenso(d.data)}. O resultado entra aqui quando for conferido.</>
                   ) : (
                     <>
-                      A realidade começa a decidir em <b>{isoPorExtenso(d.data)}</b>, {falta(hoje, d.data)}.
+                      A realidade começa a decidir em <b>{isoPorExtenso(d.data)}</b>{hoje && `, ${falta(hoje, d.data)}`}.
                     </>
                   )
                 }

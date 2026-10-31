@@ -23,7 +23,8 @@ interface Relogio {
 }
 
 const RAIZ = path.join(__dirname, '..');
-const hoje = process.argv[2] ?? new Date().toISOString().slice(0, 10);
+// O dia de Brasília, como no resto do projeto: em UTC, às 21h a data já virava (auditoria de 31/10, A9).
+const hoje = process.argv[2] ?? new Date().toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' });
 const jogo = carregarJogo();
 const relogios: Relogio[] = YAML.parse(fs.readFileSync(path.join(RAIZ, 'pesquisa/relogios.yaml'), 'utf8')).relogios;
 

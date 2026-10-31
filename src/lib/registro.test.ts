@@ -35,6 +35,12 @@ describe('registro', () => {
     expect(validarEvento(jogo, { ...base, tipo: 'escolha', ...escolha, versao: 'velha' })).toBeNull();
     expect(validarEvento(jogo, { ...base, tipo: 'escolha', ...escolha, partida: 'x' })).toBeNull();
     expect(validarEvento(jogo, { ...base, tipo: 'apagar' })).toBeNull();
+    // Cena que a realidade decidiu: só a opção real é aceita.
+    const travado = structuredClone(jogo);
+    const eua = travado.capitulos.find((c) => c.id === 'cap01')!.nos.find((n) => n.id === 'eleicao_eua')!;
+    eua.escolhas!.find((e) => e.id === 'democratas')!.real = { data: '2026-11-03', fontes: ['https://apnews.com/a', 'https://www.reuters.com/b'] };
+    expect(validarEvento(travado, { ...base, tipo: 'escolha', no: 'eleicao_eua', escolha: 'democratas' })).toMatchObject({ escolha: 'democratas' });
+    expect(validarEvento(travado, { ...base, tipo: 'escolha', no: 'eleicao_eua', escolha: 'republicanos' })).toBeNull();
     const cap2 = jogo.capitulos.find((c) => c.id === 'cap02')!;
     expect(validarEvento(jogo, { partida, versao: jogo.versao, tipo: 'inicio_capitulo', capitulo: 'cap02', no: cap2.inicio })).toMatchObject({ capitulo: 'cap02' });
     expect(validarEvento(jogo, { partida, versao: jogo.versao, tipo: 'inicio_capitulo', capitulo: 'cap02', no: 'a_mesa' })).toBeNull();

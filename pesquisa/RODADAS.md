@@ -255,6 +255,19 @@ Janela: 30/10, 11h30, até 31/10, 10h. Três agentes (`pesquisa/15-brasil.md`, `
 - **Skill:** o critério das escolhas ganha a regra de que o rótulo diz o que acontece, não o canal.
 - **Radar (mesmo dia, pedido do usuário):** para não refazer o jogo a cada notícia, cada fato tem um destino. A trava decide uma escolha. "Fatos e fontes" recebe o que muda uma cena escrita. O **Radar**, nova seção de `roteiro/proximos.md`, guarda o que pode virar pergunta num capítulo futuro, sob esse capítulo, com fontes, "Confirma se" e "Pode virar". O resto fica só aqui. A skill põe sinais no radar (Etapa 3), poda o radar a cada rodada (Etapa 9) e lê o radar do capítulo antes de escrevê-lo; `npm run estado` conta os sinais. Primeiros sinais: o mercado e o "antes de 2030" no cap. 4, o indulto oferecido por Alcolumbre no cap. 5, o ato da UNE em "A rua". Os três que estavam em "Galhos para capítulos futuros" acima foram para lá.
 
+### Auditoria e prévia de link — 31/10/2026, tarde
+Dois agentes no Fable 5.1, a pedido do usuário: auditoria do código (`notas/auditoria-codigo-2026-10-31.md`) e estratégia de tração (`notas/tracao-2026-10-31.md`). Os achados foram conferidos no código e no site antes de entrar aqui.
+- **Corrigido (auditoria):**
+  - O cruzamento de `/escolhas` agora corta pela data da notícia (`corteDoCruzamento`; `escolhas_cruzamento` ganhou `ate`, migração `20261031120000_cruzamento_corte.sql`, aplicada). Sem isso, depois de 3/11 o bloco tenderia a 100% nos dois grupos.
+  - Índice novo `(tipo, capitulo, no) include (escolha, partida)`; o antigo, por versão, não servia a nenhuma consulta.
+  - `/api/raridade` só aceita caminho canônico (cada cena uma vez, na ordem do capítulo); cena repetida dava "100%" forjado. O jogo manda o caminho nessa ordem.
+  - Voto em opção que a realidade travou é recusado na validação; limite de eventos por partida de 300 para 120 (a mais longa tinha 60; migração `20261031121000_registro_limite.sql`, aplicada).
+  - Dois dedos em duas opções: o jogo seguia uma e o banco gravava a outra; um `ref` barra o segundo toque.
+  - `/escolhas` que falhou tenta de novo na próxima tela, em vez de ficar "indisponível" até recarregar.
+  - `npm run estado` usa o dia de Brasília (em UTC, às 21h de 2/11 o relógio de 3/11 já aparecia vencido).
+- **Tração:** prévia de link por tela (título, descrição e imagem 1200×630 de `/api/og`; a de `/escolhas` mostra o placar quando houver) e a capa e as telas de explicação saindo prontas do servidor (antes, um `<main>` vazio até o JS ler o `localStorage`). `/acertos` calcula "daqui a N dias" só no navegador, para o HTML do build não envelhecer.
+- **Ficou para depois:** a regra de limite por IP no firewall da Vercel não existe (o `BACKEND.md` dizia que sim; corrigido); criar no painel da Vercel. A lista branca de origens, a acessibilidade do botão de segurar, o lint e o resto dos achados baixos. Do relatório de tração: link de cena com botão de WhatsApp, "a próxima aposta" na capa, imprensa em pares em 4/11.
+
 ## Ainda pendente (para a rodada 3)
 - Análises pós-eleição de Marcus André Melo, Lynch (conteúdo do vídeo), Limongi, Couto, Traumann, Moura, Andrea Freitas, Falcão, Pereira, Glezer, Da Ros, Barbosa, Laura Carvalho, Armínio, Marcos Mendes: ainda não publicadas ou não encontráveis em 28/10.
 - Contradições: passaporte usado na entrada (italiano ou diplomático); DI de fechamento de 28/10.

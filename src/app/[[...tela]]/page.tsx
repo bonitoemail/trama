@@ -21,11 +21,29 @@ async function telaDe(params: Params): Promise<Tela> {
   return telaDoCaminho(`/${(tela ?? []).join('/')}`);
 }
 
+/**
+ * Título, descrição e prévia de link por tela (WhatsApp, X, Instagram). A imagem sai de /api/og;
+ * a de /escolhas mostra o placar quando a realidade decidiu uma aposta.
+ */
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const jogo = carregarJogo();
   const tela = await telaDe(params);
-  const titulo = tituloDaTela(jogo, tela);
-  return titulo ? { title: `${titulo} · ${jogo.titulo}` } : {};
+  const nome = tituloDaTela(jogo, tela);
+  const title = nome ? `${nome} · ${jogo.titulo}` : jogo.titulo;
+  const description =
+    tela === 'objetivo' ? jogo.objetivo?.texto
+    : tela === 'metodo' ? jogo.metodo?.texto
+    : tela === 'acertos' ? jogo.acertos?.texto
+    : tela === 'escolhas' ? jogo.escolhas?.texto
+    : 'O que acontece com o Brasil depois da última notícia? Você decide, em cenas com fontes, até a eleição de 2030.';
+  const imagem = { url: `/api/og?tela=${tela === 'partida' ? 'capa' : tela}`, width: 1200, height: 630, alt: title };
+  return {
+    title,
+    description,
+    // O openGraph da página substitui o do layout inteiro: nome do site e idioma vão aqui também.
+    openGraph: { title, description, url: CAMINHOS[tela], images: [imagem], siteName: jogo.titulo, locale: 'pt_BR', type: 'website' },
+    twitter: { title, description, images: [imagem.url] },
+  };
 }
 
 export default async function Page({ params }: { params: Params }) {

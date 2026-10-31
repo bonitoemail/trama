@@ -12,7 +12,12 @@ let pedido: Promise<Painel | null> | null = null;
 function lerPainel(): Promise<Painel | null> {
   pedido ??= fetch('/api/escolhas')
     .then((r) => (r.status === 200 ? (r.json() as Promise<Painel>) : null))
-    .catch(() => null);
+    .catch(() => null)
+    .then((p) => {
+      // Falhou: a próxima tela tenta de novo, em vez de mostrar "indisponível" até recarregar.
+      if (!p) pedido = null;
+      return p;
+    });
   return pedido;
 }
 

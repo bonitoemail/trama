@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import BotaoEscolha from './BotaoEscolha';
 import Cartoes from './Cartoes';
 import Compartilhar from './Compartilhar';
@@ -47,6 +47,8 @@ export default function Jogo({
   const [estado, setEstado] = useState<Estado | null>(null);
   const [vistos, setVistos] = useState<Set<string>>(new Set());
   const [decidindo, setDecidindo] = useState<string | null>(null);
+  // Dois botões segurados ao mesmo tempo (dois dedos) disparam antes de o estado mudar: o ref barra o segundo.
+  const decidindoRef = useRef<string | null>(null);
   // Saiu pelo X: a capa confirma que a partida ficou salva (só nessa volta).
   const [saiu, setSaiu] = useState(false);
 
@@ -109,7 +111,10 @@ export default function Jogo({
     if (tela !== 'partida') ir('partida');
   }
 
-  if (!carregado) return <main className="tela" />;
+  // A partida depende do navegador (localStorage); a capa e as telas de explicação não: saem prontas
+  // do servidor, para prévias, buscadores e celular lento (auditoria de 31/10, A5). Quem tem partida
+  // salva vê "Começar" por um instante, até a leitura trocar por "Continuar partida".
+  if (!carregado && tela === 'partida') return <main className="tela" />;
 
   if (tela !== 'partida' || !estado) {
     return (
@@ -191,7 +196,11 @@ export default function Jogo({
             rotuloCapitulo={`Capítulo ${cap.numero}, ${cap.titulo}`}
             final={no(jogo, cap.id, estado.no).titulo ?? cap.titulo}
             imagem={no(jogo, cap.id, estado.no).imagem ?? null}
-            caminho={estado.historico.filter((p) => p.capitulo === cap.id && p.escolha).map((p) => ({ no: p.no, escolha: p.escolha! }))}
+            caminho={estado.historico
+              .filter((p) => p.capitulo === cap.id && p.escolha)
+              .map((p) => ({ no: p.no, escolha: p.escolha! }))
+              // Na ordem do capítulo, que é a que /api/raridade aceita (um caminho, uma URL, um cache).
+              .sort((x, y) => cap.nos.findIndex((n) => n.id === x.no) - cap.nos.findIndex((n) => n.id === y.no))}
             onCompartilhado={() => registrarNaTela('compartilhar', jogo.versao, cap.id, estado.no)}
           />
           <Acao primario onClick={() => atualizar(continuar(jogo, estado))}>
@@ -291,12 +300,15 @@ export default function Jogo({
               apagado={decidindo !== null && decidindo !== e.id}
               onToqueCurto={() => registrarNaTela('toque_curto', jogo.versao, estado.capitulo, estado.no)}
               onDecidir={() => {
+                if (decidindoRef.current) return;
+                decidindoRef.current = e.id;
                 // Escolha em decisão ainda aberta é aposta: a capa conta quando a realidade decidir.
                 if (status === 'livre') salvarAposta(chave, e.id);
                 setDecidindo(e.id);
                 // Um instante para a decisão pesar antes de a cena mudar.
                 setTimeout(() => {
                   setDecidindo(null);
+                  decidindoRef.current = null;
                   atualizar(escolher(jogo, estado, e.id), [chave, `${chave}:${e.id}`]);
                 }, 650);
               }}

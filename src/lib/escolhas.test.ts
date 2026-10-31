@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { carregarJogo } from '@/engine/load';
 import type { Jogo } from '@/engine/schema';
-import { MINIMO, montarPainel, type Contagem } from './escolhas';
+import type { Relogio } from '@/engine/relogios';
+import { corteDoCruzamento, MINIMO, montarPainel, type Contagem } from './escolhas';
 
 const jogo = carregarJogo();
 const esc = (no: string, escolha: string, n: number, dia = '2026-10-30', capitulo = 'cap01'): Contagem => ({ tipo: 'escolha', capitulo, no, escolha, dia, n });
@@ -78,5 +79,17 @@ describe('tela /escolhas', () => {
     expect(porDecisao['cap01/eleicao_eua']).toMatchObject({ total: 100, decide: '2026-11-03' });
     // Abaixo do mínimo, nada: o fim de capítulo não mostra número.
     expect(porDecisao['cap01/o_exilio']).toBeUndefined();
+  });
+});
+
+describe('corte do cruzamento', () => {
+  const c = { a: 'cap01/pedido', grupo: ['preventiva'], b: 'cap01/eleicao_eua', alvo: ['democratas'] };
+  const relogio = { id: 'midterms-2026', data: '2026-11-03', evento: 'x', afeta: ['cap01/eleicao_eua'], status: 'pendente' } as Relogio;
+  it('conta tudo antes da notícia e corta no dia dela, travada ou não', () => {
+    expect(corteDoCruzamento(jogo, c, [relogio], '2026-11-02')).toBeNull();
+    expect(corteDoCruzamento(jogo, c, [relogio], '2026-11-04')).toBe('2026-11-03');
+    const travado = structuredClone(jogo) as Jogo;
+    travado.capitulos[0].nos.find((n) => n.id === 'eleicao_eua')!.escolhas![0].real = { data: '2026-11-03', fontes: ['https://apnews.com/a', 'https://www.reuters.com/b'] };
+    expect(corteDoCruzamento(travado, c, [{ ...relogio, status: 'aconteceu' }], '2026-11-20')).toBe('2026-11-03');
   });
 });

@@ -260,6 +260,23 @@ function juntar(itens: Opcao[]): Opcao {
   return { rotulo: `Outros ${itens.length} finais`, n: itens.reduce((s, i) => s + i.n, 0), pct: itens.reduce((s, i) => s + i.pct, 0) };
 }
 
+/**
+ * Até que dia (exclusive) o cruzamento conta: o dia da notícia mais cedo entre as duas decisões, seja
+ * a trava (`real.data`), seja um relógio pendente cuja data já chegou. Depois disso, quem joga já sabe
+ * o resultado, ou é forçado à opção real. Sem notícia, nulo (conta tudo).
+ */
+export function corteDoCruzamento(jogo: Jogo, c: Cruzamento, relogios: Relogio[], hoje: string): string | null {
+  const datas: string[] = [];
+  for (const ref of [c.a, c.b]) {
+    const real = acharNo(jogo, ref)?.no.escolhas?.find((e) => e.real)?.real?.data;
+    if (real) datas.push(real);
+    for (const r of relogios) {
+      if (r.data && r.data <= hoje && (!r.status || r.status === 'pendente') && r.afeta?.some((x) => x.split(':')[0] === ref)) datas.push(r.data);
+    }
+  }
+  return datas.length ? datas.sort()[0] : null;
+}
+
 function cruzar(jogo: Jogo, c: Cruzamento, linhas: LinhaCruzada[]): Cruzado[] {
   const a = acharNo(jogo, c.a);
   const b = acharNo(jogo, c.b);

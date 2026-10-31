@@ -11,8 +11,11 @@ const capaSerif = Source_Serif_4({ subsets: ['latin'], weight: ['400', '500'], s
 const capaSans = IBM_Plex_Sans({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--capa-sans' });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://tramabr.app'),
   title: 'Trama',
   description: 'Uma história ramificada sobre o que pode acontecer com o Brasil até 2030.',
+  openGraph: { siteName: 'Trama', locale: 'pt_BR', type: 'website' },
+  twitter: { card: 'summary_large_image' },
 };
 
 export const viewport: Viewport = {

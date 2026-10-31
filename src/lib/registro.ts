@@ -87,6 +87,10 @@ export function validarEvento(jogo: Jogo, corpo: unknown): Evento | null {
   if (tipo === 'compartilhar') return !cena.escolhas?.length && !cena.segue ? { ...base, capitulo: cap.id, no: cena.id } : null;
   if (tipo === 'escolha') {
     const escolha = cena.escolhas?.find((x) => x.id === e.escolha);
+    // Cena que a realidade decidiu: o jogo só deixa seguir pela opção real. Voto em outra é de script,
+    // e entraria no placar e no cruzamento (auditoria de 31/10, A1).
+    const real = cena.escolhas?.find((x) => x.real && !x.se);
+    if (real && escolha && escolha.id !== real.id) return null;
     return escolha ? { ...base, capitulo: cap.id, no: cena.id, escolha: escolha.id } : null;
   }
   return null;

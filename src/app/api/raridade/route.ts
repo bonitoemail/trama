@@ -4,7 +4,7 @@ import { rpc } from '@/lib/supabase';
 
 /**
  * O quanto um caminho é raro, para o cartão de compartilhar do fim de capítulo (lib/cartao.ts).
- * GET /api/raridade?cap=cap01&c=pedido.preventiva,itamaraty.ignora
+ * GET /api/raridade?cap=cap01&c=pedido.preventiva,itamaraty.ignora (cenas na ordem do capítulo, cada uma uma vez)
  * Responde { maisComuns, maisRaros, total } (porcentagens dos caminhos que fecharam o capítulo),
  * ou 204 sem Supabase, com caminho que não bate com o conteúdo, ou com menos de MINIMO caminhos.
  */
@@ -22,7 +22,12 @@ export async function GET(req: Request) {
     const [no, escolha] = p.split('.');
     return { no, escolha };
   });
-  const valido = cap && caminho.length > 0 && caminho.length <= 40 &&
+  // Caminho canônico: cada cena uma vez, na ordem do capítulo. Cena repetida somava o peso de novo
+  // (dava "100%" forjado), e ordens diferentes do mesmo caminho furavam o cache (auditoria de 31/10, A2).
+  const ordem = cap ? cap.nos.map((n) => n.id) : [];
+  const indices = caminho.map((p) => ordem.indexOf(p.no));
+  const valido = cap && caminho.length > 0 &&
+    indices.every((i, k) => i >= 0 && (k === 0 || i > indices[k - 1])) &&
     caminho.every((p) => cap.nos.find((n) => n.id === p.no)?.escolhas?.some((e) => e.id === p.escolha));
   if (!valido) return new Response(null, { status: 204 });
 
