@@ -86,7 +86,7 @@ A fonte é o que sustenta a neutralidade do jogo: é a primeira coisa que um cr�
 - **Capítulo** tem `periodo` (o texto que o jogador vê) e `de`/`ate` (as datas que o `npm run estado` usa para o horizonte).
 - **Marcas** só se somam, nunca saem. Por isso a marca que decide um caminho nasce na escolha que decide, não antes (ex.: `flavio_preventiva` nasce na votação do Senado, não na ordem de Moraes). O validador explora só as marcas que mudam o caminho (`marcasDeFluxo`): marca usada só em texto não multiplica estados.
 - **O validador avisa** quando um nó de decisão sobra com uma escolha só em algum caminho (sem contar travas reais), e quando um cartão, uma cena ou um rótulo sai do formato (`src/engine/formato.ts`). Aviso não quebra o build, mas toda rodada termina sem avisos novos.
-- **Critério das escolhas** (vale em todo nó novo ou mexido): **somar** o desfecho provável que falta (quase sempre o meio-termo ou o adiamento) e **nunca cortar** o improvável que o jogador quer ver, desde que nenhum fato o desminta e o texto não venda simulação como fato. Um nó sem o desfecho provável é o erro mais comum (foi o da `a_herdeira`, sem Tarcísio).
+- **Critério das escolhas** (vale em todo nó novo ou mexido): **somar** o desfecho provável que falta (quase sempre o meio-termo ou o adiamento) e **nunca cortar** o improvável que o jogador quer ver, desde que nenhum fato o desminta e o texto não venda simulação como fato. Um nó sem o desfecho provável é o erro mais comum (foi o da `a_herdeira`, sem Tarcísio). O rótulo diz o que acontece, não por qual canal, a menos que o canal seja a pergunta: "O governo pede dados à Argentina pela Polícia Federal" deixou de fora o pedido que de fato saiu, pelo Itamaraty (rodada de 31/10).
 
 ---
 
@@ -131,7 +131,10 @@ Monte uma **tabela de impacto**: fato confirmado → o que muda no jogo. Cada fa
 | **Opção que falta** | o fato mostra um desfecho provável (ou um ator de peso) que o nó não oferece | somar a escolha, com cena ou texto condicional, sem tirar as que já existem (ver "Travar, abrir ramos e trilhos") |
 | **Trilho** | o fato abre uma história que leva semanas e muda quem age (ex.: Flávio volta ao Brasil) | trilho novo de 3 a 5 cenas, ou ajuste no trilho que já existe |
 | **Futuro** | o fato muda probabilidades ou ecos de 2027–2030 | ajustar `roteiro/cap*` e `roteiro/painel/00-agregado.md`; criar relógio novo se houver data |
+| **Radar** | o fato não decide nada nem muda cena escrita, mas pode virar pergunta num capítulo que falta escrever | um item no **Radar** de `roteiro/proximos.md`, sob o capítulo onde pode pesar: o sinal com data e fontes, "Confirma se" e "Pode virar". Não mexe no jogo |
 | **Imagem** | a cena mudou de lugar, de ação ou de sentido | ver Etapa 6 |
+
+Quase nada entra no jogo na hora: só a trava e o fato que muda uma cena que já existe. O resto vai para o Radar ou fica só no registro da rodada (fonte única, ruído). Assim o jogo não é refeito a cada notícia: o futuro só se escreve 30 dias antes, com o radar na mão.
 
 Pergunte sempre, para cada nó que o fato toca: **"a realidade decidiu algum destes? E que outro desfecho plausível ela abriu?"** A segunda pergunta é o que evita nós de opções curtas demais.
 
@@ -184,7 +187,7 @@ Se o usuário já disse "atualize o jogo" sem pedir revisão, aplique o automát
 
 O jogo precisa estar sempre **um capítulo à frente da realidade**: quem joga hoje tem de chegar a um fim que ainda é futuro. Cada capítulo tem `de` e `ate` (AAAA-MM-DD), e `npm run estado` mostra o horizonte. Quando faltarem 30 dias ou menos para a realidade chegar ao `de` do último capítulo escrito, ele avisa **"ESCREVER O PRÓXIMO CAPÍTULO"**. Esse aviso é a ordem: a rodada escreve o capítulo, nos dois modos.
 
-1. **Mapa.** Leia a linha seguinte de `roteiro/proximos.md` (numeração atual, título provisório, pergunta, marcas que ele herda) e o que `roteiro/painel/00-agregado.md` diz do período. Se a linha for um cisma (capítulos diferentes conforme o final), pare: isso é do usuário.
+1. **Mapa.** Leia a linha seguinte de `roteiro/proximos.md` (numeração atual, título provisório, pergunta, marcas que ele herda), o **Radar** desse capítulo (no mesmo arquivo) e o que `roteiro/painel/00-agregado.md` diz do período. Cada sinal do radar vira pergunta ou cai, e sai do radar; passe ao briefing 4 os que ficarem, para a pesquisa conferir se ainda valem. Se a linha for um cisma (capítulos diferentes conforme o final), pare: isso é do usuário.
 2. **Pesquisa antes do texto.** Rode o briefing 4 de `references/briefings.md`. O mapa foi escrito antes dos fatos; fixar opções antes da pesquisa é o erro que esta skill existe para evitar. Dois capítulos do esboço podem virar um (foi o que aconteceu com "A posse" e "As mesas").
 3. **Esqueleto e planilha** em `roteiro/capNN-<titulo>.md`: a pergunta, a espinha, os finais, a planilha de equilíbrio (DESIGN 8.1, regra 16), o que ficou para depois e os candidatos a trava.
 4. **O YAML** em `content/capitulos/capNN-<titulo>.yaml`, com `rascunho: true`, `periodo`, `de` e `ate`. Uma espinha curta (de 4 a 6 decisões por caminho, cada uma com custo para alguém), os trilhos que a pesquisa justificar e de 2 a 4 finais. Siga o guia de escrita e o critério das escolhas. Checagens que as revisões já pegaram:
@@ -252,7 +255,8 @@ npm run estado
   - **Não entra**: opção de escolha (o jogo oferece várias; "a opção que bateu" não é acerto), texto que já era fato quando foi escrito, e o que só uma fonte diz. Exagerar um acerto custa mais que perder um: na dúvida, não entra.
   - **A confirmar** sai sozinho dos relógios pendentes com data (`aConfirmar`, `src/engine/relogios.ts`): mantenha `afeta` e `status` dos relógios em dia.
 
-- `pesquisa/RODADAS.md`: nova entrada com data, fatos (com as fontes), boatos descartados, o que mudou no jogo e o que ficou pendente.
+- **Radar** (`roteiro/proximos.md`): some os sinais novos e tire os que ficaram velhos, foram desmentidos ou já viraram cena. Um sinal só fica se ainda pode pesar no capítulo onde está.
+- `pesquisa/RODADAS.md`: nova entrada com data, fatos (com as fontes), boatos descartados, o que mudou no jogo, o que foi para o radar e o que ficou pendente.
 - Resumo ao usuário: o que travou, o que mudou no texto, imagens reaproveitadas, refeitas e descartadas, o que foi ajustado no futuro, e o que ficou para aprovação.
 - Não ofereça o commit: o usuário pede quando quiser juntar as mudanças. No modo autônomo, o commit faz parte da rodada (ver "Modo autônomo"); push nunca.
 

@@ -81,6 +81,18 @@ for (const r of proximos) out(`- ${r.data} (em ${dias(hoje, r.data!)} dias) · $
 out('\n## Vigiar (sem data)');
 for (const r of semData) out(`- ${r.id}: ${r.evento} → ${r.afeta.map(alvo).join(', ')}`);
 
+// Radar (roteiro/proximos.md): o que ainda não decide nada, guardado sob o capítulo onde pode pesar.
+out('\n## Radar (sinais para capítulos que faltam escrever)');
+const mapa = fs.readFileSync(path.join(RAIZ, 'roteiro/proximos.md'), 'utf8');
+const radar = mapa.split(/^## Radar\s*$/m)[1]?.split(/^## /m)[0] ?? '';
+const blocos = radar.split(/^### /m).slice(1);
+if (!blocos.length) out('- vazio');
+for (const b of blocos) {
+  const [titulo, ...resto] = b.split('\n');
+  const sinais = resto.filter((l) => l.startsWith('- **')).map((l) => l.match(/^- \*\*(.+?)\*\*/)![1]);
+  out(`- ${titulo.trim()}: ${sinais.length} sinal(is)${sinais.length ? ` · ${sinais.join(' · ')}` : ''}`);
+}
+
 out('\n## Escolhas travadas pela realidade');
 const travadas = jogo.capitulos.flatMap((c) =>
   c.nos.flatMap((n) => (n.escolhas ?? []).filter((e) => e.real).map((e) => `${c.id}/${n.id}:${e.id} (${e.real!.data})`)),

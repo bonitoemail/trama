@@ -239,6 +239,22 @@ O registro esfriou depois do pico do post (33 partidas das 16h às 17h, 19 entre
   - Conferido numa trava simulada (desfeita) da opção minoritária: capa, placar com 21% e o post.
 - **Em 4/11, de manhã:** "atualize o jogo". A trava é `real: { data: "2026-11-03", fontes: [...] }` na opção que aconteceu; o placar, a capa e o post saem sozinhos.
 
+### Rodada leve — 31/10/2026, manhã
+Janela: 30/10, 11h30, até 31/10, 10h. Três agentes (`pesquisa/15-brasil.md`, `16-mundo.md`, `17-relogios-economia.md`); seis links conferidos à mão. Pedido do usuário: ver por cima o que mudou e caçar acertos e erros.
+- **Nenhuma escolha decidida.** Sem decisão de Moraes, PGR, Interpol, Alcolumbre ou PF; sem ligação Lula–Trump; sem ministro anunciado.
+- **Fatos novos nas cenas (cap. 1):**
+  - `itamaraty`: em 29/10, sem nota, o Itamaraty chamou a encarregada de negócios argentina e pediu esclarecimentos sobre o governo Milei; o chanceler argentino negou o pedido de explicações (CNN Brasil, Brasil de Fato). Em 30/10, Vieira e Rubio conversaram em Atlanta e marcaram reunião antes do G20 de dezembro; nenhum relato diz que o caso de Flávio foi tratado (Revista Oeste, Correio Braziliense).
+  - `o_exilio`: primeira live de Flávio, 30/10: põe o resultado em dúvida sem provas, fala em disputar "antes de 2030" sem dizer como, pede votos para Marinho (Poder360, Gazeta do Povo).
+  - `pl`: em 30/10, o PL rejeitou o acordo com Alcolumbre e lança Marinho em 4/11 (A Tarde/O Globo, Conexão Política).
+- **Relógios:** `pl-bloco-motta` corrigido (a reunião de 4/11 oficializa Marinho; passa a afetar `cap01/pl`); `midterms-2026` ganha a nota de que o Senado pode atrasar.
+- **Acertos e erros:** nenhum novo. A cena do indulto (cap. 2) entrou em 29/10, 18h12, depois da reportagem da Folha de 28/10 sobre Alcolumbre e o indulto: já era fato. As cenas que falam de lives e de pedido de explicações são consequências de escolhas, e escolha não conta.
+- **Para decidir:** `itamaraty` (o pedido discreto à Argentina não cabe em nenhuma opção: travar ajustando o rótulo "pela Polícia Federal" ou esperar); `o_exilio` (pende para as lives; esperar a coletiva prometida para depois de 3/11); `pl` (decide em 4/11: "mantém Marinho e espera" não descreve um PL que lança Marinho contra Alcolumbre).
+- **Ficou de fora (fonte única ou bastidor):** apoio do PL a Motta (só CNN), viagem de Flávio a Washington (só Brasil 247), Jayapal e a investigação do governo Trump, negativa de Alcolumbre sobre o indulto.
+- **Galhos para capítulos futuros:** a aposta de Flávio numa eleição "antes de 2030" (TSE ou crise econômica, leitura dividida); Alcolumbre oferecendo indulto ou anistia penal, e o PL recusando em público; o primeiro ato depois da carta é contra Flávio (UNE, 1º/11).
+- **Economia:** semana de 26 a 30/10 com Ibovespa −18% e dólar a R$ 5,45 (maior de 2026); Copom de 4/11 deve manter 13,75%.
+- **Skill:** o critério das escolhas ganha a regra de que o rótulo diz o que acontece, não o canal.
+- **Radar (mesmo dia, pedido do usuário):** para não refazer o jogo a cada notícia, cada fato tem um destino. A trava decide uma escolha. "Fatos e fontes" recebe o que muda uma cena escrita. O **Radar**, nova seção de `roteiro/proximos.md`, guarda o que pode virar pergunta num capítulo futuro, sob esse capítulo, com fontes, "Confirma se" e "Pode virar". O resto fica só aqui. A skill põe sinais no radar (Etapa 3), poda o radar a cada rodada (Etapa 9) e lê o radar do capítulo antes de escrevê-lo; `npm run estado` conta os sinais. Primeiros sinais: o mercado e o "antes de 2030" no cap. 4, o indulto oferecido por Alcolumbre no cap. 5, o ato da UNE em "A rua". Os três que estavam em "Galhos para capítulos futuros" acima foram para lá.
+
 ## Ainda pendente (para a rodada 3)
 - Análises pós-eleição de Marcus André Melo, Lynch (conteúdo do vídeo), Limongi, Couto, Traumann, Moura, Andrea Freitas, Falcão, Pereira, Glezer, Da Ros, Barbosa, Laura Carvalho, Armínio, Marcos Mendes: ainda não publicadas ou não encontráveis em 28/10.
 - Contradições: passaporte usado na entrada (italiano ou diplomático); DI de fechamento de 28/10.

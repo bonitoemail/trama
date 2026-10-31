@@ -296,6 +296,15 @@ nos:
         fontes:
           - https://jovempan.com.br/mundo/trump-diz-que-nao-tomou-partido-na-eleicao-do-brasil-porque-lula-pediu/
           - https://www.brasildefato.com.br/2026/10/29/trump-revela-que-lula-pediu-que-ele-nao-tomasse-partido-na-eleicao-e-diz-que-vai-conversar-com-presidente/
+      # Rodada de 31/10 (pesquisa 16). O pedido foi discreto: nem "Lula ignora" nem "pela PF" descrevem bem; a trava fica para depois.
+      - texto: Em 29 de outubro, sem nota oficial, o Itamaraty chamou a encarregada de negócios da Argentina e pediu esclarecimentos sobre a eventual participação do governo Milei na saída de Flávio. O chanceler argentino negou que o Brasil tenha pedido explicações.
+        fontes:
+          - https://www.cnnbrasil.com.br/blogs/luciana-taddeo/internacional/itamaraty-convoca-encarregada-de-negocios-da-argentina-sobre-fuga-de-flavio/
+          - https://www.brasildefato.com.br/2026/10/30/itamaraty-convoca-diplomata-argentina-para-cobrar-explicacoes-sobre-fuga-de-flavio-bolsonaro/
+      - texto: Em 30 de outubro, em Atlanta, Mauro Vieira e Marco Rubio conversaram e combinaram uma reunião antes da cúpula do G20 de dezembro. Nenhum dos relatos diz que o caso de Flávio foi tratado.
+        fontes:
+          - https://revistaoeste.com/politica/vieira-e-rubio-marcam-reuniao-bilateral-antes-da-cupula-do-g20/
+          - https://www.correiobraziliense.com.br/politica/2026/10/7531323-mauro-vieira-e-marco-rubio-acertam-encontro-bilateral-brasil-eua-ate-de-dezembro.html
     lados:
       - Para o governo, ficar calado tira o palco de Flávio e evita ter de defender em público uma decisão de Moraes que nem todos no Planalto apoiam. Para a oposição, o silêncio é sinal de que o governo prefere não ser cobrado pela decisão.
       - Para o Itamaraty do chanceler Mauro Vieira, a conversa sobre a taxa com Washington pesa mais que a carta. Com a Argentina, a relação já estava rebaixada desde agosto. Pedir dados pela polícia, e não pela diplomacia, evita uma crise nova.
@@ -478,6 +487,11 @@ nos:
         fontes:
           - https://www.metropoles.com/colunas/igor-gadelha/flavio-entrou-nos-eua-com-autorizacao-humanitaria-de-1-ano-de-permanencia
           - https://jornaldebrasilia.com.br/noticias/politica-e-poder/flavio-bolsonaro-chega-aos-eua-com-status-que-permite-ficar-1-ano/
+      # Rodada de 31/10 (pesquisas 15 e 16).
+      - texto: Em 30 de outubro, em live no Instagram, a primeira desde a saída, Flávio voltou a pôr em dúvida o resultado, sem provas. Disse que pode disputar a Presidência antes de 2030, sem explicar como, e pediu votos para Marinho na presidência do Senado.
+        fontes:
+          - https://www.poder360.com.br/poder-eleicoes-2026/dos-eua-flavio-sugere-disputar-nova-eleicao-presidencial-antes-de-2030/
+          - https://www.gazetadopovo.com.br/republica/dos-eua-flavio-preve-crise-economica-de-lula-e-fala-em-possivel-eleicao-antes-de-2030/
     lados:
       - se: { tem: eua_dem_camara }
         texto: Para os democratas na Câmara, cada passo dele em Washington vai ser observado. Para os aliados de Flávio, quem decide a autorização ainda é o governo Trump.
@@ -531,6 +545,11 @@ nos:
         fontes:
           - https://www.cnnbrasil.com.br/politica/nao-gostei-diz-valdemar-sobre-carta-de-teor-golpista-de-flavio/
           - https://revistaoeste.com/politica/valdemar-critica-carta-de-flavio-nao-gostei/
+      # Rodada de 31/10 (pesquisa 15).
+      - texto: Em 30 de outubro, o PL rejeitou apoiar a reeleição de Alcolumbre e anunciou que lança Marinho à presidência do Senado na reunião de 4 de novembro.
+        fontes:
+          - https://atarde.com.br/politica/pl-lanca-rogerio-marinho-contra-reeleicao-de-alcolumbre-no-senado-1407729
+          - https://www.conexaopolitica.com.br/legislativo/pl-rejeita-acordo-com-alcolumbre-e-vai-lancar-marinho-a-presidencia-do-senado/
     lados:
       - A carta reafirmou o nome de Marinho justamente quando o partido pesava se a candidatura ainda valia a pena. Para quem quer negociar, insistir custa cargos. Para quem quer confronto, recuar custa a base.
       - Para quem quer um nome só, juntar PL e PP é a única chance de vencer Alcolumbre no voto secreto. Para os aliados de Flávio, trocar Marinho é ceder a quem aceitou a derrota.

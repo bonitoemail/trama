@@ -86,6 +86,7 @@ relogios:
     frente: mundo
     afeta: [cap01/eleicao_eua]
     status: pendente
+    # A Câmara deve sair na madrugada de 4/11; o Senado pode atrasar (Alasca e Maine contam devagar, possível 2º turno na Geórgia em 1º/12). Travar só com o controle do Senado projetado por duas fontes (pesquisas 16 e 17).
     conferir: AP, NYT, Decision Desk HQ
 
   - id: copom-2026-11
@@ -144,11 +145,11 @@ relogios:
 
   - id: pl-bloco-motta
     data: 2026-11-04
-    evento: reunião do PL (candidato no Senado e posição no bloco de Motta na Câmara)
+    evento: reunião do PL que deve oficializar Marinho contra a reeleição de Alcolumbre (em 30/10 o PL rejeitou o acordo); segundo a CNN (fonte única), o partido apoia Motta na Câmara
     frente: congresso
-    afeta: [cap02/a_mesa, cap03/a_camara]
+    afeta: [cap01/pl, cap02/a_mesa, cap03/a_camara]
     status: pendente
-    conferir: CNN, Times Brasil, O Globo (pesquisa 11, itens 3 e 4)
+    conferir: O Globo, CNN, Conexão Política (pesquisas 11 e 15)
 
   - id: fim-foro-flavio
     data: 2027-02-01
