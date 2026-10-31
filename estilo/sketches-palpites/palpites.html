@@ -1,0 +1,223 @@
+<!doctype html>
+<!--
+  Palpites · sketch (31/10/2026). Plano em notas/palpites.md.
+  Cinco telas, no celular (360 px): onde se crava na cena (duas versões), a folha do palpite, o recibo
+  antes e depois da notícia, e o bloco "O próximo palpite" na capa. A cena e a folha usam a linguagem
+  do jogo (globals.css); o recibo e a capa, a da capa (capa.css): serifa para ler, sans para o resto,
+  laranja só para o que aconteceu. Nenhuma porcentagem antes de os palpites fecharem.
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trama · Palpites</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --j-fundo: #0f0f11; --j-sup: #18181b; --j-linha: #2c2c31; --j-texto: #e9e5dc; --j-texto-2: #a19d94; --j-texto-3: #6b6862; --j-destaque: #f4efe4;
+  --c-fundo: #111314; --c-texto: #ece8df; --c-texto-2: #9d9a93; --c-linha: #26292b;
+  --real: #f29a2e;
+  --serif: 'Source Serif 4', Georgia, serif; --sans: 'IBM Plex Sans', system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #070808; color: var(--j-texto); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+main { padding: 28px 16px 64px; display: flex; flex-wrap: wrap; gap: 36px; justify-content: center; align-items: flex-start; }
+h1.secao { width: 100%; max-width: 1180px; margin: 20px auto 0; font-family: var(--serif); font-weight: 500; font-size: 21px; color: #ece8df; }
+figure { margin: 0; }
+figcaption { margin-top: 12px; max-width: 360px; font-size: 13px; line-height: 1.5; color: #9d9a93; }
+figcaption b { color: #ece8df; font-weight: 500; }
+.tel { width: 360px; min-height: 640px; border-radius: 16px; overflow: hidden; box-shadow: 0 0 0 1px #26292b; position: relative; }
+
+/* Jogo */
+.jogo { background: var(--j-fundo); padding: 20px 18px 24px; font-family: var(--serif); }
+.cab { display: flex; justify-content: space-between; font-family: var(--sans); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--j-texto-3); }
+.prog { display: flex; gap: 4px; margin: 12px 0 16px; } .prog i { flex: 1; height: 2px; background: var(--j-destaque); }
+.lugar { font-family: var(--sans); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--j-texto-3); margin: 0 0 8px; }
+.txt { font-size: 21px; line-height: 1.42; margin: 0 0 18px; }
+.perg { font-family: var(--sans); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--j-texto-3); margin: 18px 0 10px; }
+.op { display: flex; gap: 12px; align-items: flex-start; padding: 12px; border: 1px solid var(--j-linha); border-radius: 4px; margin-bottom: 8px; font-size: 16px; line-height: 1.35; }
+.op .l { flex: none; width: 22px; height: 22px; border: 1px solid var(--j-texto-3); border-radius: 50%; display: grid; place-items: center; font-family: var(--sans); font-size: 11px; color: var(--j-texto-2); }
+.op small { display: block; margin-top: 4px; font-family: var(--sans); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--j-texto-3); }
+.cravar-linha { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--j-linha); font-family: var(--sans); font-size: 13px; line-height: 1.5; color: var(--j-texto-2); }
+.cravar-linha u { color: var(--j-texto); text-decoration-color: var(--j-texto-3); text-underline-offset: 3px; }
+.eco { font-family: var(--sans); font-size: 12px; color: var(--j-texto-3); font-style: italic; margin: 0 0 8px; }
+.aviso-palpite { margin: 4px 0 18px; padding: 12px 14px; border-left: 2px solid var(--real); background: rgba(242,154,46,.06); font-family: var(--sans); font-size: 13px; line-height: 1.5; color: var(--j-texto-2); }
+.aviso-palpite u { color: var(--j-texto); text-decoration-color: var(--j-texto-3); text-underline-offset: 3px; }
+
+/* Folha do palpite */
+.vela { position: absolute; inset: 0; background: rgba(0,0,0,.6); }
+.folha { position: absolute; left: 0; right: 0; bottom: 0; background: var(--j-sup); border-top: 1px solid var(--j-linha); border-radius: 14px 14px 0 0; padding: 18px 18px 22px; font-family: var(--serif); }
+.folha .alca { width: 36px; height: 4px; border-radius: 2px; background: var(--j-linha); margin: 0 auto 14px; }
+.folha .rot { font-family: var(--sans); font-size: 11px; color: var(--j-texto-3); margin: 0 0 6px; }
+.folha h3 { font-weight: 500; font-size: 22px; line-height: 1.2; margin: 0 0 6px; }
+.folha .sub { font-family: var(--sans); font-size: 13px; color: var(--j-texto-2); line-height: 1.5; margin: 0 0 14px; }
+.folha .op.segurando { border-color: var(--real); position: relative; overflow: hidden; }
+.folha .op.segurando::before { content: ''; position: absolute; inset: 0; width: 62%; background: rgba(242,154,46,.16); }
+.folha .op.segurando .l { border-color: var(--real); color: var(--real); }
+.folha .nota { font-family: var(--sans); font-size: 11px; color: var(--j-texto-3); margin: 10px 0 0; line-height: 1.5; }
+
+/* Recibo e capa (linguagem da capa) */
+.capa { background: var(--c-fundo); color: var(--c-texto); padding: 22px 20px 28px; }
+.topo { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--c-texto-2); }
+.marca { font-family: 'Unbounded', sans-serif; font-weight: 500; letter-spacing: .04em; font-size: 15px;
+  background: linear-gradient(105deg, var(--c-texto) 0%, var(--c-texto) 30%, #2fae5b 42%, #f7d23e 50%, #2fae5b 58%, var(--c-texto) 70%, var(--c-texto) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+.recibo .rot { margin: 40px 0 10px; font-size: 13px; color: var(--c-texto-2); }
+.recibo h2 { font-family: var(--serif); font-weight: 500; font-size: 28px; line-height: 1.15; margin: 0 0 16px; }
+.recibo .quando { font-family: var(--serif); font-size: 17px; line-height: 1.55; color: var(--c-texto-2); margin: 0 0 22px; }
+.recibo .quando b { color: var(--c-texto); font-weight: 500; }
+.recibo .estado { padding: 16px 0; border-top: 1px solid var(--c-linha); border-bottom: 1px solid var(--c-linha); font-family: var(--serif); font-size: 18px; line-height: 1.45; }
+.recibo .estado .sim { color: var(--real); }
+.recibo .estado small { display: block; margin-top: 6px; font-family: var(--sans); font-size: 13px; color: var(--c-texto-2); }
+.btn { display: block; width: 100%; min-height: 50px; margin-top: 12px; border: 0; border-radius: 12px; background: var(--c-texto); color: var(--c-fundo); font: 600 15px var(--sans); }
+.btn.claro { background: none; border: 1px solid var(--c-linha); color: var(--c-texto); font-weight: 500; }
+.recibo .cod { margin: 18px 0 0; font-size: 12px; color: var(--c-texto-2); line-height: 1.6; }
+.recibo .cod code { font-family: var(--sans); color: var(--c-texto); }
+.bar { margin: 10px 0 0; }
+.bar .ln { display: flex; justify-content: space-between; gap: 12px; font-family: var(--serif); font-size: 15px; line-height: 1.35; color: var(--c-texto-2); }
+.bar .t { height: 4px; margin: 6px 0 10px; background: var(--c-linha); border-radius: 2px; } .bar .t i { display: block; height: 100%; border-radius: 2px; background: #3a3d3f; }
+.bar .real .ln { color: var(--c-texto); } .bar .real .t i { background: var(--real); } .bar .real small { color: var(--real); font-family: var(--sans); font-size: 11px; margin-left: 6px; }
+
+.capa h1.t { font-family: 'Unbounded', sans-serif; font-weight: 500; text-align: center; font-size: 58px; letter-spacing: .04em; margin: 18px 0 0;
+  background: linear-gradient(105deg, var(--c-texto) 0%, var(--c-texto) 30%, #2fae5b 42%, #f7d23e 50%, #2fae5b 58%, var(--c-texto) 70%, var(--c-texto) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+.capa .ficha { text-align: center; font-size: 13px; color: var(--c-texto-2); margin: 8px 0 34px; }
+.capa .agq { font-size: 13px; color: var(--c-texto-2); margin: 0 0 8px; }
+.capa .agh { font-family: var(--serif); font-weight: 500; font-size: 25px; line-height: 1.15; margin: 0 0 22px; }
+.capa .leg { text-align: center; font-size: 12px; color: var(--c-texto-2); margin: 8px 0 0; }
+.proximo { margin: 28px 0 0; padding-top: 16px; border-top: 1px solid var(--c-linha); }
+.proximo .rot { font-size: 13px; color: var(--c-texto-2); margin: 0 0 6px; }
+.proximo .p { font-family: var(--serif); font-size: 19px; line-height: 1.35; margin: 0 0 4px; }
+.proximo .d { font-size: 13px; color: var(--c-texto-2); margin: 0 0 12px; }
+.proximo .lk { font-size: 14px; color: var(--c-texto); text-decoration: underline; text-decoration-color: var(--c-texto-2); text-underline-offset: 4px; }
+.proximo .ja { font-family: var(--serif); font-size: 15px; line-height: 1.5; color: var(--c-texto-2); margin: 10px 0 0; }
+.proximo .ja b { color: var(--c-texto); font-weight: 500; }
+</style>
+</head>
+<body>
+<main>
+  <h1 class="secao">1. Onde se crava, na cena de decisão (duas versões)</h1>
+
+  <figure>
+    <div class="tel jogo">
+      <div class="cab"><span>Capítulo 1 · A carta</span><span>fim de outubro</span></div>
+      <div class="prog"><i></i><i></i></div>
+      <p class="lugar">Estados Unidos, 3 de novembro</p>
+      <p class="txt">Os americanos votam para a Câmara e para um terço do Senado. Trump precisa das duas casas.</p>
+      <p class="perg">O que acontece agora?</p>
+      <div class="op"><span class="l">A</span><span>Democratas ganham a Câmara, e republicanos seguram o Senado<small>segure para decidir</small></span></div>
+      <div class="op"><span class="l">B</span><span>Os democratas ganham a Câmara e o Senado<small>segure para decidir</small></span></div>
+      <div class="op"><span class="l">C</span><span>Os republicanos, partido de Trump, mantêm a Câmara<small>segure para decidir</small></span></div>
+      <p class="cravar-linha">A realidade decide esta em 3 de novembro. <u>Cravar um palpite</u></p>
+    </div>
+    <figcaption><b>A · Antes de escolher.</b> Uma linha sob as opções, em sans pequena, separada por um fio. O jogador entende de cara que palpite e escolha são coisas diferentes. Risco: competir com a escolha do jogo, e quem crava pode sair da cena.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="tel jogo">
+      <div class="cab"><span>Capítulo 1 · A carta</span><span>fim de outubro</span></div>
+      <div class="prog"><i></i><i style="background:var(--j-linha)"></i></div>
+      <p class="eco">Porque os democratas ganham a Câmara e o Senado…</p>
+      <div class="aviso-palpite">No jogo, você escolheu. Na vida real, isso se decide em 3 de novembro. <u>Cravar meu palpite</u></div>
+      <p class="lugar">Washington, noite da eleição</p>
+      <p class="txt">Os democratas ganham as duas casas. Em Washington, o caso de Flávio passa a ter quem pergunte por ele.</p>
+    </div>
+    <figcaption><b>B · Depois de escolher (proposta).</b> Na cena seguinte, um aviso com o fio laranja: a escolha do jogo já foi feita, e o palpite é o passo extra de quem quer. Não atrapalha a decisão e explica a diferença no momento certo.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="tel jogo">
+      <div class="cab"><span>Capítulo 1 · A carta</span><span>fim de outubro</span></div>
+      <div class="prog"><i></i><i style="background:var(--j-linha)"></i></div>
+      <p class="txt" style="opacity:.35">Os democratas ganham as duas casas. Em Washington, o caso de Flávio passa a ter quem pergunte por ele.</p>
+      <div class="vela"></div>
+      <div class="folha">
+        <div class="alca"></div>
+        <p class="rot">Seu palpite · a realidade decide em 3 de novembro</p>
+        <h3>A eleição nos Estados Unidos</h3>
+        <p class="sub">O que você acha que vai acontecer de verdade? Não precisa ser o que escolheu no jogo.</p>
+        <div class="op"><span class="l">A</span><span>Democratas ganham a Câmara, e republicanos seguram o Senado</span></div>
+        <div class="op segurando"><span class="l">B</span><span style="position:relative">Os democratas ganham a Câmara e o Senado<small style="color:var(--real)">segure para cravar…</small></span></div>
+        <div class="op"><span class="l">C</span><span>Os republicanos, partido de Trump, mantêm a Câmara</span></div>
+        <p class="nota">Um palpite por aparelho. Depois de cravado, não muda. Sem cadastro: você recebe um link para ver o resultado.</p>
+      </div>
+    </div>
+    <figcaption><b>A folha do palpite.</b> As mesmas opções, sem porcentagem, e o mesmo gesto de segurar. A frase de cima diz a diferença ("não precisa ser o que escolheu no jogo"); a de baixo diz as regras.</figcaption>
+  </figure>
+
+  <h1 class="secao">2. O recibo (tramabr.app/palpite/k7x2mq4p)</h1>
+
+  <figure>
+    <div class="tel capa recibo">
+      <div class="topo"><span>‹ Voltar</span><span class="marca">TRAMA</span><span>Jogar</span></div>
+      <p class="rot">Meu palpite</p>
+      <h2>Os democratas ganham a Câmara e o Senado</h2>
+      <p class="quando">Cravado em <b>31 de outubro, às 14h12</b>, sobre a eleição nos Estados Unidos.</p>
+      <div class="estado">A realidade decide em <b>3 de novembro</b>.<small>Os palpites fecham no fim de 2 de novembro. Quantos cravaram cada opção só aparece depois.</small></div>
+      <button class="btn">Lembrar no calendário</button>
+      <button class="btn claro">Compartilhar meu palpite</button>
+      <p class="cod">Guarde este link: é por ele que você vê o resultado, de qualquer aparelho. Código <code>k7x2mq4p</code>.</p>
+    </div>
+    <figcaption><b>Antes da notícia.</b> O palpite, a hora gravada pelo servidor (é o que prova que veio antes), a data e os dois botões. O calendário põe um evento no dia, com este link. Nenhum número dos outros ainda.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="tel capa recibo">
+      <div class="topo"><span>‹ Voltar</span><span class="marca">TRAMA</span><span>Jogar</span></div>
+      <p class="rot">Meu palpite</p>
+      <h2>Os democratas ganham a Câmara e o Senado</h2>
+      <p class="quando">Cravado em <b>31 de outubro, às 14h12</b>, sobre a eleição nos Estados Unidos.</p>
+      <div class="estado"><span class="sim">Aconteceu.</span> A realidade decidiu em 3 de novembro.<small>Fontes: apnews.com, reuters.com</small></div>
+      <div class="bar">
+        <div class="real"><div class="ln"><span>Democratas nas duas casas<small>aconteceu</small></span><span>58%</span></div><div class="t"><i style="width:58%"></i></div></div>
+        <div><div class="ln"><span>Câmara democrata, Senado republicano</span><span>31%</span></div><div class="t"><i style="width:31%"></i></div></div>
+        <div><div class="ln"><span>Republicanos mantêm a Câmara</span><span>11%</span></div><div class="t"><i style="width:11%"></i></div></div>
+      </div>
+      <p class="cod" style="margin-top:4px">412 palpites cravados antes da notícia.</p>
+      <button class="btn">Compartilhar o resultado</button>
+    </div>
+    <figcaption><b>Depois da notícia.</b> "Aconteceu." em laranja, ou "Não aconteceu. Aconteceu: …", com as fontes da trava. Só agora aparecem os números dos palpites. O cartão do resultado é o convite para o próximo.</figcaption>
+  </figure>
+
+  <h1 class="secao">3. Na capa</h1>
+
+  <figure>
+    <div class="tel capa">
+      <h1 class="t">TRAMA</h1>
+      <p class="ficha">Simulação preditiva do Brasil até 2030</p>
+      <p class="agq">Agora, 28 de outubro</p>
+      <p class="agh">A carta muda: “líder do Brasil”</p>
+      <button class="btn">Continuar partida</button>
+      <p class="leg">Capítulo 1, A carta</p>
+      <div class="proximo">
+        <p class="rot">O próximo palpite</p>
+        <p class="p">A eleição nos Estados Unidos</p>
+        <p class="d">A realidade decide em 3 de novembro. Os palpites fecham amanhã.</p>
+        <span class="lk">Cravar meu palpite</span>
+      </div>
+    </div>
+    <figcaption><b>O próximo palpite.</b> Entre a partida e "Pela frente", em linhas simples, sem caixa: a decisão com a data mais perto e o link para cravar sem jogar. Quem já cravou vê "Seu palpite: … Ver o recibo".</figcaption>
+  </figure>
+
+  <figure>
+    <div class="tel capa">
+      <h1 class="t">TRAMA</h1>
+      <p class="ficha">Simulação preditiva do Brasil até 2030</p>
+      <p class="agq">Agora, 28 de outubro</p>
+      <p class="agh">A carta muda: “líder do Brasil”</p>
+      <button class="btn">Continuar partida</button>
+      <p class="leg">Capítulo 1, A carta</p>
+      <div class="proximo">
+        <p class="rot">O próximo palpite</p>
+        <p class="p">A eleição nos Estados Unidos</p>
+        <p class="ja">Você cravou: <b>“Os democratas ganham a Câmara e o Senado”</b>. A realidade decide em 3 de novembro.</p>
+        <span class="lk" style="display:inline-block;margin-top:10px">Ver o recibo</span>
+      </div>
+    </div>
+    <figcaption><b>Já cravou.</b> O bloco vira lembrete, com o link do recibo. Depois da notícia, ele mostra o resultado por uma semana (no lugar da linha de aposta de hoje).</figcaption>
+  </figure>
+</main>
+</body>
+</html>

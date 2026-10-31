@@ -1,14 +1,17 @@
 import { ImageResponse } from 'next/og';
-import { agoraDaCapa } from '@/engine/calendario';
-import { carregarJogo } from '@/engine/load';
+import { agoraDaCapa, isoPorExtenso } from '@/engine/calendario';
+import { carregarJogo, carregarRelogios } from '@/engine/load';
+import { CODIGO, situacao } from '@/lib/palpites';
+import { lerPalpite } from '@/lib/palpitesServidor';
 import { painelDoServidor } from '@/lib/painelServidor';
+import { SITE_CURTO } from '@/lib/site';
 import type { Tela } from '@/lib/telas';
 
 /**
  * A imagem de prévia de cada tela (WhatsApp, X, Instagram, Telegram), 1200×630. Sem ela o link chegava
  * mudo (relatório de tração de 31/10). Linguagem da capa: TRAMA com a luz parada, serifa para ler,
- * sans para o resto, sem pessoa real. A de /escolhas mostra o placar quando a realidade decidiu uma aposta.
- * GET /api/og?tela=capa|objetivo|metodo|acertos|escolhas
+ * sans para o resto, sem pessoa real. A de /escolhas mostra o placar quando a realidade decidiu uma escolha.
+ * GET /api/og?tela=capa|objetivo|metodo|acertos|escolhas, ou ?palpite=<código> (o recibo de um palpite)
  */
 
 const COR = { fundo: '#111314', texto: '#ece8df', texto2: '#9d9a93', linha: '#26292b', real: '#f29a2e' };
@@ -35,6 +38,21 @@ interface Conteudo {
   pe: string;
 }
 
+/** O recibo de um palpite: o palpite e, depois da notícia, se aconteceu. Sem número dos outros. */
+async function doPalpite(codigo: string): Promise<Conteudo | null> {
+  if (!CODIGO.test(codigo)) return null;
+  const p = await lerPalpite(codigo);
+  const hoje = new Date().toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' });
+  const s = p && situacao(carregarJogo(), carregarRelogios(), p, hoje);
+  if (!s) return null;
+  const pe =
+    s.estado === 'acertou' ? 'Aconteceu. E o seu palpite?'
+    : s.estado === 'errou' ? 'Não aconteceu. E o seu palpite?'
+    : s.estado === 'aberto' ? `A realidade decide em ${isoPorExtenso(s.data)}. E o seu palpite?`
+    : 'A realidade ainda não decidiu.';
+  return { rotulo: `Meu palpite: ${s.titulo}`, manchete: s.minha, pe };
+}
+
 async function conteudo(tela: Tela): Promise<Conteudo> {
   const jogo = carregarJogo();
   if (tela === 'objetivo' && jogo.objetivo) return { rotulo: jogo.objetivo.titulo, manchete: jogo.objetivo.texto, pe: 'Simulação preditiva do Brasil até 2030' };
@@ -56,13 +74,13 @@ async function conteudo(tela: Tela): Promise<Conteudo> {
       return {
         rotulo: 'A realidade decidiu',
         numero: `${real.pct}%`,
-        manchete: `dos jogadores do Trama acertaram a aposta “${decidida.titulo}”.`,
+        manchete: `dos jogadores do Trama escolheram, antes da notícia, o que aconteceu: “${decidida.titulo}”.`,
         pe: 'Só escolhas feitas antes da notícia. Não é pesquisa de opinião.',
       };
     }
     return {
       rotulo: jogo.escolhas.titulo,
-      manchete: 'Onde os jogadores concordam, onde se dividem e o que apostam antes de a realidade decidir.',
+      manchete: 'Onde os jogadores concordam, onde se dividem e o que escolhem antes de a realidade decidir.',
       pe: painel ? `${painel.partidas.toLocaleString('pt-BR')} histórias. Não é pesquisa de opinião.` : 'Não é pesquisa de opinião.',
     };
   }
@@ -75,12 +93,13 @@ async function conteudo(tela: Tela): Promise<Conteudo> {
 }
 
 export async function GET(req: Request) {
-  const tela = (new URL(req.url).searchParams.get('tela') ?? 'capa') as Tela;
-  const c = await conteudo(tela);
+  const busca = new URL(req.url).searchParams;
+  const codigo = busca.get('palpite');
+  const c = (codigo && (await doPalpite(codigo))) || (await conteudo((busca.get('tela') ?? 'capa') as Tela));
   const textoSerif = `${c.numero ?? ''}${c.manchete}`;
   const [serif, sans, titulo] = await Promise.all([
     fonte('Source Serif 4', 500, textoSerif),
-    fonte('IBM Plex Sans', 400, `${c.rotulo}${c.pe}tramabr.app`),
+    fonte('IBM Plex Sans', 400, `${c.rotulo}${c.pe}${SITE_CURTO}`),
     fonte('Unbounded', 500, 'TRAMA'),
   ]);
   const fontes = [
@@ -118,7 +137,7 @@ export async function GET(req: Request) {
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 48, paddingTop: 24, borderTop: `2px solid ${COR.linha}`, fontSize: 26, color: COR.texto2 }}>
           <span style={{ maxWidth: 820 }}>{c.pe}</span>
-          <span>tramabr.app</span>
+          <span>{SITE_CURTO}</span>
         </div>
       </div>
     ),

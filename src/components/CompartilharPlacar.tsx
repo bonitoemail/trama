@@ -3,12 +3,13 @@
 import { useEffect, useState } from 'react';
 import { compartilharArquivo, desenharPlacar } from '@/lib/cartao';
 import type { Decisao } from '@/lib/escolhas';
+import { linkCom } from '@/lib/site';
 
 /** O link do placar leva a origem, para contar quantos chegam por ele. */
-const LINK = 'https://tramabr.app/?origem=placar';
+const LINK = linkCom('placar');
 
 /**
- * "Compartilhar o placar", em cada aposta que a realidade decidiu (/escolhas). O post de stories é
+ * "Compartilhar o placar", em cada escolha que a realidade decidiu (/escolhas). O post de stories é
  * preparado quando o bloco aparece, porque o menu de compartilhar só abre dentro do toque.
  */
 export default function CompartilharPlacar({ d }: { d: Decisao }) {
@@ -29,7 +30,7 @@ export default function CompartilharPlacar({ d }: { d: Decisao }) {
       type="button"
       className="compartilhar-placar"
       disabled={!arquivo}
-      onClick={() => arquivo && compartilharArquivo(arquivo, `Antes da notícia, os jogadores do Trama apostaram. ${LINK}`)}
+      onClick={() => arquivo && compartilharArquivo(arquivo, `Antes da notícia, os jogadores do Trama escolheram. Deu isto. ${LINK}`)}
     >
       {arquivo ? 'Compartilhar o placar' : 'Preparando o placar…'}
     </button>

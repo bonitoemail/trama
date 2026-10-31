@@ -161,6 +161,7 @@ Se o usuário já disse "atualize o jogo" sem pedir revisão, aplique o automát
 - Trava: `real: { data: "AAAA-MM-DD", fontes: ["<url>", "<url>"] }` (oficial ou duas; a data é a do dia da notícia, no horário de Brasília, e o validador recusa outro formato: `/escolhas` corta os votos por ela). A interface mostra "aconteceu em…" e o fio laranja na linha do tempo.
 - **Versão** (`content/jogo.yaml`): suba quando um nó for **removido ou renomeado** ou um capítulo mudar de início (partidas salvas antigas são descartadas). Só texto, trava ou nó novo: não precisa subir.
 - Atualize `pesquisa/relogios.yaml`: `status: aconteceu` + `resultado` com fonte; crie relógios novos.
+- **Palpites:** a data de um relógio é o fechamento dos palpites daquela decisão (até o fim do dia anterior). Nunca adie a data de um relógio que já passou: reabriria os palpites para quem já sabe o resultado. Se a notícia atrasar (o Senado americano indefinido em 4/11), a data fica, o relógio continua pendente, e o recibo diz "A realidade ainda não decidiu" até a trava.
 
 ## Travar, abrir ramos e trilhos
 

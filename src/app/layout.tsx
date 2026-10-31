@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { IBM_Plex_Sans, Source_Serif_4, Unbounded } from 'next/font/google';
 import './globals.css';
 import './capa.css';
+import { SITE } from '@/lib/site';
 
 // Fonte só do título da marca, para separá-lo do texto do jogo.
 const titulo = Unbounded({ subsets: ['latin'], weight: ['500'], variable: '--titulo' });
@@ -11,7 +12,7 @@ const capaSerif = Source_Serif_4({ subsets: ['latin'], weight: ['400', '500'], s
 const capaSans = IBM_Plex_Sans({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--capa-sans' });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://tramabr.app'),
+  metadataBase: new URL(SITE),
   title: 'Trama',
   description: 'Uma história ramificada sobre o que pode acontecer com o Brasil até 2030.',
   openGraph: { siteName: 'Trama', locale: 'pt_BR', type: 'website' },

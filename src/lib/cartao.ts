@@ -1,5 +1,7 @@
 'use client';
 
+import { SITE_CURTO } from './site';
+
 /**
  * O cartão de compartilhar do fim de capítulo, desenhado no navegador (1080×1920, formato de stories).
  * Desenho aprovado em estilo/sketches-compartilhar/cartao.html (versão A): a imagem do final, o quanto
@@ -143,7 +145,7 @@ export async function desenharCartao(d: DadosDoCartao): Promise<Blob | null> {
   ctx.fillText('E o seu?', MARGEM, base - 58);
   ctx.fillStyle = COR.texto2;
   ctx.font = `400 36px ${sans}`;
-  ctx.fillText('tramabr.app', MARGEM, base);
+  ctx.fillText(SITE_CURTO, MARGEM, base);
 
   marca(ctx, titulo, 64, 'direita', base);
 
@@ -188,14 +190,14 @@ export interface DadosDoPlacar {
 
 /**
  * A frase do placar. Se a maioria acertou, o número é de quem acertou; se errou, a surpresa é o
- * assunto: quem acertou é minoria, e a frase diz quanto a maioria apostou em outra coisa.
+ * assunto: quem acertou é minoria, e a frase diz quanto a maioria escolheu outra coisa.
  */
 export function fraseDoPlacar(d: DadosDoPlacar): { numero: string; frase: string } {
   const pct = d.opcoes.find((o) => o.real)?.pct ?? 0;
   const topo = Math.max(...d.opcoes.map((o) => o.pct));
   if (pct >= topo) return { numero: `${pct}%`, frase: 'dos jogadores acertaram o que aconteceu.' };
-  if (pct === 0) return { numero: '0%', frase: `dos jogadores apostaram no que aconteceu. ${topo}% apostaram em outra coisa.` };
-  return { numero: `${pct}%`, frase: `dos jogadores acertaram. ${topo}% apostaram em outra coisa.` };
+  if (pct === 0) return { numero: '0%', frase: `dos jogadores escolheram o que aconteceu. ${topo}% escolheram outra coisa.` };
+  return { numero: `${pct}%`, frase: `dos jogadores acertaram. ${topo}% escolheram outra coisa.` };
 }
 
 /** O post de stories do placar (sketch em estilo/sketches-3-11/placar.html). */
@@ -223,7 +225,7 @@ export async function desenharPlacar(d: DadosDoPlacar): Promise<Blob | null> {
   let y = 288;
   ctx.fillStyle = COR.texto2;
   ctx.font = `400 50px ${serif}`;
-  y = paragrafo(ctx, `${d.titulo}: antes da notícia, ${d.total.toLocaleString('pt-BR')} jogadores do Trama apostaram.`, y, 50, 66) + 48;
+  y = paragrafo(ctx, `${d.titulo}: antes da notícia, ${d.total.toLocaleString('pt-BR')} jogadores do Trama escolheram.`, y, 50, 66) + 48;
 
   const { numero, frase } = fraseDoPlacar(d);
   ctx.fillStyle = COR.texto;
@@ -233,7 +235,7 @@ export async function desenharPlacar(d: DadosDoPlacar): Promise<Blob | null> {
   ctx.font = `400 56px ${serif}`;
   y = paragrafo(ctx, frase, y, 56, 72) + 72;
 
-  // As apostas, com a que aconteceu em laranja.
+  // As opções, com a que aconteceu em laranja.
   const larguraLinha = LARGURA - 2 * MARGEM;
   for (const o of d.opcoes) {
     ctx.fillStyle = COR.linha;
@@ -268,7 +270,7 @@ export async function desenharPlacar(d: DadosDoPlacar): Promise<Blob | null> {
   ctx.fillText('O que vem depois, você decide.', MARGEM, base - 60);
   ctx.fillStyle = COR.texto2;
   ctx.font = `400 36px ${sans}`;
-  ctx.fillText('tramabr.app', MARGEM, base);
+  ctx.fillText(SITE_CURTO, MARGEM, base);
 
   return paraPng(canvas);
 }

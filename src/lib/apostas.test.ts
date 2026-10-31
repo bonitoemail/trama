@@ -39,6 +39,6 @@ describe('fraseDoPlacar', () => {
     expect(fraseDoPlacar({ titulo: 't', total: 378, opcoes: opcoes(0) })).toEqual({ numero: '70%', frase: 'dos jogadores acertaram o que aconteceu.' });
   });
   it('a maioria errou: a frase diz onde ela apostou', () => {
-    expect(fraseDoPlacar({ titulo: 't', total: 378, opcoes: opcoes(1) })).toEqual({ numero: '20%', frase: 'dos jogadores acertaram. 70% apostaram em outra coisa.' });
+    expect(fraseDoPlacar({ titulo: 't', total: 378, opcoes: opcoes(1) })).toEqual({ numero: '20%', frase: 'dos jogadores acertaram. 70% escolheram outra coisa.' });
   });
 });

@@ -123,6 +123,40 @@ body:has(.capa) {
 .link-sub:hover {
   color: var(--c-texto) !important;
 }
+/* O próximo palpite (Inicio.tsx, ProximoPalpite): linhas simples entre a partida e "Pela frente". */
+.capa .proximo-palpite {
+  margin: 32px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--c-linha);
+}
+.capa .proximo-palpite .sobre {
+  margin: 0 0 6px;
+  font-size: 14px;
+  color: var(--c-texto-2);
+}
+.capa .proximo-palpite .decisao-palpite {
+  margin: 0 0 4px;
+  font-family: var(--c-serif);
+  font-size: 20px;
+  line-height: 1.35;
+}
+.capa .proximo-palpite .nota {
+  margin: 0;
+  font-family: var(--c-serif);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--c-texto-2);
+}
+.capa .proximo-palpite .nota b {
+  font-weight: 500;
+  color: var(--c-texto);
+}
+.capa .proximo-palpite .link-sub {
+  display: inline-block;
+  padding: 8px 0 0;
+  color: var(--c-texto) !important;
+  text-decoration-color: var(--c-texto-2);
+}
 /* A aposta que a realidade decidiu (Inicio.tsx, ApostaNaCapa): serifa, sem caixa, entre a partida e "Pela frente". */
 .capa .aposta {
   margin: 32px 0 0;
@@ -1129,6 +1163,12 @@ body:has(.capa) {
   color: var(--c-texto-2);
   cursor: progress;
 }
+/* Palpites cravados de uma decisão decidida (Escolhas.tsx), abaixo das escolhas de jogo. */
+.pagina-escolhas .palpites-placar {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--c-linha);
+}
 /* Ponte para /acertos: os jogadores apostam aqui; o que o jogo escreveu e aconteceu fica lá. */
 .pagina-escolhas .ponte {
   font-size: 15px;
@@ -1191,4 +1231,138 @@ body:has(.capa) {
   line-height: 1.6;
   color: var(--c-texto-2);
   margin: 0 0 10px;
+}
+
+/* O recibo do palpite (Recibo.tsx, /palpite/[codigo]): o palpite em serifa, o estado entre fios,
+   o que aconteceu em laranja, os números dos outros só depois da notícia. */
+.recibo .sobre {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--c-texto-2);
+}
+.recibo h1 {
+  font-family: var(--c-serif);
+  font-weight: 500;
+  font-size: clamp(30px, 8vw, 40px);
+  line-height: 1.12;
+  margin: 0 0 16px;
+  text-wrap: balance;
+}
+.recibo .quando {
+  font-family: var(--c-serif);
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--c-texto-2);
+  margin: 0 0 24px;
+}
+.recibo .quando b {
+  font-weight: 500;
+  color: var(--c-texto);
+}
+.recibo .estado {
+  padding: 18px 0;
+  border-top: 1px solid var(--c-linha);
+  border-bottom: 1px solid var(--c-linha);
+  font-family: var(--c-serif);
+  font-size: 19px;
+  line-height: 1.5;
+}
+.recibo .estado b {
+  font-weight: 500;
+}
+.recibo .estado .sim {
+  color: var(--c-real);
+}
+.recibo .estado small {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--c-sans);
+  font-size: 14px;
+  color: var(--c-texto-2);
+}
+.recibo .placar-palpites ul {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.recibo .placar-palpites li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 16px;
+  align-items: baseline;
+}
+.recibo .placar-palpites .nome {
+  font-family: var(--c-serif);
+  font-size: 17px;
+  line-height: 1.35;
+  color: var(--c-texto-2);
+}
+.recibo .placar-palpites .nome small {
+  margin-left: 8px;
+  font-family: var(--c-sans);
+  font-size: 13px;
+  color: var(--c-real);
+}
+.recibo .placar-palpites .pct {
+  font-size: 15px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-texto-2);
+}
+.recibo .placar-palpites .trilho {
+  grid-column: 1 / -1;
+  height: 4px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--c-linha);
+}
+.recibo .placar-palpites .trilho span {
+  display: block;
+  height: 100%;
+  background: #3a3d3f;
+}
+.recibo .placar-palpites .real .nome,
+.recibo .placar-palpites .real .pct {
+  color: var(--c-texto);
+}
+.recibo .placar-palpites .real .trilho span {
+  background: var(--c-real);
+}
+.recibo .acoes-recibo {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+}
+.botao-borda {
+  display: block;
+  width: 100%;
+  min-height: 52px;
+  padding: 0 20px;
+  border: 1px solid var(--c-linha);
+  border-radius: 12px;
+  cursor: pointer;
+  background: none;
+  color: var(--c-texto);
+  font-size: 15px;
+  font-weight: 500;
+}
+.botao-borda:hover {
+  border-color: var(--c-texto-2);
+}
+.recibo .nota {
+  margin: 14px 0 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--c-texto-2);
+}
+.recibo .nota code {
+  font-family: var(--c-sans);
+  color: var(--c-texto);
+}
+.recibo .nota a {
+  color: var(--c-texto);
+  text-decoration-color: var(--c-texto-2);
+  text-underline-offset: 3px;
 }

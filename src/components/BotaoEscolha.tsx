@@ -32,6 +32,8 @@ interface Props {
    * de novo depois da pausa entre capítulos (rodada de 30/10, 18h).
    */
   demonstrarEm?: string;
+  /** O que segurar faz: decidir no jogo (padrão) ou cravar um palpite (Cravar.tsx). */
+  verbo?: 'decidir' | 'cravar';
 }
 
 /**
@@ -39,7 +41,7 @@ interface Props {
  * Teclado: segurar Enter ou espaço. Um temporizador decide; o CSS só desenha a barra,
  * então a decisão não depende da taxa de quadros do navegador.
  */
-export default function BotaoEscolha({ letra, rotulo, status, dataReal, apagado, decidido, onDecidir, onToqueCurto, demonstrarEm }: Props) {
+export default function BotaoEscolha({ letra, rotulo, status, dataReal, apagado, decidido, onDecidir, onToqueCurto, demonstrarEm, verbo = 'decidir' }: Props) {
   const [segurando, setSegurando] = useState(false);
   const [lembrete, setLembrete] = useState(false);
   const [demonstrando, setDemonstrando] = useState(false);
@@ -96,23 +98,24 @@ export default function BotaoEscolha({ letra, rotulo, status, dataReal, apagado,
   const dica = travada
     ? 'não aconteceu'
     : decidido
-      ? 'decidido'
+      ? verbo === 'cravar' ? 'cravado' : 'decidido'
       : segurando
         ? 'segure…'
         : lembrete
           ? 'segure até a barra encher'
         : demonstrando
-          ? 'segure assim para decidir'
+          ? `segure assim para ${verbo}`
         : status === 'real'
           ? `aconteceu em ${dataReal ? isoPorExtenso(dataReal) : ''} · segure para seguir`
-          : 'segure para decidir';
+          : `segure para ${verbo}`;
 
   return (
     <button
       type="button"
       className={`escolha ${status} ${decidido ? 'decidida' : ''} ${apagado ? 'apagada' : ''} ${segurando ? 'segurando' : ''} ${lembrete ? 'lembrete' : ''} ${demonstrando ? 'demonstra' : ''}`}
       disabled={travada}
-      aria-label={`${rotulo}. ${travada ? 'Não aconteceu.' : 'Segure para decidir.'}`}
+      // O leitor de tela ouve o mesmo que a dica mostra (aconteceu em…, segure até a barra encher, decidido).
+      aria-label={`${rotulo}. ${dica}.`}
       style={{ ['--segurar' as string]: `${SEGURAR_MS}ms` }}
       onPointerDown={(e) => {
         e.preventDefault();

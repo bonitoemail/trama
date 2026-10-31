@@ -98,14 +98,14 @@ function Juntos({ pct, momento, decide, rara, primeira }: { pct: number; momento
   if (momento.real) {
     return (
       <p className="juntos">
-        <b>{pct}%</b> apostaram nisso antes da notícia.
+        <b>{pct}%</b> escolheram isso antes da notícia.
       </p>
     );
   }
   if (decide) {
     return (
       <p className="juntos">
-        <b>{pct}%</b> apostaram nisso.{' '}
+        <b>{pct}%</b> escolheram isso.{' '}
         <span className="espera">
           {decide > hoje ? `A realidade decide em ${isoPorExtenso(decide)}.` : 'A realidade já começou a decidir.'}
         </span>

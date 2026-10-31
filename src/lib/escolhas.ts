@@ -109,12 +109,17 @@ export interface Painel {
   raras: Rara[];
   finais: Finais[];
   cruzados: Cruzado[];
+  /**
+   * Palpites cravados por decisão ("cap/no"; notas/palpites.md). Antes de fecharem, só o total
+   * (porcentagem influenciaria quem ainda vai cravar); depois da trava, o placar, com o mínimo.
+   */
+  palpites?: Record<string, { total: number; placar?: { total: number; opcoes: Opcao[] } }>;
 }
 
 const pct = (n: number, total: number) => (total ? Math.round((100 * n) / total) : 0);
 
 /** Porcentagens que somam 100 (maior resto): 62,5% e 37,5% viram 63 e 37, não 63 e 38. */
-function porcentagens<T extends { n: number }>(itens: T[]): (T & { pct: number })[] {
+export function porcentagens<T extends { n: number }>(itens: T[]): (T & { pct: number })[] {
   const total = itens.reduce((s, i) => s + i.n, 0);
   if (!total) return itens.map((i) => ({ ...i, pct: 0 }));
   const exatos = itens.map((i) => (100 * i.n) / total);

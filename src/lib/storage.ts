@@ -45,12 +45,21 @@ export function salvarVistos(vistos: Set<string>) {
   } catch {}
 }
 
-const CHAVE_APOSTAS = 'trama:apostas';
+export const CHAVE_APOSTAS = 'trama:apostas';
+
+/** As apostas guardadas, a partir do texto da chave (vazio ou estragado vira nenhuma). */
+export function apostasDe(texto: string | null): Record<string, Aposta> {
+  try {
+    return JSON.parse(texto ?? '{}') as Record<string, Aposta>;
+  } catch {
+    return {};
+  }
+}
 
 /** Apostas por "cap/no" (lib/apostas.ts). */
 export function lerApostas(): Record<string, Aposta> {
   try {
-    return JSON.parse(localStorage.getItem(CHAVE_APOSTAS) ?? '{}') as Record<string, Aposta>;
+    return apostasDe(localStorage.getItem(CHAVE_APOSTAS));
   } catch {
     return {};
   }
@@ -61,5 +70,46 @@ export function salvarAposta(chave: string, escolha: string) {
   try {
     const dia = new Date().toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' });
     localStorage.setItem(CHAVE_APOSTAS, JSON.stringify({ ...lerApostas(), [chave]: { escolha, dia } }));
+  } catch {}
+}
+
+const CHAVE_APARELHO = 'trama:aparelho';
+export const CHAVE_PALPITES = 'trama:palpites';
+
+/** Palpite cravado neste aparelho, por "cap/no": o código do recibo e a escolha. */
+export interface PalpiteGuardado {
+  codigo: string;
+  escolha: string;
+}
+
+/**
+ * Id anônimo do aparelho, para "um palpite por aparelho". Diferente do id da partida, que muda a cada
+ * "Começar": este fica enquanto o navegador guardar.
+ */
+export function idDoAparelho(): string {
+  try {
+    let id = localStorage.getItem(CHAVE_APARELHO);
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem(CHAVE_APARELHO, id);
+    }
+    return id;
+  } catch {
+    return crypto.randomUUID();
+  }
+}
+
+/** Os palpites guardados, a partir do texto da chave (vazio ou estragado vira nenhum). */
+export function palpitesDe(texto: string | null): Record<string, PalpiteGuardado> {
+  try {
+    return JSON.parse(texto ?? '{}') as Record<string, PalpiteGuardado>;
+  } catch {
+    return {};
+  }
+}
+
+export function salvarPalpite(chave: string, p: PalpiteGuardado) {
+  try {
+    localStorage.setItem(CHAVE_PALPITES, JSON.stringify({ ...palpitesDe(localStorage.getItem(CHAVE_PALPITES)), [chave]: p }));
   } catch {}
 }

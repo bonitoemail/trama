@@ -17,6 +17,12 @@ export interface AConfirmar {
   titulo: string;
   data: string;
   opcoes: string[];
+  /**
+   * Os desfechos possíveis, um por rótulo (as variantes por marca viram um), com o id da primeira:
+   * são os que se pode cravar como palpite. Inclui os que só alguns jogadores veem no jogo, porque a
+   * realidade pode escolher qualquer um (revisão dos palpites, 31/10).
+   */
+  escolhas: { id: string; rotulo: string }[];
 }
 
 /**
@@ -44,6 +50,10 @@ export function aConfirmar(jogo: Jogo, relogios: Relogio[]): AConfirmar[] {
           titulo: n.titulo ?? n.lugar ?? n.id,
           data: quando.get(`${cap.id}/${n.id}`)!,
           opcoes: [...new Set(n.escolhas!.map((e) => e.rotulo))],
+          escolhas: [...new Map(n.escolhas!.map((e) => [e.rotulo, { id: e.id, rotulo: e.rotulo }])).values()].map((e) => ({
+            ...e,
+            id: n.escolhas!.find((x) => x.rotulo === e.rotulo)!.id,
+          })),
         })),
     )
     .sort((x, y) => x.data.localeCompare(y.data) || x.numero - y.numero);

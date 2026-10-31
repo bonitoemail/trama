@@ -1,5 +1,8 @@
 import { carregarJogo, carregarRelogios } from '@/engine/load';
+import { aConfirmar } from '@/engine/relogios';
 import { CRUZAMENTOS, corteDoCruzamento, montarPainel, type Contagem, type LinhaCruzada, type Painel } from '@/lib/escolhas';
+import { MINIMO_PALPITES, placarDePalpites } from '@/lib/palpites';
+import { contarPalpites } from '@/lib/palpitesServidor';
 import { rpc } from '@/lib/supabase';
 
 /**
@@ -40,10 +43,29 @@ export async function painelDoServidor(): Promise<Painel | null> {
     }),
   );
 
-  return montarPainel(jogo, linhas.map((l) => ({ ...l, n: Number(l.n) })), {
+  const painel = montarPainel(jogo, linhas.map((l) => ({ ...l, n: Number(l.n) })), {
     hoje,
     agora: agora.toISOString(),
     relogios,
     cruzadas: cruzadas.map((ls) => ls.map((l) => ({ ...l, n: Number(l.n) }))),
   });
+
+  // Palpites: o total das decisões ainda abertas e o placar das que a realidade decidiu.
+  const contagem = await contarPalpites(GUARDAR);
+  if (contagem?.length) {
+    const palpites: NonNullable<Painel['palpites']> = {};
+    for (const d of aConfirmar(jogo, relogios)) {
+      const total = contagem.filter((l) => l.capitulo === d.capitulo && l.no === d.no).reduce((s, l) => s + l.n, 0);
+      if (total) palpites[`${d.capitulo}/${d.no}`] = { total };
+    }
+    for (const cap of jogo.capitulos) {
+      for (const no of cap.nos) {
+        const real = no.escolhas?.find((e) => e.real)?.real;
+        const placar = real && placarDePalpites(jogo, contagem, cap.id, no.id, real.data);
+        if (placar && placar.total) palpites[`${cap.id}/${no.id}`] = { total: placar.total, ...(placar.total >= MINIMO_PALPITES ? { placar } : {}) };
+      }
+    }
+    painel.palpites = palpites;
+  }
+  return painel;
 }

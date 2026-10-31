@@ -23,7 +23,7 @@ async function telaDe(params: Params): Promise<Tela> {
 
 /**
  * Título, descrição e prévia de link por tela (WhatsApp, X, Instagram). A imagem sai de /api/og;
- * a de /escolhas mostra o placar quando a realidade decidiu uma aposta.
+ * a de /escolhas mostra o placar quando a realidade decidiu uma escolha.
  */
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const jogo = carregarJogo();

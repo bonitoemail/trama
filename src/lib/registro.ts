@@ -138,7 +138,7 @@ function enviar(evento: Evento) {
   } catch {}
 }
 
-function origemGuardada(): string | undefined {
+export function origemGuardada(): string | undefined {
   try {
     return localStorage.getItem(CHAVE_ORIGEM) ?? undefined;
   } catch {

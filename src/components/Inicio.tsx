@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Acertos from './Acertos';
 import Dica from './Dica';
 import Fatos, { Fontes } from './Fatos';
@@ -9,9 +9,12 @@ import Metodo from './Metodo';
 import { agoraDaCapa, diaEMes, falta, isoPorExtenso, regua } from '@/engine/calendario';
 import type { AConfirmar } from '@/engine/relogios';
 import type { Jogo } from '@/engine/schema';
-import { apostaDecidida, type ApostaDecidida } from '@/lib/apostas';
+import { apostaDecidida } from '@/lib/apostas';
+import { abertas } from '@/lib/palpites';
+import { useGuardado, useHoje } from '@/lib/noNavegador';
 import { usePainel, type Carga } from '@/lib/painel';
-import { lerApostas } from '@/lib/storage';
+import { apostasDe, CHAVE_APOSTAS, CHAVE_PALPITES, palpitesDe } from '@/lib/storage';
+import Cravar from './Cravar';
 import { CAMINHOS, type Tela } from '@/lib/telas';
 
 interface Props {
@@ -148,6 +151,7 @@ export default function Inicio({ jogo, tela, partidas, aConfirmar, capituloAtual
         </div>
 
         <ApostaNaCapa jogo={jogo} painel={painel} onPlacar={jogo.escolhas ? () => onIr('escolhas') : undefined} />
+        <ProximoPalpite aConfirmar={aConfirmar} />
 
         {pelaFrente && <PelaFrente agora={pelaFrente.agora} marcos={pelaFrente.marcos} />}
       </div>
@@ -276,23 +280,21 @@ function emMil(n: number): string {
 }
 
 /**
- * Quem apostou numa decisão que a realidade acabou de decidir vê, na capa, se aconteceu
+ * Quem escolheu, antes da notícia, numa decisão que a realidade acabou de decidir vê, na capa, se aconteceu
  * (sketch em estilo/sketches-3-11/placar.html). As apostas ficam no navegador: lidas depois de montar.
  */
 function ApostaNaCapa({ jogo, painel, onPlacar }: { jogo: Jogo; painel: Carga; onPlacar?: () => void }) {
-  const [aposta, setAposta] = useState<ApostaDecidida | null>(null);
-  useEffect(() => {
-    const hoje = new Date().toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' });
-    setAposta(apostaDecidida(jogo, lerApostas(), hoje));
-  }, [jogo]);
+  const hoje = useHoje();
+  const guardadas = useGuardado(CHAVE_APOSTAS);
+  const aposta = useMemo(() => (hoje ? apostaDecidida(jogo, apostasDe(guardadas), hoje) : null), [jogo, hoje, guardadas]);
   if (!aposta) return null;
 
   const pct = painel && painel !== 'vazio' ? painel.porDecisao[aposta.chave]?.pct[aposta.minha] : undefined;
   return (
     <p className="aposta">
-      Você apostou em <b>“{aposta.minha}”</b>.{' '}
+      No jogo, antes da notícia, você escolheu <b>“{aposta.minha}”</b>.{' '}
       {aposta.acertou ? <span className="sim">Aconteceu.</span> : <>Não aconteceu. Aconteceu “{aposta.aconteceu}”.</>}
-      {pct !== undefined && <> {pct}% dos jogadores apostaram o mesmo.</>}
+      {pct !== undefined && <> {pct}% dos jogadores escolheram o mesmo.</>}
       {onPlacar && (
         <>
           <br />
@@ -302,5 +304,49 @@ function ApostaNaCapa({ jogo, painel, onPlacar }: { jogo: Jogo; painel: Carga; o
         </>
       )}
     </p>
+  );
+}
+
+/**
+ * "O próximo palpite" (notas/palpites.md): a decisão que a realidade decide primeiro, com o link para
+ * cravar sem precisar jogar. Quem já cravou neste aparelho vê o palpite e o link do recibo.
+ * Some quando não há decisão aberta. Só no navegador: depende do dia e do que está guardado.
+ */
+function ProximoPalpite({ aConfirmar }: { aConfirmar: AConfirmar[] }) {
+  const hoje = useHoje();
+  const palpites = palpitesDe(useGuardado(CHAVE_PALPITES));
+  const [cravando, setCravando] = useState(false);
+  const proxima = hoje ? abertas(aConfirmar, hoje)[0] : undefined;
+  if (!proxima || !hoje) return null;
+
+  const cravado = palpites[`${proxima.capitulo}/${proxima.no}`];
+  const minha = cravado && proxima.escolhas.find((e) => e.id === cravado.escolha)?.rotulo;
+  const ultimoDia = new Date(Date.parse(`${proxima.data}T12:00:00Z`) - 86_400_000).toISOString().slice(0, 10);
+  const fecha = ultimoDia === hoje ? 'Os palpites fecham hoje.' : `Os palpites fecham no fim de ${isoPorExtenso(ultimoDia)}.`;
+  return (
+    <section className="proximo-palpite" aria-label="O próximo palpite">
+      <p className="sobre">O próximo palpite</p>
+      <p className="decisao-palpite">{proxima.titulo}</p>
+      {cravado && minha ? (
+        <>
+          <p className="nota">
+            Você cravou: <b>“{minha}”</b>. A realidade decide em {isoPorExtenso(proxima.data)}.
+          </p>
+          <a className="link-sub" href={`/palpite/${cravado.codigo}`}>
+            Ver o recibo
+          </a>
+        </>
+      ) : (
+        <>
+          <p className="nota">
+            A realidade decide em {isoPorExtenso(proxima.data)}. {fecha}
+          </p>
+          <button type="button" className="link-sub" onClick={() => setCravando(true)}>
+            Cravar meu palpite
+          </button>
+          {cravando && <Cravar decisao={proxima} onFechar={() => setCravando(false)} />}
+        </>
+      )}
+    </section>
   );
 }

@@ -37,7 +37,7 @@ export default function Escolhas({ textos: t, titulo, acertos, onVoltar, princip
 
       {p && (
         <>
-          {/* A aposta que a realidade decidiu ganha o topo (sketch em estilo/sketches-3-11): quantos acertaram, numa frase. */}
+          {/* A escolha que a realidade decidiu ganha o topo (sketch em estilo/sketches-3-11): quantos acertaram, numa frase. */}
           {p.placar.length > 0 && (
             <section className="placar">
               <h2>A realidade decidiu</h2>
@@ -45,7 +45,7 @@ export default function Escolhas({ textos: t, titulo, acertos, onVoltar, princip
               {p.placar.map((d) => {
                 const real = d.opcoes.find((o) => o.real);
                 return (
-                  <div key={d.no} className="decisao">
+                  <div key={`${d.capitulo}/${d.no}`} className="decisao">
                     <p className="manchete">
                       <b>{real?.pct ?? 0}%</b> dos jogadores acertaram, em {d.total.toLocaleString('pt-BR')} escolhas.
                     </p>
@@ -54,6 +54,19 @@ export default function Escolhas({ textos: t, titulo, acertos, onVoltar, princip
                     </p>
                     <Barras opcoes={d.opcoes} semDestaque />
                     <CompartilharPlacar d={d} />
+                    {(() => {
+                      // Os palpites cravados (notas/palpites.md), contados só os de antes da notícia.
+                      const pl = p.palpites?.[`${d.capitulo}/${d.no}`]?.placar;
+                      const certo = pl?.opcoes.find((o) => o.real);
+                      return pl ? (
+                        <div className="palpites-placar">
+                          <p className="manchete">
+                            <b>{certo?.pct ?? 0}%</b> dos palpites cravados acertaram, em {pl.total.toLocaleString('pt-BR')} palpites.
+                          </p>
+                          <Barras opcoes={pl.opcoes} semDestaque />
+                        </div>
+                      ) : null;
+                    })()}
                   </div>
                 );
               })}
@@ -65,7 +78,7 @@ export default function Escolhas({ textos: t, titulo, acertos, onVoltar, princip
               <h2>Antes da notícia</h2>
               <p className="sub">Escolhas que a realidade vai decidir. Quando decidir, mostramos quantos jogadores tinham acertado.</p>
               {p.antes.map((d) => (
-                <Bloco key={d.no} d={d}>
+                <Bloco key={`${d.capitulo}/${d.no}`} d={d}>
                   <p className="espera">
                     {d.aguardando ? (
                       <>
@@ -76,6 +89,13 @@ export default function Escolhas({ textos: t, titulo, acertos, onVoltar, princip
                         A realidade começa a decidir em <b>{isoPorExtenso(d.data!)}</b>. Depois disso, esta decisão vai para o placar, com a data e as fontes.
                       </>
                     )}
+                    {p.palpites?.[`${d.capitulo}/${d.no}`] && (
+                      <>
+                        {' '}
+                        {p.palpites[`${d.capitulo}/${d.no}`].total.toLocaleString('pt-BR')} palpites cravados até agora; quantos cravaram cada opção só aparece
+                        quando fecharem.
+                      </>
+                    )}
                   </p>
                 </Bloco>
               ))}
@@ -83,7 +103,7 @@ export default function Escolhas({ textos: t, titulo, acertos, onVoltar, princip
           )}
           {acertos && (p.antes.length > 0 || p.placar.length > 0) && (
             <p className="ponte">
-              Isto é o que os jogadores apostaram. O que as cenas do Trama escreveram antes, e se a realidade confirmou, fica em{' '}
+              Isto é o que os jogadores escolheram no jogo. O que as cenas do Trama escreveram antes, e se a realidade confirmou, fica em{' '}
               <button type="button" onClick={acertos.onClick}>
                 {acertos.titulo}
               </button>
@@ -96,7 +116,7 @@ export default function Escolhas({ textos: t, titulo, acertos, onVoltar, princip
               <h2>Onde os jogadores se dividem</h2>
               <p className="sub">As decisões em que as duas escolhas mais comuns ficaram mais perto uma da outra.</p>
               {p.divididas.map((d) => (
-                <Bloco key={d.no} d={d} />
+                <Bloco key={`${d.capitulo}/${d.no}`} d={d} />
               ))}
             </section>
           )}
@@ -106,7 +126,7 @@ export default function Escolhas({ textos: t, titulo, acertos, onVoltar, princip
               <h2>Onde a maioria concorda</h2>
               <p className="sub">As decisões em que uma escolha passou da metade.</p>
               {p.maioria.map((d) => (
-                <Bloco key={d.no} d={d} />
+                <Bloco key={`${d.capitulo}/${d.no}`} d={d} />
               ))}
             </section>
           )}
@@ -117,7 +137,7 @@ export default function Escolhas({ textos: t, titulo, acertos, onVoltar, princip
               <p className="sub">Caminhos que existem no jogo e poucos jogadores tomam.</p>
               <ul className="raras">
                 {p.raras.map((r) => (
-                  <li key={r.rotulo}>
+                  <li key={`${r.titulo}/${r.rotulo}`}>
                     <span className="nome">
                       {r.rotulo}
                       <small>{`${r.titulo}, cap. ${r.numero}, ${r.total} escolhas`}</small>

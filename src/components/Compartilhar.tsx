@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { linkCom } from '@/lib/site';
 import { compartilharArquivo, desenharCartao, type DadosDoCartao, type Raridade } from '@/lib/cartao';
 
 interface Props {
@@ -16,7 +17,7 @@ interface Props {
 }
 
 /** O link do cartão leva a origem, para contar quantos chegam por ele. */
-const LINK = 'https://tramabr.app/?origem=cartao';
+const LINK = linkCom('cartao');
 
 /**
  * "Compartilhar meu Brasil", no fim do capítulo. O cartão é preparado assim que a tela abre:

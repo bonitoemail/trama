@@ -1,31 +1,25 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import BotaoEscolha from './BotaoEscolha';
-import Cartoes from './Cartoes';
-import Compartilhar from './Compartilhar';
+import { useEffect, useState } from 'react';
 import Inicio from './Inicio';
-import LinhaDoTempo from './LinhaDoTempo';
-import { linhaDoTempo } from '@/engine/historia';
-import {
-  type Estado,
-  type Passo,
-  capitulo,
-  continuar,
-  escolher,
-  escolhasExibidas,
-  no,
-  novoJogo,
-  paragrafos,
-  vale,
-} from '@/engine/engine';
+import Cena from './partida/Cena';
+import Epilogo from './partida/Epilogo';
+import FimDeCapitulo from './partida/FimDeCapitulo';
+import { Sair, nomeDoCapitulo } from './partida/Pecas';
+import { type Estado, capitulo, continuar, escolher, no, novoJogo } from '@/engine/engine';
 import type { AConfirmar } from '@/engine/relogios';
 import type { Jogo as JogoT } from '@/engine/schema';
 import { useNavegacao } from '@/lib/navegacao';
 import { guardarOrigem, registrarInicio, registrarMudanca, registrarNaTela } from '@/lib/registro';
-import { apagarPartida, lerApostas, lerPartida, lerVistos, salvarAposta, salvarPartida, salvarVistos } from '@/lib/storage';
+import { apagarPartida, CHAVE_PALPITES, lerApostas, lerPartida, lerVistos, palpitesDe, salvarAposta, salvarPartida, salvarVistos } from '@/lib/storage';
+import { useGuardado, useHoje } from '@/lib/noNavegador';
+import { abertas } from '@/lib/palpites';
 import { tituloDaTela, type Tela } from '@/lib/telas';
 
+/**
+ * A partida: carrega a salva, navega entre as telas, guarda cada passo e registra o que mudou.
+ * As telas ficam em partida/ (Cena, FimDeCapitulo, Epilogo) e em Inicio (capa e explicações).
+ */
 export default function Jogo({
   jogo,
   caminhos,
@@ -43,12 +37,11 @@ export default function Jogo({
   inicial: Tela;
 }) {
   const { tela, ir, voltar, corrigir } = useNavegacao(inicial);
+  const hoje = useHoje();
+  const palpites = palpitesDe(useGuardado(CHAVE_PALPITES));
   const [carregado, setCarregado] = useState(false);
   const [estado, setEstado] = useState<Estado | null>(null);
   const [vistos, setVistos] = useState<Set<string>>(new Set());
-  const [decidindo, setDecidindo] = useState<string | null>(null);
-  // Dois botões segurados ao mesmo tempo (dois dedos) disparam antes de o estado mudar: o ref barra o segundo.
-  const decidindoRef = useRef<string | null>(null);
   // Saiu pelo X: a capa confirma que a partida ficou salva (só nessa volta).
   const [saiu, setSaiu] = useState(false);
 
@@ -73,12 +66,15 @@ export default function Jogo({
       const chave = `${p.capitulo}/${p.no}`;
       if (p.escolha && !apostas[chave] && !no(jogo, p.capitulo, p.no).escolhas?.some((e) => e.real)) salvarAposta(chave, p.escolha);
     });
+    // Carregar a partida salva é o caso em que o efeito sincroniza com um sistema de fora (o localStorage),
+    // e acontece uma vez, depois de montar: sem isso, a página estática não hidrataria.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEstado(valida);
     setVistos(lerVistos());
     setCarregado(true);
     // /partida sem partida salva não tem o que mostrar: vira a capa.
     if (!valida && inicial === 'partida') corrigir('capa');
-  }, [jogo.versao, inicial, corrigir]);
+  }, [jogo, inicial, corrigir]);
 
   // O título da aba acompanha a tela (o do servidor só vale para a primeira).
   useEffect(() => {
@@ -137,7 +133,6 @@ export default function Jogo({
     );
   }
 
-  const cap = capitulo(jogo, estado.capitulo);
   const sair = (
     <Sair
       onClick={() => {
@@ -148,256 +143,41 @@ export default function Jogo({
   );
 
   if (estado.fase === 'fim_jogo') {
-    const capsJogados = [...new Set(estado.historico.map((p) => p.capitulo))].map((id) => capitulo(jogo, id));
-    return (
-      <main className="tela fim">
-        <p className="rotulo">Epílogo</p>
-        <h2>{jogo.epilogo.titulo}</h2>
-        {paragrafos(jogo.epilogo.texto, estado.marcas).map((p, i) => (
-          <p key={i} className="texto">{p}</p>
-        ))}
-        <h3 className="titulo-linha">A linha do tempo que você escolheu</h3>
-        {capsJogados.map((c) => (
-          <section key={c.id} className="resumo-cap">
-            <p className="rotulo">
-              Capítulo {c.numero} · {c.titulo}
-            </p>
-            <LinhaDoTempo
-              momentos={linhaDoTempo(jogo, estado.historico).filter((m) => m.capitulo === c.id)}
-              caminhosPossiveis={caminhos[c.id] ?? 0}
-            />
-          </section>
-        ))}
-        <div className="acoes">
-          <Acao primario onClick={comecar}>
-            Jogar de novo
-          </Acao>
-          <Acao onClick={voltar}>Voltar ao início</Acao>
-        </div>
-      </main>
-    );
+    return <Epilogo jogo={jogo} estado={estado} caminhos={caminhos} onJogarDeNovo={comecar} onVoltar={voltar} />;
   }
 
   if (estado.fase === 'fim_capitulo') {
     return (
-      <main className="tela fim-cap">
-        <p className="rotulo">Fim do capítulo {cap.numero} · {cap.titulo}</p>
-        <h2>A linha do tempo que você escolheu</h2>
-        <LinhaDoTempo
-          momentos={linhaDoTempo(jogo, estado.historico).filter((m) => m.capitulo === cap.id)}
-          caminhosPossiveis={caminhos[cap.id] ?? 0}
-          escolhas={jogo.escolhas ? { titulo: jogo.escolhas.titulo, onClick: () => ir('escolhas') } : undefined}
-        />
-        {/* Fixo no rodapé: no celular, a linha do tempo empurrava o botão para 2 telas abaixo, e 36% paravam aqui. */}
-        <div className="seguir">
-          {/* O cartão de stories do capítulo (estilo/sketches-compartilhar): cada jogador pode trazer o próximo. */}
-          <Compartilhar
-            capitulo={cap.id}
-            rotuloCapitulo={`Capítulo ${cap.numero}, ${cap.titulo}`}
-            final={no(jogo, cap.id, estado.no).titulo ?? cap.titulo}
-            imagem={no(jogo, cap.id, estado.no).imagem ?? null}
-            caminho={estado.historico
-              .filter((p) => p.capitulo === cap.id && p.escolha)
-              .map((p) => ({ no: p.no, escolha: p.escolha! }))
-              // Na ordem do capítulo, que é a que /api/raridade aceita (um caminho, uma URL, um cache).
-              .sort((x, y) => cap.nos.findIndex((n) => n.id === x.no) - cap.nos.findIndex((n) => n.id === y.no))}
-            onCompartilhado={() => registrarNaTela('compartilhar', jogo.versao, cap.id, estado.no)}
-          />
-          <Acao primario onClick={() => atualizar(continuar(jogo, estado))}>
-            {estado.proximo === 'FIM' ? 'Ver o desfecho' : 'Próximo capítulo'}
-          </Acao>
-        </div>
-        {sair}
-      </main>
+      <FimDeCapitulo
+        jogo={jogo}
+        estado={estado}
+        caminhos={caminhos}
+        sair={sair}
+        onEscolhas={jogo.escolhas ? () => ir('escolhas') : undefined}
+        onCompartilhado={() => registrarNaTela('compartilhar', jogo.versao, estado.capitulo, estado.no)}
+        onSeguir={() => atualizar(continuar(jogo, estado))}
+      />
     );
   }
 
-  const atual = no(jogo, cap.id, estado.no);
-  const opcoes = escolhasExibidas(atual, estado.marcas);
-  const primeiroNo = estado.no === cap.inicio;
-  const tipo = tipoDeCena(primeiroNo, opcoes.length > 0, Boolean(atual.segue));
-  const eco = tipo === 'consequencia' || tipo === 'final' ? ecoDaEscolha(jogo, estado.historico) : null;
-  const textos = paragrafos(atual.texto, estado.marcas);
-  // "Fatos e fontes": os fatos que valem para estas marcas e a leitura de cada lado.
-  const fatos = atual.fatos?.filter((f) => vale(f.se, estado.marcas));
-  const lados = atual.lados ? paragrafos(atual.lados, estado.marcas) : undefined;
-  const avancar = () => atualizar(escolher(jogo, estado, null), [`${cap.id}/${atual.id}`]);
-  const chave = `${cap.id}/${atual.id}`;
-  const lugar = atual.lugar && <p className="lugar">{atual.lugar}</p>;
-  const linhaEco = eco && <p className="eco">Porque {eco}…</p>;
-
-  if (tipo === 'abertura') {
-    return (
-      <main className="tela cena cena-abertura" key={chave}>
-        <Cartoes
-          textos={textos}
-          imagem={atual.imagem}
-          fatos={fatos} lados={lados}
-          abertura={
-            <div className="hero-titulo">
-              <p className="rotulo">Capítulo {cap.numero}</p>
-              <h1>{cap.titulo}</h1>
-              <p className="periodo">{cap.periodo}</p>
-              {cap.rascunho && <p className="rascunho">rascunho</p>}
-            </div>
-          }
-          topo={lugar}
-        >
-          <Acao primario onClick={avancar}>Começar o capítulo</Acao>
-        </Cartoes>
-        {sair}
-      </main>
-    );
-  }
-
-  if (tipo === 'consequencia') {
-    return (
-      <main className="tela cena cena-consequencia" key={chave}>
-        <Cabecalho numero={cap.numero} titulo={cap.titulo} periodo={cap.periodo} />
-        <article className="despacho">
-          <Cartoes textos={textos} imagem={atual.imagem} fatos={fatos} lados={lados} topo={<>{linhaEco}{lugar}</>}>
-            <Acao onClick={avancar}>Seguir</Acao>
-          </Cartoes>
-        </article>
-        {sair}
-      </main>
-    );
-  }
-
-  if (tipo === 'final') {
-    return (
-      <main className="tela cena cena-final" key={chave}>
-        <Cartoes
-          textos={textos}
-          imagem={atual.imagem}
-          fatos={fatos} lados={lados}
-          abertura={<p className="rotulo desfecho">Desfecho do capítulo {cap.numero}</p>}
-          topo={<>{linhaEco}{lugar}</>}
-        >
-          <Acao primario onClick={avancar}>Fechar o capítulo</Acao>
-        </Cartoes>
-        {sair}
-      </main>
-    );
-  }
-
+  // Uma Cena por nó (key): o estado da decisão começa do zero a cada cena.
+  const chave = `${estado.capitulo}/${estado.no}`;
+  // A cena logo depois de uma decisão que a realidade ainda vai decidir convida a cravar um palpite,
+  // se este aparelho ainda não cravou nela.
+  const ultimo = estado.historico.at(-1);
+  const convite =
+    hoje && ultimo?.escolha && !palpites[`${ultimo.capitulo}/${ultimo.no}`]
+      ? abertas(aConfirmar, hoje).find((d) => d.capitulo === ultimo.capitulo && d.no === ultimo.no)
+      : undefined;
   return (
-    <main className="tela cena" key={chave}>
-      <Cabecalho numero={cap.numero} titulo={cap.titulo} periodo={cap.periodo} />
-      <Cartoes textos={textos} imagem={atual.imagem} fatos={fatos} lados={lados} topo={lugar}>
-        <AoAparecer acao={() => registrarNaTela('decisao_vista', jogo.versao, estado.capitulo, estado.no)} />
-        <p className="pergunta">O que acontece agora?</p>
-        <div className="escolhas">
-          {opcoes.map(({ escolha: e, status }, i) => (
-            <BotaoEscolha
-              demonstrarEm={i === opcoes.findIndex((o) => o.status !== 'travada') ? estado.capitulo : undefined}
-              key={e.id}
-              letra={String.fromCharCode(65 + i)}
-              rotulo={e.rotulo}
-              status={status}
-              dataReal={e.real?.data}
-              decidido={decidindo === e.id}
-              apagado={decidindo !== null && decidindo !== e.id}
-              onToqueCurto={() => registrarNaTela('toque_curto', jogo.versao, estado.capitulo, estado.no)}
-              onDecidir={() => {
-                if (decidindoRef.current) return;
-                decidindoRef.current = e.id;
-                // Escolha em decisão ainda aberta é aposta: a capa conta quando a realidade decidir.
-                if (status === 'livre') salvarAposta(chave, e.id);
-                setDecidindo(e.id);
-                // Um instante para a decisão pesar antes de a cena mudar.
-                setTimeout(() => {
-                  setDecidindo(null);
-                  decidindoRef.current = null;
-                  atualizar(escolher(jogo, estado, e.id), [chave, `${chave}:${e.id}`]);
-                }, 650);
-              }}
-            />
-          ))}
-        </div>
-      </Cartoes>
-      {sair}
-    </main>
+    <Cena
+      key={chave}
+      jogo={jogo}
+      estado={estado}
+      sair={sair}
+      onAvancar={() => atualizar(escolher(jogo, estado, null), [chave])}
+      onEscolher={(id) => atualizar(escolher(jogo, estado, id), [chave, `${chave}:${id}`])}
+      convite={convite}
+    />
   );
-}
-
-/** Roda `acao` uma vez, quando aparece: as opções só montam no último cartão da cena. */
-function AoAparecer({ acao }: { acao: () => void }) {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(acao, []);
-  return null;
-}
-
-type TipoCena = 'abertura' | 'decisao' | 'consequencia' | 'final';
-
-/** O tipo sai da estrutura do roteiro; nenhum campo extra no YAML. */
-function tipoDeCena(primeiro: boolean, temEscolha: boolean, segue: boolean): TipoCena {
-  if (primeiro && !temEscolha) return 'abertura';
-  if (temEscolha) return 'decisao';
-  return segue ? 'consequencia' : 'final';
-}
-
-/** O rótulo da última escolha feita, pronto para "Porque …". */
-function ecoDaEscolha(jogo: JogoT, historico: Passo[]): string | null {
-  const ultimo = historico[historico.length - 1];
-  if (!ultimo?.escolha) return null;
-  const rotulo = no(jogo, ultimo.capitulo, ultimo.no).escolhas?.find((e) => e.id === ultimo.escolha)?.rotulo;
-  if (!rotulo) return null;
-  // "O relator…" vira "o relator…"; nomes próprios ficam como estão.
-  return /^(O|A|Os|As) /.test(rotulo) ? rotulo[0].toLowerCase() + rotulo.slice(1) : rotulo;
-}
-
-function Cabecalho({ numero, titulo, periodo }: { numero: number; titulo: string; periodo: string }) {
-  return (
-    <header className="cabecalho">
-      <span>
-        Capítulo {numero} · {titulo}
-      </span>
-      <span>{periodo}</span>
-    </header>
-  );
-}
-
-/**
- * Sair a qualquer momento, embaixo de tudo: um X delicado. No PC, o balão diz que a partida fica
- * salva; no celular, a capa confirma ao chegar (o toque já sai, não dá para mostrar balão antes).
- */
-function Sair({ onClick }: { onClick: () => void }) {
-  return (
-    <div className="sair">
-      <button type="button" className="sair-x" aria-label="Sair. Sua partida fica salva neste aparelho." onClick={onClick}>
-        <svg viewBox="0 0 12 12" aria-hidden>
-          <path d="M1 1l10 10M11 1L1 11" />
-        </svg>
-      </button>
-      <span className="sair-balao" aria-hidden>
-        Sair. Sua partida fica salva.
-      </span>
-    </div>
-  );
-}
-
-/** Botão de ação (não é escolha): texto à esquerda, seta à direita. */
-function Acao({
-  children,
-  onClick,
-  primario = false,
-}: {
-  children: React.ReactNode;
-  onClick: () => void;
-  primario?: boolean;
-}) {
-  return (
-    <button type="button" className={`botao ${primario ? 'primario' : ''}`} onClick={onClick}>
-      <span>{children}</span>
-      <span className="seta" aria-hidden>
-        →
-      </span>
-    </button>
-  );
-}
-
-/** "Capítulo 1, A carta". */
-function nomeDoCapitulo(c: { numero: number; titulo: string }): string {
-  return `Capítulo ${c.numero}, ${c.titulo}`;
 }

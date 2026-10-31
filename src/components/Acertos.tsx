@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Fontes } from './Fatos';
 import { Moldura } from './Metodo';
 import { isoPorExtenso } from '@/engine/calendario';
+import { useHoje } from '@/lib/noNavegador';
 import type { AConfirmar } from '@/engine/relogios';
 import type { Jogo } from '@/engine/schema';
 
@@ -15,7 +16,7 @@ interface Props {
   /** Decisões que a realidade ainda vai decidir, dos relógios (aConfirmar). */
   aConfirmar: AConfirmar[];
   titulo: string;
-  /** Link para o que os jogadores apostaram (tela /escolhas). */
+  /** Link para o que os jogadores escolheram (tela /escolhas). */
   escolhas?: { titulo: string; onClick: () => void };
   onVoltar: () => void;
   principal: { rotulo: string; curto: string; onClick: () => void };
@@ -47,8 +48,7 @@ export default function Acertos({ acertos: a, aConfirmar, titulo, escolhas, onVo
       return n;
     });
   // O dia só no navegador: a página sai pronta do servidor no dia do build, e "daqui a 4 dias" mudaria.
-  const [hoje, setHoje] = useState<string | null>(null);
-  useEffect(() => setHoje(new Date().toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' })), []);
+  const hoje = useHoje();
 
   return (
     <Moldura classe="metodo acertos" titulo={titulo} onVoltar={onVoltar} principal={principal} capitulo={capitulo}>
